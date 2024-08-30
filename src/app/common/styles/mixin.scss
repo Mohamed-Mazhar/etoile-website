@@ -1,0 +1,44 @@
+@mixin res-sm-styles {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin res-md-styles {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin res-lg-styles {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+
+
+@mixin res-ex-lg-styles {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+
+@mixin res-tap-styles {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin res-mobile-styles {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin res-desktop-styles {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
