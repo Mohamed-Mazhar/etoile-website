@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import 'src/app/common/styles/mixin';
+
+:root {
+  --primary-color: #c3a241;
+  --secondary-color: #59585b;
+  --black: #000;
+  --red: red;
+  --white: #fff;
+  --yellow: #f6d119;
+  --gray: #f7f7fa;
+  --gray2: #e6e6e6;
+  --darkgray: #707070;
+  --lightgray: #ccc;
+  --darkred: #dc0000;
+  --lightblue: #00acee;
+  --darkblue: #43464b;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.original-size {
+  width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+

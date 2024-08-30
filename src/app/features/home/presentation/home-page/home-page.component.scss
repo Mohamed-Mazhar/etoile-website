@@ -1,0 +1,68 @@
+.contact-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: VAR(--primary-color);
+  padding: 0.5rem 2.5rem;
+}
+
+.contact-item-details {
+  display: flex;
+  column-gap: 0.25rem;
+  align-items: center;
+  text-decoration: none;
+  color: VAR(--white);
+
+  p {
+    color: VAR(--white);
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+.fa-truck:before {
+  content: "\f0d1";
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  //position: relative;
+  padding-top: 0.75rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.language-container {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  margin-left: 2rem;
+  cursor: pointer;
+
+  img {
+    width: 2rem;
+    height: 1.5rem;
+  }
+}
+
+.logo-centered {
+  //position: absolute;
+  //left: 50%;
+  //transform: translateX(-50%);
+  margin-right: 2rem;
+
+  img {
+    width: 6rem;
+  }
+}
+
+.horizontal-separator {
+  border-bottom: 1px solid VAR(--lightgray);
+  margin-top: 1rem;
+  width: 100%;
+}
