@@ -9,6 +9,7 @@ import { UserInfoComponent } from './features/home/presentation/home-page/compon
 import { CategoriesComponent } from './features/home/presentation/home-page/components/categories/categories.component';
 import { MainProductsCarouselComponent } from './features/home/presentation/home-page/components/main-products-carousel/main-products-carousel.component';
 import { FooterComponent } from './common/components/footer/footer.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,10 +21,11 @@ import { FooterComponent } from './common/components/footer/footer.component';
     MainProductsCarouselComponent,
     FooterComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

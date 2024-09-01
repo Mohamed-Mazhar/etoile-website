@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'search-bar',
@@ -7,15 +8,22 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
 
-  @Input() width: number = 15
+  formGroup: FormGroup = this.fb.group({
+    'search': ['']
+  });
 
-  constructor() { }
+  products: string[] = []
+  searchFor: string = ""
 
-  ngOnInit(): void {
+  constructor(
+    private fb: FormBuilder,
+  ) {
   }
 
-  getWidth() {
-    return `${this.width}rem`
+  ngOnInit(): void {
+    this.formGroup.get('search')!.valueChanges.subscribe(response => {
+      this.searchFor = response
+    });
   }
 
 }

@@ -1,9 +1,16 @@
-<div>
-  <div class="input-group">
-    <input class="form-control me-2" type="search" placeholder="Search For..">
-    <div class="bg-transparent search-icon">
+<form [formGroup]="formGroup">
+  <div class="search-container">
+    <div class="search">
+      <input formControlName="search" type="text" class="search-input" placeholder="Search For..">
       <i class="fas fa-search"></i>
     </div>
+    <div class="search-results-container" *ngIf="products.length > 0">
+      <div class="search-result-item" *ngFor="let product of products">
+        <img src="assets/images/chef-image.png" class="search-result-item-image" alt="Chef">
+        <p class="search-result-item-desc">{{ product }}</p>
+      </div>
+    </div>
   </div>
-</div>
+</form>
+
 

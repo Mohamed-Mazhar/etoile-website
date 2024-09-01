@@ -1,3 +1,5 @@
+@import 'src/app/common/styles/mixin';
+
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
@@ -16,8 +18,9 @@
 .dropdown-menu {
   border: none;
   border-radius: 0;
-  padding: 0.7em;
+  padding: 1rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  column-gap: 2rem;
 }
 
 .dropdown-menu li .dropdown-item {
@@ -51,5 +54,8 @@
   .dropdown:hover .dropdown-menu {
     max-height: 350px;
     overflow-y: scroll;
+  }
+  .dropdown-menu.show {
+    display: block;
   }
 }

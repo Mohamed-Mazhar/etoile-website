@@ -1,3 +1,5 @@
+@import 'src/app/common/styles/mixin';
+
 .footer-container {
   background-color: VAR(--primary-color);
   margin-top: 2rem;
@@ -9,6 +11,10 @@
 
   p {
     color: VAR(--white) !important;
+  }
+
+  img {
+    width: 9rem;
   }
 }
 
@@ -59,4 +65,10 @@
   align-items: center;
   justify-content: space-evenly;
   padding-bottom: 1rem;
+
+  @include res-md-styles {
+    margin-left: 10%;
+    margin-right: 5%;
+    column-gap: 0.5rem;
+  }
 }
