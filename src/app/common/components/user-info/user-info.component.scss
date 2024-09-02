@@ -1,11 +1,17 @@
+@import 'src/app/common/styles/mixin';
+
 .user-info-container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  column-gap: 0.25rem;
+  column-gap: 0.5rem;
 
   p {
-    color: VAR(--darkgray)
+    color: VAR(--darkgray);
+
+    @include res-md-styles {
+      font-size: 0.875rem !important;
+    }
   }
 }
 
@@ -27,7 +33,11 @@
 
   a {
     font-size: 0.75rem !important;
-    color: VAR(--primary-color)
+    color: VAR(--primary-color);
+
+    @include res-md-styles {
+      font-size: 0.5rem !important;
+    }
   }
 
 }

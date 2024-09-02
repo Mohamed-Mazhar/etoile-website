@@ -1,3 +1,5 @@
+@import 'src/app/common/styles/mixin';
+
 .contact-info-container {
   display: flex;
   justify-content: space-between;
@@ -35,6 +37,38 @@
   padding-top: 0.75rem;
   margin-left: 3rem;
   margin-right: 3rem;
+  justify-content: space-between;
+
+  @include res-lg-styles {
+    display: block;
+  }
+
+}
+
+.logo-and-search {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  @include res-lg-styles {
+    margin-bottom: 1rem;
+    column-gap: 1rem;
+  }
+}
+
+.search-bar {
+  flex-grow: 1;
+  margin-right: 8rem;
+
+  @include res-md-styles {
+    margin-right: 1rem;
+  }
+}
+
+.user-info-and-language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .language-container {
