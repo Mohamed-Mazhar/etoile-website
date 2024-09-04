@@ -1,15 +1,15 @@
 <div class="contact-info-container">
   <a href="tel:16312" class="contact-item-details">
     <i class="fas fa-phone-volume"></i>
-    <p> Call us: 16312</p>
+    <p>{{ 'CALL_US' | translate }}</p>
   </a>
   <div class="contact-item-details">
     <i class="fas fa-truck"></i>
-    <p>Delivery time from 45:60 mins</p>
+    <p>{{ 'DELIVERY_TIME' | translate }}</p>
   </div>
   <div class="contact-item-details">
     <i class="far fa-envelope"></i>
-    <p>Easy Payment Methods</p>
+    <p>{{ 'EASY_PAYMENT_METHODS' | translate }}</p>
   </div>
 </div>
 <div class="sticky-md-top bg-white mb-3">
@@ -28,9 +28,13 @@
     </div>
     <div class="user-info-and-language">
       <user-info class="ms-lg-auto"></user-info>
-      <div class="language-container">
+      <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
         <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
         <p>العربيه</p>
+      </div>
+      <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
+        <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
+        <p>English</p>
       </div>
     </div>
   </div>
