@@ -1,0 +1,32 @@
+.form-control:focus {
+  border-color: VAR(--primary-color);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px VAR(--primary-color);
+}
+
+.form-floating > label:dir(rtl) {
+  right: 0 !important;
+  left: inherit !important;
+}
+
+.form-control.is-invalid:dir(rtl) {
+  background-position-x: 0.5rem !important;
+}
+
+.form-control.is-invalid:dir(rtl), .was-validated:dir(rtl) .form-control:invalid:dir(rtl) {
+  background-position-x: 0.5rem !important;
+  padding-right: 0.75rem !important;
+}
+
+.password-show-icon {
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  top: 1.2rem;
+  right: 1rem;
+}
+
+.password-show-icon:dir(rtl) {
+  right: inherit !important;
+  left: 1rem !important;
+}

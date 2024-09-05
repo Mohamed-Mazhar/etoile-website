@@ -1,0 +1,14 @@
+<div class="width100">
+  <button (click)="onClick.emit()" *ngIf="!loading"
+          [disabled]="isButtonEnabled()"
+          class="button-primary custom-button"
+          type="submit">
+    {{ title }}
+    <div *ngIf="showArrow" class="i-image-to-flip"><i class="bi bi-arrow-right arrow-icon"></i></div>
+  </button>
+
+  <button *ngIf="loading" class="button-primary custom-button" disabled type="button">
+    <span aria-hidden="true" class="spinner-border spinner-border-sm"></span>
+    <span class="visually-hidden" role="status">Loading...</span>
+  </button>
+</div>

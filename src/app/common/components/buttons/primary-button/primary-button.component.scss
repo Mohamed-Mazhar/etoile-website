@@ -1,0 +1,38 @@
+.custom-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.arrow-icon {
+  font-weight: bold;
+  font-size: 0.75rem;  /* Adjust the font-size to make the icon small */
+}
+
+.disabled {
+  background-color: VAR(--gray2);
+  color: VAR(--darkgray);
+}
+
+.button-primary {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--gray);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+}
+
+.button-primary:hover {
+  background-color: var(--primary-light-color);
+}
+
+.button-primary:disabled {
+  background-color: VAR(--gray2);
+  color: VAR(--darkgray);
+  cursor: auto;
+}

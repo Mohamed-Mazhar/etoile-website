@@ -1,0 +1,40 @@
+.login-container {
+  margin-top: 2rem;
+}
+
+.close-icon {
+  margin-inline-start: 2rem;
+  cursor: pointer;
+}
+
+.login-title {
+  color: VAR(--primary-color) !important;
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.forget-password {
+  color: VAR(--primary-color);
+  font-weight: 600;
+  text-decoration: underline;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.account-container {
+  display: flex;
+  column-gap: 0.25rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.register-button {
+  p {
+    cursor: pointer;
+    text-decoration: underline;
+    color: VAR(--primary-color);
+    font-weight: 600;
+  }
+}

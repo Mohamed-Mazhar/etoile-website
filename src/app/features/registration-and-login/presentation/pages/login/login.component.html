@@ -1,0 +1,46 @@
+<div class="login-container">
+  <div class="close-icon" data-bs-dismiss="offcanvas">
+    <i class="fa fa-times"></i>
+  </div>
+  <div class="text-center">
+    <div class="login-title">
+      <h3>{{ 'LOGIN_TITLE' | translate }}</h3>
+    </div>
+    <p>{{ 'LOGIN_SUB_TITLE' | translate }}</p>
+  </div>
+  <div class="container">
+    <input-text-field
+      id="email"
+      [group]="formGroup"
+      [showPrefixIcon]="true"
+      [inputType]="InputType.email"
+      [validators]="[Validators.required, Validators.email]"
+      [floatingLabel]="'EMAIL' | translate">
+    </input-text-field>
+    <input-text-field
+      id="password"
+      [group]="formGroup"
+      [showPrefixIcon]="true"
+      [inputType]="InputType.password"
+      [validators]="[Validators.required]"
+      [floatingLabel]="'PASSWORD' | translate">
+    </input-text-field>
+    <div (click)="forgetPassword()" class="forget-password ms-auto">
+      <p>{{ 'FORGET_PASSWORD' | translate }}</p>
+    </div>
+    <div class="mt-4">
+      <primary-button
+        (onClick)="login()"
+        [title]="'LOGIN' | translate"
+        [enabled]="formGroup.valid">
+      </primary-button>
+    </div>
+    <div class="account-container">
+      <p>{{ 'DONT_HAVE_ACCOUNT' | translate }}</p>
+      <div class="register-button">
+        <p>{{ 'REGISTER' | translate }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

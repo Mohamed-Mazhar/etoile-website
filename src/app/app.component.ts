@@ -10,8 +10,8 @@ export class AppComponent {
   title = 'etoile-website';
 
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang("ar")
-    this.translate.use("ar")
+    this.translate.setDefaultLang("en")
+    this.translate.use("en")
     this.translate.onLangChange.subscribe((event) => {
       this.setDirection(event.lang);
       this.translate.use(event.lang)

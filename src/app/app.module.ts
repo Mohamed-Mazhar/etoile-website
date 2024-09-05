@@ -21,6 +21,9 @@ import { AboutUsComponent } from './features/home/presentation/pages/about-us/ab
 import { DeliveryReturnPolicyComponent } from './features/home/presentation/pages/delivery-return-policy/delivery-return-policy.component';
 import { TermsAndConditionsComponent } from './features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component';
 import { PrivacyComponent } from './features/home/presentation/pages/privacy/privacy.component';
+import { LoginComponent } from './features/registration-and-login/presentation/pages/login/login.component';
+import { InputTextFieldComponent } from './common/components/inputs/input-text-field/input-text-field.component';
+import { PrimaryButtonComponent } from './common/components/buttons/primary-button/primary-button.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -41,7 +44,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AboutUsComponent,
     DeliveryReturnPolicyComponent,
     TermsAndConditionsComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    LoginComponent,
+    InputTextFieldComponent,
+    PrimaryButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -147,5 +147,13 @@
   "TERMS_AND_CONDITIONS_6_2": "You can contact us during working hours via the hotline 16312.",
   "TERMS_AND_CONDITIONS_6_3": "The working hours for all branches are from 8 AM to midnight, and the delivery department is available from 10 AM to 1 AM, except for the Waily, Sawah, and Shubra branches, which are open until 2 AM.",
   "TERMS_AND_CONDITIONS_7": "Seventh: Purchase Conditions During Discounts",
-  "TERMS_AND_CONDITIONS_7_1": "In the case of ordering products during a discount period, the maximum order limit will be: 1 discounted cake, up to 2 seasonal items of each type, and a maximum of 12 pieces of discounted cake."
+  "TERMS_AND_CONDITIONS_7_1": "In the case of ordering products during a discount period, the maximum order limit will be: 1 discounted cake, up to 2 seasonal items of each type, and a maximum of 12 pieces of discounted cake.",
+  "CREATE_NEW_ACCOUNT": "Create new account",
+  "EMAIL": "Email",
+  "PASSWORD": "Password",
+  "LOGIN_TITLE": "Welcome Back",
+  "LOGIN_SUB_TITLE": "Sign in to enjoy our online experience",
+  "FORGET_PASSWORD": "Forget Password ?",
+  "DONT_HAVE_ACCOUNT": "Don't have an account?"
+
 }

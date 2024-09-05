@@ -1,0 +1,29 @@
+<div class="input-group mb-3 has-validation">
+  <span class="input-group-text" *ngIf="showPrefixIcon">
+    <i class="fas" [ngClass]="getPrefixIcon()"></i>
+  </span>
+  <div class="form-floating" [ngClass]="isInputValid()">
+    <input id="{{ id }}"
+           type="{{ inputType }}"
+           class="form-control"
+           [ngClass]="isInputValid()"
+           placeholder="{{floatingLabel}}"
+           [formControl]="control"
+           [(ngModel)]="inputValue"
+           (input)="onInputChange($event)"
+           [readonly]="isReadOnly"
+           [style.background-image]="getBackgroundImageStyle()">
+
+    <div *ngIf="isPasswordField()">
+      <!--      <i class="far" id="togglePassword" [ngClass]="visibilityIcon()"></i>-->
+      <i (click)="changePasswordState()" class="fa password-show-icon" [ngClass]="visibilityIcon()"></i>
+    </div>
+
+
+    <label for="{{ id }}">{{ floatingLabel }}</label>
+  </div>
+  <div class="invalid-feedback">
+    {{ errorMessage }}
+  </div>
+</div>
+
