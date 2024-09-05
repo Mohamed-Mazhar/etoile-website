@@ -20,6 +20,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { AboutUsComponent } from './features/home/presentation/pages/about-us/about-us.component';
 import { DeliveryReturnPolicyComponent } from './features/home/presentation/pages/delivery-return-policy/delivery-return-policy.component';
 import { TermsAndConditionsComponent } from './features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component';
+import { PrivacyComponent } from './features/home/presentation/pages/privacy/privacy.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,7 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MainPageComponent,
     AboutUsComponent,
     DeliveryReturnPolicyComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import {
 import {
   TermsAndConditionsComponent
 } from "./features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component";
+import {PrivacyComponent} from "./features/home/presentation/pages/privacy/privacy.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
       {path: '', component: MainPageComponent},
       {path: 'about', component: AboutUsComponent},
       {path: 'delivery-return-policy', component: DeliveryReturnPolicyComponent},
-      {path: 'terms-and-conditions', component: TermsAndConditionsComponent}
+      {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
+      {path: 'privacy', component: PrivacyComponent}
     ]
   }
 ];
