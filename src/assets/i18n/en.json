@@ -148,12 +148,20 @@
   "TERMS_AND_CONDITIONS_6_3": "The working hours for all branches are from 8 AM to midnight, and the delivery department is available from 10 AM to 1 AM, except for the Waily, Sawah, and Shubra branches, which are open until 2 AM.",
   "TERMS_AND_CONDITIONS_7": "Seventh: Purchase Conditions During Discounts",
   "TERMS_AND_CONDITIONS_7_1": "In the case of ordering products during a discount period, the maximum order limit will be: 1 discounted cake, up to 2 seasonal items of each type, and a maximum of 12 pieces of discounted cake.",
-  "CREATE_NEW_ACCOUNT": "Create new account",
+  "CREATE_NEW_ACCOUNT": "Create New Account",
   "EMAIL": "Email",
   "PASSWORD": "Password",
   "LOGIN_TITLE": "Welcome Back",
   "LOGIN_SUB_TITLE": "Sign in to enjoy our online experience",
   "FORGET_PASSWORD": "Forget Password ?",
-  "DONT_HAVE_ACCOUNT": "Don't have an account?"
-
+  "DONT_HAVE_ACCOUNT": "Don't have an account?",
+  "NAME": "Name",
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "IS_REQUIRED": "{{value}} is required",
+  "REGISTRATION_TERMS_AND_CONDITIONS": "I have read and agreed on",
+  "HAVE_ACCOUNT": "Have an account?",
+  "MALE": "Male",
+  "FEMALE": "Female",
+  "BIRTH_DATE": "Birth date:",
+  "GENDER": "Gender"
 }

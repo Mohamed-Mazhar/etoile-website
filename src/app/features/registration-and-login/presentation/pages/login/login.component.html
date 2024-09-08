@@ -10,7 +10,7 @@
   </div>
   <div class="container">
     <input-text-field
-      id="email"
+      id="loginEmail"
       [group]="formGroup"
       [showPrefixIcon]="true"
       [inputType]="InputType.email"
@@ -18,7 +18,7 @@
       [floatingLabel]="'EMAIL' | translate">
     </input-text-field>
     <input-text-field
-      id="password"
+      id="loginPassword"
       [group]="formGroup"
       [showPrefixIcon]="true"
       [inputType]="InputType.password"
@@ -37,10 +37,11 @@
     </div>
     <div class="account-container">
       <p>{{ 'DONT_HAVE_ACCOUNT' | translate }}</p>
-      <div class="register-button">
+      <div class="register-button" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
+           aria-controls="registrationView">
         <p>{{ 'REGISTER' | translate }}</p>
       </div>
     </div>
   </div>
-
 </div>
+

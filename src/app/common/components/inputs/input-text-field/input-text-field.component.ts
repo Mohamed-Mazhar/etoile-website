@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ValidatorFn} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
 import {InputType} from "../enums/InputType";
 import {NameValidationError} from "../../../validators/name-validator";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: "input-text-field",
@@ -28,7 +29,9 @@ export class InputTextFieldComponent implements OnInit {
   control: FormControl = new FormControl();
   isPasswordVisible: boolean = false;
 
-  constructor() {
+  constructor(
+    private translate: TranslateService
+  ) {
   }
 
   get errorMessage(): string {
@@ -59,7 +62,11 @@ export class InputTextFieldComponent implements OnInit {
       } else if (this.control.hasError(NameValidationError.invalidFormat)) {
         return $localize`:@@isInvalidFormatField:${this.floatingLabel} is invalid Format`;
       } else if (this.control.hasError("required")) {
-        return $localize`:@@isRequiredField:${this.floatingLabel} is required.`;
+        return this.translate.instant('IS_REQUIRED', {value: this.floatingLabel})
+        // this.translate.get('IS_REQUIRED').subscribe({
+        //
+        // })
+        // return $localize`:@@isRequiredField:${this.floatingLabel} is required.`;
       } else if (this.control.hasError('minlength') || this.control.hasError('maxlength')) {
         return $localize`:@@isInvalidField:${this.floatingLabel} is invalid`;
       } else if (this.control.hasError('missMatch')) {

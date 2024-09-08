@@ -154,5 +154,14 @@
   "LOGIN_TITLE": "مرحبا بعودتك",
   "LOGIN_SUB_TITLE": "قم بتسجيل الدخول للاستمتاع بتجربتك عبر الإنترنت",
   "FORGET_PASSWORD": "نسيت كلمة السر ؟",
-  "DONT_HAVE_ACCOUNT": "ليس لديك حساب ؟"
+  "DONT_HAVE_ACCOUNT": "ليس لديك حساب ؟",
+  "NAME": "الاسم",
+  "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+  "IS_REQUIRED": "{{value}} مطلوب",
+  "REGISTRATION_TERMS_AND_CONDITIONS": "لقد قرأت ووافقت على",
+  "HAVE_ACCOUNT": "لديك حساب؟",
+  "MALE": "ذكر",
+  "FEMALE": "انثى",
+  "BIRTH_DATE": "تاريخ الميلاد",
+  "GENDER": "النوع"
 }

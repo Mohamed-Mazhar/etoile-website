@@ -1,10 +1,12 @@
 <div class="user-info-container">
-  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView" aria-controls="loginView">
+  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
+       aria-controls="loginView">
     <i class="fas fa-user icon-size"></i>
     <p>{{ 'LOGIN' | translate }}</p>
   </div>
   <div class="vertical-separator"></div>
-  <div class="user-info-item-container">
+  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
+       aria-controls="registrationView">
     <p>{{ 'REGISTER' | translate }}</p>
   </div>
   <div class="vertical-separator"></div>
@@ -23,4 +25,8 @@
 
 <div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="loginView" aria-labelledby="loginViewLabel">
   <app-login></app-login>
+</div>
+
+<div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="registrationView" aria-labelledby="registrationViewLabel">
+  <app-registration></app-registration>
 </div>

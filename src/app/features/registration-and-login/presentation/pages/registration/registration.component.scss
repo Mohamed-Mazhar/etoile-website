@@ -1,0 +1,52 @@
+.registration-container {
+  margin-top: 2rem;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.close-icon {
+  margin-inline-start: 2rem;
+  cursor: pointer;
+}
+
+.registration-title {
+  color: VAR(--primary-color) !important;
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.gender-container {
+  display: flex;
+  margin-top: 1rem;
+  column-gap: 2rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-check-input:checked {
+  background-color: VAR(--primary-color);
+  border-color: VAR(--primary-color);
+}
+
+.form-check-input:focus {
+  border-color: #DAC78CFF;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(195, 162, 65, .25);
+}
+
+.form-check {
+  a {
+    text-decoration-color: VAR(--primary-color);
+    color: VAR(--primary-color);
+  }
+}
+
+.underline {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: VAR(--primary-color);
+  color: VAR(--primary-color);
+  font-weight: 600;
+}

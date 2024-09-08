@@ -1,0 +1,85 @@
+<form [formGroup]="formGroup">
+  <div class="registration-container">
+    <div class="close-icon" data-bs-dismiss="offcanvas">
+      <i class="fa fa-times"></i>
+    </div>
+    <div class="registration-title text-center">
+      <h3>{{ 'CREATE_NEW_ACCOUNT' | translate }}</h3>
+    </div>
+    <div class="container">
+      <input-text-field
+        id="name"
+        [group]="formGroup"
+        [inputType]="InputType.text"
+        [validators]="[Validators.required]"
+        [floatingLabel]="'NAME' | translate">
+      </input-text-field>
+      <input-text-field
+        id="registrationEmail"
+        [group]="formGroup"
+        [inputType]="InputType.email"
+        [validators]="[Validators.required, Validators.email]"
+        [floatingLabel]="'EMAIL' | translate">
+      </input-text-field>
+      <input-text-field
+        id="registrationPassword"
+        [group]="formGroup"
+        [inputType]="InputType.password"
+        [validators]="[Validators.required]"
+        [floatingLabel]="'PASSWORD' | translate">
+      </input-text-field>
+      <input-text-field
+        id="confirmPassword"
+        [group]="formGroup"
+        [inputType]="InputType.password"
+        [validators]="[Validators.required]"
+        [floatingLabel]="'CONFIRM_PASSWORD' | translate">
+      </input-text-field>
+      <p>{{ 'BIRTH_DATE' | translate}}</p>
+      <input id="birthDate" class="form-control" type="date"/>
+      <div class="gender-container">
+        <p>Gender</p>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="male">
+          <label class="form-check-label" for="male">
+            {{ 'MALE' | translate }}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="female">
+          <label class="form-check-label" for="female">
+            {{ 'FEMALE' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="form-check">
+        <input formControlName="termsAndConditions"
+               class="form-check-input"
+               type="checkbox" value=""
+               id="termsAndCondition">
+        <label class="form-check-label" for="termsAndCondition">
+          <p> {{ 'REGISTRATION_TERMS_AND_CONDITIONS'  | translate }}
+            <a data-bs-dismiss="offcanvas"
+               routerLink="/home/terms-and-conditions">
+              {{ 'TERM_AND_CONDITIONS' | translate }}
+            </a>
+          </p>
+        </label>
+      </div>
+      <div class="mt-lg-4">
+        <primary-button
+          [enabled]="formGroup.valid"
+          (onClick)="signup()"
+          [title]="'CREATE_NEW_ACCOUNT' | translate">
+        </primary-button>
+      </div>
+      <div class="text-center mt-lg-3 mb-lg-3">
+        <p>{{ 'HAVE_ACCOUNT' | translate }}
+          <span class="underline"
+                routerLink="" data-bs-toggle="offcanvas" data-bs-target="#loginView"
+                aria-controls="loginView">{{ 'LOGIN' | translate }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</form>

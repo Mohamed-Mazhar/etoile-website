@@ -24,6 +24,7 @@ import { PrivacyComponent } from './features/home/presentation/pages/privacy/pri
 import { LoginComponent } from './features/registration-and-login/presentation/pages/login/login.component';
 import { InputTextFieldComponent } from './common/components/inputs/input-text-field/input-text-field.component';
 import { PrimaryButtonComponent } from './common/components/buttons/primary-button/primary-button.component';
+import { RegistrationComponent } from './features/registration-and-login/presentation/pages/registration/registration.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +48,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PrivacyComponent,
     LoginComponent,
     InputTextFieldComponent,
-    PrimaryButtonComponent
+    PrimaryButtonComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
