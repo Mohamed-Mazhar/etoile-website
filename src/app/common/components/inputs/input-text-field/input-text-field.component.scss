@@ -1,8 +1,3 @@
-.form-control:focus {
-  border-color: VAR(--primary-color);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px VAR(--primary-color);
-}
-
 .form-floating > label:dir(rtl) {
   right: 0 !important;
   left: inherit !important;
@@ -29,4 +24,12 @@
 .password-show-icon:dir(rtl) {
   right: inherit !important;
   left: 1rem !important;
+}
+
+.input-group.has-validation>:nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating):dir(rtl) {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.input-group>.form-floating:not(:first-child)>.form-control:dir(rtl) {
+  border-radius: 0.5rem 0 0 0.5rem;
 }

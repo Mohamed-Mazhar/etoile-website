@@ -1,0 +1,30 @@
+@import "src/app/common/styles/mixin";
+
+.etoile-links-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  background-color: VAR(--primary-color);
+
+
+  @include res-md-styles {
+    margin-left: 10%;
+    margin-right: 5%;
+    column-gap: 0.5rem;
+  }
+
+  p {
+    color: VAR(--white) !important;
+  }
+
+  img {
+    width: 9rem;
+  }
+}
+
+.etoile-links-container i {
+  font-size: 2rem;
+  color: VAR(--white);
+}

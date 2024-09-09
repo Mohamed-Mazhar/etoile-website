@@ -27,7 +27,6 @@ export class PrimaryButtonComponent implements OnInit {
   }
 
   isButtonEnabled(): string {
-    console.log("Is button enabled ", this.enabled)
     if (!this.enabled || this.loading) {
       return 'disabled'
     } else {

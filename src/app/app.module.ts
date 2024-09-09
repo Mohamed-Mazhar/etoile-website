@@ -25,6 +25,9 @@ import { LoginComponent } from './features/registration-and-login/presentation/p
 import { InputTextFieldComponent } from './common/components/inputs/input-text-field/input-text-field.component';
 import { PrimaryButtonComponent } from './common/components/buttons/primary-button/primary-button.component';
 import { RegistrationComponent } from './features/registration-and-login/presentation/pages/registration/registration.component';
+import { SelectBranchComponent } from './features/select-branch/presentation/pages/select-branch/select-branch.component';
+import { SelectBranchHeaderComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-header/select-branch-header.component';
+import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -49,7 +52,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     InputTextFieldComponent,
     PrimaryButtonComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    SelectBranchComponent,
+    SelectBranchHeaderComponent,
+    SelectBranchFooterComponent
   ],
   imports: [
     BrowserModule,

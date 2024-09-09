@@ -1,6 +1,6 @@
 {
   "LOGIN": "تسجيل دخول",
-  "REGISTER": "تسجيل",
+  "REGISTER": "انشاء حساب",
   "CHANGE": "تغيير",
   "ITEM": "عنصر",
   "SEARCH_FOR": "ابحث عن..",
@@ -163,5 +163,8 @@
   "MALE": "ذكر",
   "FEMALE": "انثى",
   "BIRTH_DATE": "تاريخ الميلاد",
-  "GENDER": "النوع"
+  "GENDER": "النوع",
+  "CHOOSE": "اختر",
+  "CHOOSE_ZONE_TITLE": "حدد منطقتك لبدء الاستمتاع بخدماتنا التى نقدمها",
+  "CHOOSE_ZONE_LABEL": "اختر منطقه"
 }

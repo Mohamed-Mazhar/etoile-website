@@ -163,5 +163,8 @@
   "MALE": "Male",
   "FEMALE": "Female",
   "BIRTH_DATE": "Birth date:",
-  "GENDER": "Gender"
+  "GENDER": "Gender",
+  "CHOOSE": "Choose",
+  "CHOOSE_ZONE_TITLE": "Select your area to start enjoying the services we offer",
+  "CHOOSE_ZONE_LABEL": "Choose zone"
 }

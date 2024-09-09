@@ -1,0 +1,33 @@
+<div class="select-branch-container">
+  <app-select-branch-header></app-select-branch-header>
+  <div class="center-element">
+    <img src="https://etoileeg.online/public/Content/images/slice-chocolate-cake-wooden-platter.png">
+    <div class="select-zone-container">
+      <h2 class="text-center">{{ 'CHOOSE_ZONE_TITLE' | translate }}</h2>
+      <div class="select-zone">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle zone-button"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false">
+            {{ selectBranch }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <form [formGroup]="form">
+              <input type="text" formControlName="search" class="form-control search-field"
+                     [placeholder]="'SEARCH_FOR' | translate">
+            </form>
+            <li class="mt-2" *ngFor="let zone of zones" (click)="setBranch(zone)">
+              <p class="dropdown-item">{{ zone }}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="btn search-button" [ngClass]="isDisabled()">
+          <p>{{ 'CHOOSE' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  <app-select-branch-footer></app-select-branch-footer>-->
+</div>

@@ -10,6 +10,7 @@ import {
   TermsAndConditionsComponent
 } from "./features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component";
 import {PrivacyComponent} from "./features/home/presentation/pages/privacy/privacy.component";
+import {SelectBranchComponent} from "./features/select-branch/presentation/pages/select-branch/select-branch.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,7 +24,8 @@ const routes: Routes = [
       {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
       {path: 'privacy', component: PrivacyComponent}
     ]
-  }
+  },
+  {path: 'zone', component: SelectBranchComponent},
 ];
 
 @NgModule({

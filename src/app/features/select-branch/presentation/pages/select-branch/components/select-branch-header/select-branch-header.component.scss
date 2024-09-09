@@ -1,0 +1,63 @@
+@import "src/app/common/styles/mixin";
+
+.select-branch-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: VAR(--gray);
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.language-container {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 1.5rem;
+    height: 1rem;
+  }
+}
+
+.user-action-container {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.user-info-item-container {
+  display: flex;
+  cursor: pointer;
+  column-gap: 0.5rem;
+  align-items: center;
+
+  a {
+    font-size: 1rem !important;
+    color: VAR(--primary-color);
+
+    @include res-md-styles {
+      font-size: 0.5rem !important;
+    }
+  }
+}
+
+.vertical-separator {
+  border-left: 2px solid VAR(--lightgray);
+  height: 1.5rem;
+}
+
+.logo {
+  img {
+    width: 6rem;
+  }
+}
+
+.canvas-width {
+  width: 40%;
+
+  @include res-md-styles {
+    width: 100%;
+  }
+
+}
