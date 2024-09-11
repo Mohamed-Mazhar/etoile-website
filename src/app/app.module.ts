@@ -28,6 +28,10 @@ import { RegistrationComponent } from './features/registration-and-login/present
 import { SelectBranchComponent } from './features/select-branch/presentation/pages/select-branch/select-branch.component';
 import { SelectBranchHeaderComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-header/select-branch-header.component';
 import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
+import { ProductComponent } from './common/components/product/product.component';
+import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
+import { ProductsFilterComponent } from './features/products-list/presentation/pages/products/components/products-filter/products-filter.component';
+import {NgxSliderModule} from "@angular-slider/ngx-slider";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -55,7 +59,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegistrationComponent,
     SelectBranchComponent,
     SelectBranchHeaderComponent,
-    SelectBranchFooterComponent
+    SelectBranchFooterComponent,
+    ProductComponent,
+    ProductsComponent,
+    ProductsFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

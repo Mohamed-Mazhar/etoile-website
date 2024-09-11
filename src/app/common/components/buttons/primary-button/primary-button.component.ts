@@ -17,6 +17,7 @@ export class PrimaryButtonComponent implements OnInit {
   @Input() iconType: IconType = null
   @Input() enableKeyboardEvent: boolean = true
   @Input() showArrow: boolean = false
+  @Input() buttonPadding = 1
   @Output() onClick: EventEmitter<void> = new EventEmitter<void>()
 
   constructor() {
@@ -46,6 +47,13 @@ export class PrimaryButtonComponent implements OnInit {
           this.onClick.emit()
         }
       }
+    }
+  }
+
+  getButtonPadding() {
+    return {
+      'padding-top': this.buttonPadding + 'rem',
+      'padding-bottom': this.buttonPadding + 'rem'
     }
   }
 

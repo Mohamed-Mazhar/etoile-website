@@ -1,0 +1,32 @@
+@import "src/app/common/styles/mixin";
+
+.list-page-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+
+  @include res-md-styles {
+    flex-direction: column;
+  }
+}
+
+.products-container {
+  width: 100%;
+}
+
+.products-details-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.horizontal-separator {
+  height: 2px;
+  background: #E4EBEB;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.single-line {
+  white-space: nowrap;
+}

@@ -3,29 +3,32 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-          <div class="nav-link category" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <div (click)="loadCategory('Oriental Desserts')" class="nav-link category" id="navbarDropdown"
+               data-bs-toggle="dropdown" aria-expanded="false">
             <p>Oriental Desserts</p>
           </div>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <ul>
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
+              <li (click)="loadSubCategory('Oriental Desserts', 'Action')">
+                <a class="dropdown-item">Action</a>
+              </li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
             </ul>
             <ul>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Another action</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
             </ul>
             <ul>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
-              <li><a class="dropdown-item" href="#">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Something else here</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
+              <li><a class="dropdown-item">Mega Menu Link</a></li>
             </ul>
           </ul>
         </li>
@@ -40,15 +43,15 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <div class="nav-link category" data-bs-toggle="dropdown" id="navbarDropdown4" aria-expanded="false" >
+          <div class="nav-link category" data-bs-toggle="dropdown" id="navbarDropdown4" aria-expanded="false">
             <p>Chocolate</p>
           </div>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
             <ul>
-              <li><a class="dropdown-item" href="#">Dark Chocolate</a></li>
-              <li><a class="dropdown-item" href="#">Corona Bar</a></li>
-              <li><a class="dropdown-item" href="#">Despacito Strawberry</a></li>
-              <li><a class="dropdown-item" href="#">Cappuccino Bar</a></li>
+              <li><a class="dropdown-item">Dark Chocolate</a></li>
+              <li><a class="dropdown-item">Corona Bar</a></li>
+              <li><a class="dropdown-item">Despacito Strawberry</a></li>
+              <li><a class="dropdown-item">Cappuccino Bar</a></li>
             </ul>
           </ul>
         </li>

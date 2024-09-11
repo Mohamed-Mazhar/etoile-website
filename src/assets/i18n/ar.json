@@ -166,5 +166,22 @@
   "GENDER": "النوع",
   "CHOOSE": "اختر",
   "CHOOSE_ZONE_TITLE": "حدد منطقتك لبدء الاستمتاع بخدماتنا التى نقدمها",
-  "CHOOSE_ZONE_LABEL": "اختر منطقه"
+  "CHOOSE_ZONE_LABEL": "اختر منطقه",
+  "CURRENCY": "ج.م",
+  "DETAILS": "المزيد",
+  "CATEGORIES": "آقسام",
+  "SIZE": "الحجم",
+  "PRICE": "السعر",
+  "FILTER_NOW": "بحث",
+  "RESET": "مسح",
+  "CLEAR": "مسح الكل",
+  "NUMBER_OF_PRODUCTS": "عرض {{current}} من {{max}}",
+  "SORT_BY": "الترتيب",
+  "AVAILABLE_ON_STOCK": "المتاح في المخزن",
+  "BEST_SELLER": "الاكثر مبيعا",
+  "NEW_ARRIVALS": "المنتجات الجديده",
+  "PRODUCT_ASC": "الترتيب من ا الي ي",
+  "PRODUCT_DESC": "الترتيب من ي الي ا",
+  "PRICE_HIGHEST": "الاعلي سعرا",
+  "PRICE_LOWEST": "الاقل سعرا"
 }

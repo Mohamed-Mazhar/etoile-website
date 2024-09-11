@@ -2,6 +2,7 @@
   <button (click)="onClick.emit()" *ngIf="!loading"
           [disabled]="isButtonEnabled()"
           class="button-primary custom-button"
+          [ngStyle]="getButtonPadding()"
           type="submit">
     {{ title }}
     <div *ngIf="showArrow" class="i-image-to-flip"><i class="bi bi-arrow-right arrow-icon"></i></div>
