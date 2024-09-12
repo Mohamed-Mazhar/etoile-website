@@ -1,3 +1,18 @@
-<div class="container">
-  <main-products-carousel></main-products-carousel>
+<div class="">
+  <div class="container">  <main-products-carousel></main-products-carousel></div>
+
+  <desserts [titleSection]="'OUR ESPEICAL GATEAUX'"
+            [imageSection]="'assets/images/home-asset/bg-section1.png'"
+            [direction]="'right'"
+            [items]="section1"
+  ></desserts>
+
+  <desserts [titleSection]="'BestSeller'"
+            [imageSection]="'assets/images/home-asset/bg-section2.png'"
+            [direction]="'left'"
+            [items]="section2"
+  ></desserts>
+
+
+
 </div>

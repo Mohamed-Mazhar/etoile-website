@@ -28,6 +28,8 @@ import { RegistrationComponent } from './features/registration-and-login/present
 import { SelectBranchComponent } from './features/select-branch/presentation/pages/select-branch/select-branch.component';
 import { SelectBranchHeaderComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-header/select-branch-header.component';
 import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
+import { DessertsComponent } from './features/home/presentation/components/desserts/desserts.component';
+import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
 import { ProductComponent } from './common/components/product/product.component';
 import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
 import { ProductsFilterComponent } from './features/products-list/presentation/pages/products/components/products-filter/products-filter.component';
@@ -59,6 +61,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     RegistrationComponent,
     SelectBranchComponent,
     SelectBranchHeaderComponent,
+    SelectBranchFooterComponent,
+    DessertsComponent,
+    DessertItemComponent,
     SelectBranchFooterComponent,
     ProductComponent,
     ProductsComponent,
