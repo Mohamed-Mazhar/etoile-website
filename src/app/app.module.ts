@@ -30,6 +30,7 @@ import { SelectBranchHeaderComponent } from './features/select-branch/presentati
 import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
 import { DessertsComponent } from './features/home/presentation/components/desserts/desserts.component';
 import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
+import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,7 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBranchHeaderComponent,
     SelectBranchFooterComponent,
     DessertsComponent,
-    DessertItemComponent
+    DessertItemComponent,
+    ScrollUpBtnComponent
   ],
   imports: [
     BrowserModule,
