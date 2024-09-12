@@ -32,3 +32,17 @@ p {
   border-color: VAR(--primary-color);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px VAR(--primary-color);
 }
+
+
+.full-width {
+  width: calc(100%);
+}
+
+
+.expand {
+  flex-grow: 1;
+}
+
+.clickable {
+  cursor: pointer;
+}
