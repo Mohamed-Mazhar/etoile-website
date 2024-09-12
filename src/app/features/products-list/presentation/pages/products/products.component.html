@@ -2,8 +2,12 @@
   <div class="list-page-content">
     <app-products-filter></app-products-filter>
     <div class="products-container">
-      <div class="products-details-container">
+      <div class="products-details-container" data-bs-toggle="offcanvas" data-bs-target="#mobileFilter">
         <p>{{ 'NUMBER_OF_PRODUCTS' | translate : params }}</p>
+        <div class="align-items-center filter-container">
+          <i class="fas fa-filter mx-1"></i>
+          <p>Filter</p>
+        </div>
         <div class="d-flex align-items-center column-gap-3">
           <div class="single-line"><p>{{ 'SORT_BY' | translate }}</p></div>
           <select class="form-select" aria-label="Default select example">
