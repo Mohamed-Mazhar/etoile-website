@@ -15,9 +15,11 @@
 
 .logo {
   display: flex;
-  width: 100%;   /* Set container width */
+  //width: 100%;   /* Set container width */
   position: relative;
-  overflow: hidden; /* Prevents any overflow within the container */
+  overflow: hidden;
+  //background-color: #0a3622;/* Prevents any overflow within the container */
+  width: 40rem;
 }
 
 /* Sub container */
@@ -31,7 +33,7 @@
 }
 
 .logo-container.isLeft {
-  right: -50%;;
+  right: -15%;
   left: initial;
   direction: ltr;
 
@@ -48,9 +50,9 @@
   align-items: center;
   color: white;
   font-size: 1rem;
-  font-weight: 400;
   padding-right: .5rem;
   padding-left: .5rem;
+  font-weight: 600;
 
 }
 
