@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="list-page-content">
+    <app-products-filter></app-products-filter>
+    <div class="products-container">
+      <div class="products-details-container">
+        <p>{{ 'NUMBER_OF_PRODUCTS' | translate : params }}</p>
+        <div class="d-flex align-items-center column-gap-3">
+          <div class="single-line"><p>{{ 'SORT_BY' | translate }}</p></div>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>{{ 'AVAILABLE_ON_STOCK' | translate }}</option>
+            <option value="1">{{ 'BEST_SELLER' | translate }}</option>
+            <option value="2">{{ 'NEW_ARRIVALS' | translate }}</option>
+            <option value="3">{{ 'PRODUCT_ASC' | translate }}</option>
+            <option value="4">{{ 'PRODUCT_DESC' | translate }}</option>
+            <option value="5">{{ 'PRICE_HIGHEST' | translate }}</option>
+            <option value="6">{{ 'PRICE_LOWEST' | translate }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="horizontal-separator"></div>
+    </div>
+  </div>
+</div>

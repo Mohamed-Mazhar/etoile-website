@@ -166,5 +166,22 @@
   "GENDER": "Gender",
   "CHOOSE": "Choose",
   "CHOOSE_ZONE_TITLE": "Select your area to start enjoying the services we offer",
-  "CHOOSE_ZONE_LABEL": "Choose zone"
+  "CHOOSE_ZONE_LABEL": "Choose zone",
+  "CURRENCY": "EGP",
+  "DETAILS": "View details",
+  "CATEGORIES": "Categories",
+  "SIZE": "Size",
+  "PRICE": "Price",
+  "FILTER_NOW": "Filter Now",
+  "RESET": "Reset",
+  "CLEAR": "Clear",
+  "NUMBER_OF_PRODUCTS": "Showing {{current}} of {{max}}",
+  "SORT_BY": "Sort By",
+  "AVAILABLE_ON_STOCK": "Available On Stock",
+  "BEST_SELLER": "Best Seller",
+  "NEW_ARRIVALS": "New Arrivals",
+  "PRODUCT_ASC": "Product Name A-Z",
+  "PRODUCT_DESC": "Product Name Z-A",
+  "PRICE_HIGHEST": "Highest Price",
+  "PRICE_LOWEST": "Lowest Price"
 }

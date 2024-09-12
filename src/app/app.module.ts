@@ -30,7 +30,13 @@ import { SelectBranchHeaderComponent } from './features/select-branch/presentati
 import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
 import { DessertsComponent } from './features/home/presentation/components/desserts/desserts.component';
 import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
+
 import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
+import { ProductComponent } from './common/components/product/product.component';
+import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
+import { ProductsFilterComponent } from './features/products-list/presentation/pages/products/components/products-filter/products-filter.component';
+import {NgxSliderModule} from "@angular-slider/ngx-slider";
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -61,7 +67,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBranchFooterComponent,
     DessertsComponent,
     DessertItemComponent,
-    ScrollUpBtnComponent
+    ScrollUpBtnComponent,
+    ProductComponent,
+    ProductsComponent,
+    ProductsFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +84,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    // NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

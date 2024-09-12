@@ -11,6 +11,8 @@ import {
 } from "./features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component";
 import {PrivacyComponent} from "./features/home/presentation/pages/privacy/privacy.component";
 import {SelectBranchComponent} from "./features/select-branch/presentation/pages/select-branch/select-branch.component";
+import {ProductComponent} from "./common/components/product/product.component";
+import {ProductsComponent} from "./features/products-list/presentation/pages/products/products.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,7 +24,8 @@ const routes: Routes = [
       {path: 'about', component: AboutUsComponent},
       {path: 'delivery-return-policy', component: DeliveryReturnPolicyComponent},
       {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
-      {path: 'privacy', component: PrivacyComponent}
+      {path: 'privacy', component: PrivacyComponent},
+      {path: 'products/:category', component: ProductsComponent}
     ]
   },
   {path: 'zone', component: SelectBranchComponent},

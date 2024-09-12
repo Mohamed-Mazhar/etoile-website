@@ -1,0 +1,98 @@
+@import "src/app/common/styles/mixin";
+
+.filter-by-container {
+  padding: 1rem;
+  margin-inline-end: 1.5rem;
+  height: min-content;
+  background-color: #fbfaea;
+  min-width: 18rem;
+  border-radius: 1rem;
+
+  @include res-md-styles {
+    display: none;
+  }
+
+}
+
+.filter-by-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+
+  p {
+    color: VAR(--neutral-dark-50-color) !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+  }
+}
+
+.clear-all {
+  border-radius: 0.75rem;
+  background-color: VAR(--primary-color);
+  padding: 0.25rem 0.375rem;
+  cursor: pointer;
+
+  p {
+    color: white !important;
+  }
+}
+
+.filter-by-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 0.3rem;
+  margin-top: 0.5rem;
+
+  label {
+    font-size: 1rem !important;
+    color: #0B101E !important;
+  }
+}
+
+.horizontal-separator {
+  height: 2px;
+  background: #E4EBEB;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-categories {
+  max-height: 8rem;
+  overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: VAR(--primary-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.reset-button {
+  border-radius: 0.5rem;
+  background-color: VAR(--lightgray);
+  text-align: center;
+  padding: 0.5rem;
+  cursor: pointer;
+
+  p {
+    color: VAR(--white)
+  }
+
+}
