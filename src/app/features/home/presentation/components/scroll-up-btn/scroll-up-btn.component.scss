@@ -1,0 +1,54 @@
+/* Style for the button */
+.float-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10000;
+}
+
+/* Show the button when the user scrolls */
+.float-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hide the button when at the top */
+.float-btn.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Animation for the icons */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0); /* Start at default position */
+  }
+  50% {
+    transform: translateY(-5px); /* Move up slightly */
+  }
+}
+
+.float-btn i {
+  font-size: 24px; /* Arrow size */
+  margin: 0 2px; /* Spacing between the two arrows */
+  color: white; /* Arrow color */
+  animation: bounce 1s infinite ease-in-out; /* Add bounce animation */
+}
+
+/* Different timings for the second arrow for staggered effect */
+.float-btn i:nth-child(2) {
+  animation-delay: 0.2s; /* Delay the second icon to create staggered animation */
+}
