@@ -43,3 +43,54 @@
     <p>{{ 'RESET' | translate }}</p>
   </div>
 </div>
+
+<div class="offcanvas offcanvas-start full-screen" tabindex="-1" id="mobileFilter" aria-labelledby="mobileFilterLabel">
+  <div class="filter-by-container-mobile">
+    <div class="close-icon" data-bs-dismiss="offcanvas">
+      <i class="fa fa-times"></i>
+    </div>
+    <div class="filter-by-title">
+      <h5>{{ 'CATEGORIES' | translate }}</h5>
+      <div class="clear-all" (click)="clear()">
+        <p>{{ 'CLEAR' | translate }}</p>
+      </div>
+    </div>
+    <div class="filter-by-item" *ngFor="let category of categories; let i = index">
+      <input type="checkbox" id="{{category.id}}" name="{{category.id}}" value="All">
+      <label for="{{category.id}}">{{ category.name }}</label><br>
+    </div>
+    <div class="horizontal-separator"></div>
+    <div class="filter-by-title">
+      <h5>{{ 'SIZE' | translate }}</h5>
+      <div class="clear-all" (click)="clear()">
+        <p>{{ 'CLEAR' | translate }}</p>
+      </div>
+    </div>
+    <div class="filter-categories">
+      <div class="filter-by-item" *ngFor="let size of size; let i = index">
+        <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">
+        <label for="{{size.id}}">{{ size.name }}</label><br>
+      </div>
+    </div>
+    <div class="horizontal-separator"></div>
+    <div class="filter-by-price-container">
+      <div class="filter-by-title">
+        <h5>{{ 'PRICE' | translate }}</h5>
+      </div>
+      <ngx-slider
+        [(value)]="minPrice"
+        [(highValue)]="maxPrice"
+        [options]="options">
+      </ngx-slider>
+      <div class="horizontal-separator"></div>
+    </div>
+    <primary-button
+      [buttonPadding]="0.5"
+      [title]="'FILTER_NOW' | translate">
+    </primary-button>
+    <div class="horizontal-separator"></div>
+    <div class="reset-button">
+      <p>{{ 'RESET' | translate }}</p>
+    </div>
+  </div>
+</div>

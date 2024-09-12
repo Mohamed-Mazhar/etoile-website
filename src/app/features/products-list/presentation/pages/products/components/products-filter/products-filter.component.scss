@@ -8,7 +8,7 @@
   min-width: 18rem;
   border-radius: 1rem;
 
-  @include res-md-styles {
+  @include res-lg-styles {
     display: none;
   }
 
@@ -95,4 +95,19 @@
     color: VAR(--white)
   }
 
+}
+
+.filter-by-container-mobile {
+  padding: 1rem;
+}
+
+.full-screen {
+  width: 100%;
+  height: 100%;
+}
+
+.close-icon {
+  margin-inline-start: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
 }

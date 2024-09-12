@@ -30,3 +30,13 @@
 .single-line {
   white-space: nowrap;
 }
+
+.filter-container {
+  display: none;
+
+  @include res-lg-styles {
+    display: flex;
+    cursor: pointer;
+  }
+
+}
