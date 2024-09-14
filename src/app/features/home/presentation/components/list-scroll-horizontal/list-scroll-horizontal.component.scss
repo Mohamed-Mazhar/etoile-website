@@ -1,0 +1,26 @@
+
+.title-list{
+  direction: rtl;
+  padding: 1rem;
+}
+
+.isLeft.title-list{
+  direction: ltr;
+}
+
+.featured-items-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  transition: -100% 5s ease-out;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  //transform: translateX(20px);
+}
+
+.featured-items-container::-webkit-scrollbar {
+  display: none;
+}

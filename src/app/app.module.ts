@@ -36,6 +36,8 @@ import { ProductComponent } from './common/components/product/product.component'
 import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
 import { ProductsFilterComponent } from './features/products-list/presentation/pages/products/components/products-filter/products-filter.component';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
+import { ListScrollHorizontalComponent } from './features/home/presentation/components/list-scroll-horizontal/list-scroll-horizontal.component';
+import { ProductItemComponent } from './features/home/presentation/components/list-scroll-horizontal/product-item/product-item.component';
 
 
 
@@ -71,6 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductComponent,
     ProductsComponent,
     ProductsFilterComponent,
+    ListScrollHorizontalComponent,
+    ProductItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,8 +14,6 @@ export class DessertsComponent  {
   @Input() items: { title: string; subtitle: string; image: string }[] = [];
 
 
-
-
   @ViewChild('scrollList') scrollList!: ElementRef;
 
   atStart = true;
@@ -56,4 +54,5 @@ export class DessertsComponent  {
   isLeft():boolean{
     return this.direction == "left"
   }
+
 }

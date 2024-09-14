@@ -12,7 +12,6 @@ export class ScrollUpBtnComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   showButton = false; // Button is initially hidden
   scrollPosition = 0;
 

@@ -1,0 +1,15 @@
+<!--<div class="container-items" [class.isLeft]="isLeft()">-->
+  <div class="title-list" [class.isLeft]="isLeft()">
+    <span>{{title}}</span>
+  </div>
+  <div class="featured-items-container" #featuredItemsContainer>
+    <app-product-item
+      *ngFor="let item of items"
+      [title]= item.title
+      [subTitle] = item.subtitle
+      [image] = item.image
+    >
+    </app-product-item>
+  </div>
+<!--</div>-->
+
