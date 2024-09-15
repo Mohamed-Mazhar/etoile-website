@@ -1,0 +1,7 @@
+<script type="text/javascript">
+    var redirectTo = '/index.html';
+    if (location.pathname.length > 1) {
+        redirectTo += '?redirect=' + encodeURIComponent(location.pathname);
+    }
+    window.location.replace(redirectTo);
+</script>
