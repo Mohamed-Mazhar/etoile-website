@@ -10,7 +10,7 @@
     <p>{{ 'REGISTER' | translate }}</p>
   </div>
   <div class="vertical-separator"></div>
-  <div class="user-info-item-container">
+  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#cartView">
     <i class="fas fa-shopping-basket icon-size"></i>
     <p>0</p>
     <p>Item(s)</p>
@@ -23,6 +23,7 @@
   </div>
 </div>
 
+
 <div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="loginView" aria-labelledby="loginViewLabel">
   <app-login></app-login>
 </div>
@@ -30,3 +31,8 @@
 <div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="registrationView" aria-labelledby="registrationViewLabel">
   <app-registration></app-registration>
 </div>
+
+<div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="cartView" aria-labelledby="cartViewLabel">
+  <cart-side-page class="full-height"></cart-side-page>
+</div>
+

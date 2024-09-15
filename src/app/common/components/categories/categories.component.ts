@@ -17,11 +17,11 @@ export class CategoriesComponent implements OnInit {
   }
 
   loadCategory(category: string) {
-    this.router.navigate(['/home/products', category]).then()
+    this.router.navigate(['/products', category]).then()
   }
 
   loadSubCategory(category: string, subCategory: string) {
-    this.router.navigate(['/home/products', category], {
+    this.router.navigate(['/products', category], {
       queryParams : {
         categoryId: subCategory
       }

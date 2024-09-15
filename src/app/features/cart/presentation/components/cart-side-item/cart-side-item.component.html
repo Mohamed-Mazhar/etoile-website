@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="cart-item-container">
+    <img [src]="cartProduct.product.image"/>
+    <div class="text-center">
+      <p>{{ cartProduct.product.name }}</p>
+      <div class="product-description"><p>{{ cartProduct.product.description }}</p></div>
+      <div class="add-remove-cart-container">
+        <div class="cart-button"><i class="fas fa-minus"></i></div>
+        <div class="ms-3 me-3"><p>{{ cartProduct.count }}</p></div>
+        <div class="cart-button"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="price-container">
+        <p>Price:</p>
+        <p>{{ cartProduct.product.price / 100 }} {{ 'CURRENCY' | translate }}</p>
+      </div>
+    </div>
+    <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"
+       class="fas fa-trash-alt delete-icon clickable"></i>
+  </div>
+  <div class="horizontal-separator"></div>
+</div>
+

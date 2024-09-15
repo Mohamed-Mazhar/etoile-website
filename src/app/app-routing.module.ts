@@ -13,11 +13,11 @@ import {PrivacyComponent} from "./features/home/presentation/pages/privacy/priva
 import {SelectBranchComponent} from "./features/select-branch/presentation/pages/select-branch/select-branch.component";
 import {ProductComponent} from "./common/components/product/product.component";
 import {ProductsComponent} from "./features/products-list/presentation/pages/products/products.component";
+import {CartPageComponent} from "./features/cart/presentation/pages/cart-page/cart-page.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {
-    path: 'home',
+    path: '',
     component: HomePageComponent,
     children: [
       {path: '', component: MainPageComponent},
@@ -25,7 +25,8 @@ const routes: Routes = [
       {path: 'delivery-return-policy', component: DeliveryReturnPolicyComponent},
       {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
       {path: 'privacy', component: PrivacyComponent},
-      {path: 'products/:category', component: ProductsComponent}
+      {path: 'products/:category', component: ProductsComponent},
+      {path: 'cart', component: CartPageComponent}
     ]
   },
   {path: 'zone', component: SelectBranchComponent},

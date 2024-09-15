@@ -52,13 +52,6 @@
   }
 }
 
-.horizontal-separator {
-  height: 2px;
-  background: #E4EBEB;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 .filter-categories {
   max-height: 8rem;
   overflow-y: scroll;
@@ -99,6 +92,11 @@
 
 .filter-by-container-mobile {
   padding: 1rem;
+  //display: none;
+  //
+  //@include res-lg-styles {
+  //  display: block;
+  //}
 }
 
 .full-screen {

@@ -2,5 +2,38 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  min-height: 100vh;
+
+  app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 }
+
+.contact-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: VAR(--primary-color);
+  padding: 0.5rem 2.5rem;
+}
+
+.contact-item-details {
+  display: flex;
+  column-gap: 0.25rem;
+  align-items: center;
+  text-decoration: none;
+  color: VAR(--white);
+
+  p {
+    color: VAR(--white);
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+.fa-truck:before {
+  content: "\f0d1";
+}
+

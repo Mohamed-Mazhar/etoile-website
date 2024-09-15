@@ -26,18 +26,23 @@ import { InputTextFieldComponent } from './common/components/inputs/input-text-f
 import { PrimaryButtonComponent } from './common/components/buttons/primary-button/primary-button.component';
 import { RegistrationComponent } from './features/registration-and-login/presentation/pages/registration/registration.component';
 import { SelectBranchComponent } from './features/select-branch/presentation/pages/select-branch/select-branch.component';
-import { SelectBranchHeaderComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-header/select-branch-header.component';
-import { SelectBranchFooterComponent } from './features/select-branch/presentation/pages/select-branch/components/select-branch-footer/select-branch-footer.component';
+import { SelectBranchHeaderComponent } from './features/select-branch/presentation/components/select-branch-header/select-branch-header.component';
+import { SelectBranchFooterComponent } from './features/select-branch/presentation/components/select-branch-footer/select-branch-footer.component';
 import { DessertsComponent } from './features/home/presentation/components/desserts/desserts.component';
 import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
 
 import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
 import { ProductComponent } from './common/components/product/product.component';
 import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
-import { ProductsFilterComponent } from './features/products-list/presentation/pages/products/components/products-filter/products-filter.component';
+import { ProductsFilterComponent } from './features/products-list/presentation/components/products-filter/products-filter.component';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
+import { CartSidePageComponent } from './features/cart/presentation/pages/cart-side-page/cart-side-page.component';
+import { CartSideItemComponent } from './features/cart/presentation/components/cart-side-item/cart-side-item.component';
 import { ListScrollHorizontalComponent } from './features/home/presentation/components/list-scroll-horizontal/list-scroll-horizontal.component';
 import { ProductItemComponent } from './features/home/presentation/components/list-scroll-horizontal/product-item/product-item.component';
+import { RemoveProductModalComponent } from './features/home/presentation/components/remove-product-modal/remove-product-modal.component';
+import { CartPageComponent } from './features/cart/presentation/pages/cart-page/cart-page.component';
+import { CartProductItemComponent } from './features/cart/presentation/components/cart-product-item/cart-product-item.component';
 
 
 
@@ -73,8 +78,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductComponent,
     ProductsComponent,
     ProductsFilterComponent,
+    CartSidePageComponent,
+    CartSideItemComponent,
     ListScrollHorizontalComponent,
     ProductItemComponent,
+    RemoveProductModalComponent,
+    CartPageComponent,
+    CartProductItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,7 +99,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    // NgxSliderModule
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

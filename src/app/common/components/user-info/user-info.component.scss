@@ -20,11 +20,6 @@
   color: VAR(--primary-color);
 }
 
-.vertical-separator {
-  border-left: 2px solid VAR(--lightgray);
-  height: 1.5rem;
-}
-
 .user-info-item-container {
   display: flex;
   cursor: pointer;
@@ -44,9 +39,12 @@
 .canvas-width {
   width: 40%;
 
-  @include res-md-styles {
+  @include res-lg-styles {
     width: 100%;
   }
+}
 
+.full-height {
+  height: 100%;
 }
 

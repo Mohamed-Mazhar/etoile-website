@@ -12,7 +12,8 @@ export class ProductComponent implements OnInit {
     id: "212",
     price: 1200,
     name: "Croissant",
-    description: "Made from exquisite butter"
+    description: "Made from exquisite butter",
+    image: ""
   }
   imageSrc = ""
 
