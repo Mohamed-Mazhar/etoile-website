@@ -14,6 +14,11 @@
         [validators]="[Validators.required]"
         [floatingLabel]="'NAME' | translate">
       </input-text-field>
+      <mobile-number
+        [group]="formGroup"
+        [validators]="[Validators.required]"
+        mobileNumberId="mobile">
+      </mobile-number>
       <input-text-field
         id="registrationEmail"
         [group]="formGroup"

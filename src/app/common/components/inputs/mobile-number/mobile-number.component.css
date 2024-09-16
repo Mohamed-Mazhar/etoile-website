@@ -1,0 +1,85 @@
+.country-code-div {
+  position: relative;
+  width: 4rem;
+}
+
+.country-code-input.is-invalid {
+  background-image: none;
+}
+
+
+.mobile-number-input-div {
+  flex-grow: 1;
+}
+
+.custom-dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px; /* Adjust max-height as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 100;
+}
+
+
+.custom-dropdown-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-dropdown-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.custom-dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+
+/*spinner*/
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+
+/* Style for custom input field */
+
+
+.input-text-field-container {
+  /*background-color: red;*/
+  display: flex;
+  column-gap: 0.4rem;
+  position: relative;
+
+  direction: ltr;
+}
+
+
+.trailing-icon {
+  position: absolute;
+  top: 16px;
+  height: auto;
+  cursor: pointer;
+}
+
+.trailing-icon {
+  right: 1rem; /* Adjust right position for trailing icon */
+}
+
+

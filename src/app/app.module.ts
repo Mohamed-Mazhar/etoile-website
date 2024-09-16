@@ -43,7 +43,8 @@ import { ProductItemComponent } from './features/home/presentation/components/li
 import { RemoveProductModalComponent } from './features/home/presentation/components/remove-product-modal/remove-product-modal.component';
 import { CartPageComponent } from './features/cart/presentation/pages/cart-page/cart-page.component';
 import { CartProductItemComponent } from './features/cart/presentation/components/cart-product-item/cart-product-item.component';
-
+import { MobileNumberComponent } from "./common/components/inputs/mobile-number/mobile-number.component";
+import { NumericOnlyDirective } from './common/components/inputs/directives/numeric-only.directive';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -85,6 +86,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RemoveProductModalComponent,
     CartPageComponent,
     CartProductItemComponent,
+    MobileNumberComponent,
+    NumericOnlyDirective
   ],
   imports: [
     BrowserModule,

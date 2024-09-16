@@ -1,0 +1,47 @@
+<div class="custom-input-container mb-3">
+  <div class="input-text-field-container">
+    <div class="form-floating  country-code-div">
+      <!-- Search input field -->
+      <input
+        [readOnly]="true"
+        [disabled]="true"
+        [(ngModel)]="countryCode"
+        [formControl]="countryControl"
+        class="form-control country-code-input"
+        id="{{countryCodeId}}"
+        placeholder="'code'">
+      <label for="{{countryCodeId}}">{{ floatingCodeLabel }}</label>
+    </div>
+
+    <div class="form-floating  mobile-number-input-div">
+      <input
+        [(ngModel)]="mobileNumber"
+        [formControl]="control"
+        [ngClass]="isMobileNumberInputValid()"
+        class="form-control"
+        [appNumericOnly] = true
+        id="{{mobileNumberId}}"
+        placeholder="'mobileNumber'"
+        type="text">
+      <label for="{{mobileNumberId}}">{{floatingMobileLabel}}</label>
+    </div>
+    <div [style.display]="dropdownOpen ? 'block' : 'none'" class="custom-dropdown-options">
+      <div *ngIf="isLoading" class="spinner-container">
+        <div class="spinner-border text-primary" role="status">
+        </div>
+      </div>
+
+<!--      <div *ngIf="!isLoading && filteredOptions.isEmpty()" class="spinner-container">-->
+<!--        NO value-->
+<!--      </div>-->
+
+<!--      <div (click)="onSelectCountry(option)" *ngFor="let option of filteredOptions" class="custom-dropdown-option">-->
+<!--        <div>{{ option.nameEn }}</div>-->
+<!--        <div>{{ '+ ' + option.countryCode }}</div>-->
+<!--      </div>-->
+    </div>
+  </div>
+  <div class="text-danger">{{ errorMessage }}</div>
+
+</div>
+
