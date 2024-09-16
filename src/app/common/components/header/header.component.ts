@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit {
   }
 
   goToHome() {
-    console.log("Go to home page")
     this.router.navigate(['/']).then()
   }
 

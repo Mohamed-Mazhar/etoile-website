@@ -1,27 +1,24 @@
 <div [class.isLeft]="isLeft()" class="container-item-row">
-  <div class="">
-    <div [class.isLeft]="isLeft()" class="container-item">
-      <button (click)="scrollLeft()" [ngClass]="{'disabled': atStart}" class="arrow">&#9664;</button>
-      <div #scrollList (scroll)="checkScrollPosition()" class="scroll-list">
+  <div [class.isLeft]="isLeft()" class="container-item">
+    <button (click)="scrollLeft()" [ngClass]="{'disabled': atStart}" class="arrow">&#9664;</button>
+    <div #scrollList (scroll)="checkScrollPosition()" class="scroll-list">
 
-        <div *ngFor="let item of items" class="item">
-          <app-dessert-item
-            [image]="item.image"
-            [subTitle]="item.subtitle"
-            [title]="item.title"
-            class="item">
-          </app-dessert-item>
-        </div>
+      <div *ngFor="let item of items" class="item">
+        <app-dessert-item
+          [image]="item.image"
+          [subTitle]="item.subtitle"
+          [title]="item.title"
+          class="item">
+        </app-dessert-item>
       </div>
-      <button (click)="scrollRight()" [ngClass]="{'disabled': atEnd}" class="arrow">&#9654;</button>
     </div>
+    <button (click)="scrollRight()" [ngClass]="{'disabled': atEnd}" class="arrow">&#9654;</button>
   </div>
-
 
   <div class="logo">
     <div [class.isLeft]="isLeft()" class="logo-container">
       <img [src]=imageSection alt="" class="img-bg">
-      <div [class.isLeft]="isLeft()" class="text-bg"><span class="text-bg">{{titleSection}}</span></div>
+      <div [class.isLeft]="isLeft()" class="text-bg"><span class="text-bg">{{ titleSection }}</span></div>
     </div>
   </div>
 </div>

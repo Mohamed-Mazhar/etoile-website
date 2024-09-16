@@ -1,8 +1,7 @@
 .container-item {
-  //width: 100%;
-  width: 140px;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  width: 100%;
 }
 
 .item {
@@ -17,7 +16,7 @@
     height: 3rem;
     display: flex;
     align-items: center;
-
+    white-space: nowrap;
   }
 
   .subtitle {
@@ -30,7 +29,6 @@
     width: 100%;
     text-align: center;
     display: flex;
-
     background-color: var(--primary-color) !important;
     color: var(--white);
 
@@ -42,12 +40,10 @@
 }
 
 
-.customCard {
+.image-container {
   background-color: white;
-  border-radius: 50%; // Makes the card circular
-  //box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 50%;
   padding: 0.5rem;
-  padding-bottom: 8px;
   width: 80%;
   aspect-ratio: 1 / 1; // Keeps height equal to width
   display: flex;
@@ -58,6 +54,5 @@
   .img {
     width: 80%;
     aspect-ratio: 1 / 1;
-
   }
 }

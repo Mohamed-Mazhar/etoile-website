@@ -1,15 +1,14 @@
 <div class="container-item">
   <div class="item">
-    <div class="customCard">
-      <img alt=""
-           class="img"
-           loading="lazy" [src]= image>
+    <div class="image-container">
+      <img alt="" class="img" loading="lazy" [src]=image>
     </div>
-    <span class="title">{{title}}</span>
-    <span class="subtitle">{{subTitle}}</span>
-    <div class="btn">
-      <span>Add To Card</span>
-    </div>
+    <p class="title">{{ title }}</p>
+    <p class="subtitle">{{ subTitle }}</p>
+    <primary-button
+      [buttonPadding]="0.5"
+      title="Add To Card">
+    </primary-button>
   </div>
 </div>
 

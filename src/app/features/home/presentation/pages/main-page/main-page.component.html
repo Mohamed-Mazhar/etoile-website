@@ -1,12 +1,7 @@
 <div class="scroll-container">
-  <div class="container">
-    <main-products-carousel></main-products-carousel>
-  </div>
 
-
-  <div class="panner-item">
-
-  </div>
+  <main-products-carousel></main-products-carousel>
+  <div class="panner-item"></div>
 
   <div class="panner-item image-container">
     <img class="img-fluid w-100"
@@ -15,24 +10,26 @@
     <div class="overlay"></div>
   </div>
 
+  <desserts
+    [direction]="'right'"
+    [imageSection]="'assets/images/home-asset/bg-section1.png'"
+    [items]="section1"
+    [titleSection]="'OUR ESPEICAL GATEAUX'">
+  </desserts>
 
-  <desserts [direction]="'right'"
-            [imageSection]="'assets/images/home-asset/bg-section1.png'"
-            [items]="section1"
-            [titleSection]="'OUR ESPEICAL GATEAUX'"
-  ></desserts>
+  <desserts
+    [direction]="'left'"
+    [imageSection]="'assets/images/home-asset/bg-section2.png'"
+    [items]="section2"
+    [titleSection]="'BestSeller'">
+  </desserts>
 
-  <desserts [direction]="'left'"
-            [imageSection]="'assets/images/home-asset/bg-section2.png'"
-            [items]="section2"
-            [titleSection]="'BestSeller'"
-  ></desserts>
-
-
-  <div class="panner-item"><img alt="Bakeries"
-                                class="img-fluid w-100"
-                                loading="lazy" src="https://linktsp.blob.core.windows.net/xretoile/355f4491-2a5a-4032-a710-1cc313484648-638473297841348912.png"> <!----></div>
-
+  <div class="panner-item">
+    <img alt="Bakeries"
+         class="img-fluid w-100"
+         loading="lazy"
+         src="https://linktsp.blob.core.windows.net/xretoile/355f4491-2a5a-4032-a710-1cc313484648-638473297841348912.png">
+  </div>
 
   <app-list-scroll-horizontal
     [items]="mostTrendy"
@@ -45,9 +42,6 @@
     [title]="'New Arrival'"
     direction="right">
   </app-list-scroll-horizontal>
-
-
-
 
   <app-scroll-up-btn></app-scroll-up-btn>
 

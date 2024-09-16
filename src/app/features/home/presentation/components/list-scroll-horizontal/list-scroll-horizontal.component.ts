@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -13,24 +13,12 @@ export class ListScrollHorizontalComponent implements OnInit {
   @Input() items: { title: string; subtitle: string; image: string }[] = [];
   @Input() title: string = '';
 
-  constructor() { }
+  constructor() {
+  }
+
   //
   ngOnInit(): void {
   }
-  //
-  // ngAfterViewInit(): void {
-  //   let previousPosition = this.container.nativeElement.scrollLeft
-  //   let currentPosition = this.container.nativeElement.scrollLeft
-  //   setInterval(() => {
-  //     previousPosition = this.container.nativeElement.scrollLeft
-  //     this.container.nativeElement.scrollLeft += 1
-  //     currentPosition = this.container.nativeElement.scrollLeft
-  //     if (previousPosition === currentPosition) {
-  //       this.container.nativeElement.scrollLeft = 0
-  //     }
-  //   }, 50);
-  // }
-
 
 
   @Input() direction: 'left' | 'right' | undefined;
@@ -51,7 +39,7 @@ export class ListScrollHorizontalComponent implements OnInit {
     if (this.scrollInterval) {
       clearInterval(this.scrollInterval);
     }
-    if(this.direction == undefined){
+    if (this.direction == undefined) {
       return
     }
     const scrollStep = this.direction === 'right' ? 1 : -1;
@@ -66,7 +54,7 @@ export class ListScrollHorizontalComponent implements OnInit {
     }, 50);
   }
 
-  isLeft():boolean{
+  isLeft(): boolean {
     return this.direction == "left"
   }
 

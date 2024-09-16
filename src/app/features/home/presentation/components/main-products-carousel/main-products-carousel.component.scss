@@ -1,3 +1,5 @@
+@import "src/app/common/styles/mixin";
+
 .carousel-indicators [data-bs-target] {
   width: 0.875rem;
   height: 0.875rem;
@@ -8,5 +10,14 @@
 .carousel {
   overflow: hidden;
   border-radius: 1rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+  @include res-md-styles {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+  }
+
 }
 
