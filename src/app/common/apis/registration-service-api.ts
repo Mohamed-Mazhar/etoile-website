@@ -15,7 +15,7 @@ export class RegistrationServiceApi {
 
   register(registerCustomerRequest: RegisterCustomerRequest): Observable<void> {
     let splitNameIndex = registerCustomerRequest.userName.indexOf(" ")
-    let firstName = registerCustomerRequest.userName.substring(0, splitNameIndex)
+    let firstName = registerCustomerRequest.userName.substring(0, splitNameIndex !== -1 ? splitNameIndex : registerCustomerRequest.userName.length)
     let lastName = registerCustomerRequest.userName.substring(splitNameIndex + 1)
     let registerRequest: { [key: string]: any } = {
       f_name: firstName,
@@ -31,6 +31,17 @@ export class RegistrationServiceApi {
       apiType: ApiType.registration,
       requestType: RequestType.POST,
       body: registerRequest
+    })
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.login,
+      requestType: RequestType.POST,
+      body: {
+        email: email,
+        password: password
+      }
     })
   }
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {
   FormControl,
   FormGroup,
@@ -32,14 +32,15 @@ export class MobileNumberComponent implements OnInit {
   @Output() onSearchChanged: EventEmitter<any> = new EventEmitter<any>();
 
   control: FormControl = new FormControl();
-  countryControl: FormControl = new FormControl();
+  countryControl: FormControl = new FormControl({value: "+02", disabled: true}, Validators.required);
   loadingTimeout: any;
   countryCode: string = "+20";
   mobileNumber: string = "";
   dropdownOpen: boolean = false;
   selectClicked: boolean = false;
 
-  constructor() {}
+  constructor() {
+  }
 
   // get filteredOptions(): Country[] {
   //   let list = this.list;

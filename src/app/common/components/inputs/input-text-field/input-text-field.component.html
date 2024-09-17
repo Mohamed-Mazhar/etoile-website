@@ -9,7 +9,6 @@
            [ngClass]="isInputValid()"
            placeholder="{{floatingLabel}}"
            [formControl]="control"
-           [(ngModel)]="inputValue"
            (input)="onInputChange($event)"
            [readonly]="isReadOnly"
            [style.background-image]="getBackgroundImageStyle()">
