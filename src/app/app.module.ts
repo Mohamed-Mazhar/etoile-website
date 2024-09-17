@@ -1,3 +1,6 @@
+import './common/extensions/string-extensions';
+import './common/extensions/array-extensions';
+
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 

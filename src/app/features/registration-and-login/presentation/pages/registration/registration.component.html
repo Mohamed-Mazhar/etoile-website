@@ -75,6 +75,7 @@
         <primary-button
           [enabled]="formGroup.valid"
           (onClick)="signup()"
+          [loading]="isLoading"
           [title]="'CREATE_NEW_ACCOUNT' | translate">
         </primary-button>
       </div>

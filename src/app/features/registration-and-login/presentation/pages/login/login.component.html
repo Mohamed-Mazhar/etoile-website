@@ -31,6 +31,7 @@
     <div class="mt-4">
       <primary-button
         (onClick)="login()"
+        [loading]="isLoading"
         [title]="'LOGIN' | translate"
         [enabled]="formGroup.valid">
       </primary-button>
