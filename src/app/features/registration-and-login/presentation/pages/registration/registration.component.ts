@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {RegistrationServiceApi} from "../../../../../common/apis/registration-service-api";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
+import {USER_TOKEN} from "../../../../../common/utils/constants";
+import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
+import {AppEvent} from "../../../../../common/app-events/app-event";
 
 @Component({
   selector: 'app-registration',
@@ -10,16 +13,18 @@ import {RegistrationServiceApi} from "../../../../../common/apis/registration-se
 })
 export class RegistrationComponent implements OnInit {
 
+  @ViewChild('close') closeIcon!: ElementRef
   formGroup: FormGroup = this.fb.group({
     termsAndConditions: [false, Validators.requiredTrue]
   })
   readonly InputType = InputType
   readonly Validators = Validators
   isLoading: boolean = false
+  errorMessage: string | null = null
 
   constructor(
     private fb: FormBuilder,
-    private registrationServiceApi: RegistrationServiceApi
+    private registrationServiceApi: AuthenticationApi
   ) {
   }
 
@@ -27,9 +32,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   signup() {
-    let password = this.formGroup.get('registrationPassword')?.value
-    let confirmPassword = this.formGroup.get('confirmPassword')?.value
-    if (password !== confirmPassword) {
+    let password = this.formGroup.get('registrationPassword')
+    let confirmPassword = this.formGroup.get('confirmPassword')
+    if (password?.value !== confirmPassword?.value) {
       password?.setErrors({missMatch: "Passwords do not match"})
       confirmPassword?.setErrors({missMatch: "Passwords do not match"})
       return
@@ -38,20 +43,28 @@ export class RegistrationComponent implements OnInit {
     let mobileNumber = this.formGroup.get('mobile')?.value
     let email = this.formGroup.get('registrationEmail')?.value
     this.isLoading = true
+    this.errorMessage = null
     this.registrationServiceApi.register({
       email: email,
-      password: password,
+      password: password?.value,
       userName: name,
       phoneNumber: mobileNumber,
       referralCode: null
     }).subscribe({
-      next: (_) => {
+      next: (response) => {
         this.isLoading = false
+        localStorage.setItem(
+          USER_TOKEN,
+          response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
+        )
+        AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+        this.closeIcon.nativeElement.click()
         console.log("Registration success")
       },
       error: (err) => {
         this.isLoading = false
-        console.log("Error received during register", err)
+        this.errorMessage = err
+        // console.log("Error received during register", err)
       }
     })
   }

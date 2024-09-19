@@ -1,0 +1,27 @@
+<div class="checkout-summary-container">
+  <h4>Your Order Summary ({{numberOfItems}} items)</h4>
+  <div class="horizontal-separator"></div>
+  <div class="d-flex justify-content-between">
+    <p>Item Price(s)</p>
+    <p>{{totalPrice / 100}} {{ 'CURRENCY' | translate}}</p>
+  </div>
+  <div class="horizontal-separator"></div>
+  <div class="total-price-container">
+    <p>TOTAL</p>
+    <p>{{totalPrice / 100}} {{ 'CURRENCY' | translate}}</p>
+  </div>
+  <div class="horizontal-separator"></div>
+  <div *ngFor="let cartProductItem of products">
+    <div class="cart-product-item-container">
+      <img [src]="cartProductItem.product.image">
+      <div>
+        <p>{{cartProductItem.product.name}}</p>
+        <p>Quantity ({{cartProductItem.count}})</p>
+      </div>
+      <div class="item-price">
+        <p>{{ cartProductItem.product.price / 100 }} {{ 'CURRENCY' | translate }}</p>
+      </div>
+    </div>
+    <div class="horizontal-separator"></div>
+  </div>
+</div>

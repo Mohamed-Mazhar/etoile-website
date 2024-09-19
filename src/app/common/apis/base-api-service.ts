@@ -5,6 +5,9 @@ import {environment} from "../../../environments/environment";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {ResponseStatusCode} from "../enums/ResponseStatusCode";
+import {USER_TOKEN} from "../utils/constants";
+import {TranslateService} from "@ngx-translate/core";
+import {ApiErrorHandler} from "./api-error-handler";
 
 
 @Injectable({
@@ -17,6 +20,8 @@ export class BaseApiService {
 
   constructor(
     private httpClient: HttpClient,
+    private translate: TranslateService,
+    private apiErrorHandler: ApiErrorHandler
   ) {
     this.getToken()
   }
@@ -34,7 +39,7 @@ export class BaseApiService {
     if (parameters.body === undefined) parameters.body = null;
     if (parameters.listDataUrl === undefined) parameters.listDataUrl = [];
 
-    let url: string = `${this.baseUrl}/${this.version}/${parameters.apiType}`
+    let url: string = `${this.baseUrl}/${parameters.apiType}`
 
     if (parameters.listDataUrl.isNotEmpty()) {
       url = url.format(...parameters.listDataUrl)
@@ -108,7 +113,7 @@ export class BaseApiService {
   }): Observable<HttpHeaders> {
     let headers: HttpHeaders;
 
-    if (this.jwtToken !== null && this.jwtToken !== undefined) {
+    if (this.jwtToken) {
       headers = new HttpHeaders({
         Authorization: `Bearer ${this.jwtToken}`,
       });
@@ -123,9 +128,10 @@ export class BaseApiService {
   }
 
   private getDefaultParameters(body: any): any {
+    let lang = this.translate.currentLang
     return {
       ...body,
-      lang: "en",
+      lang: lang,
     };
   }
 
@@ -151,7 +157,6 @@ export class BaseApiService {
     body?: any
   }): (err: any, caught: Observable<RESPONSE>) => Observable<any> {
     return (error, _) => {
-      console.log(error.error);
       let statusCode = error.status;
       if (
         statusCode == ResponseStatusCode.OK ||
@@ -161,29 +166,14 @@ export class BaseApiService {
         let body = error.error.text;
         return of(body);
       } else {
-        // const processedError = this.errorHandlerService.handleApiError(error);
-
-        // If unauthorized, clear the JWT token for the user to login back again.
-        // if (processedError === ValidationErrorType.UNAUTHORIZED)
-        //   this.clearJWTToken();
-        // Rethrow the error for the component to handle
-        return throwError(() => "processedError");
+        const processedError = this.apiErrorHandler.handleError(error);
+        return throwError(() => processedError);
       }
     };
   }
 
   private getToken() {
-    if (this.jwtToken == undefined) {
-      if (localStorage.getItem("token") && localStorage.getItem("tokenType") && localStorage.getItem("tokenExpiry") && (localStorage.getItem("user") || localStorage.getItem("customer"))) {
-        // this.jwtToken = {
-        //   accessToken: localStorage.getItem("token")!,
-        //   tokenType: localStorage.getItem("tokenType")!,
-        //   expiresIn: parseInt(localStorage.getItem("tokenExpiry")!),
-        //   user: JSON.parse(localStorage.getItem("user")!),
-        //   customer: localStorage.getItem('customer') !== null ? JSON.parse(localStorage.getItem('customer')!) : null
-        // }
-      }
-    }
+    this.jwtToken = localStorage.getItem(USER_TOKEN) ?? ""
   }
 
   saveJWTToken(jwtToken: string) {

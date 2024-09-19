@@ -81,3 +81,19 @@ app-products-filter {
 
 }
 
+.alert-danger {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.form-check-input:checked {
+  background-color: VAR(--primary-color);
+  border-color: VAR(--primary-color);
+}
+
+.form-check-input:focus {
+  border-color: #DAC78CFF;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(195, 162, 65, .25);
+}

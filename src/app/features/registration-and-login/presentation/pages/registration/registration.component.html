@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup">
   <div class="registration-container">
-    <div class="close-icon" data-bs-dismiss="offcanvas">
+    <div #close class="close-icon" data-bs-dismiss="offcanvas">
       <i class="fa fa-times"></i>
     </div>
     <div class="registration-title text-center">
@@ -71,6 +71,7 @@
           </p>
         </label>
       </div>
+      <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
       <div class="mt-lg-4">
         <primary-button
           [enabled]="formGroup.valid"

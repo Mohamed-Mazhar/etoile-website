@@ -48,6 +48,10 @@ import { CartPageComponent } from './features/cart/presentation/pages/cart-page/
 import { CartProductItemComponent } from './features/cart/presentation/components/cart-product-item/cart-product-item.component';
 import { MobileNumberComponent } from "./common/components/inputs/mobile-number/mobile-number.component";
 import { NumericOnlyDirective } from './common/components/inputs/directives/numeric-only.directive';
+import { CheckOutComponent } from './features/check-out/presentation/pages/check-out/check-out.component';
+import { CheckoutOrderSummaryComponent } from './features/check-out/presentation/components/checkout-order-summary/checkout-order-summary.component';
+import { ShippingTabComponent } from './features/check-out/presentation/components/shipping-tab/shipping-tab.component';
+import { PaymentsTabComponent } from './features/check-out/presentation/components/payments-tab/payments-tab.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -90,7 +94,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     CartPageComponent,
     CartProductItemComponent,
     MobileNumberComponent,
-    NumericOnlyDirective
+    NumericOnlyDirective,
+    CheckOutComponent,
+    CheckoutOrderSummaryComponent,
+    ShippingTabComponent,
+    PaymentsTabComponent
   ],
   imports: [
     BrowserModule,

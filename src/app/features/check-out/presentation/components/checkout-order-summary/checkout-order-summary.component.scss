@@ -1,0 +1,37 @@
+.checkout-summary-container {
+  padding: 2rem;
+  background-color: VAR(--gray2);
+  border-radius: 0.5rem;
+}
+
+.total-price-container {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.cart-product-item-container {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+
+  img {
+    width: 7rem;
+  }
+}
+
+.item-price {
+  margin-inline-start: auto;
+
+  p {
+    font-weight: 600;
+  }
+}
+
+.horizontal-separator {
+  background: VAR(--white) !important;
+}
