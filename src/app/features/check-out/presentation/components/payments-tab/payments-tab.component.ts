@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-payments-tab',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentsTabComponent implements OnInit {
 
+  @Output() onPayClicked: EventEmitter<void> = new EventEmitter<void>()
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  moveToConfirm() {
+    this.onPayClicked.emit()
+  }
 }

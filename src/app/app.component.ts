@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,16 @@ import {TranslateService} from "@ngx-translate/core";
 export class AppComponent {
   title = 'etoile-website';
 
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (!(event instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+    });
     this.translate.setDefaultLang("en")
     this.translate.use("en")
     this.translate.onLangChange.subscribe((event) => {

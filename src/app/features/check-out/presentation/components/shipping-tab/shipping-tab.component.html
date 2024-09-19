@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="addresses-container">
-    <input class="mt-2" type="radio">
+    <input class="mt-2" type="radio" checked>
     <div>
       <p>Maadi</p>
       <p>Mohamed Mazhar</p>
@@ -20,6 +20,7 @@
   </div>
   <div class="payment-button">
     <primary-button
+      (onClick)="moveToPayment()"
       [buttonPadding]="0.5"
       title="Proceed to payment">
     </primary-button>

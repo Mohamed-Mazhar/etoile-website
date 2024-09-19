@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckOutComponent implements OnInit {
 
+  activeTab = 'shipping'
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  moveToPayment() {
+    this.activeTab = 'payment'
+  }
+
+  moveToConfirm() {
+    this.activeTab = 'confirm'
+  }
 }
