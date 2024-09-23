@@ -183,5 +183,6 @@
   "PRODUCT_ASC": "الترتيب من ا الي ي",
   "PRODUCT_DESC": "الترتيب من ي الي ا",
   "PRICE_HIGHEST": "الاعلي سعرا",
-  "PRICE_LOWEST": "الاقل سعرا"
+  "PRICE_LOWEST": "الاقل سعرا",
+  "WELCOME_USER": "مرحبا"
 }
