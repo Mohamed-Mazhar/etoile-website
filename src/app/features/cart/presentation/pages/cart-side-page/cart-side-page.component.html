@@ -9,7 +9,12 @@
     <cart-side-item *ngFor="let cartProduct of cartProducts" [cartProduct]="cartProduct"></cart-side-item>
   </div>
 
-  <div class="action-buttons">
+  <div class="empty-cart" *ngIf="cartProducts.isEmpty()">
+    <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
+    <p>You're Cart is Empty</p>
+  </div>
+
+  <div class="action-buttons" *ngIf="cartProducts.isNotEmpty()">
     <div class="price-container">
       <p>Sub Total</p>
       <p>{{ totalPrice / 100}} {{ 'CURRENCY' | translate }}</p>

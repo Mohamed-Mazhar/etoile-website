@@ -183,5 +183,6 @@
   "PRODUCT_ASC": "Product Name A-Z",
   "PRODUCT_DESC": "Product Name Z-A",
   "PRICE_HIGHEST": "Highest Price",
-  "PRICE_LOWEST": "Lowest Price"
+  "PRICE_LOWEST": "Lowest Price",
+  "WELCOME_USER": "Welcome"
 }

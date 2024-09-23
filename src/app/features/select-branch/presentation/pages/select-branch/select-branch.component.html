@@ -11,19 +11,19 @@
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
-            {{ selectBranch }}
+            {{ selectedBranch?.name ?? 'Select branch'}}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <form [formGroup]="form">
               <input type="text" formControlName="search" class="form-control search-field"
                      [placeholder]="'SEARCH_FOR' | translate">
             </form>
-            <li class="mt-2" *ngFor="let zone of zones" (click)="setBranch(zone)">
-              <p class="dropdown-item">{{ zone }}</p>
+            <li class="mt-2" *ngFor="let branch of filteredBranches" (click)="setBranch(branch)">
+              <p class="dropdown-item">{{ branch.name }}</p>
             </li>
           </ul>
         </div>
-        <div class="btn search-button" [ngClass]="isDisabled()">
+        <div class="btn search-button" (click)="goToHome()">
           <p>{{ 'CHOOSE' | translate }}</p>
         </div>
       </div>

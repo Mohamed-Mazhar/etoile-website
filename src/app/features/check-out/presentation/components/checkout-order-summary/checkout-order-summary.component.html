@@ -19,7 +19,7 @@
         <p>Quantity ({{cartProductItem.count}})</p>
       </div>
       <div class="item-price">
-        <p>{{ cartProductItem.product.price / 100 }} {{ 'CURRENCY' | translate }}</p>
+        <p>{{ cartProductItem.product.price! / 100 }} {{ 'CURRENCY' | translate }}</p>
       </div>
     </div>
     <div class="horizontal-separator"></div>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
+import {Category} from "../../data-classes/Category";
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @Input() categories: Category[] = []
 
   currentLanguage = "en"
   constructor(
@@ -22,7 +25,6 @@ export class HeaderComponent implements OnInit {
   }
 
   changeLanguage(language: string) {
-    console.log("Change language to ", language)
     this.translate.use(language)
   }
 

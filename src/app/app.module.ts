@@ -35,7 +35,6 @@ import { DessertsComponent } from './features/home/presentation/components/desse
 import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
 
 import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
-import { ProductComponent } from './common/components/product/product.component';
 import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
 import { ProductsFilterComponent } from './features/products-list/presentation/components/products-filter/products-filter.component';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
@@ -52,6 +51,7 @@ import { CheckOutComponent } from './features/check-out/presentation/pages/check
 import { CheckoutOrderSummaryComponent } from './features/check-out/presentation/components/checkout-order-summary/checkout-order-summary.component';
 import { ShippingTabComponent } from './features/check-out/presentation/components/shipping-tab/shipping-tab.component';
 import { PaymentsTabComponent } from './features/check-out/presentation/components/payments-tab/payments-tab.component';
+import { LoadingComponent } from './common/components/loading/loading.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -83,7 +83,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DessertsComponent,
     DessertItemComponent,
     ScrollUpBtnComponent,
-    ProductComponent,
     ProductsComponent,
     ProductsFilterComponent,
     CartSidePageComponent,
@@ -98,7 +97,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CheckOutComponent,
     CheckoutOrderSummaryComponent,
     ShippingTabComponent,
-    PaymentsTabComponent
+    PaymentsTabComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

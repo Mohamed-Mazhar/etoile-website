@@ -23,7 +23,6 @@ export class BaseApiService {
     private translate: TranslateService,
     private apiErrorHandler: ApiErrorHandler
   ) {
-    this.getToken()
   }
 
   call<REQUEST, RESPONSE>(parameters: {
@@ -112,7 +111,7 @@ export class BaseApiService {
     isPostRequest: boolean;
   }): Observable<HttpHeaders> {
     let headers: HttpHeaders;
-
+    this.getToken()
     if (this.jwtToken) {
       headers = new HttpHeaders({
         Authorization: `Bearer ${this.jwtToken}`,

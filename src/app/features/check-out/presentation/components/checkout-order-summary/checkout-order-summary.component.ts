@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
-import {Product} from "../../../../../common/data-classes/Product";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
 
 @Component({
@@ -22,7 +21,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
       next: (products) => {
         for (let cartProduct of products) {
           this.numberOfItems += cartProduct.count
-          this.totalPrice += (cartProduct.count * cartProduct.product.price)
+          this.totalPrice += (cartProduct.count * cartProduct.product.price!)
           this.products.push(cartProduct)
         }
     }

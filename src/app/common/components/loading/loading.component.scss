@@ -1,0 +1,69 @@
+@keyframes e {
+  0% {
+    background-color: VAR(--primary-color);
+  }
+
+  100% {
+    background-color: VAR(--black);
+  }
+}
+
+.loading-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: VAR(--white);
+  display: flex;
+  justify-content: center;
+}
+
+.loading-spinner {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.circle-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.circle2 {
+  animation-delay: .2s;
+}
+
+.circle3 {
+  animation-delay: .4s;
+}
+
+.circle4 {
+  animation-delay: .6s;
+}
+
+.circle5 {
+  animation-delay: .8s;
+}
+
+.circle6 {
+  animation-delay: 1s;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary-color);
+  margin: 19px 6px;
+  animation-duration: 1.2s;
+  animation-name: e;
+  animation-iteration-count: infinite;
+}

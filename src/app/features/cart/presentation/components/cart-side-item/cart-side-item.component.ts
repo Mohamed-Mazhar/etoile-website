@@ -21,6 +21,5 @@ export class CartSideItemComponent implements OnInit {
 
   removeProduct(cartProduct: CartProductItem) {
     this.cartProductsService.cartProductToRemove.next(cartProduct)
-    console.log("Removed product", cartProduct)
   }
 }

@@ -35,7 +35,7 @@ export class AuthenticationApi {
     }).pipe(
       map((response: { [key: string]: any }) => {
           return {
-            token: response['temporary'],
+            token: response['token'],
             temporaryToken: response['temporary_token']
           }
         }
@@ -55,7 +55,7 @@ export class AuthenticationApi {
     }).pipe(
       map((response: { [key: string]: any }) => {
           return {
-            token: response['temporary'],
+            token: response['token'],
             temporaryToken: response['temporary_token']
           }
         }

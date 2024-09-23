@@ -2,9 +2,10 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 
 @Component({
   selector: 'app-registration',
@@ -24,7 +25,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private registrationServiceApi: AuthenticationApi
+    private registrationServiceApi: AuthenticationApi,
+    private userProfileApi: UserProfileApi
   ) {
   }
 
@@ -57,14 +59,32 @@ export class RegistrationComponent implements OnInit {
           USER_TOKEN,
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
-        AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
-        this.closeIcon.nativeElement.click()
-        console.log("Registration success")
+        if (response.token) {
+          this.getUserInfo()
+        } else {
+          this.closeIcon.nativeElement.click()
+        }
       },
       error: (err) => {
         this.isLoading = false
         this.errorMessage = err
         // console.log("Error received during register", err)
+      }
+    })
+  }
+
+  getUserInfo(): void {
+    this.isLoading = true
+    this.userProfileApi.getUserProfile().subscribe({
+      next: (response) => {
+        this.closeIcon.nativeElement.click()
+        this.isLoading = false
+        localStorage.setItem(USER_INFO, JSON.stringify(response))
+        AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+      },
+      error: (err) => {
+        this.isLoading = false
+        this.errorMessage = err
       }
     })
   }

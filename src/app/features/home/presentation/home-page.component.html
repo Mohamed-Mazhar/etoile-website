@@ -1,4 +1,5 @@
 <div class="home-page-container">
+  <app-loading [loadingData]="loadingData"></app-loading>
   <div class="contact-info-container">
     <a href="tel:16312" class="contact-item-details">
       <i class="fas fa-phone-volume"></i>
@@ -13,7 +14,7 @@
       <p>{{ 'EASY_PAYMENT_METHODS' | translate }}</p>
     </div>
   </div>
-  <app-header></app-header>
+  <app-header [categories]="categories"></app-header>
   <router-outlet></router-outlet>
   <app-footer></app-footer>
   <app-scroll-up-btn></app-scroll-up-btn>

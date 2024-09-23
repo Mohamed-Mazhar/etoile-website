@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {BannerModel} from "../../../../../common/data-classes/BannerModel";
 
 @Component({
   selector: 'main-products-carousel',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainProductsCarouselComponent implements OnInit {
 
-  constructor() { }
+  @Input() banners: BannerModel[] = []
+  @Input() bannersUrl: string = ""
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+
+  }
+
+  getImage(imageUrl: string): string {
+    return this.bannersUrl + "/" + imageUrl
   }
 
 }

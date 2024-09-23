@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {Branch} from "../../../../../common/data-classes/ConfigModel";
+import {SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-select-branch',
@@ -9,32 +13,50 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class SelectBranchComponent implements OnInit {
 
-  selectBranch: string = ""
+  selectedBranch: Branch | null = null
   searchText: string = ""
   form: FormGroup = this.fb.group({
     'search': ['']
   })
-  zones = ['Maadi', 'Nasr city', 'Korba', 'Faisal', 'Haram', 'Imbaba']
+  branches: Branch[] = []
+  filteredBranches: Branch[] = []
 
   constructor(
     private translate: TranslateService,
     private fb: FormBuilder,
+    private configModelService: ConfigModelService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.selectBranch = this.translate.instant('CHOOSE_ZONE_LABEL')
     this.form.get('search')?.valueChanges.subscribe(text => {
       this.searchText = text
+      if (!this.searchText.hasActualValue()) {
+        this.filteredBranches = this.branches
+      } else {
+        this.filteredBranches = this.branches.filter((branch) => {
+          return branch.name?.includes(this.searchText)
+        })
+      }
+    })
+    this.configModelService.configModelSubject.subscribe({
+      next: (response) => {
+        this.branches = response?.branches ?? []
+        this.filteredBranches = this.branches
+      }
     })
   }
 
-  setBranch(name: string) {
-    this.selectBranch = name
+  setBranch(branch: Branch) {
+    this.selectedBranch = branch
   }
 
-  isDisabled(): string {
-    return this.selectBranch !== 'Select branch' ? '' : 'disabled'
+  goToHome() {
+    if (this.selectedBranch !== null) {
+      localStorage.setItem(SELECTED_BRANCH, JSON.stringify(this.selectedBranch))
+      this.router.navigate(['/']).then()
+    }
   }
 
 }

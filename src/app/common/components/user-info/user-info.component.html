@@ -1,12 +1,28 @@
 <div class="user-info-container">
   <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
-       aria-controls="loginView">
+       aria-controls="loginView" *ngIf="userInfo === null">
     <i class="fas fa-user icon-size"></i>
     <p>{{ 'LOGIN' | translate }}</p>
   </div>
-  <div class="vertical-separator"></div>
+  <div class="user-info-item-container" id="userOptions" aria-haspopup="true" data-bs-toggle="dropdown" *ngIf="userInfo !== null">
+    <i class="fas fa-user icon-size"></i>
+    <div class="d-flex align-items-center">
+      <p>{{ 'WELCOME_USER' | translate }}, </p>
+      <p class="username">{{ userInfo.fName }}</p>
+    </div>
+    <div class="dropdown-menu" aria-labelledby="userOptions">
+      <div class="dropdown-item d-flex align-items-baseline clickable">
+        <i class="fas fa-user icon-size me-2"></i>
+        <p>Profile</p>
+      </div>
+      <div class="logout-button clickable" (click)="logout()">
+        <p>Logout</p>
+      </div>
+    </div>
+  </div>
+  <div class="vertical-separator" *ngIf="userInfo === null"></div>
   <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
-       aria-controls="registrationView">
+       aria-controls="registrationView" *ngIf="userInfo === null">
     <p>{{ 'REGISTER' | translate }}</p>
   </div>
   <div class="vertical-separator"></div>
@@ -18,8 +34,8 @@
   <div class="vertical-separator"></div>
   <div class="user-info-item-container">
     <i class="fas fa-map-marker-alt ml-1 mr-1 icon-size"></i>
-    <p>Maadi</p>
-    <a routerLink="/zone">{{ 'CHANGE' | translate }}</a>
+    <p>{{ this.selectedBranch?.name ?? '' }}</p>
+    <a routerLink="/branch">{{ 'CHANGE' | translate }}</a>
   </div>
 </div>
 
@@ -28,7 +44,8 @@
   <app-login></app-login>
 </div>
 
-<div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="registrationView" aria-labelledby="registrationViewLabel">
+<div class="offcanvas offcanvas-start canvas-width" tabindex="-1" id="registrationView"
+     aria-labelledby="registrationViewLabel">
   <app-registration></app-registration>
 </div>
 

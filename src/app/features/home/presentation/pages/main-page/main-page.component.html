@@ -1,6 +1,5 @@
 <div class="scroll-container">
-
-  <main-products-carousel></main-products-carousel>
+  <main-products-carousel *ngIf="banners.isNotEmpty()" [banners]="banners" [bannersUrl]="configModel?.baseUrls?.bannerImageUrl ?? ''"></main-products-carousel>
   <div class="panner-item"></div>
 
   <div class="panner-item image-container">
@@ -31,14 +30,14 @@
          src="https://linktsp.blob.core.windows.net/xretoile/355f4491-2a5a-4032-a710-1cc313484648-638473297841348912.png">
   </div>
 
-  <app-list-scroll-horizontal
-    [items]="mostTrendy"
+  <app-list-scroll-horizontal *ngIf="popularProducts !== null && popularProducts!.products!.isNotEmpty()"
+    [items]="popularProducts"
     [title]="'Most Trendy'"
     direction="left">
   </app-list-scroll-horizontal>
 
-  <app-list-scroll-horizontal
-    [items]="newArrival"
+  <app-list-scroll-horizontal *ngIf="latestProducts !== null && latestProducts!.products!.isNotEmpty()"
+    [items]="latestProducts"
     [title]="'New Arrival'"
     direction="right">
   </app-list-scroll-horizontal>

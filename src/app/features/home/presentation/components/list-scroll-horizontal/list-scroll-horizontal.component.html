@@ -5,10 +5,10 @@
   <div class="featured-items-container" #featuredItemsContainer>
     <app-product-item
       class="item-width"
-      *ngFor="let item of items"
-      [title]= item.title
-      [subTitle] = item.subtitle
-      [image] = item.image>
+      *ngFor="let item of items.products"
+      [title]= 'item.name ?? ""'
+      [subTitle] = 'item.price?.toString() ?? ""'
+      [image] = 'item.image ?? ""'>
     </app-product-item>
   </div>
 <!--</div>-->

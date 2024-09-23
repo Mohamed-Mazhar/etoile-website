@@ -1,4 +1,5 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ProductModel} from "../../../../../common/data-classes/ProductModel";
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -10,7 +11,7 @@ export class ListScrollHorizontalComponent implements OnInit {
   @ViewChild('featuredItemsContainer') container!: ElementRef;
 
   // Input property to accept items from the parent component
-  @Input() items: { title: string; subtitle: string; image: string }[] = [];
+  @Input() items!: ProductModel
   @Input() title: string = '';
 
   constructor() {

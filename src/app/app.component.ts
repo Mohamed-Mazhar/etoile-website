@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {NavigationEnd, Router} from "@angular/router";
+import {SplashApi} from "./common/apis/splash-api";
+import {ConfigModelService} from "./common/services/config-model.service";
+import {SELECTED_BRANCH} from "./common/utils/constants";
+import {Branch} from "./common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,9 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private splashApi: SplashApi,
+    private configModelService: ConfigModelService
   ) {
     this.router.events.subscribe((event) => {
       if (!(event instanceof NavigationEnd)) {
@@ -26,6 +32,14 @@ export class AppComponent {
       this.setDirection(event.lang);
       this.translate.use(event.lang)
     });
+    this.splashApi.getAppConfigurations().subscribe({
+      next:(res) => {
+        this.configModelService.setConfigModel(res)
+      }
+    })
+    if (localStorage.getItem(SELECTED_BRANCH) === null) {
+      this.router.navigate(['/branch']).then()
+    }
   }
 
   setDirection(lang: string) {

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {FormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_TOKEN} from "../../../../../common/utils/constants";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   readonly InputType = InputType;
   readonly Validators = Validators;
+  @ViewChild('close') closeIcon!: ElementRef
   formGroup: FormGroup = new FormGroup({})
   isLoading: boolean = false
   errorMessage: string | null = null
@@ -42,28 +43,35 @@ export class LoginComponent implements OnInit {
     this.registrationServiceApi.login(email, password).subscribe({
       next: (response) => {
         this.isLoading = false
-        console.log("Returned response from login", response)
         localStorage.setItem(
           USER_TOKEN,
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
         if (response.token) {
-          // this.getUserInfo()
-          AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+          this.getUserInfo()
+        } else {
+          this.closeIcon.nativeElement.click()
         }
       },
       error: (err) => {
         this.isLoading = false
-        console.log("Error received inside login", err)
         this.errorMessage = err
       }
     })
   }
 
   getUserInfo(): void {
+    this.isLoading = true
     this.userProfileApi.getUserProfile().subscribe({
       next: (response) => {
-
+        this.closeIcon.nativeElement.click()
+        this.isLoading = false
+        localStorage.setItem(USER_INFO, JSON.stringify(response))
+        AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+      },
+      error: (err) => {
+        this.isLoading = false
+        this.errorMessage = err
       }
     })
   }
