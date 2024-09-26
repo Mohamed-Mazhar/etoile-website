@@ -11,5 +11,8 @@ export enum ApiType {
   latestProducts = "api/v1/products/latest",
   popularProducts = "api/v1/products/popular",
   recommendedProducts = "api/v1/products/recommended",
-  frequentlyBought = "api/v1/products/frequently-bought"
+  frequentlyBought = "api/v1/products/frequently-bought",
+  getAddresses = "api/v1/customer/address/list",
+  getUserOrders = "api/v1/customer/order/list",
+  getOrderDetails = "api/v1/customer/order/details"
 }

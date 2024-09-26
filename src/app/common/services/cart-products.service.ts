@@ -7,13 +7,14 @@ import {BehaviorSubject} from "rxjs";
 })
 export class CartProductsService {
 
-  private cartProducts: CartProductItem[] =  []
+  private cartProducts: CartProductItem[] = []
 
   public cartProductToRemove = new BehaviorSubject<CartProductItem | null>(null)
 
   public cartProductsSubject = new BehaviorSubject<CartProductItem[]>(this.cartProducts)
 
   constructor() {
+
   }
 
   public addProduct(cartProduct: CartProductItem) {

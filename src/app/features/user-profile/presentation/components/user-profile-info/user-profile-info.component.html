@@ -1,0 +1,39 @@
+<div class="user-profile-info-container">
+  <input-text-field
+    [group]="formGroup"
+    class="items-width"
+    id="userName"
+    [floatingLabel]="'NAME' | translate"
+    title="Name">
+  </input-text-field>
+  <input-text-field
+    [group]="formGroup"
+    class="items-width"
+    id="email"
+    [floatingLabel]="'EMAIL' | translate"
+    [inputType]="InputType.email"
+    title="Email">
+  </input-text-field>
+  <div class="d-flex gap-2 w-100">
+    <input-text-field
+      [group]="formGroup"
+      class="flex-grow-1"
+      [floatingLabel]="'PASSWORD' | translate"
+      [inputType]="InputType.password"
+      id="password"
+      title="Password">
+    </input-text-field>
+    <primary-button
+      (onClick)="changePassword()"
+      title="Change">
+    </primary-button>
+  </div>
+  <mobile-number
+    mobileNumberId="mobileNumber"
+    [group]="formGroup"
+    class="w-100">
+  </mobile-number>
+  <primary-button
+    (onClick)="saveChanges()"
+    title="Save changes"></primary-button>
+</div>

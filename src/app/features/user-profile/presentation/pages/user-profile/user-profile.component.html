@@ -1,0 +1,49 @@
+<div class="container">
+  <app-loading [loadingData]="loading"></app-loading>
+  <div class="user-profile-header">
+    <h3>{{ 'WELCOME_USER' | translate }}, <span>{{ getUserName() }}</span></h3>
+    <p>{{ 'NUMBER_OF_ORDERS' | translate }} <span>12</span></p>
+  </div>
+  <div class="user-profile-tabs-container">
+    <div class="nav">
+      <div class="nav-item active"
+           data-bs-target="#profile"
+           data-bs-toggle='tab'>
+        <i class="fas fa-user"></i>
+        <p>{{ 'PROFILE' | translate }}</p>
+      </div>
+      <div class="nav-item"
+           data-bs-target="#address"
+           data-bs-toggle='tab'>
+        <i class="fas fa-address-book"></i>
+        <p>{{ 'ADDRESS' | translate }}</p>
+      </div>
+      <div class="nav-item"
+           data-bs-target="#myOrders"
+           data-bs-toggle='tab'>
+        <i class="fas fa-box-open"></i>
+        <p>{{ 'MY_ORDERS' | translate }}</p>
+      </div>
+      <div class="nav-item"
+           data-bs-target="#complaints"
+           data-bs-toggle='tab'>
+        <i class="fas fa-list-dots"></i>
+        <p>Complaints</p>
+      </div>
+    </div>
+    <div class="tab-content">
+      <div class='tab-pane container fade active show' id='profile' *ngIf="userInfo !==null">
+        <app-user-profile-info [userInfo]="userInfo"></app-user-profile-info>
+      </div>
+      <div class='tab-pane container' id='address'>
+        <app-user-addresses [addresses]="userAddress"></app-user-addresses>
+      </div>
+      <div class='tab-pane container' id='myOrders'>
+        <app-user-orders [orders]="userOrders"></app-user-orders>
+      </div>
+      <div class='tab-pane container' id='complaints'>
+        <app-user-complaints></app-user-complaints>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TranslateService} from "@ngx-translate/core";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {Branch} from "../../../../../common/data-classes/ConfigModel";
@@ -22,7 +21,6 @@ export class SelectBranchComponent implements OnInit {
   filteredBranches: Branch[] = []
 
   constructor(
-    private translate: TranslateService,
     private fb: FormBuilder,
     private configModelService: ConfigModelService,
     private router: Router

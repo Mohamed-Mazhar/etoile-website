@@ -184,5 +184,9 @@
   "PRODUCT_DESC": "الترتيب من ي الي ا",
   "PRICE_HIGHEST": "الاعلي سعرا",
   "PRICE_LOWEST": "الاقل سعرا",
-  "WELCOME_USER": "مرحبا"
+  "WELCOME_USER": "مرحبا",
+  "PROFILE": "حساب تعريفي",
+  "ADDRESS": "العنوان",
+  "MY_ORDERS": "الطلبات",
+  "NUMBER_OF_ORDERS": "عدد الطلبات هذا الشهر:"
 }

@@ -184,5 +184,20 @@
   "PRODUCT_DESC": "الترتيب من ي الي ا",
   "PRICE_HIGHEST": "الاعلي سعرا",
   "PRICE_LOWEST": "الاقل سعرا",
-  "WELCOME_USER": "مرحبا"
+  "WELCOME_USER": "مرحبا",
+  "PROFILE": "حساب تعريفي",
+  "ADDRESS": "العنوان",
+  "MY_ORDERS": "الطلبات",
+  "NUMBER_OF_ORDERS": "عدد الطلبات هذا الشهر:",
+  "MY_DEFAULT_ADDRESS": "هذا هو عنواني الافتراضي",
+  "SET_AS_DEFAULT": "اختر كعنوان افتراضي",
+  "EDIT": "تعديل",
+  "REMOVE": "إزالة",
+  "EMPTY_ADDRESSES": "دفتر العناوين فارغ",
+  "ORDER_NO": "رقم الطلب",
+  "TOTAL": "الاجمالي",
+  "DATE": "التاريخ",
+  "STATUS": "الحاله",
+  "NO_ORDERS": "ليس لديك لي طلبات مسجله!",
+  "MAKE_NEW_ORDER": "طلب جديد"
 }

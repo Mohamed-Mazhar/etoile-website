@@ -1,0 +1,33 @@
+<div class="orders-container">
+  <div *ngIf="orders.isNotEmpty()">
+    <div class="order-details-container" *ngFor="let order of orders">
+      <div class="order-item-container">
+        <p>{{ 'ORDER_NO' | translate }}</p>
+        <p>{{ order.id }}</p>
+      </div>
+      <div class="horizontal-separator"></div>
+      <div class="order-item-container">
+        <p>{{ 'TOTAL' | translate }}</p>
+        <p>{{ (order.orderAmount ?? 0) / 100 }} {{ 'CURRENCY' | translate }}</p>
+      </div>
+      <div class="horizontal-separator"></div>
+      <div class="order-item-container">
+        <p>{{ 'DATE' | translate }}</p>
+        <p>{{ order.createdAt | date }}</p>
+      </div>
+      <div class="horizontal-separator"></div>
+      <div class="order-item-container">
+        <p>{{ 'STATUS' | translate }}</p>
+        <p>{{ order.orderStatus }}</p>
+      </div>
+      <div class="horizontal-separator"></div>
+      <div class="ps-2 pe-2">
+        <primary-button [buttonPadding]="0.5" title="View order details"></primary-button>
+      </div>
+    </div>
+  </div>
+  <div class="empty-orders-container" *ngIf="orders.isEmpty()">
+    <p>{{ 'NO_ORDERS' | translate }}</p>
+    <primary-button routerLink="/" [title]="'MAKE_NEW_ORDER' | translate" [buttonPadding]="0.5"></primary-button>
+  </div>
+</div>

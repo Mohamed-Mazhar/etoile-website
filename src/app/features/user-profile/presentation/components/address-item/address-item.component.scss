@@ -1,0 +1,17 @@
+.address-item-container {
+  padding: 1rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  border-radius: 1rem;
+  text-align: start;
+}
+
+.address-actions-container {
+  display: flex;
+}
+
+.set-as-default {
+  text-decoration: underline;
+  text-decoration-color: VAR(--primary-dark-color);
+  color: VAR(--primary-color);
+  cursor: pointer;
+}

@@ -1,0 +1,10 @@
+<div class="user-addresses-container">
+  <div class="text-center" *ngIf="addresses.isEmpty()">
+    <img src="https://etoileeg.online/public/Content/images/empty-address.png" loading="lazy">
+    <p>{{ 'EMPTY_ADDRESSES' | translate }}</p>
+    <primary-button
+      [buttonPadding]="0.5"
+      title="Add new address">
+    </primary-button>
+  </div>
+</div>

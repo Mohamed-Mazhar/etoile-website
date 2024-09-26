@@ -52,6 +52,12 @@ import { CheckoutOrderSummaryComponent } from './features/check-out/presentation
 import { ShippingTabComponent } from './features/check-out/presentation/components/shipping-tab/shipping-tab.component';
 import { PaymentsTabComponent } from './features/check-out/presentation/components/payments-tab/payments-tab.component';
 import { LoadingComponent } from './common/components/loading/loading.component';
+import { UserProfileComponent } from './features/user-profile/presentation/pages/user-profile/user-profile.component';
+import { UserAddressesComponent } from './features/user-profile/presentation/components/user-addresses/user-addresses.component';
+import { UserOrdersComponent } from './features/user-profile/presentation/components/user-orders/user-orders.component';
+import { UserComplaintsComponent } from './features/user-profile/presentation/components/user-complaints/user-complaints.component';
+import { UserProfileInfoComponent } from './features/user-profile/presentation/components/user-profile-info/user-profile-info.component';
+import { AddressItemComponent } from './features/user-profile/presentation/components/address-item/address-item.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -98,7 +104,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     CheckoutOrderSummaryComponent,
     ShippingTabComponent,
     PaymentsTabComponent,
-    LoadingComponent
+    LoadingComponent,
+    UserProfileComponent,
+    UserAddressesComponent,
+    UserOrdersComponent,
+    UserComplaintsComponent,
+    UserProfileInfoComponent,
+    AddressItemComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +128,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgxSliderModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

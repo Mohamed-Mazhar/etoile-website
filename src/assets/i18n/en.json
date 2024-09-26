@@ -184,5 +184,20 @@
   "PRODUCT_DESC": "Product Name Z-A",
   "PRICE_HIGHEST": "Highest Price",
   "PRICE_LOWEST": "Lowest Price",
-  "WELCOME_USER": "Welcome"
+  "WELCOME_USER": "Welcome",
+  "PROFILE": "Profile",
+  "ADDRESS": "Address",
+  "MY_ORDERS": "My Orders",
+  "NUMBER_OF_ORDERS": "Number of Orders this month:",
+  "MY_DEFAULT_ADDRESS": "This is my default address",
+  "SET_AS_DEFAULT": "Select as default address",
+  "EDIT": "Edit",
+  "REMOVE": "Remove",
+  "EMPTY_ADDRESSES": "Address book is empty",
+  "ORDER_NO": "Order number",
+  "TOTAL": "Total",
+  "DATE": "Date",
+  "STATUS": "Status",
+  "NO_ORDERS": "You have no orders!",
+  "MAKE_NEW_ORDER": "Make new order"
 }

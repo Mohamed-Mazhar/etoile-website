@@ -1,0 +1,43 @@
+.user-profile-header {
+  text-align: center;
+
+  span {
+    color: VAR(--primary-color);
+    font-weight: 600;
+  }
+}
+
+.user-profile-tabs-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-top: 2rem;
+  height: fit-content;
+  row-gap: 1rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, .16);
+  justify-content: space-between;
+  padding: 1rem;
+  flex-grow: 1;
+  height: fit-content;
+}
+
+.nav-item {
+  text-align: center;
+  cursor: pointer;
+  i {
+    font-size: 2rem;
+    color: VAR(--primary-color);
+  }
+}
+
+.active {
+  p {
+    color: VAR(--primary-color) !important;
+    font-weight: 600 !important ;
+  }
+}

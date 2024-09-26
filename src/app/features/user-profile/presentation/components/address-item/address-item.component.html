@@ -1,0 +1,23 @@
+<div class="address-item-container">
+  <div class="full-address">
+    <p>{{ address.address }}</p>
+  </div>
+  <p>{{ address.contactPersonName }}</p>
+  <p>{{ address.addressType }}</p>
+  <p>{{ address.contactPersonNumber }}</p>
+  <div class="d-flex">
+    <i class="fas fa-home" *ngIf="address.isDefault"></i>
+    <p *ngIf="address.isDefault">{{ 'MY_DEFAULT_ADDRESS' | translate }}</p>
+    <div class="set-as-default" *ngIf="!address.isDefault">
+      <p>{{ 'SET_AS_DEFAULT'| translate }}</p>
+    </div>
+    <div class="d-flex ms-auto">
+      <div class="d-flex">
+        <i class="fas fa-user-edit">{{ 'EDIT' | translate }}</i>
+      </div>
+      <div *ngIf="!address.isDefault">
+        <i class="fas fa-trash">{{ 'REMOVE' | translate }}</i>
+      </div>
+    </div>
+  </div>
+</div>

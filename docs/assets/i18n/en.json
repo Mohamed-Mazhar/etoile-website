@@ -184,5 +184,9 @@
   "PRODUCT_DESC": "Product Name Z-A",
   "PRICE_HIGHEST": "Highest Price",
   "PRICE_LOWEST": "Lowest Price",
-  "WELCOME_USER": "Welcome"
+  "WELCOME_USER": "Welcome",
+  "PROFILE": "Profile",
+  "ADDRESS": "Address",
+  "MY_ORDERS": "My Orders",
+  "NUMBER_OF_ORDERS": "Number of Orders this month:"
 }
