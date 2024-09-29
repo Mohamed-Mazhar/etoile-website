@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {catchError, map, mergeMap, Observable, of, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {ApiType} from "../enums/ApiType";
@@ -54,51 +54,42 @@ export class BaseApiService {
 
     let request = this.getDefaultParameters(parameters.body);
     console.log("Api request ===> " + url + " " + JSON.stringify(request));
-    let response: Observable<HttpResponse<RESPONSE>>;
-    if (parameters.requestType === RequestType.POST) {
-      response = this.getRequestHeaders({
-        isPostRequest: true,
-      }).pipe(
-        mergeMap((headers) => {
-          if (parameters.requestType === RequestType.POST) {
-            return this.httpClient.post<RESPONSE>(url!, request, {
-              observe: "response",
-              headers: headers!,
-              context: undefined,
-            });
-          } else if (parameters.requestType === RequestType.UPDATE) {
-            return this.httpClient.put<RESPONSE>(url!, request, { // Modified this line
-              observe: "response",
-              headers: headers!,
-              context: undefined,
-            });
-          } else if (parameters.requestType === RequestType.DELETE) {
-            return this.httpClient.delete<RESPONSE>(url!, {
-              observe: "response",
-              headers: headers!,
-              context: undefined,
-            });
-          } else {
-            throw "";
-          }
+    let response: Observable<HttpResponse<RESPONSE>>
+    if (parameters.requestType !== RequestType.GET) {
+      let headers = this.getRequestHeaders({isPostRequest: false})
+      if (parameters.requestType === RequestType.POST) {
+        response = this.httpClient.post<RESPONSE>(url!, request, {
+          observe: "response",
+          headers: headers!,
+          context: undefined,
         })
-      );
+      } else if (parameters.requestType === RequestType.UPDATE) {
+        response = this.httpClient.put<RESPONSE>(url!, request, { // Modified this line
+          observe: "response",
+          headers: headers!,
+          context: undefined,
+        })
+      } else if (parameters.requestType === RequestType.DELETE) {
+        response = this.httpClient.delete<RESPONSE>(url!, {
+          observe: "response",
+          headers: headers!,
+          context: undefined,
+        })
+      } else {
+        throw ""
+      }
     } else {
       const queryParameters = new URLSearchParams(request).toString();
       let urlWithParameters: string = `${url}?${queryParameters}`;
-      response = this.getRequestHeaders({
+      let headers = this.getRequestHeaders({
         isPostRequest: false,
-      }).pipe(
-        mergeMap((headers) =>
-          this.httpClient.get<RESPONSE>(urlWithParameters, {
-            observe: "response",
-            headers: headers,
-            context: undefined,
-          })
-        )
-      );
+      })
+      response = this.httpClient.get<RESPONSE>(urlWithParameters, {
+        observe: "response",
+        headers: headers,
+        context: undefined,
+      })
     }
-
     return response.pipe(
       map((response) => {
         return this.handleResponse(response);
@@ -109,7 +100,7 @@ export class BaseApiService {
 
   private getRequestHeaders(parameters: {
     isPostRequest: boolean;
-  }): Observable<HttpHeaders> {
+  }): HttpHeaders {
     let headers: HttpHeaders;
     this.getToken()
     if (this.jwtToken) {
@@ -123,7 +114,7 @@ export class BaseApiService {
     if (parameters.isPostRequest) {
       headers.set("Content-Type", "application/json");
     }
-    return of(headers)
+    return headers
   }
 
   private getDefaultParameters(body: any): any {

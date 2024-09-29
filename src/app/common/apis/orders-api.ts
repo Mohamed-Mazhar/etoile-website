@@ -15,12 +15,12 @@ export class OrdersApi {
   }
 
   getOrders(): Observable<OrderModel[]> {
-    return this.baseApiService.call<null, { [key: string]: any }[]>({
+    return this.baseApiService.call<null, { [key: string]: any }>({
       apiType: ApiType.getUserOrders,
       requestType: RequestType.GET
     }).pipe(
       map((response) => {
-        return response.map((json) => OrderModel.fromJson(json))
+        return (response['orders'] as { [key: string]: any }[]).map((json) => OrderModel.fromJson(json))
       })
     )
   }

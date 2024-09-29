@@ -24,4 +24,11 @@ export class AddressApi {
     )
   }
 
+  addAddress(): Observable<void> {
+    return this.baseApiService.call({
+      apiType: ApiType.addAddress,
+      requestType: RequestType.POST
+    })
+  }
+
 }

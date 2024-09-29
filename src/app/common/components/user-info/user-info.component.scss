@@ -63,3 +63,7 @@
     color: VAR(--white)
   }
 }
+
+.dropdown-menu {
+  z-index: 10000;
+}

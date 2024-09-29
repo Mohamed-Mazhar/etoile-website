@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {USER_INFO, USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
@@ -59,6 +59,7 @@ export class RegistrationComponent implements OnInit {
           USER_TOKEN,
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
+        localStorage.setItem(USER_PASSWORD, password?.value)
         if (response.token) {
           this.getUserInfo()
         } else {
@@ -73,7 +74,7 @@ export class RegistrationComponent implements OnInit {
     })
   }
 
-  getUserInfo(): void {
+  getUserInfo() {
     this.isLoading = true
     this.userProfileApi.getUserProfile().subscribe({
       next: (response) => {

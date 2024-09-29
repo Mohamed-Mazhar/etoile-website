@@ -24,4 +24,31 @@ export class UserProfileApi {
       )
     )
   }
+
+  updateUserProfile(firstName: string, lastName: string, phoneNumber: number, email: string): Observable<void> {
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.updateProfile,
+      requestType: RequestType.UPDATE,
+      body: {
+        f_name: firstName,
+        l_name: lastName,
+        phone: phoneNumber,
+        email: email
+      }
+    })
+  }
+
+  changePassword(user: UserInfo, newPassword: string): Observable<void> {
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.updateProfile,
+      requestType: RequestType.UPDATE,
+      body: {
+        password: newPassword,
+        f_name: user.fName,
+        l_name: user.lName,
+        phone: user.phone,
+        email: user.email
+      }
+    })
+  }
 }

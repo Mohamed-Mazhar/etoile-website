@@ -58,6 +58,7 @@ import { UserOrdersComponent } from './features/user-profile/presentation/compon
 import { UserComplaintsComponent } from './features/user-profile/presentation/components/user-complaints/user-complaints.component';
 import { UserProfileInfoComponent } from './features/user-profile/presentation/components/user-profile-info/user-profile-info.component';
 import { AddressItemComponent } from './features/user-profile/presentation/components/address-item/address-item.component';
+import { ChangePasswordModalComponent } from './features/user-profile/presentation/components/change-password-modal/change-password-modal.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -110,7 +111,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserOrdersComponent,
     UserComplaintsComponent,
     UserProfileInfoComponent,
-    AddressItemComponent
+    AddressItemComponent,
+    ChangePasswordModalComponent
   ],
   imports: [
     BrowserModule,

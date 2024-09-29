@@ -15,6 +15,7 @@ export class UserInfoComponent implements OnInit {
 
   userInfo: UserInfo | null = null
   selectedBranch: Branch | null = null
+
   constructor(
     private router: Router
   ) {
@@ -24,8 +25,9 @@ export class UserInfoComponent implements OnInit {
     this.userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
     this.selectedBranch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
     AppEventBroadcaster.on({event: AppEvent.loadUserInfo}).subscribe({
-      next: (event) => {
+      next: (_) => {
         this.userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+        this.selectedBranch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
       }
     })
   }

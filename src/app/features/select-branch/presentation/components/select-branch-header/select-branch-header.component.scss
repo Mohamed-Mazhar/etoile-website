@@ -54,5 +54,20 @@
   @include res-md-styles {
     width: 100%;
   }
+}
 
+.username {
+  font-weight: bold;
+  color: VAR(--primary-color) !important;
+}
+
+.logout-button {
+  background-color: VAR(--red);
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+  p {
+    color: VAR(--white)
+  }
 }

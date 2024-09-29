@@ -14,5 +14,12 @@
   @include res-md-styles {
     width: 100%;
   }
+}
 
+.toast {
+  background-color: VAR(--success);
+  border-radius: 0.5rem;
+  color: VAR(--white);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

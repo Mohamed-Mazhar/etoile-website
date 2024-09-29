@@ -4,6 +4,7 @@ export enum ApiType {
   login = "api/v1/auth/login",
   token = "api/v1/customer/cm-firebase-token",
   userProfile = "api/v1/customer/info",
+  updateProfile = "api/v1/customer/update-profile",
   banners = "api/v1/banners",
   categories = "api/v1/categories",
   subCategories = "api/v1/categories/childes/{}",
@@ -13,6 +14,8 @@ export enum ApiType {
   recommendedProducts = "api/v1/products/recommended",
   frequentlyBought = "api/v1/products/frequently-bought",
   getAddresses = "api/v1/customer/address/list",
+  addAddress= "api/v1/customer/address/add",
+  updateAddress = "api/v1/customer/address/update/{}",
   getUserOrders = "api/v1/customer/order/list",
   getOrderDetails = "api/v1/customer/order/details"
 }

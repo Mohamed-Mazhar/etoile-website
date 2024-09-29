@@ -10,7 +10,7 @@
   <div class="logo">
     <img loading="lazy" src="https://www.etoileeg.online/Upload?id=73012" class="img-fluid">
   </div>
-  <div class="user-action-container">
+  <div class="user-action-container" *ngIf="userInfo === null">
     <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
          aria-controls="loginView">
       <i class="fas fa-user icon-size"></i>
@@ -20,6 +20,22 @@
     <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
          aria-controls="registrationView">
       <p>{{ 'REGISTER' | translate }}</p>
+    </div>
+  </div>
+  <div class="user-info-item-container" *ngIf="userInfo !== null" data-bs-toggle="dropdown">
+    <i class="fas fa-user icon-size"></i>
+    <div class="d-flex align-items-center">
+      <p>{{ 'WELCOME_USER' | translate }}, </p>
+      <p class="username">{{ userInfo.fName }}</p>
+    </div>
+    <div class="dropdown-menu" aria-labelledby="userOptions">
+      <div class="dropdown-item d-flex align-items-baseline clickable" routerLink="/profile">
+        <i class="fas fa-user icon-size me-2"></i>
+        <p>Profile</p>
+      </div>
+      <div class="logout-button clickable" (click)="logout()">
+        <p>Logout</p>
+      </div>
     </div>
   </div>
 </div>
