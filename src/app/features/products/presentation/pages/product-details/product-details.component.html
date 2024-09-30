@@ -1,0 +1,61 @@
+<div class="product-details-container container">
+  <div class="product-image">
+    <img src="{{product?.image}}">
+  </div>
+  <div class="product-details" *ngIf="product !== null">
+    <div class="product-name"><p>{{ product.name }}</p></div>
+    <p>Code: {{ product.branchProduct?.id }}</p>
+    <div class="product-price">
+      <p>{{ (product.price ?? 0) / 100 }} {{ 'CURRENCY' | translate }}</p>
+    </div>
+    <p>All prices include VAT details</p>
+    <div class="product-review-container">
+      <div class="customer-rate" *ngIf=" product.rating !== undefined">
+        <img
+          [src]="product.rating[0].average! >= 1 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+        <img
+          [src]="product.rating[0].average! >= 2 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+        <img
+          [src]="product.rating[0].average! >= 3 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+        <img
+          [src]="product.rating[0].average! >= 4 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+        <img
+          [src]="product.rating[0].average! >= 5 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+      </div>
+      <div class="number-of-reviews">
+        <p>({{ product.rating?.length }} Customer Reviews)</p>
+      </div>
+      <div class="add-review-text">
+        <i class="fa fa-add"></i>
+        <p>Add Review</p>
+      </div>
+    </div>
+    <div class="horizontal-separator"></div>
+    <p>{{ product.description }}</p>
+    <div class="horizontal-separator"></div>
+    <div class="product-size-quantity">
+      <div class="product-size">
+        <p>Size</p>
+        <div class="product-selected-size">
+          <p>Large</p>
+        </div>
+      </div>
+      <div class="d-flex gap-1">
+        <p>Quantity</p>
+        <div class="change-product-number">
+          <div class="cart-button" (click)="decreaseProductCount()"><i class="fas fa-minus"></i></div>
+          <div class="ms-3 me-3"><p>{{ productCount }}</p></div>
+          <div class="cart-button" (click)="increaseProductCount()"><i class="fas fa-plus"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-separator"></div>
+    <primary-button title="Add to cart" (onClick)="addToCart()"></primary-button>
+    <div class="delivery-info">
+      <p><span class="title">Delivered Within:&nbsp;</span>45 - 60 mins</p>
+    </div>
+    <div class="delivery-info">
+      <p><span class="title">Delivery Note:&nbsp;</span>Order may delivered lately many Minutes in case rush hours (The product may differ from the image daily)</p>
+    </div>
+  </div>
+</div>

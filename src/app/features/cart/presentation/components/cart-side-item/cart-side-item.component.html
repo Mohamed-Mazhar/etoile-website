@@ -5,9 +5,9 @@
       <p>{{ cartProduct.product.name }}</p>
       <div class="product-description"><p>{{ cartProduct.product.description }}</p></div>
       <div class="add-remove-cart-container">
-        <div class="cart-button"><i class="fas fa-minus"></i></div>
+        <div class="cart-button" (click)="decreaseProduct()"><i class="fas fa-minus"></i></div>
         <div class="ms-3 me-3"><p>{{ cartProduct.count }}</p></div>
-        <div class="cart-button"><i class="fas fa-plus"></i></div>
+        <div class="cart-button" (click)="increaseProduct()"><i class="fas fa-plus"></i></div>
       </div>
       <div class="price-container">
         <p>Price:</p>

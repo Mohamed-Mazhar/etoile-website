@@ -22,4 +22,13 @@ export class CartSideItemComponent implements OnInit {
   removeProduct(cartProduct: CartProductItem) {
     this.cartProductsService.cartProductToRemove.next(cartProduct)
   }
+
+  decreaseProduct() {
+    this.cartProductsService.decreaseQuantity(this.cartProduct)
+  }
+
+  increaseProduct() {
+    this.cartProductsService.increaseQuantity(this.cartProduct)
+  }
+
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dessert-item',
@@ -11,9 +12,15 @@ export class DessertItemComponent implements OnInit {
   @Input() subTitle: string = '';
   @Input() image: string = '';
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  openProductDetails() {
+    this.router.navigate(['/product', 123]).then()
   }
 
 }

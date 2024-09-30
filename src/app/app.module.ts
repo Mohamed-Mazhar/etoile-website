@@ -35,8 +35,8 @@ import { DessertsComponent } from './features/home/presentation/components/desse
 import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
 
 import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
-import { ProductsComponent } from './features/products-list/presentation/pages/products/products.component';
-import { ProductsFilterComponent } from './features/products-list/presentation/components/products-filter/products-filter.component';
+import { ProductsComponent } from './features/products/presentation/pages/products/products.component';
+import { ProductsFilterComponent } from './features/products/presentation/components/products-filter/products-filter.component';
 import {NgxSliderModule} from "@angular-slider/ngx-slider";
 import { CartSidePageComponent } from './features/cart/presentation/pages/cart-side-page/cart-side-page.component';
 import { CartSideItemComponent } from './features/cart/presentation/components/cart-side-item/cart-side-item.component';
@@ -62,6 +62,7 @@ import { ChangePasswordModalComponent } from './features/user-profile/presentati
 import { AddNewAddressModalComponent } from './common/components/add-new-address-modal/add-new-address-modal.component';
 import { DeleteAddressModalComponent } from './features/user-profile/presentation/components/delete-address-modal/delete-address-modal.component';
 import {AuthGuard} from "./common/guards/auth.guard";
+import { ProductDetailsComponent } from './features/products/presentation/pages/product-details/product-details.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -117,7 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddressItemComponent,
     ChangePasswordModalComponent,
     AddNewAddressModalComponent,
-    DeleteAddressModalComponent
+    DeleteAddressModalComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

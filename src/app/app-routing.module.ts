@@ -11,11 +11,14 @@ import {
 } from "./features/home/presentation/pages/terms-and-conditions/terms-and-conditions.component";
 import {PrivacyComponent} from "./features/home/presentation/pages/privacy/privacy.component";
 import {SelectBranchComponent} from "./features/select-branch/presentation/pages/select-branch/select-branch.component";
-import {ProductsComponent} from "./features/products-list/presentation/pages/products/products.component";
+import {ProductsComponent} from "./features/products/presentation/pages/products/products.component";
 import {CartPageComponent} from "./features/cart/presentation/pages/cart-page/cart-page.component";
 import {CheckOutComponent} from "./features/check-out/presentation/pages/check-out/check-out.component";
 import {UserProfileComponent} from "./features/user-profile/presentation/pages/user-profile/user-profile.component";
 import {AuthGuard} from "./common/guards/auth.guard";
+import {
+  ProductDetailsComponent
+} from "./features/products/presentation/pages/product-details/product-details.component";
 
 const routes: Routes = [
   {
@@ -30,7 +33,8 @@ const routes: Routes = [
       {path: 'products/:category', component: ProductsComponent},
       {path: 'cart', component: CartPageComponent},
       {path: 'checkout', component: CheckOutComponent},
-      {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]}
+      {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+      {path: 'product/:id', component: ProductDetailsComponent}
     ]
   },
   {path: 'branch', component: SelectBranchComponent},

@@ -78,6 +78,8 @@ export class Product {
     tax?: number,
     availableTimeStarts?: string,
     availableTimeEnds?: string,
+    branchProduct?: BranchProduct,
+    rating?: Rating[],
     status?: number,
     createdAt?: string,
     updatedAt?: string,
@@ -88,8 +90,6 @@ export class Product {
     discountType?: string,
     taxType?: string,
     setMenu?: number,
-    rating?: Rating[],
-    branchProduct?: BranchProduct,
     mainPrice?: number,
     isChanged?: boolean,
     changeReason?: string
@@ -205,7 +205,7 @@ interface Variation {
   // Define the properties of Variation here
 }
 
-class BranchProduct {
+export class BranchProduct {
   id?: number;
   productId?: number;
   branchId?: number;

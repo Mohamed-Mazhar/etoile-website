@@ -19,10 +19,38 @@ export class CartProductsService {
 
   public addProduct(cartProduct: CartProductItem) {
     this.cartProducts.push(cartProduct)
+    this.cartProductsSubject.next(this.cartProducts)
   }
 
   public removeProduct(cartProduct: CartProductItem) {
     this.cartProducts = this.cartProducts.filter(cartProductItem => cartProductItem !== cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
   }
+
+  decreaseQuantity(cartProduct: CartProductItem) {
+    if (cartProduct.count > 1) {
+      let newProduct: CartProductItem = {
+        product: cartProduct.product,
+        count: cartProduct.count - 1
+      }
+      Object.assign(
+        this.cartProducts.find((cartProduct) => cartProduct == cartProduct),
+        newProduct
+      )
+      this.cartProductsSubject.next(this.cartProducts)
+    }
+  }
+
+  increaseQuantity(cartProduct: CartProductItem) {
+    let newProduct: CartProductItem = {
+      product: cartProduct.product,
+      count: cartProduct.count + 1
+    }
+    Object.assign(
+      this.cartProducts.find((cartProduct) => cartProduct == cartProduct),
+      newProduct
+    )
+    this.cartProductsSubject.next(this.cartProducts)
+  }
+
 }

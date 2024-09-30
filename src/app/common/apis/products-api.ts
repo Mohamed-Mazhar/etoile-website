@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {BaseApiService} from "./base-api-service";
-import {map, Observable} from "rxjs";
+import {map, Observable, of} from "rxjs";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
-import {ProductModel} from "../data-classes/ProductModel";
+import {BranchProduct, Product, ProductModel, Rating} from "../data-classes/ProductModel";
 
 @Injectable({providedIn: 'root'})
 export class ProductsApi {
@@ -24,7 +24,7 @@ export class ProductsApi {
       body: queryParameters
     }).pipe(
       map(response => {
-        return  ProductModel.fromJson(response)
+        return ProductModel.fromJson(response)
       })
     )
   }
@@ -75,6 +75,43 @@ export class ProductsApi {
         return ProductModel.fromJson(response)
       })
     )
+  }
+
+  getProductDetails(productId: string): Observable<Product> {
+    return of(new Product(
+        12,
+        'Carrot Cake Gâteau',
+        'It is (pasta, mozzarella cheese, white sauce, minced meat)',
+        'assets/images/home-asset/section1-img2.png',
+        3000,
+        [],
+        [],
+        0,
+        '',
+        '',
+        new BranchProduct(
+          {
+            id: 12,
+            price: 3400,
+            isAvailable: false
+          }
+        ),
+        [
+          new Rating({
+              productId: 2212,
+              average: 4
+            }
+          )
+        ]
+      )
+    )
+    // return this.baseApiService.call<null, { [key: string]: any }>({
+    //   apiType: ApiType.productDetails,
+    //   requestType: RequestType.GET,
+    //   pathVariables: [productId]
+    // }).pipe(
+    //   map(response => Product.fromJson(response))
+    // )
   }
 
 }

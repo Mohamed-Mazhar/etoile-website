@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AddressApi} from "../../../../../common/apis/address-api";
+import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 
 @Component({
   selector: 'app-check-out',
@@ -8,10 +10,26 @@ import { Component, OnInit } from '@angular/core';
 export class CheckOutComponent implements OnInit {
 
   activeTab = 'shipping'
+  loading = false
+  addresses: AddressModel[] = []
 
-  constructor() { }
+  constructor(
+    private addressApi: AddressApi
+  ) {
+  }
 
   ngOnInit(): void {
+    this.loading = true
+    this.addressApi.getAddresses().subscribe({
+      next: (addresses) => {
+        this.loading = false
+        this.addresses = addresses
+      },
+      error: (err) => {
+        this.loading = false
+        console.log("Error received inside get Address", err)
+      }
+    })
   }
 
   moveToPayment() {

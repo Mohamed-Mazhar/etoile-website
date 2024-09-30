@@ -37,21 +37,19 @@ export class AddNewAddressModalComponent implements OnInit {
           this.title = "Add Address"
         } else {
           this.title = "Update Address"
-          this.initializeViews()
         }
+        this.initializeViews()
       }
     })
   }
 
   initializeViews(): void {
-    if (this.address !== null) {
-      this.formGroup.get('contactPersonName')?.setValue(this.address?.contactPersonName)
-      this.formGroup.get('contactPersonNumber')?.setValue(this.address?.contactPersonNumber)
-      this.formGroup.get('floorNumber')?.setValue(this.address?.floorNumber)
-      this.formGroup.get('streetNumber')?.setValue(this.address?.streetNumber)
-      this.formGroup.get('houseNumber')?.setValue(this.address?.houseNumber)
-      this.formGroup.get('contactAddress')?.setValue(this.address?.address)
-    }
+    this.formGroup.get('contactPersonName')?.setValue(this.address?.contactPersonName)
+    this.formGroup.get('contactPersonNumber')?.setValue(this.address?.contactPersonNumber)
+    this.formGroup.get('floorNumber')?.setValue(this.address?.floorNumber)
+    this.formGroup.get('streetNumber')?.setValue(this.address?.streetNumber)
+    this.formGroup.get('houseNumber')?.setValue(this.address?.houseNumber)
+    this.formGroup.get('contactAddress')?.setValue(this.address?.address)
   }
 
   updateAddress() {

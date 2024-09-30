@@ -1,28 +1,36 @@
-<div>
-  <h5>Shipping</h5>
-  <div class="d-flex justify-content-between">
-    <p>Select Your Shipping Address</p>
-    <div class="add-address-container">
-      <i class="fas fa-plus-circle pr-1"></i>
-      <p>Add New Address</p>
+<form [formGroup]="formGroup">
+  <div>
+    <h5>Shipping</h5>
+    <div class="d-flex justify-content-between">
+      <p>Select Your Shipping Address</p>
+      <div class="add-address-container" data-bs-target="#address" data-bs-toggle="modal">
+        <i class="fas fa-plus-circle pr-1"></i>
+        <p>Add New Address</p>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="addresses-container" *ngFor="let address of addresses; let i = index">
+        <input formControlName="address"
+               value="{{address.id?.toString()}}"
+               class="mt-2" type="radio" name="deliveryAddress" [checked]="address.isDefault"
+               id="input-{{ i }}">
+        <label for="input-{{i}}">
+          <p>{{ address.address }}</p>
+          <p>{{ address.contactPersonName }}</p>
+          <p>{{ address.contactPersonNumber }}</p>
+        </label>
+        <div class="ms-auto" (click)="setAddress(address)" data-bs-target="#address" data-bs-toggle="modal">
+          <i class="fas fa-edit"></i>
+        </div>
+      </div>
+    </div>
+    <div class="payment-button">
+      <primary-button
+        [enabled]="formGroup.valid"
+        (onClick)="moveToPayment()"
+        [buttonPadding]="0.5"
+        title="Proceed to payment">
+      </primary-button>
     </div>
   </div>
-  <div class="addresses-container">
-    <input class="mt-2" type="radio" checked>
-    <div>
-      <p>Maadi</p>
-      <p>Mohamed Mazhar</p>
-      <p>Address details</p>
-    </div>
-    <div class="ms-auto">
-      <i class="fas fa-edit"></i>
-    </div>
-  </div>
-  <div class="payment-button">
-    <primary-button
-      (onClick)="moveToPayment()"
-      [buttonPadding]="0.5"
-      title="Proceed to payment">
-    </primary-button>
-  </div>
-</div>
+</form>
