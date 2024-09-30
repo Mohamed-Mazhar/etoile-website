@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
+import {AddressService} from "../../../../../common/services/address.service";
 
 @Component({
   selector: 'app-user-addresses',
@@ -10,9 +11,15 @@ export class UserAddressesComponent implements OnInit {
 
   @Input() addresses: AddressModel[] = []
 
-  constructor() { }
+  constructor(
+    private addressService: AddressService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  addNewAddress() {
+    this.addressService.setAddress(null)
   }
 
 }

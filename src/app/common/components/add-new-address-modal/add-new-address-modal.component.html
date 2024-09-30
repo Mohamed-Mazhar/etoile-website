@@ -1,0 +1,56 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">{{ title }}</h1>
+      <button #closeElem type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <input-text-field
+        [group]="formGroup"
+        id="contactPersonName"
+        [inputType]="InputType.text"
+        [validators]="[Validators.required]"
+        floatingLabel="Contact Name">
+      </input-text-field>
+      <mobile-number
+        [group]="formGroup"
+        mobileNumberId="contactPersonNumber"
+        [validators]="[Validators.required]"
+        floatingMobileLabel="Contact Number">
+      </mobile-number>
+      <input-text-field
+        [group]="formGroup"
+        id="contactAddress"
+        [inputType]="InputType.text"
+        [validators]="[Validators.required]"
+        floatingLabel="Full Address">
+      </input-text-field>
+      <input-text-field
+        [group]="formGroup"
+        id="floorNumber"
+        [appNumericOnly]="true"
+        [validators]="[Validators.required]"
+        floatingLabel="Floor number"
+        [inputType]="InputType.text">
+      </input-text-field>
+      <input-text-field
+        [group]="formGroup"
+        id="houseNumber"
+        [validators]="[Validators.required]"
+        floatingLabel="House number">
+      </input-text-field>
+      <input-text-field
+        [group]="formGroup"
+        id="streetNumber"
+        [validators]="[Validators.required]"
+        floatingLabel="Street number">
+      </input-text-field>
+      <primary-button
+        (onClick)="updateAddress()"
+        [enabled]="formGroup.valid"
+        [loading]="loading"
+        title="{{title}}">
+      </primary-button>
+    </div>
+  </div>
+</div>

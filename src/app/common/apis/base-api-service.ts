@@ -56,7 +56,7 @@ export class BaseApiService {
     console.log("Api request ===> " + url + " " + JSON.stringify(request));
     let response: Observable<HttpResponse<RESPONSE>>
     if (parameters.requestType !== RequestType.GET) {
-      let headers = this.getRequestHeaders({isPostRequest: false})
+      let headers = this.getRequestHeaders({isPostRequest: true})
       if (parameters.requestType === RequestType.POST) {
         response = this.httpClient.post<RESPONSE>(url!, request, {
           observe: "response",

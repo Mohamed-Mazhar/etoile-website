@@ -18,6 +18,10 @@
 .icon-size {
   font-size: 1.5rem;
   color: VAR(--primary-color);
+
+  @include res-md-styles {
+    font-size: 1rem;
+  }
 }
 
 .user-info-item-container {

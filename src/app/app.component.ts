@@ -4,7 +4,6 @@ import {NavigationEnd, Router} from "@angular/router";
 import {SplashApi} from "./common/apis/splash-api";
 import {ConfigModelService} from "./common/services/config-model.service";
 import {SELECTED_BRANCH} from "./common/utils/constants";
-import {Branch} from "./common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-root',

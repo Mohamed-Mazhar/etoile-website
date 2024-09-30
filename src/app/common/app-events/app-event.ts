@@ -1,4 +1,5 @@
 export enum AppEvent {
   initial,
-  loadUserInfo
+  loadUserInfo,
+  userAddressesChanged,
 }

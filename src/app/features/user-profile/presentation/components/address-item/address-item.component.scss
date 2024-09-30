@@ -3,10 +3,19 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
   border-radius: 1rem;
   text-align: start;
+  margin-bottom: 1rem;
+  margin-inline-end: 1rem;
+
+  i {
+    color: VAR(--primary-color)
+  }
+
 }
 
 .address-actions-container {
   display: flex;
+  margin-left: auto;
+  column-gap: 1rem;
 }
 
 .set-as-default {
@@ -14,4 +23,9 @@
   text-decoration-color: VAR(--primary-dark-color);
   color: VAR(--primary-color);
   cursor: pointer;
+}
+
+.full-address {
+  color: VAR(--primary-color);
+  font-weight: 600;
 }

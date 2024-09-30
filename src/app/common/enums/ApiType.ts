@@ -16,6 +16,7 @@ export enum ApiType {
   getAddresses = "api/v1/customer/address/list",
   addAddress= "api/v1/customer/address/add",
   updateAddress = "api/v1/customer/address/update/{}",
+  deleteAddress = "api/v1/customer/address/delete?address_id={}",
   getUserOrders = "api/v1/customer/order/list",
   getOrderDetails = "api/v1/customer/order/details"
 }

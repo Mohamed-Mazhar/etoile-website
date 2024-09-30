@@ -13,7 +13,7 @@
         <p>{{ 'PROFILE' | translate }}</p>
       </div>
       <div class="nav-item"
-           data-bs-target="#address"
+           data-bs-target="#myAddresses"
            data-bs-toggle='tab'>
         <i class="fas fa-address-book"></i>
         <p>{{ 'ADDRESS' | translate }}</p>
@@ -35,7 +35,7 @@
       <div class='tab-pane container fade active show' id='profile' *ngIf="userInfo !==null">
         <app-user-profile-info [userInfo]="userInfo"></app-user-profile-info>
       </div>
-      <div class='tab-pane container' id='address'>
+      <div class='tab-pane container' id='myAddresses'>
         <app-user-addresses [addresses]="userAddress"></app-user-addresses>
       </div>
       <div class='tab-pane container' id='myOrders'>
@@ -50,4 +50,12 @@
 
 <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
   <app-change-password-modal></app-change-password-modal>
+</div>
+
+<div class="modal fade" id="address" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+  <app-add-new-address-modal></app-add-new-address-modal>
+</div>
+
+<div class="modal fade" id="deleteAddress" tabindex="-1" aria-labelledby="deleteAddressModalLabel" aria-hidden="true">
+  <app-delete-address-modal></app-delete-address-modal>
 </div>

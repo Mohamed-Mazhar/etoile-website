@@ -24,10 +24,30 @@ export class AddressApi {
     )
   }
 
-  addAddress(): Observable<void> {
-    return this.baseApiService.call({
+  addAddress(addressModel: AddressModel): Observable<void> {
+    let body = addressModel.toJson()
+    return this.baseApiService.call<{}, void>({
       apiType: ApiType.addAddress,
-      requestType: RequestType.POST
+      requestType: RequestType.POST,
+      body: body
+    })
+  }
+
+  updateAddress(addressModel: AddressModel): Observable<void> {
+    let body = addressModel.toJson()
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.updateAddress,
+      requestType: RequestType.UPDATE,
+      body: body,
+      pathVariables: [addressModel.id?.toString() ?? ""]
+    })
+  }
+
+  deleteAddress(addressModel: AddressModel): Observable<void> {
+    return this.baseApiService.call({
+      apiType: ApiType.deleteAddress,
+      requestType: RequestType.DELETE,
+      pathVariables: [addressModel.id?.toString() ?? '']
     })
   }
 

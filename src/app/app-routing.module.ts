@@ -15,6 +15,7 @@ import {ProductsComponent} from "./features/products-list/presentation/pages/pro
 import {CartPageComponent} from "./features/cart/presentation/pages/cart-page/cart-page.component";
 import {CheckOutComponent} from "./features/check-out/presentation/pages/check-out/check-out.component";
 import {UserProfileComponent} from "./features/user-profile/presentation/pages/user-profile/user-profile.component";
+import {AuthGuard} from "./common/guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
       {path: 'products/:category', component: ProductsComponent},
       {path: 'cart', component: CartPageComponent},
       {path: 'checkout', component: CheckOutComponent},
-      {path: 'profile', component: UserProfileComponent}
+      {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]}
     ]
   },
   {path: 'branch', component: SelectBranchComponent},

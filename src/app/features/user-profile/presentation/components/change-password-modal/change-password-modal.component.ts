@@ -27,7 +27,7 @@ export class ChangePasswordModalComponent implements OnInit {
     let savedPassword = localStorage.getItem(USER_PASSWORD)
     let currentPassword = this.formGroup.get('currentPassword')
     let newPassword = this.formGroup.get('newPassword')
-    let confirmPassword = this.formGroup.get('confirmPassword')
+    let confirmPassword = this.formGroup.get('confirmChangePassword')
     if (currentPassword?.value !== savedPassword) {
       currentPassword?.setErrors({invalid: "Invalid password"})
     } else if (newPassword?.value !== confirmPassword?.value) {

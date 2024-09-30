@@ -16,60 +16,65 @@ export class AddressModel {
   isDefault?: boolean;
 
   constructor(
-    id?: number,
-    addressType?: string,
-    contactPersonNumber?: string,
-    address?: string,
-    latitude?: string,
-    longitude?: string,
-    createdAt?: string,
-    updatedAt?: string,
-    userId?: number,
-    method?: string,
-    contactPersonName?: string,
-    streetNumber?: string,
-    floorNumber?: string,
-    houseNumber?: string,
-    isDefault?: boolean,
+    data:
+      {
+        id?: number,
+        addressType?: string,
+        contactPersonNumber?: string,
+        address?: string,
+        latitude?: string,
+        longitude?: string,
+        createdAt?: string,
+        updatedAt?: string,
+        userId?: number,
+        method?: string,
+        contactPersonName?: string,
+        streetNumber?: string,
+        floorNumber?: string,
+        houseNumber?: string,
+        isDefault?: boolean,
+      }
   ) {
-    this.id = id;
-    this.addressType = addressType;
-    this.contactPersonNumber = contactPersonNumber;
-    this.address = address;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-    this.userId = userId;
-    this.method = method;
-    this.contactPersonName = contactPersonName;
-    this.streetNumber = streetNumber;
-    this.floorNumber = floorNumber;
-    this.houseNumber = houseNumber;
-    this.isDefault = isDefault;
+    this.id = data.id;
+    this.addressType = data.addressType;
+    this.contactPersonNumber = data.contactPersonNumber;
+    this.address = data.address;
+    this.latitude = data.latitude;
+    this.longitude = data.longitude;
+    this.createdAt = data.createdAt;
+    this.updatedAt = data.updatedAt;
+    this.userId = data.userId;
+    this.method = data.method;
+    this.contactPersonName = data.contactPersonName;
+    this.streetNumber = data.streetNumber;
+    this.floorNumber = data.floorNumber;
+    this.houseNumber = data.houseNumber;
+    this.isDefault = data.isDefault;
   }
 
-  static fromJson(json: any): AddressModel {
+  static fromJson(json: { [key: string]: any }): AddressModel {
     return new AddressModel(
-      json['id'],
-      json['address_type'],
-      json['contact_person_number'],
-      json['address'],
-      json['latitude'],
-      json['longitude'],
-      json['created_at'],
-      json['updated_at'],
-      json['user_id'],
-      json['_method'],
-      json['contact_person_name'],
-      json['road'],
-      json['floor'],
-      json['house'],
-      `${json['is_default']}`.includes('1'),
+      {
+        id: json['id'],
+        addressType: json['address_type'],
+        contactPersonNumber: json['contact_person_number'],
+        address: json['address'],
+        latitude: json['latitude'],
+        longitude: json['longitude'],
+        createdAt: json['created_at'],
+        updatedAt: json['updated_at'],
+        userId: json['user_id'],
+        method: json['method'],
+        contactPersonName: json['contact_person_name'],
+        streetNumber: json['road'],
+        floorNumber: json['floor'],
+        houseNumber: json['house'],
+        isDefault: `${json['is_default']}`.includes('1')
+  },
     );
   }
 
-  toJson(): any {
+  toJson(): { [key: string]: any } {
     return {
       id: this.id,
       address_type: this.addressType,

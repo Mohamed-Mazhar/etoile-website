@@ -5,18 +5,27 @@
   <p>{{ address.contactPersonName }}</p>
   <p>{{ address.addressType }}</p>
   <p>{{ address.contactPersonNumber }}</p>
-  <div class="d-flex">
-    <i class="fas fa-home" *ngIf="address.isDefault"></i>
-    <p *ngIf="address.isDefault">{{ 'MY_DEFAULT_ADDRESS' | translate }}</p>
-    <div class="set-as-default" *ngIf="!address.isDefault">
+  <div class="d-flex gap-4">
+    <div class="d-flex align-items-baseline gap-2" *ngIf="address.isDefault">
+      <i class="fas fa-home"></i>
+      <p *ngIf="address.isDefault">{{ 'MY_DEFAULT_ADDRESS' | translate }}</p>
+    </div>
+    <div (click)="setAsDefault()" class="set-as-default" *ngIf="!address.isDefault">
       <p>{{ 'SET_AS_DEFAULT'| translate }}</p>
     </div>
-    <div class="d-flex ms-auto">
-      <div class="d-flex">
-        <i class="fas fa-user-edit">{{ 'EDIT' | translate }}</i>
+    <div class="address-actions-container">
+      <div class="d-flex gap-1 align-items-baseline clickable" (click)="editAddress()"
+           data-bs-target="#address"
+           data-bs-toggle="modal">
+        <i class="fas fa-user-edit"></i>
+        <p>{{ 'EDIT' | translate }}</p>
       </div>
-      <div *ngIf="!address.isDefault">
-        <i class="fas fa-trash">{{ 'REMOVE' | translate }}</i>
+      <div *ngIf="!address.isDefault" class="d-flex clickable align-items-baseline gap-1"
+           data-bs-target="#deleteAddress"
+           data-bs-toggle="modal"
+           (click)="deleteAddress()">
+        <i class="fas fa-trash"></i>
+        <p>{{ 'REMOVE' | translate }}</p>
       </div>
     </div>
   </div>

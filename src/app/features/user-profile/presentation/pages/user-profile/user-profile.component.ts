@@ -6,6 +6,8 @@ import {AddressApi} from "../../../../../common/apis/address-api";
 import {OrderModel} from "../../../../../common/data-classes/OrderModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {forkJoin} from "rxjs";
+import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
+import {AppEvent} from "../../../../../common/app-events/app-event";
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +19,7 @@ export class UserProfileComponent implements OnInit {
   userInfo: UserInfo | null = null
   userAddress: AddressModel[] = []
   userOrders: OrderModel[] = []
-  loading : boolean = false
+  loading: boolean = false
 
   constructor(
     private addressApi: AddressApi,
@@ -26,6 +28,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    AppEventBroadcaster.on({event: AppEvent.userAddressesChanged}).subscribe({
+      next: (_) => {
+        this.reloadUserAddresses()
+      }
+    })
     this.userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
     this.loading = true
     let addressApi = this.addressApi.getAddresses()
@@ -47,4 +54,17 @@ export class UserProfileComponent implements OnInit {
     return `${this.userInfo?.fName} ${this.userInfo?.lName}`
   }
 
+  private reloadUserAddresses() {
+    this.loading = true
+    this.addressApi.getAddresses().subscribe({
+      next: (addresses) => {
+        this.loading = false
+        this.userAddress = addresses
+      },
+      error: (err) => {
+        this.loading = false
+        console.log("Failed to reload addresses", err)
+      }
+    })
+  }
 }

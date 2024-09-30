@@ -59,6 +59,9 @@ import { UserComplaintsComponent } from './features/user-profile/presentation/co
 import { UserProfileInfoComponent } from './features/user-profile/presentation/components/user-profile-info/user-profile-info.component';
 import { AddressItemComponent } from './features/user-profile/presentation/components/address-item/address-item.component';
 import { ChangePasswordModalComponent } from './features/user-profile/presentation/components/change-password-modal/change-password-modal.component';
+import { AddNewAddressModalComponent } from './common/components/add-new-address-modal/add-new-address-modal.component';
+import { DeleteAddressModalComponent } from './features/user-profile/presentation/components/delete-address-modal/delete-address-modal.component';
+import {AuthGuard} from "./common/guards/auth.guard";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -112,7 +115,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserComplaintsComponent,
     UserProfileInfoComponent,
     AddressItemComponent,
-    ChangePasswordModalComponent
+    ChangePasswordModalComponent,
+    AddNewAddressModalComponent,
+    DeleteAddressModalComponent
   ],
   imports: [
     BrowserModule,
@@ -129,7 +134,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgxSliderModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
