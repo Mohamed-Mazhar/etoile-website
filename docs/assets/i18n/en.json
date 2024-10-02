@@ -188,5 +188,21 @@
   "PROFILE": "Profile",
   "ADDRESS": "Address",
   "MY_ORDERS": "My Orders",
-  "NUMBER_OF_ORDERS": "Number of Orders this month:"
+  "NUMBER_OF_ORDERS": "Number of Orders this month:",
+  "MY_DEFAULT_ADDRESS": "This is my default address",
+  "SET_AS_DEFAULT": "Select as default address",
+  "EDIT": "Edit",
+  "REMOVE": "Remove",
+  "EMPTY_ADDRESSES": "Address book is empty",
+  "ORDER_NO": "Order number",
+  "TOTAL": "Total",
+  "DATE": "Date",
+  "STATUS": "Status",
+  "NO_ORDERS": "You have no orders!",
+  "MAKE_NEW_ORDER": "Make new order",
+  "SHIPPING": "Shipping",
+  "SELECT_SHIPPING": "Select Your Shipping Address",
+  "ADD_NEW_ADDRESS": "Add New Address",
+  "PAYMENT_PROCEED": "Proceed to payment",
+  "ADD_TO_CART": "Add to cart"
 }
