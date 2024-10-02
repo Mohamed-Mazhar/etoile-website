@@ -25,7 +25,6 @@ export class DeleteAddressModalComponent implements OnInit {
   ngOnInit(): void {
     this.addressService.addressSubject.subscribe({
       next: (address) => {
-        console.log("Address to delete", address)
         this.addressToDelete = address
       }
     })

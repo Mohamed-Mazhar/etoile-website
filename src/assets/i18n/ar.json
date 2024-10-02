@@ -199,5 +199,10 @@
   "DATE": "التاريخ",
   "STATUS": "الحاله",
   "NO_ORDERS": "ليس لديك لي طلبات مسجله!",
-  "MAKE_NEW_ORDER": "طلب جديد"
+  "MAKE_NEW_ORDER": "طلب جديد",
+  "SHIPPING": "الشحن",
+  "SELECT_SHIPPING": "اختر عنوان الشحن",
+  "ADD_NEW_ADDRESS": "اضف عنوان جديد",
+  "PAYMENT_PROCEED": "الذهاب للدفع",
+  "ADD_TO_CART": "اضف الي عربة التسوق"
 }

@@ -3,6 +3,8 @@ import {Product} from "../../../../../common/data-classes/ProductModel";
 import {ActivatedRoute} from "@angular/router";
 import {ProductsApi} from "../../../../../common/apis/products-api";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-product-details',
@@ -15,11 +17,13 @@ export class ProductDetailsComponent implements OnInit {
   loading = false
   productRating = 0
   productCount = 1
+  configModel: ConfigModel | null = null
 
   constructor(
     private route: ActivatedRoute,
     private productsApi: ProductsApi,
-    private cartService: CartProductsService
+    private cartService: CartProductsService,
+    private configModelService: ConfigModelService
   ) {
 
   }
@@ -41,6 +45,11 @@ export class ProductDetailsComponent implements OnInit {
         console.log("Error received in product details", err)
       }
     })
+    this.configModelService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
   }
 
   increaseProductCount() {
@@ -58,5 +67,9 @@ export class ProductDetailsComponent implements OnInit {
       product: this.product!,
       count: this.productCount
     })
+  }
+
+  getImage() {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${this.product?.image}`
   }
 }

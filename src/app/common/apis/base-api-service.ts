@@ -5,9 +5,10 @@ import {environment} from "../../../environments/environment";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {ResponseStatusCode} from "../enums/ResponseStatusCode";
-import {USER_TOKEN} from "../utils/constants";
+import {SELECTED_BRANCH, USER_TOKEN} from "../utils/constants";
 import {TranslateService} from "@ngx-translate/core";
 import {ApiErrorHandler} from "./api-error-handler";
+import {Branch} from "../data-classes/ConfigModel";
 
 
 @Injectable({
@@ -110,9 +111,13 @@ export class BaseApiService {
     } else {
       headers = new HttpHeaders({});
     }
+    if (localStorage.getItem(SELECTED_BRANCH) !== null) {
+      let selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+      headers = headers.append("branch-id", `${selectedBranch.id}`)
+    }
 
     if (parameters.isPostRequest) {
-      headers.set("Content-Type", "application/json");
+      headers = headers.append("Content-Type", "application/json");
     }
     return headers
   }

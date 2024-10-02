@@ -40,7 +40,6 @@
   right: -15%;
   left: initial;
   direction: ltr;
-
 }
 
 
@@ -93,7 +92,7 @@
 }
 
 .item {
-  min-width: 33.33%;
+  min-width: 30%;
 
   @include res-md-styles {
     min-width: 50%;

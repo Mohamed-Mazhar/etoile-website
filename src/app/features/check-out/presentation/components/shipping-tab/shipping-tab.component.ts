@@ -13,7 +13,7 @@ export class ShippingTabComponent implements OnInit {
   @Output() onProceedClicked: EventEmitter<void> = new EventEmitter<void>();
   @Input() addresses: AddressModel[] = []
   formGroup: FormGroup = this.fb.group({
-    address: ['', Validators.required]
+    deliveryAddress: ['', Validators.required]
   })
 
   constructor(
@@ -31,6 +31,10 @@ export class ShippingTabComponent implements OnInit {
 
   setAddress(address: AddressModel) {
     this.addressService.setAddress(address)
+  }
+
+  addAddress() {
+    this.addressService.setAddress(null)
   }
 
 }

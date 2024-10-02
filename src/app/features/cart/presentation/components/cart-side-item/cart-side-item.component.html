@@ -1,6 +1,6 @@
 <div class="container">
   <div class="cart-item-container">
-    <img [src]="cartProduct.product.image"/>
+    <img [src]="getImage()"/>
     <div class="text-center">
       <p>{{ cartProduct.product.name }}</p>
       <div class="product-description"><p>{{ cartProduct.product.description }}</p></div>
@@ -11,7 +11,7 @@
       </div>
       <div class="price-container">
         <p>Price:</p>
-        <p>{{ cartProduct.product.price! / 100 }} {{ 'CURRENCY' | translate }}</p>
+        <p>{{ cartProduct.product.price! }} {{ 'CURRENCY' | translate }}</p>
       </div>
     </div>
     <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"

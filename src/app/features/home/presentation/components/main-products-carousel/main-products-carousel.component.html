@@ -1,4 +1,4 @@
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" *ngIf="banners.isNotEmpty()">
+<div id="bannersCarousel" class="carousel slide" data-bs-ride="true" *ngIf="banners.isNotEmpty()">
   <div class="carousel-indicators">
     <div *ngFor="let banner of this.banners; index as i">
       <button type="button" data-bs-target="#bannersCarousel" [attr.data-bs-slide-to]="i"

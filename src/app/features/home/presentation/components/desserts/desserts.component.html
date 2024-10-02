@@ -3,13 +3,17 @@
     <button (click)="scrollLeft()" [ngClass]="{'disabled': atStart}" class="arrow">&#9664;</button>
     <div #scrollList (scroll)="checkScrollPosition()" class="scroll-list">
 
-      <div *ngFor="let item of items" class="item">
-        <app-dessert-item
-          [image]="item.image"
-          [subTitle]="item.subtitle"
-          [title]="item.title"
-          class="item">
-        </app-dessert-item>
+      <div *ngIf="productModel !== null" class="d-flex">
+        <div *ngFor="let product of productModel?.products" class="item">
+          <app-product-item
+            (showDetails)="showProductDetails(product!)"
+            (addToCart)="addProduct(product!)"
+            [image]="getImage(product.image!)"
+            [price]="product.price!.toString()"
+            [title]="product.name!"
+            class="item">
+          </app-product-item>
+        </div>
       </div>
     </div>
     <button (click)="scrollRight()" [ngClass]="{'disabled': atEnd}" class="arrow">&#9654;</button>

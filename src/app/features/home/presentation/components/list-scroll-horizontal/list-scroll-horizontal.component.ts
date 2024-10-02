@@ -1,5 +1,7 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -13,12 +15,20 @@ export class ListScrollHorizontalComponent implements OnInit {
   // Input property to accept items from the parent component
   @Input() items!: ProductModel
   @Input() title: string = '';
+  configModel: ConfigModel | null = null
 
-  constructor() {
+  constructor(
+    private configModelService: ConfigModelService
+  ) {
   }
 
   //
   ngOnInit(): void {
+    this.configModelService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
   }
 
 
@@ -59,4 +69,7 @@ export class ListScrollHorizontalComponent implements OnInit {
     return this.direction == "left"
   }
 
+  getImage(productImage: string | undefined) {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
+  }
 }

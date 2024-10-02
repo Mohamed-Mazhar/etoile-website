@@ -9,18 +9,18 @@
     <div class="overlay"></div>
   </div>
 
-  <desserts
+  <desserts *ngIf="shouldShowSpecial()"
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
-    [items]="section1"
+    [productModel]="recommendedProducts!.products!.isNotEmpty() ? recommendedProducts : popularProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
   </desserts>
 
   <desserts
     [direction]="'left'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
-    [items]="section2"
-    [titleSection]="'BestSeller'">
+    [productModel]="bestSellerProducts"
+    [titleSection]="'Best Seller'">
   </desserts>
 
   <div class="panner-item">

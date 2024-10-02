@@ -32,7 +32,6 @@ import { SelectBranchComponent } from './features/select-branch/presentation/pag
 import { SelectBranchHeaderComponent } from './features/select-branch/presentation/components/select-branch-header/select-branch-header.component';
 import { SelectBranchFooterComponent } from './features/select-branch/presentation/components/select-branch-footer/select-branch-footer.component';
 import { DessertsComponent } from './features/home/presentation/components/desserts/desserts.component';
-import { DessertItemComponent } from './features/home/presentation/components/desserts/dessert-item/dessert-item.component';
 
 import { ScrollUpBtnComponent } from './features/home/presentation/components/scroll-up-btn/scroll-up-btn.component';
 import { ProductsComponent } from './features/products/presentation/pages/products/products.component';
@@ -92,7 +91,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SelectBranchHeaderComponent,
     SelectBranchFooterComponent,
     DessertsComponent,
-    DessertItemComponent,
     ScrollUpBtnComponent,
     ProductsComponent,
     ProductsFilterComponent,

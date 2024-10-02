@@ -1,23 +1,42 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'desserts',
   templateUrl: './desserts.component.html',
   styleUrls: ['./desserts.component.scss']
 })
-export class DessertsComponent  {
+export class DessertsComponent implements OnInit {
+
+  @Input() productModel: ProductModel | null = null
   @Input() titleSection: string = '';
   @Input() imageSection: string = '';
   @Input() direction: string = 'left';
-
-  // Input property to accept items from the parent component
-  @Input() items: { title: string; subtitle: string; image: string }[] = [];
-
-
   @ViewChild('scrollList') scrollList!: ElementRef;
 
+
+  configModel: ConfigModel | null = null
   atStart = true;
   atEnd = false;
+
+  constructor(
+    private configService: ConfigModelService,
+    private cartService: CartProductsService,
+    private router: Router
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.configService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
+  }
 
   ngAfterViewInit() {
     this.checkScrollPosition();
@@ -53,6 +72,21 @@ export class DessertsComponent  {
 
   isLeft():boolean{
     return this.direction == "left"
+  }
+
+  addProduct(product: Product) {
+    this.cartService.addProduct({
+      product: product,
+      count: 1
+    })
+  }
+
+  showProductDetails(product: Product) {
+    this.router.navigate(['/product', product.id!]).then()
+  }
+
+  getImage(productImage: string | undefined) {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
   }
 
 }

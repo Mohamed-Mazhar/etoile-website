@@ -1,26 +1,26 @@
 <div class="product-details-container container">
   <div class="product-image">
-    <img src="{{product?.image}}">
+    <img [src]="getImage()">
   </div>
-  <div class="product-details" *ngIf="product !== null">
+  <div class="product-details" *ngIf="product !== null && product !== undefined">
     <div class="product-name"><p>{{ product.name }}</p></div>
     <p>Code: {{ product.branchProduct?.id }}</p>
     <div class="product-price">
-      <p>{{ (product.price ?? 0) / 100 }} {{ 'CURRENCY' | translate }}</p>
+      <p>{{ (product.price ?? 0) }} {{ 'CURRENCY' | translate }}</p>
     </div>
     <p>All prices include VAT details</p>
     <div class="product-review-container">
       <div class="customer-rate" *ngIf=" product.rating !== undefined">
         <img
-          [src]="product.rating[0].average! >= 1 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+          [src]="productRating >= 1 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
         <img
-          [src]="product.rating[0].average! >= 2 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+          [src]="productRating >= 2 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
         <img
-          [src]="product.rating[0].average! >= 3 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+          [src]="productRating >= 3 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
         <img
-          [src]="product.rating[0].average! >= 4 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+          [src]="productRating >= 4 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
         <img
-          [src]="product.rating[0].average! >= 5 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
+          [src]="productRating >= 5 ? 'assets/images/active-star-icon.svg' : 'assets/images/in-active-star-icon.svg'">
       </div>
       <div class="number-of-reviews">
         <p>({{ product.rating?.length }} Customer Reviews)</p>

@@ -199,5 +199,10 @@
   "DATE": "Date",
   "STATUS": "Status",
   "NO_ORDERS": "You have no orders!",
-  "MAKE_NEW_ORDER": "Make new order"
+  "MAKE_NEW_ORDER": "Make new order",
+  "SHIPPING": "Shipping",
+  "SELECT_SHIPPING": "Select Your Shipping Address",
+  "ADD_NEW_ADDRESS": "Add New Address",
+  "PAYMENT_PROCEED": "Proceed to payment",
+  "ADD_TO_CART": "Add to cart"
 }

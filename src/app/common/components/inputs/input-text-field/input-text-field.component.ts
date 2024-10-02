@@ -35,7 +35,6 @@ export class InputTextFieldComponent implements OnInit {
   }
 
   get errorMessage(): string {
-    // console.log(this.control.errors);
     if (this.control.touched) {
       if (this.control.hasError("minlength")) {
         let length = 8;

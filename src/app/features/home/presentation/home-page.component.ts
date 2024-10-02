@@ -3,7 +3,6 @@ import {ConfigModel} from "../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../common/services/config-model.service";
 import {Category} from "../../../common/data-classes/Category";
 import {CategoriesApi} from "../../../common/apis/categories-api";
-import {ProductsApi} from "../../../common/apis/products-api";
 import {ProductModel} from "../../../common/data-classes/ProductModel";
 import {ProductsService} from "../../../common/services/products.service";
 
@@ -60,9 +59,7 @@ export class HomePageComponent implements OnInit {
       next: (subCategories) => {
         if (subCategories.isNotEmpty()) {
           let newCategory = Object.assign({}, category, {subCategories: subCategories})
-          console.log("Updated old category to ", newCategory)
           this.categories = this.categories.map((category) => category.id === newCategory.id ? newCategory : category)
-          console.log("Modified categories ", this.categories)
         }
       }
     })
