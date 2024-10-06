@@ -5,8 +5,10 @@
 <div class="featured-items-container" #featuredItemsContainer>
   <app-product-item
     class="item-width"
-    *ngFor="let item of items.products"
-    [isAvailable]="item.branchProduct?.isAvailable ?? false"
+    *ngFor="let item of items.products; let i = index"
+    (addToCart)="addProduct(item)"
+    (showDetails)="openProductDetails(item)"
+    [isAvailable]="item.branchProduct?.isAvailable ?? true"
     [title]='item.name ?? ""'
     [price]='item.price?.toString() ?? ""'
     [image]='getImage(item.image)'>

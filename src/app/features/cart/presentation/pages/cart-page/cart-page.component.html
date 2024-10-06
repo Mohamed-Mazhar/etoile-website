@@ -7,20 +7,19 @@
     </div>
     <div class="order-container">
       <div class="order-summary-container">
-        <h4>Order Summary</h4>
+        <h4>{{ 'ORDER_SUMMARY' | translate }}</h4>
         <div class="d-flex justify-content-between mt-4">
-          <p>Item Price(s)</p>
-          <p>300 {{ 'CURRENCY' | translate }}</p>
+          <p>{{ 'ITEM_PRICES' | translate }}</p>
+          <p>{{ price }} {{ 'CURRENCY' | translate }}</p>
         </div>
         <div class="horizontal-separator"></div>
         <div class="d-flex justify-content-between mt-2 fw-bold mb-4">
-          <p>TOTAL</p>
-          <p>300 {{ 'CURRENCY' | translate }}</p>
+          <p>{{ 'TOTAL' | translate }}</p>
+          <p>{{ price }} {{ 'CURRENCY' | translate }}</p>
         </div>
-        <p>Delivered Within 45 - 60 mins</p>
+        <p>{{ 'DELIVERED_WITHIN' | translate }}</p>
         <div class="delivery-details">
-          <p>Order may delivered lately many Minutes in case rush hours (The product may differ from the image
-            daily)</p>
+          <p>{{ 'DELIVERY_NOTE' | translate }}</p>
         </div>
       </div>
       <div class="mt-4">
@@ -29,9 +28,15 @@
       <div class="mt-2">
         <primary-button class="mt-2" title="Continue Shopping" [buttonPadding]="0.5"></primary-button>
       </div>
-      <div class="mt-2 text-center text-decoration-underline clickable fw-bold">
-        <p>Remove All</p>
+      <div class="mt-2 text-center text-decoration-underline clickable fw-bold" data-bs-target="#clearCart"
+           data-bs-toggle="modal">
+        <p>{{ 'REMOVE_ALL' | translate }}</p>
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade modal-index" id="clearCart" tabindex="-1" aria-labelledby="clearCartModalLabel"
+     aria-hidden="true">
+  <app-remove-all-items-modal></app-remove-all-items-modal>
 </div>

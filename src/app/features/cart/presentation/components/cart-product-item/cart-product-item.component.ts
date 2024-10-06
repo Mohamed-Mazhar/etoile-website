@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CartProductItem} from "../../../data/model/CartProductItem";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import * as url from "url";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-cart-product-item',
@@ -11,13 +13,20 @@ import * as url from "url";
 export class CartProductItemComponent implements OnInit {
 
   @Input() cartProduct!: CartProductItem
+  configModel: ConfigModel | null = null
 
   constructor(
+    private configService: ConfigModelService,
     private cartProductsService: CartProductsService
   ) {
   }
 
   ngOnInit(): void {
+    this.configService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
   }
 
   removeProduct(cartProduct: CartProductItem) {
@@ -25,7 +34,7 @@ export class CartProductItemComponent implements OnInit {
   }
 
   getImage() : string {
-    return `url("${this.cartProduct.product.image}")`
+    return `${this.configModel?.baseUrls?.productImageUrl}/${this.cartProduct.product.image}`
   }
 
 }

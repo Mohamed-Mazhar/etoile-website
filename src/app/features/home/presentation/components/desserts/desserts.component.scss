@@ -2,23 +2,20 @@
 
 .container-item-row {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   direction: ltr;
 }
 
 .container-item-row.isLeft {
-  flex-direction: row;
+  flex-direction: row-reverse;
 }
 
-
-/* Main logo container */
 
 .logo {
   display: flex;
   position: relative;
   overflow: hidden;
-  width: 40rem;
 
   @include res-lg-styles {
     display: none;
@@ -26,10 +23,9 @@
 
 }
 
-/* Sub container */
 .logo-container {
   position: relative;
-  left: -15%;;
+  left: -15%;
   right: initial;
   display: flex;
   align-items: start;
@@ -37,7 +33,7 @@
 }
 
 .logo-container.isLeft {
-  right: -15%;
+  right: -5%;
   left: initial;
   direction: ltr;
 }
@@ -91,39 +87,24 @@
   scroll-behavior: smooth;
 }
 
-.item {
-  min-width: 30%;
+.carousel-container {
+  width: 100%;
+}
+
+
+.carousel-control-prev-icon {
+  background-color: VAR(--primary-color);
+}
+
+.carousel-control-next-icon {
+  background-color: VAR(--primary-color);
+}
+
+.product-width {
+  width: 30%;
 
   @include res-md-styles {
-    min-width: 50%;
+    width: 50%;
   }
-
 }
 
-.arrow {
-  color: #333;
-  border: none;
-  cursor: pointer;
-  background-color: white;
-
-  @include res-lg-styles {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-}
-
-
-.arrow:hover {
-  background-color: var(--primary-color) !important;
-}
-
-/* Disabled state for arrows */
-.arrow.disabled {
-  color: #999;
-  cursor: not-allowed;
-}
-
-.arrow.disabled:hover {
-  color: #999;
-}

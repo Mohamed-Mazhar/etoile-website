@@ -1,5 +1,6 @@
 <div class="scroll-container">
-  <main-products-carousel *ngIf="banners.isNotEmpty()" [banners]="banners" [bannersUrl]="configModel?.baseUrls?.bannerImageUrl ?? ''"></main-products-carousel>
+  <main-products-carousel *ngIf="banners.isNotEmpty()" [banners]="banners"
+                          [bannersUrl]="configModel?.baseUrls?.bannerImageUrl ?? ''"></main-products-carousel>
   <div class="panner-item"></div>
 
   <div class="panner-item image-container">
@@ -9,15 +10,16 @@
     <div class="overlay"></div>
   </div>
 
-  <desserts *ngIf="shouldShowSpecial()"
-    [direction]="'right'"
+  <desserts
+    *ngIf="shouldShowSpecial()"
+    [direction]="'left'"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
     [productModel]="recommendedProducts!.products!.isNotEmpty() ? recommendedProducts : popularProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
   </desserts>
 
   <desserts
-    [direction]="'left'"
+    [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
     [productModel]="bestSellerProducts"
     [titleSection]="'Best Seller'">
@@ -31,18 +33,19 @@
   </div>
 
   <app-list-scroll-horizontal *ngIf="popularProducts !== null && popularProducts!.products!.isNotEmpty()"
-    [items]="popularProducts"
-    [title]="'Most Trendy'"
-    direction="left">
+                              [items]="popularProducts"
+                              [title]="'Most Trendy'"
+                              direction="left">
   </app-list-scroll-horizontal>
 
   <app-list-scroll-horizontal *ngIf="latestProducts !== null && latestProducts!.products!.isNotEmpty()"
-    [items]="latestProducts"
-    [title]="'New Arrival'"
-    direction="right">
+                              [items]="latestProducts"
+                              [title]="'New Arrival'"
+                              direction="right">
   </app-list-scroll-horizontal>
   <app-scroll-up-btn></app-scroll-up-btn>
-
+  <div #openDelete data-bs-target="#deleteProduct" data-bs-toggle="modal">
+  </div>
 </div>
 
 

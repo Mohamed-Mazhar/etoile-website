@@ -1,32 +1,36 @@
 <div class="cart-container">
   <div class="cart-title-container">
-    <h3 class="cart-title">Cart</h3>
+    <h3 class="cart-title">{{ 'CART' | translate }}</h3>
     <div class="close-icon" data-bs-dismiss="offcanvas">
       <i class="fa fa-times"></i>
     </div>
   </div>
   <div class="products-container">
-    <cart-side-item *ngFor="let cartProduct of cartProducts" [cartProduct]="cartProduct"></cart-side-item>
+    <cart-side-item
+      *ngFor="let cartProduct of cartProducts; let i = index;"
+      [productIndex]="i"
+      [cartProduct]="cartProduct">
+    </cart-side-item>
   </div>
 
   <div class="empty-cart" *ngIf="cartProducts.isEmpty()">
     <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
-    <p>You're Cart is Empty</p>
+    <p>{{ 'EMPTY_CART' | translate }}</p>
   </div>
 
   <div class="action-buttons" *ngIf="cartProducts.isNotEmpty()">
     <div class="price-container">
-      <p>Sub Total</p>
+      <p>{{ 'SUBTOTAL' | translate }}</p>
       <p>{{ totalPrice }} {{ 'CURRENCY' | translate }}</p>
     </div>
     <primary-button
-      title="View your cart"
+      [title]="'VIEW_CART' | translate"
       routerLink="/cart"
       data-bs-dismiss="offcanvas"
       [buttonPadding]="0.5">
     </primary-button>
     <button type="button" class="btn btn-secondary" routerLink="/checkout" data-bs-dismiss="offcanvas">
-      Checkout
+      {{ 'CHECKOUT' | translate }}
     </button>
   </div>
 </div>

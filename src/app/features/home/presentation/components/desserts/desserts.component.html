@@ -1,28 +1,38 @@
 <div [class.isLeft]="isLeft()" class="container-item-row">
-  <div [class.isLeft]="isLeft()" class="container-item">
-    <button (click)="scrollLeft()" [ngClass]="{'disabled': atStart}" class="arrow">&#9664;</button>
-    <div #scrollList (scroll)="checkScrollPosition()" class="scroll-list">
-
-      <div *ngIf="productModel !== null" class="d-flex">
-        <div *ngFor="let product of productModel?.products" class="item">
-          <app-product-item
-            (showDetails)="showProductDetails(product!)"
-            (addToCart)="addProduct(product!)"
-            [image]="getImage(product.image!)"
-            [price]="product.price!.toString()"
-            [title]="product.name!"
-            class="item">
-          </app-product-item>
-        </div>
-      </div>
-    </div>
-    <button (click)="scrollRight()" [ngClass]="{'disabled': atEnd}" class="arrow">&#9654;</button>
-  </div>
-
   <div class="logo">
     <div [class.isLeft]="isLeft()" class="logo-container">
       <img [src]=imageSection alt="" class="img-bg">
       <div [class.isLeft]="isLeft()" class="text-bg"><span class="text-bg">{{ titleSection }}</span></div>
+    </div>
+  </div>
+  <div *ngIf="productModel !== null" class="carousel-container">
+    <div id="productsCarousel{{direction}}" class="carousel slide" data-bs-ride="true"
+         *ngIf="productModel!.products!.isNotEmpty()">
+      <div class="carousel-inner">
+        <div *ngFor="let products of chunkArray(productModel!.products!, chunkSize); let i = index"
+             class="carousel-item"
+             [class.active]="i === 0">
+          <div class="d-flex justify-content-center">
+            <div *ngFor="let product of products" class="product-width">
+              <app-product-item
+                (showDetails)="showProductDetails(product)"
+                (addToCart)="addProduct(product)"
+                [image]="getImage(product.image)"
+                [price]="product.price!.toString()"
+                [title]="product.name!">
+              </app-product-item>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#productsCarousel' + direction" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#productsCarousel' + direction" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next </span>
+      </button>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
@@ -16,12 +16,13 @@ export class DessertsComponent implements OnInit {
   @Input() titleSection: string = '';
   @Input() imageSection: string = '';
   @Input() direction: string = 'left';
-  @ViewChild('scrollList') scrollList!: ElementRef;
+  // @ViewChild('scrollList') scrollList!: ElementRef;
 
 
   configModel: ConfigModel | null = null
   atStart = true;
   atEnd = false;
+  chunkSize = 2
 
   constructor(
     private configService: ConfigModelService,
@@ -31,6 +32,9 @@ export class DessertsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 770) {
+      this.chunkSize = 1
+    }
     this.configService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config
@@ -43,31 +47,31 @@ export class DessertsComponent implements OnInit {
   }
 
   scrollLeft() {
-    const scrollAmount = this.scrollList.nativeElement.clientWidth / 3;
-    this.scrollList.nativeElement.scrollBy({
-      left: -scrollAmount,
-      behavior: 'smooth'
-    });
+    // const scrollAmount = this.scrollList.nativeElement.clientWidth / 3;
+    // this.scrollList.nativeElement.scrollBy({
+    //   left: -scrollAmount,
+    //   behavior: 'smooth'
+    // });
     setTimeout(() => this.checkScrollPosition(), 300); // Delay to allow smooth scroll to complete
   }
 
   scrollRight() {
-    const scrollAmount = this.scrollList.nativeElement.clientWidth / 3;
-    this.scrollList.nativeElement.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth'
-    });
+    // const scrollAmount = this.scrollList.nativeElement.clientWidth / 3;
+    // this.scrollList.nativeElement.scrollBy({
+    //   left: scrollAmount,
+    //   behavior: 'smooth'
+    // });
     setTimeout(() => this.checkScrollPosition(), 300);
   }
 
   checkScrollPosition() {
-    const scrollLeft = this.scrollList.nativeElement.scrollLeft;
-    const scrollWidth = this.scrollList.nativeElement.scrollWidth;
-    const clientWidth = this.scrollList.nativeElement.clientWidth;
-
-    // Check if we're at the start or end of the scroll
-    this.atStart = scrollLeft === 0;
-    this.atEnd = scrollLeft + clientWidth >= scrollWidth;
+    // const scrollLeft = this.scrollList.nativeElement.scrollLeft;
+    // const scrollWidth = this.scrollList.nativeElement.scrollWidth;
+    // const clientWidth = this.scrollList.nativeElement.clientWidth;
+    //
+    // // Check if we're at the start or end of the scroll
+    // this.atStart = scrollLeft === 0;
+    // this.atEnd = scrollLeft + clientWidth >= scrollWidth;
   }
 
   isLeft():boolean{
@@ -77,7 +81,8 @@ export class DessertsComponent implements OnInit {
   addProduct(product: Product) {
     this.cartService.addProduct({
       product: product,
-      count: 1
+      count: 1,
+      productAddOns: []
     })
   }
 
@@ -87,6 +92,20 @@ export class DessertsComponent implements OnInit {
 
   getImage(productImage: string | undefined) {
     return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
+  }
+
+
+  chunkArray(arr: any[], chunkSize: number): Product[][] {
+    const result = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      result.push(arr.slice(i, i + chunkSize));
+    }
+    return result;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(_: any) {
+    this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2;
   }
 
 }

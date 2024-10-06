@@ -32,6 +32,7 @@ const routes: Routes = [
       {path: 'terms-and-conditions', component: TermsAndConditionsComponent},
       {path: 'privacy', component: PrivacyComponent},
       {path: 'products/:category', component: ProductsComponent},
+      {path: 'products', component: ProductsComponent},
       {path: 'cart', component: CartPageComponent},
       {path: 'checkout', component: CheckOutComponent, canActivate: [CheckoutGuard]},
       {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},

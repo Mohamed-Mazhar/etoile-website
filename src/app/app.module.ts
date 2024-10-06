@@ -62,6 +62,7 @@ import { AddNewAddressModalComponent } from './common/components/add-new-address
 import { DeleteAddressModalComponent } from './features/user-profile/presentation/components/delete-address-modal/delete-address-modal.component';
 import {AuthGuard} from "./common/guards/auth.guard";
 import { ProductDetailsComponent } from './features/products/presentation/pages/product-details/product-details.component';
+import { RemoveAllItemsModalComponent } from './features/cart/presentation/components/remove-all-items-modal/remove-all-items-modal.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -117,7 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChangePasswordModalComponent,
     AddNewAddressModalComponent,
     DeleteAddressModalComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    RemoveAllItemsModalComponent
   ],
   imports: [
     BrowserModule,

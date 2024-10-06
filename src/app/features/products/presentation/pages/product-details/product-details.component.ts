@@ -65,7 +65,8 @@ export class ProductDetailsComponent implements OnInit {
   addToCart() {
     this.cartService.addProduct({
       product: this.product!,
-      count: this.productCount
+      count: this.productCount,
+      productAddOns: []
     })
   }
 

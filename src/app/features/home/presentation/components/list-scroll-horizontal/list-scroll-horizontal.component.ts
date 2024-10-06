@@ -1,7 +1,9 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -15,10 +17,14 @@ export class ListScrollHorizontalComponent implements OnInit {
   // Input property to accept items from the parent component
   @Input() items!: ProductModel
   @Input() title: string = '';
+  @Input() direction: 'left' | 'right' | undefined;
   configModel: ConfigModel | null = null
+  private scrollInterval: any;
 
   constructor(
-    private configModelService: ConfigModelService
+    private configModelService: ConfigModelService,
+    private cartService: CartProductsService,
+    private router: Router
   ) {
   }
 
@@ -31,14 +37,9 @@ export class ListScrollHorizontalComponent implements OnInit {
     })
   }
 
-
-  @Input() direction: 'left' | 'right' | undefined;
-
-  private scrollInterval: any;
-
-  ngAfterViewInit(): void {
-    this.startScrolling();
-  }
+  // ngAfterViewInit(): void {
+  //   this.startScrolling();
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['direction'] && !changes['direction'].firstChange) {
@@ -71,5 +72,17 @@ export class ListScrollHorizontalComponent implements OnInit {
 
   getImage(productImage: string | undefined) {
     return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
+  }
+
+  addProduct(product: Product) {
+    this.cartService.addProduct({
+      product: product,
+      count: 1,
+      productAddOns: []
+    })
+  }
+
+  openProductDetails(product: Product) {
+    this.router.navigate(['/product', product.id]).then()
   }
 }

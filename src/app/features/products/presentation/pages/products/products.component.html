@@ -2,9 +2,9 @@
   <div class="list-page-content">
     <app-products-filter></app-products-filter>
     <div class="products-container">
-      <div class="products-details-container" data-bs-toggle="offcanvas" data-bs-target="#mobileFilter">
+      <div class="products-details-container">
         <p>{{ 'NUMBER_OF_PRODUCTS' | translate : params }}</p>
-        <div class="align-items-center filter-container">
+        <div class="align-items-center filter-container" data-bs-toggle="offcanvas" data-bs-target="#mobileFilter">
           <i class="fas fa-filter mx-1"></i>
           <p>Filter</p>
         </div>

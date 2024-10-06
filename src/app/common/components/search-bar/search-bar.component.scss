@@ -66,10 +66,14 @@
   align-items: center;
   margin-bottom: 0.5rem;
   cursor: pointer;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   img {
     height: 6rem;
   }
+}
 
+.hide {
+  display: none;
 }

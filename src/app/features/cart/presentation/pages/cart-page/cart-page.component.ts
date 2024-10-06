@@ -10,6 +10,7 @@ import {CartProductItem} from "../../../data/model/CartProductItem";
 export class CartPageComponent implements OnInit {
 
   cartItems: CartProductItem[] = []
+  price = 0
 
   constructor(
     private cartProductService: CartProductsService
@@ -19,6 +20,9 @@ export class CartPageComponent implements OnInit {
     this.cartProductService.cartProductsSubject.subscribe( {
       next: (cartProducts) => {
         this.cartItems = cartProducts
+        this.cartItems.forEach((cart) => {
+          this.price += ((cart.product.price ?? 0) * cart.count)
+        })
       }
     })
   }

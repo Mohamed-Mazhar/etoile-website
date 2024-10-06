@@ -2,20 +2,18 @@
   <div class="modal-content">
     <div class="modal-header">
       <h1 class="modal-title fs-5" id="exampleModalLabel">
-        {{ 'REMOVE' | translate }} {{ cartProductItem?.product?.name ?? "" }}</h1>
+        Remove All Items
+      </h1>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-      Are you sure you want to remove this item?
+      Are you sure you want to remove all items?
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-      <primary-button
-        title="Yes"
-        [buttonPadding]="0.5"
-        data-bs-dismiss="modal"
-        (onClick)="removeProduct()">
+      <primary-button title="Yes" [buttonPadding]="0.5" data-bs-dismiss="modal" (onClick)="clearCart()">
       </primary-button>
     </div>
   </div>
 </div>
+

@@ -4,10 +4,17 @@
       <input formControlName="search" type="text" class="search-input" placeholder="{{ 'SEARCH_FOR' | translate}}">
       <i class="fas fa-search"></i>
     </div>
-    <div class="search-results-container" *ngIf="products.length > 0">
-      <div class="search-result-item" *ngFor="let product of products">
-        <img src="assets/images/chef-image.png" class="search-result-item-image" alt="Chef">
-        <p class="search-result-item-desc">{{ product }}</p>
+    <div #productsElem class="search-results-container" *ngIf="products.length > 0">
+      <div *ngFor="let product of products">
+        <div class="search-result-item" (click)="openDetails(product)">
+          <img [src]="getImage(product.image!)" class="search-result-item-image" alt="Chef">
+          <p class="search-result-item-desc">{{ product.name }}</p>
+        </div>
+        <div class="horizontal-separator"></div>
+      </div>
+      <div class="m-2">
+        <primary-button (onClick)="openAllProducts()" [buttonPadding]="0.5" title="Show all products">
+        </primary-button>
       </div>
     </div>
   </div>

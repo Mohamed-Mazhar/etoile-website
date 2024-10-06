@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {BannersApi} from "../../../../../common/apis/banners-api";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {BannerModel} from "../../../../../common/data-classes/BannerModel";
 import {ProductModel} from "../../../../../common/data-classes/ProductModel";
 import {ProductsService} from "../../../../../common/services/products.service";
+import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
+import {AppEvent} from "../../../../../common/app-events/app-event";
 
 @Component({
   selector: 'app-main-page',
@@ -13,6 +15,7 @@ import {ProductsService} from "../../../../../common/services/products.service";
 })
 export class MainPageComponent implements OnInit {
 
+  @ViewChild('openDelete') openDeleteElem!: ElementRef
   configModel: ConfigModel | null = null
   banners: BannerModel[] = []
   latestProducts: ProductModel | null = null
@@ -48,6 +51,11 @@ export class MainPageComponent implements OnInit {
     })
     this.productsService.frequentlyBoughtProducts.subscribe({
       next: (products) => this.bestSellerProducts = products
+    })
+    AppEventBroadcaster.on({event: AppEvent.showRemoveProductAlert}).subscribe({
+      next: (_) => {
+        this.openDeleteElem.nativeElement.click()
+      }
     })
   }
 

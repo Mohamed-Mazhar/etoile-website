@@ -238,7 +238,7 @@ export class BranchProduct {
       productId: json['product_id'],
       branchId: json['branch_id'],
       price: parseFloat(json['price']),
-      isAvailable: json['is_available'] === '1' || json['is_available'] === 'true',
+      isAvailable: json['is_available'] === 1 || json['is_available'] === true,
       // variations: json['variations']?.map((v: any) => {
       //   if (!v.hasOwnProperty('price')) {
       //     return Variation.fromJson(v); // Assuming Variation has a similar fromJson method

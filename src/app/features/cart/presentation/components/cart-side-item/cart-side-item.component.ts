@@ -12,6 +12,7 @@ import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 export class CartSideItemComponent implements OnInit {
 
   @Input() cartProduct!: CartProductItem
+  @Input() productIndex!: number
   configModel: ConfigModel | null = null
 
   constructor(
@@ -33,11 +34,11 @@ export class CartSideItemComponent implements OnInit {
   }
 
   decreaseProduct() {
-    this.cartProductsService.decreaseQuantity(this.cartProduct)
+    this.cartProductsService.decreaseQuantity(this.cartProduct, this.productIndex)
   }
 
   increaseProduct() {
-    this.cartProductsService.increaseQuantity(this.cartProduct)
+    this.cartProductsService.increaseQuantity(this.cartProduct, this.productIndex)
   }
 
   getImage() {

@@ -2,10 +2,10 @@
   <div class="product-title"><h4>{{ cartProduct.product.name }}</h4></div>
   <div class="price-container">
     <p>Price:</p>
-    <p>{{ cartProduct.product.price! / 100 }} {{ 'CURRENCY' | translate }}</p>
+    <p>{{ cartProduct.product.price! }} {{ 'CURRENCY' | translate }}</p>
   </div>
   <div class="cart-item-container">
-    <img [src]="cartProduct.product.image"/>
+    <img [src]="getImage()"/>
     <div class="product-description">
       <p>{{ cartProduct.product.description }}</p>
     </div>
