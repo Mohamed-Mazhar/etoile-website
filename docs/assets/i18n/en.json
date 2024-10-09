@@ -204,5 +204,16 @@
   "SELECT_SHIPPING": "Select Your Shipping Address",
   "ADD_NEW_ADDRESS": "Add New Address",
   "PAYMENT_PROCEED": "Proceed to payment",
-  "ADD_TO_CART": "Add to cart"
+  "ADD_TO_CART": "Add to cart",
+  "ORDER_SUMMARY": "Order Summary",
+  "ITEM_PRICES": "Item Price(s)",
+  "DELIVERED_WITHIN": "Delivered Within 45 - 60 mins",
+  "DELIVERY_NOTE": "Order may delivered lately many Minutes in case rush hours (The product may differ from the image daily)",
+  "REMOVE_ALL": "Remove All",
+  "CART": "Cart",
+  "EMPTY_CART": "You're Cart is Empty",
+  "SUBTOTAL": "Subtotal",
+  "VIEW_CART": "View your cart",
+  "CHECKOUT": "Checkout",
+  "REMOVE_ITEM_NOTE": "Are you sure you want to remove this item?"
 }
