@@ -1,9 +1,5 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
-import {ConfigModelService} from "../../../../../common/services/config-model.service";
-import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
-import {CartProductsService} from "../../../../../common/services/cart-products.service";
-import {Router} from "@angular/router";
+import {ProductModel} from "../../../../../common/data-classes/ProductModel";
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -18,28 +14,14 @@ export class ListScrollHorizontalComponent implements OnInit {
   @Input() items!: ProductModel
   @Input() title: string = '';
   @Input() direction: 'left' | 'right' | undefined;
-  configModel: ConfigModel | null = null
   private scrollInterval: any;
 
-  constructor(
-    private configModelService: ConfigModelService,
-    private cartService: CartProductsService,
-    private router: Router
-  ) {
+  constructor() {
   }
 
   //
   ngOnInit(): void {
-    this.configModelService.configModelSubject.subscribe({
-      next: (config) => {
-        this.configModel = config
-      }
-    })
   }
-
-  // ngAfterViewInit(): void {
-  //   this.startScrolling();
-  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['direction'] && !changes['direction'].firstChange) {
@@ -70,19 +52,4 @@ export class ListScrollHorizontalComponent implements OnInit {
     return this.direction == "left"
   }
 
-  getImage(productImage: string | undefined) {
-    return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
-  }
-
-  addProduct(product: Product) {
-    this.cartService.addProduct({
-      product: product,
-      count: 1,
-      productAddOns: []
-    })
-  }
-
-  openProductDetails(product: Product) {
-    this.router.navigate(['/product', product.id]).then()
-  }
 }

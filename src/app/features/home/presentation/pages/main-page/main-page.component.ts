@@ -23,11 +23,10 @@ export class MainPageComponent implements OnInit {
   bestSellerProducts: ProductModel | null = null
   recommendedProducts: ProductModel | null = null
 
-
   constructor(
     private configModelService: ConfigModelService,
     private bannersApi: BannersApi,
-    private productsService: ProductsService
+    private productsService: ProductsService,
   ) {
   }
 

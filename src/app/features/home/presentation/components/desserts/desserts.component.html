@@ -14,13 +14,7 @@
              [class.active]="i === 0">
           <div class="d-flex justify-content-center">
             <div *ngFor="let product of products" class="product-width">
-              <app-product-item
-                (showDetails)="showProductDetails(product)"
-                (addToCart)="addProduct(product)"
-                [image]="getImage(product.image)"
-                [price]="product.price!.toString()"
-                [title]="product.name!">
-              </app-product-item>
+              <app-product-item [product]="product"></app-product-item>
             </div>
           </div>
         </div>

@@ -1,6 +1,14 @@
 <div class="container">
+  <app-loading [loadingData]="loading"></app-loading>
   <div class="list-page-content">
-    <app-products-filter></app-products-filter>
+    <app-products-filter
+      *ngIf="productsMaxPrice !== null"
+      [categories]="categories"
+      (onClearClicked)="clearFilters()"
+      (onchange)="applyFilter($event)"
+      (onApplyButtonClicked)="applyButtonFilters($event)"
+      [maxPrice]="productsMaxPrice">
+    </app-products-filter>
     <div class="products-container">
       <div class="products-details-container">
         <p>{{ 'NUMBER_OF_PRODUCTS' | translate : params }}</p>
@@ -22,6 +30,20 @@
         </div>
       </div>
       <div class="horizontal-separator"></div>
+      <app-loading-products class="loading-products" *ngIf="loadingProductsFilter"></app-loading-products>
+      <div class="product-items-container" *ngIf="!loadingProductsFilter">
+        <app-product-item
+          *ngFor="let product of products"
+          class="product-item-container"
+          [product]="product"></app-product-item>
+      </div>
+      <primary-button
+        *ngIf="showLoadMore && !loadingProductsFilter"
+        class="load-more-button"
+        title="Show More"
+        [loading]="isLoadingMore"
+        (onClick)="loadMore()">
+      </primary-button>
     </div>
   </div>
 </div>

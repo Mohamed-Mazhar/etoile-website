@@ -4,6 +4,7 @@ import {AddressApi} from "../../../../../common/apis/address-api";
 import {AddressService} from "../../../../../common/services/address.service";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {ToastService} from "../../../../../common/services/toast.service";
 
 @Component({
   selector: 'app-address-item',
@@ -16,7 +17,8 @@ export class AddressItemComponent implements OnInit {
 
   constructor(
     private addressApi: AddressApi,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private toastService: ToastService
   ) {
   }
 
@@ -28,6 +30,7 @@ export class AddressItemComponent implements OnInit {
       {...Object.assign({}, this.address, {isDefault: true})})
     this.addressApi.updateAddress(defaultAddress).subscribe({
       next: (_) => {
+        this.toastService.showToast('normal', 'Address updated')
         AppEventBroadcaster.publish({event: AppEvent.userAddressesChanged})
       },
       error: (err) => {

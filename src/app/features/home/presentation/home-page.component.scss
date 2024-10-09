@@ -37,3 +37,11 @@
   content: "\f0d1";
 }
 
+.toast-position {
+  position: fixed;
+  bottom: 5%;
+  left: 45%;
+  margin-right: auto;
+  z-index: 1000;
+}
+

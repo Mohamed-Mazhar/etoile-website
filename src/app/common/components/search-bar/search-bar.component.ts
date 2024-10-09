@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
 export class SearchBarComponent implements OnInit {
 
 
-  @ViewChild('productsElem') productsElem! : ElementRef
+  @ViewChild('productsElem') productsElem!: ElementRef
   formGroup: FormGroup = this.fb.group({
     'search': ['']
   });
@@ -39,7 +39,7 @@ export class SearchBarComponent implements OnInit {
     })
     this.formGroup.get('search')!.valueChanges.subscribe(response => {
       this.searchFor = response
-      this.productsApi.searchProducts(this.searchFor)
+      this.productsApi.searchProducts(1, {name: this.searchFor})
         .pipe(throttleTime(2000))
         .subscribe({
           next: (productModel) => {

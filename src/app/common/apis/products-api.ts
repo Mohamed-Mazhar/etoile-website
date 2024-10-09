@@ -87,13 +87,12 @@ export class ProductsApi {
     )
   }
 
-  searchProducts(name: string) : Observable<ProductModel> {
+  searchProducts(offset: number, filters: {[key: string] : any} | null): Observable<ProductModel> {
     return this.baseApiService.call<{}, { [key: string]: any }>({
       apiType: ApiType.searchProducts,
       requestType: RequestType.POST,
-      body: {
-        name: name
-      }
+      pathVariables: [offset.toString()],
+      body: filters
     }).pipe(
       map((response) => ProductModel.fromJson(response))
     )

@@ -4,6 +4,7 @@ import {AddressApi} from "../../../../../common/apis/address-api";
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {ToastService} from "../../../../../common/services/toast.service";
 
 @Component({
   selector: 'app-delete-address-modal',
@@ -18,7 +19,8 @@ export class DeleteAddressModalComponent implements OnInit {
 
   constructor(
     private addressService: AddressService,
-    private addressApi: AddressApi
+    private addressApi: AddressApi,
+    private toastService: ToastService
   ) {
   }
 
@@ -37,6 +39,7 @@ export class DeleteAddressModalComponent implements OnInit {
         next: (_) => {
           this.loading = false
           AppEventBroadcaster.publish({event: AppEvent.userAddressesChanged})
+          this.toastService.showToast('alert', 'Address deleted successfully')
           this.closeElem.nativeElement.click()
         },
         error: (err) => {

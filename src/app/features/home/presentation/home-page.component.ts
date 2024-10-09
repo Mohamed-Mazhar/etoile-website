@@ -5,6 +5,7 @@ import {Category} from "../../../common/data-classes/Category";
 import {CategoriesApi} from "../../../common/apis/categories-api";
 import {ProductModel} from "../../../common/data-classes/ProductModel";
 import {ProductsService} from "../../../common/services/products.service";
+import {ToastService} from "../../../common/services/toast.service";
 
 @Component({
   selector: 'home-page',
@@ -18,11 +19,13 @@ export class HomePageComponent implements OnInit {
   loadingData: boolean = false
   latestProducts: ProductModel[] = []
   popularProducts : ProductModel[] = []
+  showToast = false
 
   constructor(
     private configModelService: ConfigModelService,
     private categoriesApi: CategoriesApi,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private toastService: ToastService
   ) {
   }
 
@@ -39,6 +42,11 @@ export class HomePageComponent implements OnInit {
           this.getCategories()
           this.productsService.loadProducts()
         }
+      }
+    })
+    this.toastService.toastSubject.subscribe({
+      next: (_) => {
+        this.showToast = true
       }
     })
   }
@@ -60,6 +68,7 @@ export class HomePageComponent implements OnInit {
         if (subCategories.isNotEmpty()) {
           let newCategory = Object.assign({}, category, {subCategories: subCategories})
           this.categories = this.categories.map((category) => category.id === newCategory.id ? newCategory : category)
+          this.configModelService.setCategories(this.categories)
         }
       }
     })

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -12,8 +14,10 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   numberOfItems: number = 0
   totalPrice: number = 0
   products: CartProductItem[] = []
+  configModel: ConfigModel | null = null
   constructor(
-    private cartProductsService: CartProductsService
+    private cartProductsService: CartProductsService,
+    private configModelService: ConfigModelService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +30,15 @@ export class CheckoutOrderSummaryComponent implements OnInit {
         }
     }
     })
+    this.configModelService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
+  }
+
+  getImage(image: string) {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${image}`
   }
 
 }

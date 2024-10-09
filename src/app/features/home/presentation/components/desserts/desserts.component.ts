@@ -1,9 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
-import {ConfigModelService} from "../../../../../common/services/config-model.service";
-import {CartProductsService} from "../../../../../common/services/cart-products.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'desserts',
@@ -24,26 +21,13 @@ export class DessertsComponent implements OnInit {
   atEnd = false;
   chunkSize = 2
 
-  constructor(
-    private configService: ConfigModelService,
-    private cartService: CartProductsService,
-    private router: Router
-  ) {
+  constructor() {
   }
 
   ngOnInit(): void {
     if (window.innerWidth < 770) {
       this.chunkSize = 1
     }
-    this.configService.configModelSubject.subscribe({
-      next: (config) => {
-        this.configModel = config
-      }
-    })
-  }
-
-  ngAfterViewInit() {
-    this.checkScrollPosition();
   }
 
   scrollLeft() {
@@ -74,26 +58,9 @@ export class DessertsComponent implements OnInit {
     // this.atEnd = scrollLeft + clientWidth >= scrollWidth;
   }
 
-  isLeft():boolean{
+  isLeft(): boolean {
     return this.direction == "left"
   }
-
-  addProduct(product: Product) {
-    this.cartService.addProduct({
-      product: product,
-      count: 1,
-      productAddOns: []
-    })
-  }
-
-  showProductDetails(product: Product) {
-    this.router.navigate(['/product', product.id!]).then()
-  }
-
-  getImage(productImage: string | undefined) {
-    return `${this.configModel?.baseUrls?.productImageUrl}/${productImage}`
-  }
-
 
   chunkArray(arr: any[], chunkSize: number): Product[][] {
     const result = [];

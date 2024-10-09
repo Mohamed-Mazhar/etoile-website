@@ -5,9 +5,11 @@
   flex-direction: row;
   column-gap: 1rem;
   width: 100%;
+  overflow-x: hidden;
 
   @include res-lg-styles {
     flex-direction: column;
+    justify-content: center;
   }
 }
 
@@ -15,14 +17,19 @@
   display: flex;
   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
   margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-inline-start: 1rem;
+  border-radius: 1rem;
 }
 
 .order-container {
   width: 50%;
-  margin-inline-start: 1rem;
+  //margin-inline-start: 1rem;
 
   @include res-lg-styles {
     width: 100%;
+    //margin-left: 1rem;
+    //margin-right: 1rem;
   }
 }
 
@@ -37,4 +44,23 @@
 .delivery-details {
   margin-top: 1rem;
   font-size: 0.85rem;
+}
+
+.empty-cart {
+
+  text-align: center;
+
+  img {
+    width: 20rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+}
+
+.button-width {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
 }

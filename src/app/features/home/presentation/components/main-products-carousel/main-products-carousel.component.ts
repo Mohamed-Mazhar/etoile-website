@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BannerModel} from "../../../../../common/data-classes/BannerModel";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'main-products-carousel',
@@ -11,7 +12,9 @@ export class MainProductsCarouselComponent implements OnInit {
   @Input() banners: BannerModel[] = []
   @Input() bannersUrl: string = ""
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -20,6 +23,15 @@ export class MainProductsCarouselComponent implements OnInit {
 
   getImage(imageUrl: string): string {
     return this.bannersUrl + "/" + imageUrl
+  }
+
+  showProduct(banner: BannerModel) {
+    console.log("Selected banner is", banner)
+    if (banner.categoryId === null) {
+      this.router.navigate(['/product', banner.productId]).then()
+    } else {
+      this.router.navigate(['/products', banner.categoryId]).then()
+    }
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
+import {ToastService} from "../../../../../common/services/toast.service";
 
 @Component({
   selector: 'app-remove-product-modal',
@@ -12,7 +13,8 @@ export class RemoveProductModalComponent implements OnInit {
   cartProductItem : CartProductItem | null = null
 
   constructor(
-    private cartProductService: CartProductsService
+    private cartProductService: CartProductsService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class RemoveProductModalComponent implements OnInit {
   }
 
   removeProduct() {
+    this.toastService.showToast('alert', 'Product removed')
     this.cartProductService.removeProduct(this.cartProductItem!)
   }
 

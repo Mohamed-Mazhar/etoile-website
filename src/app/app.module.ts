@@ -14,7 +14,7 @@ import {
   MainProductsCarouselComponent
 } from './features/home/presentation/components/main-products-carousel/main-products-carousel.component';
 import {FooterComponent} from './common/components/footer/footer.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HeaderComponent} from './common/components/header/header.component';
 import {MainPageComponent} from './features/home/presentation/pages/main-page/main-page.component';
 import {TranslateModule, TranslateLoader} from "@ngx-translate/core";
@@ -63,6 +63,8 @@ import { DeleteAddressModalComponent } from './features/user-profile/presentatio
 import {AuthGuard} from "./common/guards/auth.guard";
 import { ProductDetailsComponent } from './features/products/presentation/pages/product-details/product-details.component';
 import { RemoveAllItemsModalComponent } from './features/cart/presentation/components/remove-all-items-modal/remove-all-items-modal.component';
+import { ToastComponent } from './common/components/toast/toast.component';
+import { LoadingProductsComponent } from './features/products/presentation/components/loading-products/loading-products.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -119,23 +121,26 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddNewAddressModalComponent,
     DeleteAddressModalComponent,
     ProductDetailsComponent,
-    RemoveAllItemsModalComponent
+    RemoveAllItemsModalComponent,
+    ToastComponent,
+    LoadingProductsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgxSliderModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgxSliderModule,
+        FormsModule
+    ],
   providers: [
     AuthGuard
   ],

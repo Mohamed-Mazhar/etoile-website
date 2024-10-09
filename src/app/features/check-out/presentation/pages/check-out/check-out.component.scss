@@ -1,3 +1,19 @@
+@import "src/app/common/styles/mixin";
+
+.checkout-container {
+
+  display: flex;
+  justify-content: space-between;
+
+  @include res-md-styles {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    row-gap: 1rem;
+  }
+
+}
+
 .tabs-container {
   display: flex;
   flex-direction: column;
@@ -9,6 +25,7 @@
 .nav-item {
   text-align: center;
   cursor: pointer;
+
   i {
     font-size: 2rem;
     color: VAR(--lightgray);
@@ -28,6 +45,10 @@
   flex-grow: 1;
   margin-inline-end: 2rem;
   height: fit-content;
+
+  @include res-md-styles {
+    margin-inline-end: 0;
+  }
 }
 
 .active {
@@ -48,4 +69,7 @@
   flex-grow: 1;
 }
 
+.order-summary {
+  min-width: 40%;
+}
 

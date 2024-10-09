@@ -1,3 +1,10 @@
+.product-item-container {
+  display: flex;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+}
+
 .product-title {
   margin-top: 1rem;
   text-align: center;

@@ -33,3 +33,38 @@
   }
 
 }
+
+.product-item-container {
+  width: 30%;
+
+  @include res-lg-styles {
+    width: 50%;
+  }
+
+  @include res-md-styles {
+    width: 60%;
+  }
+}
+
+.product-items-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+
+  @include res-md-styles {
+    justify-content: center;
+  }
+}
+
+.load-more-button {
+  display: block;
+  width: fit-content;
+  margin: auto;
+}
+
+.loading-products {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+  width: 100%;
+}

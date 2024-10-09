@@ -1,18 +1,11 @@
-<!--<div class="container-items" [class.isLeft]="isLeft()">-->
 <div class="text-center">
   <h3>{{ title }}</h3>
 </div>
 <div class="featured-items-container" #featuredItemsContainer>
   <app-product-item
     class="item-width"
-    *ngFor="let item of items.products; let i = index"
-    (addToCart)="addProduct(item)"
-    (showDetails)="openProductDetails(item)"
-    [isAvailable]="item.branchProduct?.isAvailable ?? true"
-    [title]='item.name ?? ""'
-    [price]='item.price?.toString() ?? ""'
-    [image]='getImage(item.image)'>
+    *ngFor="let product of items.products; let i = index"
+    [product]="product">
   </app-product-item>
 </div>
-<!--</div>-->
 

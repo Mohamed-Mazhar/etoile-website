@@ -8,8 +8,8 @@
         <p>{{ 'ADD_NEW_ADDRESS' | translate }}</p>
       </div>
     </div>
-    <div class="d-flex">
-      <div class="addresses-container" *ngFor="let address of addresses; let i = index">
+    <div class="addresses-container">
+      <div class="address-container" *ngFor="let address of addresses; let i = index">
         <input formControlName="deliveryAddress"
                value="{{address.id?.toString()}}"
                class="mt-2" type="radio" name="deliveryAddress" [checked]="address.isDefault"

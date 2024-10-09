@@ -33,7 +33,7 @@
     <p>Item(s)</p>
   </div>
   <div class="vertical-separator"></div>
-  <div class="user-info-item-container">
+  <div class="user-info-item-container" routerLink="/branch">
     <i class="fas fa-map-marker-alt ml-1 mr-1 icon-size"></i>
     <p>{{ this.selectedBranch?.name ?? '' }}</p>
     <a routerLink="/branch">{{ 'CHANGE' | translate }}</a>

@@ -1,15 +1,15 @@
 <div class="container-item">
   <div class="item">
     <div class="image-container clickable" (click)="goToDetails()">
-      <div class="not-available" *ngIf="!isAvailable">
+      <div class="not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
         <p>Not Available</p>
       </div>
-      <img alt="" class="img" loading="lazy" [src]=image>
+      <img alt="" class="img" loading="lazy" [src]=getImage(product.image!)>
     </div>
-    <p class="title">{{ title }}</p>
-    <p class="subtitle">{{ price }} {{ 'CURRENCY' | translate }}</p>
+    <p class="title">{{ product.name }}</p>
+    <p class="subtitle">{{ product.price }} {{ 'CURRENCY' | translate }}</p>
     <primary-button
-      [enabled]="isAvailable"
+      [enabled]="product.branchProduct?.isAvailable ?? true"
       (onClick)="addProduct()"
       [buttonPadding]="0.5"
       [title]="'ADD_TO_CART' | translate">

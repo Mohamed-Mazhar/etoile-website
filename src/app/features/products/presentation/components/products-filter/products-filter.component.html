@@ -5,41 +5,57 @@
       <p>{{ 'CLEAR' | translate }}</p>
     </div>
   </div>
-  <div class="filter-by-item" *ngFor="let category of categories; let i = index">
-    <input type="checkbox" id="{{category.id}}" name="{{category.id}}" value="All">
-    <label for="{{category.id}}">{{ category.name }}</label><br>
-  </div>
-  <div class="horizontal-separator"></div>
-  <div class="filter-by-title">
-    <h5>{{ 'SIZE' | translate }}</h5>
-    <div class="clear-all" (click)="clear()">
-      <p>{{ 'CLEAR' | translate }}</p>
+  <div class="filter-by-item" *ngFor="let category of categoriesCheckedModel; let i = index">
+    <input [(ngModel)]="category.isChecked"
+           (change)="toggleMainCategory(category)"
+           class="form-check-input me-2"
+           type="checkbox"
+           id="input-{{category.categoryId}}" name="{{category.categoryId}}" value="{{category.categoryId}}">
+    <label for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
+    <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4">
+      <input [(ngModel)]="subCategory.isChecked"
+             (change)="applyFilter()"
+             class="form-check-input me-2"
+             type="checkbox" id="input-{{subCategory.categoryId}}"
+             name="{{subCategory.categoryId}}"
+             value="{{subCategory.categoryId}}">
+      <label for="input-{{subCategory.categoryId}}">{{ subCategory.categoryName }}</label><br>
     </div>
   </div>
-  <div class="filter-categories">
-    <div class="filter-by-item" *ngFor="let size of size; let i = index">
-      <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">
-      <label for="{{size.id}}">{{ size.name }}</label><br>
-    </div>
-  </div>
+  <!--  <div class="horizontal-separator"></div>-->
+  <!--  <div class="filter-by-title">-->
+  <!--    <h5>{{ 'SIZE' | translate }}</h5>-->
+  <!--    <div class="clear-all" (click)="clear()">-->
+  <!--      <p>{{ 'CLEAR' | translate }}</p>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  <div class="filter-categories">-->
+  <!--    <div class="filter-by-item" *ngFor="let size of size; let i = index">-->
+  <!--      <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">-->
+  <!--      <label for="{{size.id}}">{{ size.name }}</label><br>-->
+  <!--    </div>-->
+  <!--  </div>-->
   <div class="horizontal-separator"></div>
   <div class="filter-by-price-container">
     <div class="filter-by-title">
       <h5>{{ 'PRICE' | translate }}</h5>
     </div>
     <ngx-slider
-      [(value)]="minPrice"
+      [(value)]="value"
       [(highValue)]="maxPrice"
+      (valueChange)="onMinPriceChange($event)"
+      (highValueChange)="onMaxPriceChange($event)"
       [options]="options">
     </ngx-slider>
     <div class="horizontal-separator"></div>
   </div>
   <primary-button
+    (onClick)="applyFilterButtonClicked()"
     [buttonPadding]="0.5"
     [title]="'FILTER_NOW' | translate">
   </primary-button>
   <div class="horizontal-separator"></div>
-  <div class="reset-button">
+  <div class="reset-button" (click)="resetFilters()">
     <p>{{ 'RESET' | translate }}</p>
   </div>
 </div>
@@ -55,41 +71,58 @@
         <p>{{ 'CLEAR' | translate }}</p>
       </div>
     </div>
-    <div class="filter-by-item" *ngFor="let category of categories; let i = index">
-      <input type="checkbox" id="{{category.id}}" name="{{category.id}}" value="All">
-      <label for="{{category.id}}">{{ category.name }}</label><br>
-    </div>
-    <div class="horizontal-separator"></div>
-    <div class="filter-by-title">
-      <h5>{{ 'SIZE' | translate }}</h5>
-      <div class="clear-all" (click)="clear()">
-        <p>{{ 'CLEAR' | translate }}</p>
+    <div class="filter-by-item" *ngFor="let category of categoriesCheckedModel; let i = index">
+      <input [(ngModel)]="category.isChecked"
+             (change)="toggleMainCategory(category)"
+             class="form-check-input me-2"
+             type="checkbox"
+             id="input-{{category.categoryId}}" name="{{category.categoryId}}" value="{{category.categoryId}}">
+      <label for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
+      <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4">
+        <input [(ngModel)]="subCategory.isChecked"
+               (change)="applyFilter()"
+               class="form-check-input me-2"
+               type="checkbox" id="input-{{subCategory.categoryId}}"
+               name="{{subCategory.categoryId}}"
+               value="{{subCategory.categoryId}}">
+        <label for="input-{{subCategory.categoryId}}">{{ subCategory.categoryName }}</label><br>
       </div>
     </div>
-    <div class="filter-categories">
-      <div class="filter-by-item" *ngFor="let size of size; let i = index">
-        <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">
-        <label for="{{size.id}}">{{ size.name }}</label><br>
-      </div>
-    </div>
+    <!--    <div class="horizontal-separator"></div>-->
+    <!--    <div class="filter-by-title">-->
+    <!--      <h5>{{ 'SIZE' | translate }}</h5>-->
+    <!--      <div class="clear-all" (click)="clear()">-->
+    <!--        <p>{{ 'CLEAR' | translate }}</p>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <div class="filter-categories">-->
+    <!--      <div class="filter-by-item" *ngFor="let size of size; let i = index">-->
+    <!--        <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">-->
+    <!--        <label for="{{size.id}}">{{ size.name }}</label><br>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="horizontal-separator"></div>
     <div class="filter-by-price-container">
       <div class="filter-by-title">
         <h5>{{ 'PRICE' | translate }}</h5>
       </div>
-<!--      <ngx-slider-->
-<!--        [(value)]="minPrice"-->
-<!--        [(highValue)]="maxPrice"-->
-<!--        [options]="options">-->
-<!--      </ngx-slider>-->
+      <ngx-slider
+        [(value)]="value"
+        [(highValue)]="maxPrice"
+        (valueChange)="onMinPriceChange($event)"
+        (highValueChange)="onMaxPriceChange($event)"
+        [options]="options">
+      </ngx-slider>
       <div class="horizontal-separator"></div>
     </div>
     <primary-button
+      data-bs-dismiss="offcanvas"
+      (onClick)="applyFilterButtonClicked()"
       [buttonPadding]="0.5"
       [title]="'FILTER_NOW' | translate">
     </primary-button>
     <div class="horizontal-separator"></div>
-    <div class="reset-button">
+    <div class="reset-button" data-bs-dismiss="offcanvas" (click)="resetFilters()">
       <p>{{ 'RESET' | translate }}</p>
     </div>
   </div>

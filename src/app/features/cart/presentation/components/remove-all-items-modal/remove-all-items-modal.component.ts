@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
+import {ToastService} from "../../../../../common/services/toast.service";
 
 @Component({
   selector: 'app-remove-all-items-modal',
@@ -11,6 +12,7 @@ export class RemoveAllItemsModalComponent implements OnInit {
 
   constructor(
     private cartService: CartProductsService,
+    private toastService: ToastService,
     private router: Router
   ) { }
 
@@ -19,6 +21,7 @@ export class RemoveAllItemsModalComponent implements OnInit {
 
   clearCart() {
     this.cartService.clearCart()
+    this.toastService.showToast('alert','Cart cleared')
     this.router.navigate(['']).then()
   }
 

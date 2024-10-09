@@ -1,4 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ToastService} from "../../../../../../common/services/toast.service";
+import {Product} from "../../../../../../common/data-classes/ProductModel";
+import {CartProductsService} from "../../../../../../common/services/cart-products.service";
+import {Router} from "@angular/router";
+import {ConfigModelService} from "../../../../../../common/services/config-model.service";
+import {ConfigModel} from "../../../../../../common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-product-item',
@@ -7,24 +13,39 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class ProductItemComponent implements OnInit {
 
-  @Input() title: string = '';
-  @Input() price: string = '';
-  @Input() image: string = '';
-  @Input() isAvailable: boolean = true
-  @Output() addToCart = new EventEmitter()
-  @Output() showDetails = new EventEmitter()
+  @Input() product!: Product
+  configModel: ConfigModel | null = null
 
-  constructor() { }
+  constructor(
+    private toastService: ToastService,
+    private cartService: CartProductsService,
+    private configModelService: ConfigModelService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    this.configModelService.configModelSubject.subscribe({
+      next: (config) => {
+        this.configModel = config
+      }
+    })
   }
 
   addProduct() {
-    this.addToCart.emit()
+    this.toastService.showToast('normal', 'Product Added')
+    this.cartService.addProduct({
+      product: this.product,
+      count: 1,
+      productAddOns: []
+    })
   }
 
   goToDetails() {
-    this.showDetails.emit()
+    this.router.navigate(['/product', this.product.id]).then()
+  }
+
+  getImage(image: string) {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${image}`
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="cart-page-container">
+  <div class="cart-page-container" *ngIf="cartItems.isNotEmpty()">
     <div class="full-width">
       <div class="product-item-container" *ngFor="let cartProduct of cartItems">
         <app-cart-product-item class="full-width" [cartProduct]="cartProduct"></app-cart-product-item>
@@ -33,6 +33,11 @@
         <p>{{ 'REMOVE_ALL' | translate }}</p>
       </div>
     </div>
+  </div>
+  <div class="empty-cart" *ngIf="cartItems.isEmpty()">
+    <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
+    <p class="mb-3">{{ 'EMPTY_CART' | translate }}</p>
+    <primary-button class="button-width" title="Continue Shopping" (onClick)="continue()"></primary-button>
   </div>
 </div>
 

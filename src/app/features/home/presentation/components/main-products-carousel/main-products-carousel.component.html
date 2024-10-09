@@ -7,7 +7,8 @@
     </div>
   </div>
   <div class="carousel-inner">
-    <div *ngFor="let banner of this.banners; index as i" class="carousel-item"
+    <div *ngFor="let banner of this.banners; index as i" class="carousel-item clickable"
+         (click)="showProduct(banner)"
          [class.active]="i === 0" data-bs-interval="5000">
       <img [src]="getImage(banner.image!)" class="d-block w-100">
     </div>
