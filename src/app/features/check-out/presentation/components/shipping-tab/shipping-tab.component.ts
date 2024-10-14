@@ -10,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class ShippingTabComponent implements OnInit {
 
-  @Output() onProceedClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onProceedClicked: EventEmitter<number> = new EventEmitter<number>();
   @Input() addresses: AddressModel[] = []
   formGroup: FormGroup = this.fb.group({
     deliveryAddress: ['', Validators.required]
@@ -26,7 +26,8 @@ export class ShippingTabComponent implements OnInit {
   }
 
   moveToPayment() {
-    this.onProceedClicked.emit()
+    let address = this.formGroup.get('deliveryAddress')?.value
+    this.onProceedClicked.emit(address)
   }
 
   setAddress(address: AddressModel) {

@@ -3,20 +3,42 @@ import {AddressApi} from "../../../../../common/apis/address-api";
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {Branch, PaymentMethod} from "../../../../../common/data-classes/ConfigModel";
+import {PlaceOrderBody} from "../../../../../common/data-classes/PlaceOrderBody";
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
+import {SELECTED_BRANCH} from "../../../../../common/utils/constants";
+import {CouponModel} from "../../../../../common/data-classes/CouponModel";
+import {OrdersApi} from "../../../../../common/apis/orders-api";
+import {ToastService} from "../../../../../common/services/toast.service";
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-check-out',
   templateUrl: './check-out.component.html',
-  styleUrls: ['./check-out.component.scss']
+  styleUrls: ['./check-out.component.scss'],
+  providers: [DatePipe]
 })
 export class CheckOutComponent implements OnInit {
 
   activeTab = 'shipping'
   loading = false
   addresses: AddressModel[] = []
+  selectedAddressId: number = 0
+  cartProductItems: CartProductItem[] = []
+  totalPrice: number = 0
+  selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+  couponModel: CouponModel | null = null
+  placingOrder = false
+  errorMessage: string | null = null
 
   constructor(
-    private addressApi: AddressApi
+    private addressApi: AddressApi,
+    private ordersApi: OrdersApi,
+    private cartProductsService: CartProductsService,
+    private toastService: ToastService,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -37,14 +59,51 @@ export class CheckOutComponent implements OnInit {
         this.reloadUserAddresses()
       }
     })
+    this.cartProductsService.cartProductsSubject.subscribe({
+      next: (cartProducts) => {
+        this.cartProductItems = cartProducts
+        for (let cartProduct of cartProducts) {
+          this.totalPrice += (cartProduct.count * cartProduct.product.price!)
+        }
+      }
+    })
   }
 
-  moveToPayment() {
+  moveToPayment(addressId: number) {
+    this.selectedAddressId = addressId
     this.activeTab = 'payment'
   }
 
-  moveToConfirm() {
-    this.activeTab = 'confirm'
+  applyCoupon(couponModel: CouponModel | null) {
+    this.couponModel = couponModel
+  }
+
+  placeOrder(paymentMethod: PaymentMethod) {
+    let placeOrder = new PlaceOrderBody(
+      this.cartProductItems,
+      this.couponModel !== null ? (this.couponModel?.discount ?? 0) : 0,
+      this.couponModel?.title ?? '',
+      this.couponModel?.code ?? '',
+      this.totalPrice,
+      this.selectedAddressId,
+      'delivery',
+      paymentMethod.getWay ?? '',
+      this.selectedBranch.id ?? 0,
+      'now',
+      this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
+      '',
+      0,
+      '0',
+      null,
+      null,
+      null
+    )
+    if (paymentMethod.getWay === 'CashOnDelivery') {
+      this.callPlaceOrder(placeOrder)
+    } else {
+      this.makeOnlinePayment(placeOrder)
+    }
+    // this.activeTab = 'confirm'
   }
 
   private reloadUserAddresses() {
@@ -59,5 +118,24 @@ export class CheckOutComponent implements OnInit {
         console.log("Failed to reload addresses", err)
       }
     })
+  }
+
+  private callPlaceOrder(placeOrder: PlaceOrderBody) {
+    this.placingOrder = true
+    this.errorMessage = null
+    this.ordersApi.placeOrder(placeOrder).subscribe({
+      next: (res) => {
+        this.placingOrder = false
+        this.toastService.showToast('normal', `Order Successful\n Order no: ${res}`)
+      },
+      error: (err) => {
+        this.placingOrder = false
+        this.errorMessage = err
+      }
+    })
+  }
+
+  private makeOnlinePayment(placeOrder: PlaceOrderBody) {
+
   }
 }

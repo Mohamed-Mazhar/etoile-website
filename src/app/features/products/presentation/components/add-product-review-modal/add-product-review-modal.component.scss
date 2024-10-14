@@ -1,0 +1,28 @@
+.rate-stars-container {
+  display: flex;
+  column-gap: 0.25rem;
+
+  img {
+    height: 1.5rem;
+    cursor: pointer;
+  }
+}
+
+.review-comment {
+  margin-top: 1rem;
+
+  textarea {
+    border-color: VAR(--lightgray);
+    overflow: auto;
+    width: 100%;
+    height: 6rem;
+    border-radius: 0.5rem;
+    resize: none;
+    padding: 1rem;
+  }
+
+  textarea:focus-visible {
+    outline: none !important;
+  }
+
+}

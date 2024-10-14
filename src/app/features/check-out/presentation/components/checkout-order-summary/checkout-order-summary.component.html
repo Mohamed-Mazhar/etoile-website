@@ -1,27 +1,45 @@
 <div class="checkout-summary-container">
-  <h4>Your Order Summary ({{ numberOfItems }} items)</h4>
+  <h4>{{ 'CHECKOUT_ORDER_SUMMARY' | translate }} ({{ numberOfItems }} {{ 'ITEM' | translate }})</h4>
+  <div class="promo-code-container" *ngIf="showExtraDetails">
+    <p>{{ 'PROMO_CODE' | translate }}</p>
+    <div class="d-flex gap-2 align-items-center mt-2">
+      <input type="text" [(ngModel)]="coupon" class="form-check-input" [placeholder]="'CODE' | translate">
+      <primary-button
+        (onClick)="applyCoupon()"
+        [loading]="loading"
+        [enabled]="coupon.hasActualValue()"
+        [buttonPadding]="0.5"
+        [title]="'APPLY' | translate">
+      </primary-button>
+    </div>
+    <div class="alert alert-danger form-alert" *ngIf="errorMessage.hasActualValue()">{{ errorMessage }}</div>
+  </div>
   <div class="horizontal-separator"></div>
   <div class="d-flex justify-content-between">
-    <p>Item Price(s)</p>
+    <p>{{ 'ITEM_PRICES' | translate }}</p>
     <p>{{ totalPrice }} {{ 'CURRENCY' | translate }}</p>
+  </div>
+  <div class="d-flex justify-content-between" *ngIf="showExtraDetails">
+    <p>{{ 'DELIVERY_FEES' | translate }}</p>
+    <p>{{ deliveryCharge }} {{ 'CURRENCY' | translate }} </p>
   </div>
   <div class="horizontal-separator"></div>
   <div class="total-price-container">
-    <p>TOTAL</p>
+    <p>{{ 'TOTAL' | translate }}</p>
     <p>{{ totalPrice }} {{ 'CURRENCY' | translate }}</p>
   </div>
   <div class="horizontal-separator"></div>
-  <div *ngFor="let cartProductItem of products">
+  <div *ngFor="let cartProductItem of products; let i = index;">
     <div class="cart-product-item-container">
       <img [src]="getImage(cartProductItem.product.image!)">
       <div>
         <p>{{ cartProductItem.product.name }}</p>
-        <p>Quantity ({{ cartProductItem.count }})</p>
+        <div class="quantity-container"><p>{{ 'QUANTITY' | translate }} ({{ cartProductItem.count }})</p></div>
       </div>
       <div class="item-price">
         <p>{{ cartProductItem.product.price! }} {{ 'CURRENCY' | translate }}</p>
       </div>
     </div>
-    <div class="horizontal-separator"></div>
+    <div class="horizontal-separator" *ngIf="i !== (products.length - 1)"></div>
   </div>
 </div>

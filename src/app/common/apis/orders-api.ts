@@ -5,6 +5,7 @@ import {RequestType} from "../enums/RequestType";
 import {ApiType} from "../enums/ApiType";
 import {OrderModel} from "../data-classes/OrderModel";
 import {OrderDetailsModel} from "../data-classes/OrderDetailsModel";
+import {PlaceOrderBody} from "../data-classes/PlaceOrderBody";
 
 @Injectable({providedIn: 'root'})
 export class OrdersApi {
@@ -35,6 +36,17 @@ export class OrdersApi {
     }).pipe(
       map((response) =>
         response.map(json => OrderDetailsModel.fromJson(json)))
+    )
+  }
+
+  placeOrder(placeOrderBody: PlaceOrderBody): Observable<string> {
+    let body = placeOrderBody.toJson()
+    return this.baseApiService.call<{}, { [key: string]: any }>({
+      apiType: ApiType.placeOrder,
+      requestType: RequestType.POST,
+      body: body
+    }).pipe(
+      map(response => response['order_id'].toString())
     )
   }
 

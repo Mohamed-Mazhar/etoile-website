@@ -20,6 +20,11 @@
   margin-top: 1rem;
   margin-inline-start: 1rem;
   border-radius: 1rem;
+
+  @include res-md-styles {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .order-container {

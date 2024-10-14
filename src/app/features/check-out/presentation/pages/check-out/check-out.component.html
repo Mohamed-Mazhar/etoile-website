@@ -1,5 +1,6 @@
 <div class="container">
   <app-loading [loadingData]="loading"></app-loading>
+  <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
   <div class="checkout-container">
     <div class="tabs-container">
       <div class="nav">
@@ -7,35 +8,39 @@
              (click)="activeTab = 'shipping'"
              data-bs-toggle='tab' [ngClass]="{'active': activeTab === 'shipping'}">
           <i class="fas fa-motorcycle"></i>
-          <p>Shipping</p>
+          <p>{{ 'SHIPPING' | translate }}</p>
         </div>
         <div class="checkout-tabs-separator"></div>
         <div class="nav-item"
              [ngClass]="{'active': activeTab === 'payment'}">
           <i class="fas fa-credit-card"></i>
-          <p>Payment</p>
+          <p>{{ 'PAYMENT' | translate }}</p>
         </div>
         <div class="checkout-tabs-separator"></div>
         <div class="nav-item"
              [ngClass]="{'active': activeTab === 'confirm'}">
           <i class="fas fa-check-circle"></i>
-          <p>Confirmation</p>
+          <p>{{ 'CONFIRMATION' | translate }}</p>
         </div>
       </div>
       <div class="tab-content">
         <div class='tab-pane container fade active show' id='shipping'
              [ngClass]="{'show': activeTab === 'shipping', 'active': activeTab === 'shipping'}">
-          <app-shipping-tab [addresses]="addresses" (onProceedClicked)="moveToPayment()"></app-shipping-tab>
+          <app-shipping-tab [addresses]="addresses" (onProceedClicked)="moveToPayment($event)"></app-shipping-tab>
         </div>
         <div class='tab-pane container fade' id='payment'
              [ngClass]="{'show': activeTab === 'payment', 'active': activeTab === 'payment' }">
-          <app-payments-tab (onPayClicked)="moveToConfirm()"></app-payments-tab>
+          <app-payments-tab [loading]="placingOrder" (onPayClicked)="placeOrder($event)"></app-payments-tab>
         </div>
         <div class='tab-pane container fade' id='confirm'
              [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">3
         </div>
       </div>
     </div>
-    <app-checkout-order-summary class="order-summary"></app-checkout-order-summary>
+    <app-checkout-order-summary
+      (onCouponAppliedSuccessfully)="applyCoupon($event)"
+      [showExtraDetails]="activeTab === 'payment'"
+      class="order-summary">
+    </app-checkout-order-summary>
   </div>
 </div>

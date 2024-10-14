@@ -215,5 +215,17 @@
   "SUBTOTAL": "Subtotal",
   "VIEW_CART": "View your cart",
   "CHECKOUT": "Checkout",
-  "REMOVE_ITEM_NOTE": "Are you sure you want to remove this item?"
+  "REMOVE_ITEM_NOTE": "Are you sure you want to remove this item?",
+  "CASH_ON_DELIVERY": "Cash On Delivery (COD) cash only",
+  "CHECKOUT_ORDER_SUMMARY": "Your Order Summary",
+  "QUANTITY": "Quantity",
+  "APPLY": "Apply",
+  "PROMO_CODE": "Promo Code",
+  "CODE": "CODE",
+  "PAYMENT": "Payment",
+  "CONFIRMATION": "Confirmation",
+  "DELIVERY_FEES": "Delivery Fees",
+  "CONFIRM": "Confirm",
+  "ADD_REVIEW": "Add Review",
+  "RATE_PRODUCT": "Rate Product"
 }

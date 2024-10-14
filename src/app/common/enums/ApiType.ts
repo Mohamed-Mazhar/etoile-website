@@ -15,10 +15,13 @@ export enum ApiType {
   frequentlyBought = "api/v1/products/frequently-bought",
   productDetails = "api/v1/products/details/{}",
   searchProducts = "api/v1/products/search?limit=10&offset={}",
+  submitProductReview = "api/v1/products/reviews/submit",
   getAddresses = "api/v1/customer/address/list",
   addAddress = "api/v1/customer/address/add",
   updateAddress = "api/v1/customer/address/update/{}",
   deleteAddress = "api/v1/customer/address/delete?address_id={}",
   getUserOrders = "api/v1/customer/order/list",
-  getOrderDetails = "api/v1/customer/order/details"
+  getOrderDetails = "api/v1/customer/order/details",
+  placeOrder = "api/v1/customer/order/place",
+  applyCoupon = "api/v1/coupon/apply?code={}"
 }

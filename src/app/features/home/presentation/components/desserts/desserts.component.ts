@@ -1,5 +1,5 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {Product} from "../../../../../common/data-classes/ProductModel";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 
 @Component({
@@ -9,7 +9,7 @@ import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 })
 export class DessertsComponent implements OnInit {
 
-  @Input() productModel: ProductModel | null = null
+  @Input() products: Product[][] = []
   @Input() titleSection: string = '';
   @Input() imageSection: string = '';
   @Input() direction: string = 'left';
@@ -60,19 +60,6 @@ export class DessertsComponent implements OnInit {
 
   isLeft(): boolean {
     return this.direction == "left"
-  }
-
-  chunkArray(arr: any[], chunkSize: number): Product[][] {
-    const result = [];
-    for (let i = 0; i < arr.length; i += chunkSize) {
-      result.push(arr.slice(i, i + chunkSize));
-    }
-    return result;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(_: any) {
-    this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2;
   }
 
 }

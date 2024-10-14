@@ -98,3 +98,12 @@ app-products-filter {
   outline: 0;
   box-shadow: 0 0 0 .25rem rgba(195, 162, 65, .25);
 }
+
+.modal-container {
+  margin-top: 2rem;
+
+  .modal-close-icon {
+    margin-inline-start: 2rem;
+    cursor: pointer;
+  }
+}

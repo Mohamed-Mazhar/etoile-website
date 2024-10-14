@@ -35,3 +35,18 @@
 .horizontal-separator {
   background: VAR(--white) !important;
 }
+
+.form-check-input {
+  padding: 1.2rem;
+  margin-top: 0;
+  flex-grow: 1;
+  border-radius: 0.5rem;
+}
+
+.quantity-container {
+   p {
+     font-size: 0.875rem;
+     color: VAR(--primary-color);
+     font-weight: 600;
+   }
+}

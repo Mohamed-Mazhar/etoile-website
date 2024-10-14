@@ -11,8 +11,11 @@
     <div class="addresses-container">
       <div class="address-container" *ngFor="let address of addresses; let i = index">
         <input formControlName="deliveryAddress"
-               value="{{address.id?.toString()}}"
-               class="mt-2" type="radio" name="deliveryAddress" [checked]="address.isDefault"
+               [value]="address.id"
+               class="mt-2 form-check-input"
+               type="radio"
+               name="deliveryAddress"
+               [checked]="address.isDefault"
                id="input-{{ i }}">
         <label for="input-{{i}}">
           <p>{{ address.address }}</p>

@@ -215,5 +215,17 @@
   "SUBTOTAL": "المجموع الفرعي",
   "VIEW_CART": "عرض سلة التسوق الخاصة بك",
   "CHECKOUT": "إتمام الشراء",
-  "REMOVE_ITEM_NOTE": "هل أنت متأكد أنك تريد إزالة هذا العنصر؟"
+  "REMOVE_ITEM_NOTE": "هل أنت متأكد أنك تريد إزالة هذا العنصر؟",
+  "CASH_ON_DELIVERY": "الدفع عند الاستلام (COD) نقداً فقط",
+  "CHECKOUT_ORDER_SUMMARY": "ملخص طلبك",
+  "QUANTITY": "الكميه",
+  "APPLY": "تطبيق",
+  "PROMO_CODE": "كود الخصم",
+  "CODE": "كود",
+  "PAYMENT": "الدفع",
+  "CONFIRMATION": "التاكيد",
+  "DELIVERY_FEES": "التوصيل",
+  "CONFIRM": "تاكيد",
+  "ADD_REVIEW": "اكتب تقييم",
+  "RATE_PRODUCT": "قيم المنتج"
 }

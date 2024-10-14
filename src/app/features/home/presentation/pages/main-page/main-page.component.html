@@ -11,17 +11,18 @@
   </div>
 
   <desserts
-    *ngIf="shouldShowSpecial()"
+    *ngIf="recommendedProducts.isNotEmpty()"
     [direction]="'left'"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
-    [productModel]="recommendedProducts!.products!.isNotEmpty() ? recommendedProducts : popularProducts"
+    [products]="recommendedProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
   </desserts>
 
   <desserts
+    *ngIf="bestSellerProducts.isNotEmpty()"
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
-    [productModel]="bestSellerProducts"
+    [products]="bestSellerProducts"
     [titleSection]="'Best Seller'">
   </desserts>
 

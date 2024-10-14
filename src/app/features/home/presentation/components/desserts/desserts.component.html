@@ -5,11 +5,10 @@
       <div [class.isLeft]="isLeft()" class="text-bg"><span class="text-bg">{{ titleSection }}</span></div>
     </div>
   </div>
-  <div *ngIf="productModel !== null" class="carousel-container">
-    <div id="productsCarousel{{direction}}" class="carousel slide" data-bs-ride="true"
-         *ngIf="productModel!.products!.isNotEmpty()">
+  <div *ngIf="products.isNotEmpty()" class="carousel-container">
+    <div id="productsCarousel{{direction}}" class="carousel slide" data-bs-ride="true">
       <div class="carousel-inner">
-        <div *ngFor="let products of chunkArray(productModel!.products!, chunkSize); let i = index"
+        <div *ngFor="let products of products; let i = index"
              class="carousel-item"
              [class.active]="i === 0">
           <div class="d-flex justify-content-center">

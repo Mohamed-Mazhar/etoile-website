@@ -98,4 +98,19 @@ export class ProductsApi {
     )
   }
 
+  addProductReview(productId: string, rating: string, comment: string, orderId: string): Observable<string> {
+    return this.baseApiService.call<{}, { [key: string]: any }>({
+      apiType: ApiType.submitProductReview,
+      requestType: RequestType.POST,
+      body: {
+        product_id: productId,
+        comment: comment,
+        rating: rating,
+        order_id: orderId
+      }
+    }).pipe(
+      map(res => res['message'])
+    )
+  }
+
 }

@@ -23,10 +23,11 @@
         </div>
       </div>
       <div class="mt-4">
-        <primary-button routerLink="/checkout" title="Proceed to checkout" [buttonPadding]="0.5"></primary-button>
+        <div #login data-bs-toggle="offcanvas" data-bs-target="#loginView"></div>
+        <primary-button (onClick)="proceed()" title="Proceed to checkout" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2">
-        <primary-button class="mt-2" title="Continue Shopping" [buttonPadding]="0.5"></primary-button>
+        <primary-button routerLink="/" class="mt-2" title="Continue Shopping" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2 text-center text-decoration-underline clickable fw-bold" data-bs-target="#clearCart"
            data-bs-toggle="modal">

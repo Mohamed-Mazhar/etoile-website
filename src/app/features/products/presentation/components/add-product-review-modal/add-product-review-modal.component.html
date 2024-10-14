@@ -1,0 +1,31 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5">{{ 'ADD_REVIEW' | translate }}</h1>
+      <button #closeElem type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <p>{{ 'RATE_PRODUCT' | translate }}</p>
+      <div class="rate-stars-container" (mouseleave)="clearRate()">
+        <img (click)="selectedRate = 1" [src]="star1" (mouseover)="updateIcons(1)" (mouseleave)="updateIcons(0)">
+        <img (click)="selectedRate = 2" [src]="star2" (mouseover)="updateIcons(2)" (mouseleave)="updateIcons(1)">
+        <img (click)="selectedRate = 3" [src]="star3" (mouseover)="updateIcons(3)" (mouseleave)="updateIcons(2)">
+        <img (click)="selectedRate = 4" [src]="star4" (mouseover)="updateIcons(4)" (mouseleave)="updateIcons(3)">
+        <img (click)="selectedRate = 5" [src]="star5" (mouseover)="updateIcons(5)" (mouseleave)="updateIcons(4)">
+      </div>
+      <div class="review-comment">
+        <textarea placeholder="Type here" [formControl]="control"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <primary-button
+        [enabled]="selectedRate !== 0 && form.get('comment')?.value?.hasActualValue()"
+        title="Send"
+        [buttonPadding]="0.5"
+        [loading]="loading"
+        (onClick)="sendReview()">
+      </primary-button>
+    </div>
+  </div>
+</div>

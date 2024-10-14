@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {BannersApi} from "../../../../../common/apis/banners-api";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {BannerModel} from "../../../../../common/data-classes/BannerModel";
-import {ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {Product, ProductModel} from "../../../../../common/data-classes/ProductModel";
 import {ProductsService} from "../../../../../common/services/products.service";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
@@ -20,8 +20,9 @@ export class MainPageComponent implements OnInit {
   banners: BannerModel[] = []
   latestProducts: ProductModel | null = null
   popularProducts: ProductModel | null = null
-  bestSellerProducts: ProductModel | null = null
-  recommendedProducts: ProductModel | null = null
+  bestSellerProducts: Product[][] = []
+  recommendedProducts: Product[][] = []
+  chunkSize: number = 2
 
   constructor(
     private configModelService: ConfigModelService,
@@ -31,6 +32,9 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (window.innerWidth < 770) {
+      this.chunkSize = 1
+    }
     this.configModelService.configModelSubject.subscribe({
       next: (configModel) => {
         if (configModel !== null) {
@@ -46,10 +50,18 @@ export class MainPageComponent implements OnInit {
       next: (products) => this.latestProducts = products
     })
     this.productsService.recommendedProducts.subscribe({
-      next: (products) => this.recommendedProducts = products
+      next: (products) => {
+        if (products !== null) {
+          this.recommendedProducts = this.chunkProducts(products!.products!)
+        }
+      }
     })
     this.productsService.frequentlyBoughtProducts.subscribe({
-      next: (products) => this.bestSellerProducts = products
+      next: (products) => {
+        if (products !== null) {
+          this.bestSellerProducts = this.chunkProducts(products!.products!)
+        }
+      }
     })
     AppEventBroadcaster.on({event: AppEvent.showRemoveProductAlert}).subscribe({
       next: (_) => {
@@ -66,9 +78,17 @@ export class MainPageComponent implements OnInit {
     })
   }
 
-  shouldShowSpecial(): boolean {
-    return this.recommendedProducts?.products?.isNotEmpty() === true ||
-      this.popularProducts?.products?.isNotEmpty() === true
+  chunkProducts(products: Product[]): Product[][] {
+    const result = [];
+    for (let i = 0; i < products.length; i += this.chunkSize) {
+      result.push(products.slice(i, i + this.chunkSize));
+    }
+    return result;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(_: any) {
+    this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2;
   }
 
 }
