@@ -1,8 +1,12 @@
 <div class="container-item">
   <div class="item">
+
     <div class="image-container clickable" (click)="goToDetails()">
+      <div class="discount-container">
+        <p>30% <br />Off</p>
+      </div>
       <div class="not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
-        <p>Not Available</p>
+        <p>{{ 'NOT_AVAILABLE' | translate }}</p>
       </div>
       <img alt="" class="img" loading="lazy" [src]=getImage(product.image!)>
     </div>

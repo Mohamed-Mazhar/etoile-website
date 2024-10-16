@@ -116,7 +116,7 @@ export class PlaceOrderBody {
     jsonBody['delivery_date'] = this.deliveryDate
     jsonBody['branch_id'] = this.branchId
     jsonBody['distance'] = this.distance ?? -1
-    jsonBody['is_partial'] = '0'
+    jsonBody['is_partial'] = 0
     jsonBody['is_cutlery_required'] = false
     if (this.transactionReference !== null) {
       jsonBody['transaction_reference'] = this.transactionReference

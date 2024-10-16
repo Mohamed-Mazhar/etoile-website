@@ -139,7 +139,18 @@ export class Product {
     //   product.variations = json['variations'].map((v: any) => Variation.fromJson(v));
     // }
     if (json['add_ons']) {
-      product.addOns = json['add_ons'].map((v: any) => AddOns.fromJson(v));
+      // product.addOns = json['add_ons'].map((v: any) => AddOns.fromJson(v));
+      //Todo remove this line when addOns are added for products
+      product.addOns = [
+        new AddOns({
+          id: 2,
+          name: 'Size',
+          price: parseFloat(json['price']),
+          createdAt: json['created_at'],
+          updatedAt: json['updated_at'],
+          tax: parseFloat(json['tax']),
+        }),
+      ]
     }
     if (json['category_ids']) {
       product.categoryIds = json['category_ids'].map((v: any) => CategoryId.fromJson(v));

@@ -57,6 +57,32 @@
   }
 }
 
+.discount-container {
+  position: absolute;
+  top: 0.5rem;
+  border-radius: 100%;
+  background-color: VAR(--primary-color);
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: VAR(--white);
+  }
+}
+
+.discount-container:dir(ltr) {
+  right: 1rem;
+}
+
+.discount-container:dir(rtl) {
+  left: 1rem;
+}
+
 .not-available {
   position: absolute;
   width: 100%;

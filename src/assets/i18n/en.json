@@ -227,5 +227,11 @@
   "DELIVERY_FEES": "Delivery Fees",
   "CONFIRM": "Confirm",
   "ADD_REVIEW": "Add Review",
-  "RATE_PRODUCT": "Rate Product"
+  "RATE_PRODUCT": "Rate Product",
+  "PRODUCT_CODE": "Code: {{productId}}",
+  "PRODUCTS_PRICE_VAT": "All prices include VAT details",
+  "CUSTOMER_REVIEWS": "Customer Reviews",
+  "PRODUCT_QUANTITY": "Quantity",
+  "PRODUCT_DELIVERY_NOTE": "Delivery Note: Order may delivered lately many Minutes in case rush hours (The product may differ from the image daily)",
+  "NOT_AVAILABLE": "Not Available"
 }

@@ -204,7 +204,7 @@
   "SELECT_SHIPPING": "اختر عنوان الشحن",
   "ADD_NEW_ADDRESS": "اضف عنوان جديد",
   "PAYMENT_PROCEED": "الذهاب للدفع",
-  "ADD_TO_CART": "اضف الي عربة التسوق",
+  "ADD_TO_CART": "اضف الي عربة",
   "ORDER_SUMMARY": "ملخص الطلب",
   "ITEM_PRICES": "سعر(أسعار) العنصر",
   "DELIVERED_WITHIN": "يتم التوصيل خلال ٤٥ - ٦٠ دقيقة",
@@ -227,5 +227,11 @@
   "DELIVERY_FEES": "التوصيل",
   "CONFIRM": "تاكيد",
   "ADD_REVIEW": "اكتب تقييم",
-  "RATE_PRODUCT": "قيم المنتج"
+  "RATE_PRODUCT": "قيم المنتج",
+  "PRODUCT_CODE": "كود: {{productId}}",
+  "PRODUCTS_PRICE_VAT": "جميع الاسعار تشمل ضريبة القيمه المضافه",
+  "CUSTOMER_REVIEWS": "تقييمات العملاء",
+  "PRODUCT_QUANTITY": "الكميه",
+  "PRODUCT_DELIVERY_NOTE": "ملاحظة التوصيل: قد يتم توصيل الطلب متأخراً عدة دقائق في حالة ساعات الذروة (قد يختلف المنتج عن الصورة يوميًا).",
+  "NOT_AVAILABLE": "غير متاح"
 }
