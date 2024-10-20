@@ -233,5 +233,11 @@
   "CUSTOMER_REVIEWS": "تقييمات العملاء",
   "PRODUCT_QUANTITY": "الكميه",
   "PRODUCT_DELIVERY_NOTE": "ملاحظة التوصيل: قد يتم توصيل الطلب متأخراً عدة دقائق في حالة ساعات الذروة (قد يختلف المنتج عن الصورة يوميًا).",
-  "NOT_AVAILABLE": "غير متاح"
+  "NOT_AVAILABLE": "غير متاح",
+  "PRODUCT_CHOICES": "إضافة خيارات المنتج",
+  "OPTIONAL": "اختياري",
+  "ADDONS": "الاضافات",
+  "REQUIRED": "مطلوب",
+  "CHOOSE_UP_TO": "اختر حتى {{items}} خيارات",
+  "CHOOSE_BETWEEN": "يرجى اختيار عدد {{min}} اضافه على الأقل و {{max}} اضافات كحد أقصى"
 }
