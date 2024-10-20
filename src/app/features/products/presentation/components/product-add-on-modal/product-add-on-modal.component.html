@@ -1,1 +1,54 @@
-<p>product-add-on-modal works!</p>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5">{{ 'PRODUCT_CHOICES' | translate }}</h1>
+      <button #closeElem type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="product-details">
+        <div>
+          <div class="product-name">
+            <p>{{ product?.name }}</p>
+          </div>
+          <div class="product-description">
+            <p>{{ product?.description }}</p>
+          </div>
+        </div>
+        <div class="d-flex me-2">
+          <div class="product-name"><p>{{ 'PRICE' | translate }}:&nbsp;</p></div>
+          <p>{{ product?.price }} {{ 'CURRENCY' | translate }}</p>
+        </div>
+      </div>
+      <div class="extras-container" *ngFor="let variation of product?.variations">
+        <div class="product-name">
+          <p>{{ variation.name }}&nbsp;</p>
+          <span *ngIf="!variation.isRequired">({{ 'OPTIONAL' | translate }})</span>
+          <span class="main-color" *ngIf="variation.isRequired">({{ 'REQUIRED' | translate }})</span>
+        </div>
+        <div *ngIf="variation">
+
+        </div>
+        <div class="options-container">
+          <div class="option-item-width" *ngFor="let option of variation.variationValues">
+            <input class="form-check-input me-2" type="checkbox" id="input-{{ option.optionLabel }}">
+            <label for="input-{{ option.optionLabel }}">{{ option.optionLabel }}
+              ({{ option.optionPrice }} {{ 'CURRENCY' | translate }})</label>
+          </div>
+        </div>
+      </div>
+      <div class="extras-container" *ngIf="hasAddOns()">
+        <div class="product-name"><p>{{ 'ADDONS' | translate }} ({{'OPTIONAL' | translate}})</p></div>
+        <div class="options-container">
+          <div class="option-item-width" *ngFor="let addOn of product?.addOns">
+            <input class="form-check-input me-2" type="checkbox" id="input-{{ addOn.id }}">
+            <label for="input-{{ addOn.id }}">{{ addOn.name }} ({{ addOn.price }} {{ 'CURRENCY' | translate }})</label>
+          </div>
+        </div>
+      </div>
+      <primary-button
+        class="cart-button"
+        [title]="'ADD_TO_CART' | translate">
+      </primary-button>
+    </div>
+  </div>
+</div>

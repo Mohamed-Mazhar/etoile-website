@@ -28,7 +28,7 @@ export class CheckOutComponent implements OnInit {
   selectedAddressId: number = 0
   cartProductItems: CartProductItem[] = []
   totalPrice: number = 0
-  selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+  selectedBranch: Branch | null = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
   couponModel: CouponModel | null = null
   placingOrder = false
   errorMessage: string | null = null
@@ -88,7 +88,7 @@ export class CheckOutComponent implements OnInit {
       this.selectedAddressId,
       'delivery',
       paymentMethod.getWay ?? '',
-      this.selectedBranch.id ?? 0,
+      this.selectedBranch?.id ?? 1,
       'now',
       this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '',
       '',

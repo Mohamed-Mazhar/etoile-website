@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {Product} from "../../../../../common/data-classes/ProductModel";
 
 @Component({
   selector: 'app-product-add-on-modal',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductAddOnModalComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('closeElem') closeElem!: ElementRef
+  product: Product | null = null
+
+  constructor(
+    private cartService: CartProductsService
+  ) { }
 
   ngOnInit(): void {
+    console.log("app-product-add-on-modal started")
+    this.cartService.productToEditSubject.subscribe({
+      next: (product) => {
+        this.product = product
+      }
+    })
+  }
+
+  hasAddOns() {
+    return this.product?.addOns?.isNotEmpty() === true;
   }
 
 }

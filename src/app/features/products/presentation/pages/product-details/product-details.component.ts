@@ -73,4 +73,9 @@ export class ProductDetailsComponent implements OnInit {
   getImage() {
     return `${this.configModel?.baseUrls?.productImageUrl}/${this.product?.image}`
   }
+
+  openProductAddOns() {
+    console.log("Edit produc")
+    this.cartService.editProduct(this.product!)
+  }
 }

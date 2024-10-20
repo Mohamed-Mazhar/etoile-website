@@ -118,3 +118,21 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
+.addons-container {
+  display: flex;
+  column-gap: 0.25rem;
+  align-items: center;
+  cursor: pointer;
+
+  i {
+    color: VAR(--white);
+  }
+}
+
+.add-icon-background {
+  background-color: VAR(--primary-color);
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+

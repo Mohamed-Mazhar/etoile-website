@@ -71,9 +71,9 @@ export class PlaceOrderBody {
     const cart = json.cart ? json.cart.map((v: any) => Cart.fromJson(v)) : null;
     return new PlaceOrderBody(
       cart,
-      json.coupon_discount_amount,
-      json.coupon_discount_title,
-      json.coupon_code,
+      json['coupon_discount_amount'],
+      json['coupon_discount_title'],
+      json['coupon_code'],
       json.order_amount,
       json.delivery_address_id,
       json.order_type,
@@ -86,7 +86,7 @@ export class PlaceOrderBody {
       json.is_partial,
       json.transaction_reference,
       json.payment_info ? OfflinePaymentInfo.fromJson(json.payment_info) : null,
-      json.is_cutlery_required
+      json['is_cutlery_required']
     );
   }
 
@@ -95,29 +95,32 @@ export class PlaceOrderBody {
     jsonBody['cart'] = this.cart!.map(v => {
         return {
           product_id: v.product.id,
-          price: v.product.price,
-          // discount_amount: this.discountAmount,
+          price: v.product.price?.toString(),
+          discount_amount: 0,
           quantity: v.count,
-          // tax_amount: this.taxAmount,
+          tax_amount: 0,
+          variant: [],
+          // variations: [],
           add_on_ids: v.productAddOns.map((addOn) => addOn.id),
+          add_on_qtys: []
           // add_on_qtys: this.addOnQtys,
         }
       }
     )
     jsonBody['delivery_address_id'] = this.deliveryAddressId
-    jsonBody['coupon_discount_amount'] = this.couponDiscountAmount ?? 0
-    jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
+    // jsonBody['coupon_discount_amount'] = this.couponDiscountAmount ?? 0
+    // jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
     jsonBody['order_amount'] = this.orderAmount
     jsonBody['order_type'] = this.orderType
     jsonBody['payment_method'] = this.paymentMethod
     jsonBody['order_note'] = this.orderNote ?? ''
-    jsonBody['coupon_code'] = this.couponCode ?? ''
+    // jsonBody['coupon_code'] = this.couponCode ?? ''
     jsonBody['delivery_time'] = this.deliveryTime
     jsonBody['delivery_date'] = this.deliveryDate
     jsonBody['branch_id'] = this.branchId
     jsonBody['distance'] = this.distance ?? -1
     jsonBody['is_partial'] = 0
-    jsonBody['is_cutlery_required'] = false
+    // jsonBody['is_cutlery_required'] = 0
     if (this.transactionReference !== null) {
       jsonBody['transaction_reference'] = this.transactionReference
     }

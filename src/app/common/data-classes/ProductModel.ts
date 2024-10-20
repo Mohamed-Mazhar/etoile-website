@@ -135,21 +135,78 @@ export class Product {
     product.createdAt = json['created_at'];
     product.updatedAt = json['updated_at'];
     product.attributes = json['attributes']?.map((attr: any) => String(attr));
-    // if (json['variations']) {
-    //   product.variations = json['variations'].map((v: any) => Variation.fromJson(v));
-    // }
+    if (json['variations']) {
+      // product.variations = json['variations'].map((v: any) => Variation.fromJson(v));
+      //Todo remove this line when variations are added for products
+      product.variations = [
+        new Variation({
+          name: "Size with AddOn",
+          min: 1,
+          max: 2,
+          isRequired: true,
+          isMultiSelect: true,
+          variationValues: [
+            new VariationValue({
+                optionLabel: "Extra meat",
+                optionPrice: 12,
+              }),
+            new VariationValue({
+              optionLabel: "Extra sauce",
+              optionPrice: 22,
+            }),
+            new VariationValue({
+              optionLabel: "Extra Cheese",
+              optionPrice: 12,
+            })
+          ]
+        }),
+        new Variation({
+          name: "Drinks",
+          min: 0,
+          max: 0,
+          isRequired: false,
+          isMultiSelect: false,
+          variationValues: [
+            new VariationValue({
+              optionLabel: "Combo juice",
+              optionPrice: 32,
+            }),
+            new VariationValue({
+              optionLabel: "Single juice",
+              optionPrice: 12,
+            })
+          ]
+        }),
+      ]
+    }
     if (json['add_ons']) {
       // product.addOns = json['add_ons'].map((v: any) => AddOns.fromJson(v));
       //Todo remove this line when addOns are added for products
       product.addOns = [
         new AddOns({
-          id: 2,
-          name: 'Size',
-          price: parseFloat(json['price']),
-          createdAt: json['created_at'],
-          updatedAt: json['updated_at'],
-          tax: parseFloat(json['tax']),
+          id: 7,
+          name: 'Cheese',
+          price: 20,
+          createdAt: 'now',
+          updatedAt: 'now',
+          tax: 0,
         }),
+        new AddOns({
+          id: 8,
+          name: 'Coke',
+          price: 10,
+          createdAt: 'now',
+          updatedAt: 'now',
+          tax: 0,
+        }),
+        new AddOns({
+          id: 9,
+          name: 'Water',
+          price: 8,
+          createdAt: 'now',
+          updatedAt: 'now',
+          tax: 0,
+        })
       ]
     }
     if (json['category_ids']) {
@@ -187,9 +244,9 @@ export class Product {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['attributes'] = this.attributes;
-    // if (this.variations) {
-    //   data['variations'] = this.variations.map(v => v.toJson());
-    // }
+    if (this.variations) {
+      data['variations'] = this.variations.map(v => v.toJson());
+    }
     if (this.addOns) {
       data['add_ons'] = this.addOns.map(v => v.toJson());
     }
@@ -212,9 +269,74 @@ export class Product {
   }
 }
 
-interface Variation {
-  // Define the properties of Variation here
+export class Variation {
+  name?: string;
+  min?: number;
+  max?: number;
+  isRequired?: boolean;
+  isMultiSelect?: boolean;
+  variationValues?: VariationValue[];
+
+  constructor(data: Partial<Variation> = {}) {
+    this.name = data.name
+    this.isMultiSelect = data.isMultiSelect
+    this.min = data.min
+    this.max = data.max
+    this.isRequired = data.isRequired
+    this.variationValues = data.variationValues ? data.variationValues.map(v => new VariationValue(v)) : []
+  }
+
+  static fromJson(json: any): Variation {
+    const variation = new Variation();
+    variation.name = json.name;
+    variation.isMultiSelect = `${json.type}` === 'multi';
+    variation.min = variation.isMultiSelect ? parseInt(json.min) : 0;
+    variation.max = variation.isMultiSelect ? parseInt(json.max) : 0;
+    variation.isRequired = `${json.required}` === 'on';
+    if (json.values) {
+      variation.variationValues = json.values.map((v: any) => VariationValue.fromJson(v));
+    }
+    return variation;
+  }
+
+  toJson(): any {
+    const data: any = {};
+    data.name = this.name;
+    data.type = this.isMultiSelect ? 'multi' : 'single';
+    data.min = this.min;
+    data.max = this.max;
+    data.required = this.isRequired ? 'on' : 'off';
+    if (this.variationValues) {
+      data.values = this.variationValues.map(v => v.toJson());
+    }
+    return data;
+  }
 }
+
+export class VariationValue {
+  optionLabel?: string;
+  optionPrice?: number;
+
+  constructor(data: Partial<VariationValue> = {}) {
+    this.optionLabel = data.optionLabel;
+    this.optionPrice = data.optionPrice;
+  }
+
+  static fromJson(json: any): VariationValue {
+    const variationValue = new VariationValue();
+    variationValue.optionLabel = json.label;
+    variationValue.optionPrice = parseFloat(json.optionPrice?.toString());
+    return variationValue;
+  }
+
+  toJson(): any {
+    const data: any = {};
+    data.label = this.optionLabel;
+    data.optionPrice = this.optionPrice;
+    return data;
+  }
+}
+
 
 export class BranchProduct {
   id?: number;

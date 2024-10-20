@@ -3,6 +3,7 @@ import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
 import {BehaviorSubject} from "rxjs";
 import {AppEventBroadcaster} from "../app-events/app-event-broadcaster";
 import {AppEvent} from "../app-events/app-event";
+import {Product} from "../data-classes/ProductModel";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class CartProductsService {
   public cartProductToRemove = new BehaviorSubject<CartProductItem | null>(null)
 
   public cartProductsSubject = new BehaviorSubject<CartProductItem[]>(this.cartProducts)
+  public productToEditSubject = new BehaviorSubject<Product | null>(null)
 
   constructor() {
 
@@ -70,6 +72,10 @@ export class CartProductsService {
   clearCart() {
     this.cartProducts = []
     this.cartProductsSubject.next(this.cartProducts)
+  }
+
+  editProduct(product: Product) {
+    this.productToEditSubject.next(product)
   }
 
 }
