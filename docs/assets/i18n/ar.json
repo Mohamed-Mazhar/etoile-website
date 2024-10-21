@@ -239,5 +239,10 @@
   "ADDONS": "الاضافات",
   "REQUIRED": "مطلوب",
   "CHOOSE_UP_TO": "اختر حتى {{items}} خيارات",
-  "CHOOSE_BETWEEN": "يرجى اختيار عدد {{min}} اضافه على الأقل و {{max}} اضافات كحد أقصى"
+  "CHOOSE_BETWEEN": "يرجى اختيار عدد {{min}} اضافه على الأقل و {{max}} اضافات كحد أقصى",
+  "DISCOUNT": "خصم",
+  "GO_SHOPPING": "الذهاب للتسوق",
+  "CONTINUE_SHOPPING": "اكمل التسوق",
+  "ORDER_SUCCESS": "تم تقديم الطلب بنجاح: {{orderId}}",
+  "VIEW_ORDER_DETAILS": "تفاصيل الطلب"
 }

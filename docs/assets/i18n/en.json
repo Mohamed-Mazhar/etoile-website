@@ -221,7 +221,7 @@
   "QUANTITY": "Quantity",
   "APPLY": "Apply",
   "PROMO_CODE": "Promo Code",
-  "CODE": "CODE",
+  "CODE": "Code",
   "PAYMENT": "Payment",
   "CONFIRMATION": "Confirmation",
   "DELIVERY_FEES": "Delivery Fees",
@@ -239,5 +239,10 @@
   "ADDONS": "Addons",
   "REQUIRED": "Required",
   "CHOOSE_UP_TO": "Choose up to {{items}}",
-  "CHOOSE_BETWEEN": "Please choose a minimum of {{min}} item and a maximum of {{max}} items."
+  "CHOOSE_BETWEEN": "Please choose a minimum of {{min}} item and a maximum of {{max}} items.",
+  "DISCOUNT": "Off",
+  "GO_SHOPPING": "Go Shopping",
+  "CONTINUE_SHOPPING": "Continue Shopping",
+  "ORDER_SUCCESS": "Order Placed Successfully: {{orderId}}",
+  "VIEW_ORDER_DETAILS": "View order details"
 }
