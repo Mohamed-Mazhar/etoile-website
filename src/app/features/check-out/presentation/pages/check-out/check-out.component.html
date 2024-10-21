@@ -39,7 +39,7 @@
             <p>{{ 'ORDER_SUCCESS' | translate : {orderId: orderId} }}</p>
             <primary-button
               routerLink="/"
-              title="Check Order Details"
+              [title]="'VIEW_ORDER_DETAILS' | translate"
               class="d-flex justify-content-center mt-2">
             </primary-button>
           </div>

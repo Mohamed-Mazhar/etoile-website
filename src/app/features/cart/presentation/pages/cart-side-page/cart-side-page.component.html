@@ -29,8 +29,10 @@
       data-bs-dismiss="offcanvas"
       [buttonPadding]="0.5">
     </primary-button>
-    <button type="button" class="btn btn-secondary" routerLink="/checkout" data-bs-dismiss="offcanvas">
+    <button type="button" (click)="goToCheckOut()" class="btn btn-secondary" data-bs-dismiss="offcanvas">
       {{ 'CHECKOUT' | translate }}
     </button>
   </div>
 </div>
+
+<div #loginElemRef data-bs-target="#loginView" data-bs-toggle="offcanvas"></div>

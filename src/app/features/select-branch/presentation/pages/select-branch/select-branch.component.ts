@@ -4,6 +4,7 @@ import {ConfigModelService} from "../../../../../common/services/config-model.se
 import {Branch} from "../../../../../common/data-classes/ConfigModel";
 import {SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
 import {Router} from "@angular/router";
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
 
 @Component({
   selector: 'app-select-branch',
@@ -23,6 +24,7 @@ export class SelectBranchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private configModelService: ConfigModelService,
+    private cartService: CartProductsService,
     private router: Router
   ) {
   }
@@ -53,6 +55,7 @@ export class SelectBranchComponent implements OnInit {
   goToHome() {
     if (this.selectedBranch !== null) {
       localStorage.setItem(SELECTED_BRANCH, JSON.stringify(this.selectedBranch))
+      this.cartService.clearCart()
       this.router.navigate(['/']).then()
     }
   }

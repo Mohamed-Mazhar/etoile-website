@@ -130,6 +130,7 @@ export class CheckOutComponent implements OnInit {
         this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
         this.orderId = orderNumber
         this.activeTab = 'confirm'
+        this.cartProductsService.clearCart()
       },
       error: (err) => {
         this.placingOrder = false

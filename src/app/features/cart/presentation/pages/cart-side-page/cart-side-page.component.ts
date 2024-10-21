@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CartProductItem} from "../../../data/model/CartProductItem";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {USER_INFO} from "../../../../../common/utils/constants";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'cart-side-page',
@@ -9,12 +11,14 @@ import {CartProductsService} from "../../../../../common/services/cart-products.
 })
 export class CartSidePageComponent implements OnInit {
 
+  @ViewChild('loginElemRef') loginElem!: ElementRef
   cartProducts: CartProductItem[] = []
 
   totalPrice = 0
 
   constructor(
-    private cartService: CartProductsService
+    private cartService: CartProductsService,
+    private router: Router
   ) {
   }
 
@@ -30,6 +34,15 @@ export class CartSidePageComponent implements OnInit {
         }
       }
     })
+  }
+
+  goToCheckOut() {
+    let user = localStorage.getItem(USER_INFO)
+    if (user !== null) {
+      this.router.navigate(['/checkout']).then()
+    } else {
+      this.loginElem.nativeElement.click()
+    }
   }
 
 }
