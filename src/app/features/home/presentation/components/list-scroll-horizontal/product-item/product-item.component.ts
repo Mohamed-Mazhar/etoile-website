@@ -48,4 +48,12 @@ export class ProductItemComponent implements OnInit {
     return `${this.configModel?.baseUrls?.productImageUrl}/${image}`
   }
 
+  hasDiscount() {
+    return this.product.branchProduct?.discount !== 0
+  }
+
+  isPercentage() {
+    return this.product.branchProduct?.discountType === "percent"
+  }
+
 }

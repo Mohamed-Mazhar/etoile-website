@@ -73,3 +73,24 @@
   min-width: 36%;
 }
 
+.empty-cart {
+  margin: auto;
+  text-align: center;
+
+  img {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: VAR(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.order-success-image {
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  width: 33%;
+}

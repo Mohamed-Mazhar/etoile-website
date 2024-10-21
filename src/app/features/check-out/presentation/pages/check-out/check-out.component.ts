@@ -32,6 +32,7 @@ export class CheckOutComponent implements OnInit {
   couponModel: CouponModel | null = null
   placingOrder = false
   errorMessage: string | null = null
+  orderId: string = ""
 
   constructor(
     private addressApi: AddressApi,
@@ -61,6 +62,7 @@ export class CheckOutComponent implements OnInit {
     })
     this.cartProductsService.cartProductsSubject.subscribe({
       next: (cartProducts) => {
+        console.log("Check out notified for removed product")
         this.cartProductItems = cartProducts
         for (let cartProduct of cartProducts) {
           this.totalPrice += (cartProduct.count * cartProduct.product.price!)
@@ -103,7 +105,6 @@ export class CheckOutComponent implements OnInit {
     } else {
       this.makeOnlinePayment(placeOrder)
     }
-    // this.activeTab = 'confirm'
   }
 
   private reloadUserAddresses() {
@@ -124,9 +125,11 @@ export class CheckOutComponent implements OnInit {
     this.placingOrder = true
     this.errorMessage = null
     this.ordersApi.placeOrder(placeOrder).subscribe({
-      next: (res) => {
+      next: (orderNumber) => {
         this.placingOrder = false
-        this.toastService.showToast('normal', `Order Successful\n Order no: ${res}`)
+        this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
+        this.orderId = orderNumber
+        this.activeTab = 'confirm'
       },
       error: (err) => {
         this.placingOrder = false

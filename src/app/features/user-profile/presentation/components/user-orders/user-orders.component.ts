@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OrderModel} from "../../../../../common/data-classes/OrderModel";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-orders',
@@ -10,9 +11,14 @@ export class UserOrdersComponent implements OnInit {
 
   @Input() orders: OrderModel[] = []
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  openDetails(id: number) {
+
+  }
 }

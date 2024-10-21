@@ -13,7 +13,6 @@ export class PaymentsTabComponent implements OnInit {
 
   @Output() onPayClicked: EventEmitter<PaymentMethod> = new EventEmitter<PaymentMethod>()
   @Input()loading = false
-  @Input() cartProducts: CartProductItem[] = []
   activePaymentMethods: PaymentMethod[] = []
   selectedPayment: PaymentMethod = this.defaultPayment
 

@@ -41,7 +41,9 @@ export class UserInfoComponent implements OnInit {
   }
 
   logout() {
+    let selectedBranch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
     localStorage.clear()
+    localStorage.setItem(SELECTED_BRANCH, JSON.stringify(selectedBranch))
     AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
     this.router.navigate(['/']).then()
   }

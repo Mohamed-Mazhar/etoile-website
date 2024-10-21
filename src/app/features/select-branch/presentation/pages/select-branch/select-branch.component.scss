@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: auto;
 }
 
 .center-element {
@@ -15,12 +16,13 @@
 
 .center-element img {
   height: 100%;
+  width: 100%;
   object-fit: cover;
 }
 
 .select-zone-container {
   position: absolute;
-  bottom: 70%;
+  top: 20%;
   z-index: 100;
   justify-content: center;
   align-items: center;

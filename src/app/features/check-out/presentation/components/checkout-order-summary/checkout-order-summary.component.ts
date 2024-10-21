@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
@@ -14,11 +13,11 @@ import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 export class CheckoutOrderSummaryComponent implements OnInit {
 
   @Input() showExtraDetails: boolean = false
+  @Input() products: CartProductItem[] = []
   @Output() onCouponAppliedSuccessfully: EventEmitter<CouponModel | null> = new EventEmitter<CouponModel | null>()
 
   numberOfItems: number = 0
   totalPrice: number = 0
-  products: CartProductItem[] = []
   configModel: ConfigModel | null = null
   loading = false
   coupon = ""
@@ -27,22 +26,16 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   deliveryCharge = 0
 
   constructor(
-    private cartProductsService: CartProductsService,
     private configModelService: ConfigModelService,
     private couponApi: CouponApi
   ) {
   }
 
   ngOnInit(): void {
-    this.cartProductsService.cartProductsSubject.subscribe({
-      next: (products) => {
-        for (let cartProduct of products) {
-          this.numberOfItems += cartProduct.count
-          this.totalPrice += (cartProduct.count * cartProduct.product.price!)
-          this.products.push(cartProduct)
-        }
-      }
-    })
+    for (let cartProduct of this.products) {
+      this.numberOfItems += cartProduct.count
+      this.totalPrice += (cartProduct.count * cartProduct.product.price!)
+    }
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config

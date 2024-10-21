@@ -27,7 +27,7 @@
         <primary-button (onClick)="proceed()" title="Proceed to checkout" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2">
-        <primary-button routerLink="/" class="mt-2" title="Continue Shopping" [buttonPadding]="0.5"></primary-button>
+        <primary-button routerLink="/" class="mt-2" [title]="'CONTINUE_SHOPPING' | translate" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2 text-center text-decoration-underline clickable fw-bold" data-bs-target="#clearCart"
            data-bs-toggle="modal">
@@ -38,7 +38,7 @@
   <div class="empty-cart" *ngIf="cartItems.isEmpty()">
     <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
     <p class="mb-3">{{ 'EMPTY_CART' | translate }}</p>
-    <primary-button class="button-width" title="Continue Shopping" (onClick)="continue()"></primary-button>
+    <primary-button class="button-width" [title]="'CONTINUE_SHOPPING' | translate" (onClick)="continue()"></primary-button>
   </div>
 </div>
 

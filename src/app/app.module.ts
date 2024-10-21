@@ -67,6 +67,7 @@ import { ToastComponent } from './common/components/toast/toast.component';
 import { LoadingProductsComponent } from './features/products/presentation/components/loading-products/loading-products.component';
 import { AddProductReviewModalComponent } from './features/products/presentation/components/add-product-review-modal/add-product-review-modal.component';
 import { ProductAddOnModalComponent } from './features/products/presentation/components/product-add-on-modal/product-add-on-modal.component';
+import { OrderDetailsComponent } from './features/orders/presentation/pages/order-details/order-details.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -127,7 +128,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToastComponent,
     LoadingProductsComponent,
     AddProductReviewModalComponent,
-    ProductAddOnModalComponent
+    ProductAddOnModalComponent,
+    OrderDetailsComponent
   ],
     imports: [
         BrowserModule,

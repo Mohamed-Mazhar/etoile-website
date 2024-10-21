@@ -73,14 +73,14 @@
     font-weight: 600;
     color: VAR(--white);
   }
-}
 
-.discount-container:dir(ltr) {
-  right: 1rem;
-}
+  &:dir(ltr) {
+    right: 1rem;
+  }
 
-.discount-container:dir(rtl) {
-  left: 1rem;
+  &:dir(rtl) {
+    left: 1rem;
+  }
 }
 
 .not-available {

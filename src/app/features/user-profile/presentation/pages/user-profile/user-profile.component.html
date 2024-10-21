@@ -2,7 +2,7 @@
   <app-loading [loadingData]="loading"></app-loading>
   <div class="user-profile-header">
     <h3>{{ 'WELCOME_USER' | translate }}, <span>{{ getUserName() }}</span></h3>
-    <p>{{ 'NUMBER_OF_ORDERS' | translate }} <span>12</span></p>
+    <p>{{ 'NUMBER_OF_ORDERS' | translate }} <span>{{ userOrders.length }}</span></p>
   </div>
   <div class="user-profile-tabs-container">
     <div class="nav">

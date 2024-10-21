@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://etoilecafe.com',
+  // apiUrl: 'https://etoilecafe.com',
+  apiUrl: 'https://test.etoilecafe.com',
 };
 
 /*

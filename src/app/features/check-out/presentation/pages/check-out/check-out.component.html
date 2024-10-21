@@ -1,12 +1,12 @@
 <div class="container">
   <app-loading [loadingData]="loading"></app-loading>
   <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
-  <div class="checkout-container">
+  <div class="checkout-container" *ngIf="cartProductItems.isNotEmpty()">
     <div class="tabs-container">
       <div class="nav">
         <div class="nav-item active"
-             (click)="activeTab = 'shipping'"
-             data-bs-toggle='tab' [ngClass]="{'active': activeTab === 'shipping'}">
+             (click)="activeTab !== 'confirm' ? activeTab = 'shipping' : ''"
+             [ngClass]="{'active': activeTab === 'shipping'}">
           <i class="fas fa-motorcycle"></i>
           <p>{{ 'SHIPPING' | translate }}</p>
         </div>
@@ -33,14 +33,34 @@
           <app-payments-tab [loading]="placingOrder" (onPayClicked)="placeOrder($event)"></app-payments-tab>
         </div>
         <div class='tab-pane container fade' id='confirm'
-             [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">3
+             [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">
+          <div class="text-center">
+            <img class="order-success-image" src="assets/images/order-success-image.jpg">
+            <p>{{ 'ORDER_SUCCESS' | translate : {orderId: orderId} }}</p>
+            <primary-button
+              routerLink="/"
+              title="Check Order Details"
+              class="d-flex justify-content-center mt-2">
+            </primary-button>
+          </div>
         </div>
       </div>
     </div>
     <app-checkout-order-summary
+      [products]="cartProductItems"
       (onCouponAppliedSuccessfully)="applyCoupon($event)"
       [showExtraDetails]="activeTab === 'payment'"
       class="order-summary">
     </app-checkout-order-summary>
+  </div>
+  <div class="empty-cart" *ngIf="cartProductItems.isEmpty()">
+    <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
+    <p>{{ 'EMPTY_CART' | translate }}</p>
+    <primary-button
+      class="d-flex justify-content-center mt-2"
+      routerLink="/"
+      [buttonPadding]="0.5"
+      [title]="'GO_SHOPPING' | translate">
+    </primary-button>
   </div>
 </div>

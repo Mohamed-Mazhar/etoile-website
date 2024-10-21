@@ -1,3 +1,5 @@
+@import "src/app/common/styles/mixin";
+
 .home-page-container {
   display: flex;
   flex-direction: column;
@@ -17,6 +19,12 @@
   align-items: center;
   background-color: VAR(--primary-color);
   padding: 0.5rem 2.5rem;
+
+  @include res-md-styles {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
 }
 
 .contact-item-details {

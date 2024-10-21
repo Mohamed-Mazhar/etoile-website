@@ -1,6 +1,8 @@
+@import "src/app/common/styles/mixin";
+
 .product-details-container {
   display: flex;
-  column-gap: 2rem;
+  column-gap: 4rem;
 
   .product-name {
     p {
@@ -20,16 +22,21 @@
     }
   }
 
+  @include res-md-styles {
+    display: block;
+    text-align: center;
+  }
+
 }
 
 .product-image {
-  //flex-grow: 1;
-  width: 50%;
+  flex-grow: 1;
+  //width: 50%;
 }
 
 .product-details {
-  //flex-grow: 1;
-  width: 50%;
+  flex-grow: 1;
+  //width: 50%;
 }
 
 .product-review-container {

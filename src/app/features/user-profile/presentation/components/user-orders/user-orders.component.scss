@@ -1,14 +1,13 @@
 .orders-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .order-details-container {
   border: 2px solid VAR(--primary-color);
   border-radius: 1rem;
-  min-width: 30%;
+  min-width: 32%;
   padding-bottom: 1rem;
+
 
   p:first-child {
     font-weight: 600;
