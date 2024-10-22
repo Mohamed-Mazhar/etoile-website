@@ -1,7 +1,7 @@
 <div class="container">
   <app-loading [loadingData]="loading"></app-loading>
   <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
-  <div class="checkout-container" *ngIf="cartProductItems.isNotEmpty()">
+  <div class="checkout-container" *ngIf="!shouldHideTabs()">
     <div class="tabs-container">
       <div class="nav">
         <div class="nav-item active"
@@ -38,7 +38,7 @@
             <img class="order-success-image" src="assets/images/order-success-image.jpg">
             <p>{{ 'ORDER_SUCCESS' | translate : {orderId: orderId} }}</p>
             <primary-button
-              routerLink="/"
+              (onClick)="goToOrderDetails()"
               [title]="'VIEW_ORDER_DETAILS' | translate"
               class="d-flex justify-content-center mt-2">
             </primary-button>
@@ -53,7 +53,7 @@
       class="order-summary">
     </app-checkout-order-summary>
   </div>
-  <div class="empty-cart" *ngIf="cartProductItems.isEmpty()">
+  <div class="empty-cart" *ngIf="cartProductItems.isEmpty() && activeTab !== 'confirm'">
     <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
     <p>{{ 'EMPTY_CART' | translate }}</p>
     <primary-button

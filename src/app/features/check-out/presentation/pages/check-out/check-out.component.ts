@@ -11,7 +11,8 @@ import {SELECTED_BRANCH} from "../../../../../common/utils/constants";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
-import { DatePipe } from '@angular/common';
+import {DatePipe} from '@angular/common';
+import {Route, Router} from "@angular/router";
 
 
 @Component({
@@ -39,7 +40,8 @@ export class CheckOutComponent implements OnInit {
     private ordersApi: OrdersApi,
     private cartProductsService: CartProductsService,
     private toastService: ToastService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
   }
 
@@ -62,7 +64,6 @@ export class CheckOutComponent implements OnInit {
     })
     this.cartProductsService.cartProductsSubject.subscribe({
       next: (cartProducts) => {
-        console.log("Check out notified for removed product")
         this.cartProductItems = cartProducts
         for (let cartProduct of cartProducts) {
           this.totalPrice += (cartProduct.count * cartProduct.product.price!)
@@ -127,10 +128,11 @@ export class CheckOutComponent implements OnInit {
     this.ordersApi.placeOrder(placeOrder).subscribe({
       next: (orderNumber) => {
         this.placingOrder = false
+        this.activeTab = 'confirm'
         this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
         this.orderId = orderNumber
-        this.activeTab = 'confirm'
         this.cartProductsService.clearCart()
+
       },
       error: (err) => {
         this.placingOrder = false
@@ -141,5 +143,19 @@ export class CheckOutComponent implements OnInit {
 
   private makeOnlinePayment(placeOrder: PlaceOrderBody) {
 
+  }
+
+  goToOrderDetails() {
+    this.router.navigate(['/profile'], { state: { tab: 'orders' } }).then()
+  }
+
+  shouldHideTabs() {
+    if (this.cartProductItems.isEmpty() && this.activeTab !== 'confirm') {
+      return true
+    }
+    if (this.activeTab === 'confirm') {
+      return false
+    }
+    return false
   }
 }

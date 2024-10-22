@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
@@ -8,23 +8,36 @@ import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {forkJoin} from "rxjs";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('ordersTab') ordersElem!: ElementRef
   userInfo: UserInfo | null = null
   userAddress: AddressModel[] = []
   userOrders: OrderModel[] = []
   loading: boolean = false
+  defaultActiveTab = 'profile'
 
   constructor(
     private addressApi: AddressApi,
-    private ordersApi: OrdersApi
+    private ordersApi: OrdersApi,
+    private router: Router
   ) {
+    let tab = this.router.getCurrentNavigation()?.extras.state as { tab: string }
+    console.log("State variable inside constructor ", tab)
+    this.defaultActiveTab = tab.tab
+  }
+
+  ngAfterViewInit(): void {
+    if (this.defaultActiveTab === 'orders') {
+      this.ordersElem.nativeElement.click()
+    }
   }
 
   ngOnInit(): void {
