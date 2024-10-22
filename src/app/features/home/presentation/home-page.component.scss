@@ -39,6 +39,12 @@
     font-weight: 600 !important;
     font-size: 0.75rem !important;
   }
+
+  @include res-md-styles {
+    i {
+      display: none;
+    }
+  }
 }
 
 .fa-truck:before {

@@ -19,15 +19,11 @@ export class DessertsComponent implements OnInit {
   configModel: ConfigModel | null = null
   atStart = true;
   atEnd = false;
-  chunkSize = 2
 
   constructor() {
   }
 
   ngOnInit(): void {
-    if (window.innerWidth < 770) {
-      this.chunkSize = 1
-    }
   }
 
   scrollLeft() {
@@ -61,5 +57,4 @@ export class DessertsComponent implements OnInit {
   isLeft(): boolean {
     return this.direction == "left"
   }
-
 }

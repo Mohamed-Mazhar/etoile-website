@@ -40,22 +40,9 @@
 }
 
 .user-info-and-language {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.language-container {
-  display: flex;
-  column-gap: 0.5rem;
-  align-items: center;
-  margin-inline-start: 2rem;
-  cursor: pointer;
-
-  img {
-    width: 2rem;
-    height: 1.5rem;
-  }
+  //display: flex;
+  //align-items: center;
+  //justify-content: center;
 }
 
 .logo-centered {
@@ -67,6 +54,12 @@
   img {
     width: 6rem;
   }
+
+  @include res-md-styles {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
 
 .header-separator {

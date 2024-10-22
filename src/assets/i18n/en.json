@@ -239,7 +239,7 @@
   "ADDONS": "Addons",
   "REQUIRED": "Required",
   "CHOOSE_UP_TO": "Choose up to {{items}}",
-  "CHOOSE_BETWEEN": "Please choose a minimum of {{min}} item and a maximum of {{max}} items.",
+  "CHOOSE_BETWEEN": "Please choose a minimum of {{min}} item(s) and a maximum of {{max}} items.",
   "DISCOUNT": "Off",
   "GO_SHOPPING": "Go Shopping",
   "CONTINUE_SHOPPING": "Continue Shopping",

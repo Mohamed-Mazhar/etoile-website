@@ -6,6 +6,8 @@ import {Product} from "../../data-classes/ProductModel";
 import {ConfigModel} from "../../data-classes/ConfigModel";
 import {ConfigModelService} from "../../services/config-model.service";
 import {Router} from "@angular/router";
+import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
+import {AppEvent} from "../../app-events/app-event";
 
 @Component({
   selector: 'search-bar',
@@ -22,6 +24,7 @@ export class SearchBarComponent implements OnInit {
   products: Product[] = []
   searchFor: string = ""
   configModel: ConfigModel | null = null
+
 
   constructor(
     private fb: FormBuilder,
@@ -47,6 +50,13 @@ export class SearchBarComponent implements OnInit {
           }
         })
     });
+    AppEventBroadcaster.on({event: AppEvent.hideSearchBarResult}).subscribe({
+      next: (_) => {
+        if (this.products.isNotEmpty()) {
+          this.products = []
+        }
+      }
+    })
   }
 
   getImage(image: string) {

@@ -1,4 +1,4 @@
-<div class="bg-white mb-3">
+<div class="bg-white mb-3" (click)="dismissSearch()">
   <div class="header-content">
     <div class="logo-and-search">
       <nav class="navbar navbar-expand-lg navbar-light d-lg-none">
@@ -10,18 +10,11 @@
       <div (click)="goToHome()" class="logo-centered clickable">
         <img loading="lazy" src="https://www.etoileeg.online/Upload?id=73012" class="img-fluid">
       </div>
-      <search-bar class="search-bar"></search-bar>
+      <search-bar class="search-bar" *ngIf="!isMobileView"></search-bar>
     </div>
+    <search-bar class="search-bar" *ngIf="isMobileView"></search-bar>
     <div class="user-info-and-language">
-      <user-info class="ms-lg-auto"></user-info>
-      <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
-        <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
-        <p>العربيه</p>
-      </div>
-      <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
-        <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
-        <p>English</p>
-      </div>
+      <user-info [isMobileView]="isMobileView" class="ms-lg-auto"></user-info>
     </div>
   </div>
   <div class="header-separator"></div>

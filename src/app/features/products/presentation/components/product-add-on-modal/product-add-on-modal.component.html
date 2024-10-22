@@ -19,29 +19,69 @@
           <p>{{ product?.price }} {{ 'CURRENCY' | translate }}</p>
         </div>
       </div>
-      <div class="extras-container" *ngFor="let variation of product?.variations">
-        <div class="product-name">
-          <p>{{ variation.name }}&nbsp;</p>
-          <span *ngIf="!variation.isRequired">({{ 'OPTIONAL' | translate }})</span>
-          <span class="main-color" *ngIf="variation.isRequired">({{ 'REQUIRED' | translate }})</span>
-        </div>
-        <div *ngIf="variation">
+      <div class="extras-container" *ngFor="let variationEntity of variationEntities">
+        <div class="product-name align-items-center">
+
+          <p>{{ variationEntity.variation.name }}&nbsp;</p>
+
+          <div *ngIf="hasLimit(variationEntity.variation)">
+            <span
+              *ngIf="variationEntity.variation.min === 0">({{ 'CHOOSE_UP_TO' | translate: {items: variationEntity.variation.max} }}
+              )</span>
+            <span *ngIf="variationEntity.variation.min! > 0">({{
+                'CHOOSE_BETWEEN' | translate: {
+                  min: variationEntity.variation.min,
+                  max: variationEntity.variation.max
+                }
+              }})</span>
+          </div>
+
+          <span *ngIf="!variationEntity.variation.isRequired">({{ 'OPTIONAL' | translate }})</span>
+          <span class="main-color" *ngIf="variationEntity.variation.isRequired">({{ 'REQUIRED' | translate }})</span>
 
         </div>
-        <div class="options-container">
-          <div class="option-item-width" *ngFor="let option of variation.variationValues">
-            <input class="form-check-input me-2" type="checkbox" id="input-{{ option.optionLabel }}">
-            <label for="input-{{ option.optionLabel }}">{{ option.optionLabel }}
-              ({{ option.optionPrice }} {{ 'CURRENCY' | translate }})</label>
+
+        <div class="options-container" *ngIf="variationEntity.variation.isMultiSelect">
+          <div class="option-item-width" *ngFor="let option of variationEntity.selectedVariations">
+            <input
+              [(ngModel)]="option.isSelected"
+              (change)="checkForLimit(variationEntity)"
+              class="form-check-input me-2"
+              type="checkbox"
+              id="input-{{ option.variation.optionLabel }}">
+            <label for="input-{{ option.variation.optionLabel }}">{{ option.variation.optionLabel }}
+              ({{ option.variation.optionPrice }} {{ 'CURRENCY' | translate }})</label>
           </div>
         </div>
+
+        <div class="options-container" *ngIf="!variationEntity.variation.isMultiSelect">
+          <div class="option-item-width" *ngFor="let option of variationEntity.selectedVariations">
+            <input
+              [checked]="option.isSelected"
+              class="form-check-input me-2"
+              type="radio"
+              name="{{variationEntity.variation.name}}"
+              id="input-{{ option.variation.optionLabel }}">
+            <label for="input-{{ option.variation.optionLabel }}">{{ option.variation.optionLabel }}
+              ({{ option.variation.optionPrice }} {{ 'CURRENCY' | translate }})</label>
+          </div>
+        </div>
+
+
       </div>
       <div class="extras-container" *ngIf="hasAddOns()">
-        <div class="product-name"><p>{{ 'ADDONS' | translate }} ({{'OPTIONAL' | translate}})</p></div>
+        <div class="product-name"><p>{{ 'ADDONS' | translate }} ({{ 'OPTIONAL' | translate }})</p></div>
         <div class="options-container">
-          <div class="option-item-width" *ngFor="let addOn of product?.addOns">
-            <input class="form-check-input me-2" type="checkbox" id="input-{{ addOn.id }}">
-            <label for="input-{{ addOn.id }}">{{ addOn.name }} ({{ addOn.price }} {{ 'CURRENCY' | translate }})</label>
+          <div class="option-item-width" *ngFor="let addOnEntity of selectedAddons">
+            <input
+              [(ngModel)]="addOnEntity.isSelected"
+              class="form-check-input me-2"
+              type="checkbox"
+              id="input-{{ addOnEntity.addon.id }}">
+            <label
+              for="input-{{ addOnEntity.addon.id }}">
+              {{ addOnEntity.addon.name }}({{ addOnEntity.addon.price }} {{ 'CURRENCY' | translate }})
+            </label>
           </div>
         </div>
       </div>

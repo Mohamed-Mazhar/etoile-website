@@ -11,18 +11,18 @@
   </div>
 
   <desserts
-    *ngIf="recommendedProducts.isNotEmpty()"
+    *ngIf="chunkedRecommendedProducts.isNotEmpty()"
     [direction]="'left'"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
-    [products]="recommendedProducts"
+    [products]="chunkedRecommendedProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
   </desserts>
 
   <desserts
-    *ngIf="bestSellerProducts.isNotEmpty()"
+    *ngIf="chunkedBestSellerProducts.isNotEmpty()"
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
-    [products]="bestSellerProducts"
+    [products]="chunkedBestSellerProducts"
     [titleSection]="'Best Seller'">
   </desserts>
 

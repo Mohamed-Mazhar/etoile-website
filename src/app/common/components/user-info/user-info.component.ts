@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
 import {UserInfo} from "../../data-classes/UserInfo";
@@ -6,6 +6,7 @@ import {SELECTED_BRANCH, USER_INFO} from "../../utils/constants";
 import {Branch} from "../../data-classes/ConfigModel";
 import {Router} from "@angular/router";
 import {CartProductsService} from "../../services/cart-products.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'user-info',
@@ -14,11 +15,15 @@ import {CartProductsService} from "../../services/cart-products.service";
 })
 export class UserInfoComponent implements OnInit {
 
+  @Input() isMobileView: boolean = false
+
   userInfo: UserInfo | null = null
   selectedBranch: Branch | null = null
   cartItems = 0
+  currentLanguage = "en"
 
   constructor(
+    private translate: TranslateService,
     private router: Router,
     private cartService: CartProductsService
   ) {
@@ -38,6 +43,9 @@ export class UserInfoComponent implements OnInit {
         this.cartItems = cartProducts.length
       }
     })
+    this.translate.onLangChange.subscribe((event) => {
+      this.currentLanguage = event.lang
+    })
   }
 
   logout() {
@@ -46,6 +54,10 @@ export class UserInfoComponent implements OnInit {
     localStorage.setItem(SELECTED_BRANCH, JSON.stringify(selectedBranch))
     AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
     this.router.navigate(['/']).then()
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language)
   }
 
 }

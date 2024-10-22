@@ -2,5 +2,6 @@ export enum AppEvent {
   initial,
   loadUserInfo,
   userAddressesChanged,
-  showRemoveProductAlert
+  showRemoveProductAlert,
+  hideSearchBarResult
 }

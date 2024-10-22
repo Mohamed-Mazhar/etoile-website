@@ -1,42 +1,54 @@
 <div class="user-info-container">
-  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
-       aria-controls="loginView" *ngIf="userInfo === null">
-    <i class="fas fa-user icon-size"></i>
-    <p>{{ 'LOGIN' | translate }}</p>
-  </div>
-  <div class="user-info-item-container" id="userOptions" aria-haspopup="true" data-bs-toggle="dropdown"
-       *ngIf="userInfo !== null">
-    <i class="fas fa-user icon-size"></i>
-    <div class="d-flex align-items-center">
-      <p>{{ 'WELCOME_USER' | translate }}, </p>
-      <p class="username">{{ userInfo.fName }}</p>
+  <div class="login-and-cart-container">
+    <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
+         aria-controls="loginView" *ngIf="userInfo === null">
+      <i class="fas fa-user icon-size"></i>
+      <p>{{ 'LOGIN' | translate }}</p>
     </div>
-    <div class="dropdown-menu" aria-labelledby="userOptions">
-      <div class="d-flex align-items-baseline clickable ps-4 pt-2" routerLink="/profile">
-        <i class="fas fa-user icon-size me-2"></i>
-        <p>Profile</p>
+    <div class="user-info-item-container" id="userOptions" aria-haspopup="true" data-bs-toggle="dropdown"
+         *ngIf="userInfo !== null">
+      <i class="fas fa-user icon-size"></i>
+      <div class="d-flex align-items-center">
+        <p>{{ 'WELCOME_USER' | translate }}, </p>
+        <p class="username">{{ userInfo.fName }}</p>
       </div>
-      <div class="logout-button clickable" (click)="logout()">
-        <p>Logout</p>
+      <div class="dropdown-menu" aria-labelledby="userOptions">
+        <div class="d-flex align-items-baseline clickable ps-4 pt-2" routerLink="/profile">
+          <i class="fas fa-user icon-size me-2"></i>
+          <p>Profile</p>
+        </div>
+        <div class="logout-button clickable" (click)="logout()">
+          <p>Logout</p>
+        </div>
       </div>
     </div>
+    <div class="vertical-separator" *ngIf="userInfo === null"></div>
+    <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
+         aria-controls="registrationView" *ngIf="userInfo === null">
+      <p>{{ 'REGISTER' | translate }}</p>
+    </div>
+    <div class="vertical-separator" *ngIf="!isMobileView"></div>
+    <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#cartView">
+      <i class="fas fa-shopping-basket icon-size"></i>
+      <p>{{ cartItems }}</p>
+      <p>Item(s)</p>
+    </div>
+    <div class="vertical-separator" *ngIf="!isMobileView"></div>
   </div>
-  <div class="vertical-separator" *ngIf="userInfo === null"></div>
-  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#registrationView"
-       aria-controls="registrationView" *ngIf="userInfo === null">
-    <p>{{ 'REGISTER' | translate }}</p>
-  </div>
-  <div class="vertical-separator"></div>
-  <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#cartView">
-    <i class="fas fa-shopping-basket icon-size"></i>
-    <p>{{ cartItems }}</p>
-    <p>Item(s)</p>
-  </div>
-  <div class="vertical-separator"></div>
-  <div class="user-info-item-container" routerLink="/branch">
-    <i class="fas fa-map-marker-alt ml-1 mr-1 icon-size"></i>
-    <p>{{ this.selectedBranch?.name ?? '' }}</p>
-    <a routerLink="/branch">{{ 'CHANGE' | translate }}</a>
+  <div class="login-and-cart-container">
+    <div class="user-info-item-container" routerLink="/branch">
+      <i class="fas fa-map-marker-alt ml-1 mr-1 icon-size"></i>
+      <p>{{ this.selectedBranch?.name ?? '' }}</p>
+      <a routerLink="/branch">{{ 'CHANGE' | translate }}</a>
+    </div>
+    <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
+      <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
+      <p>العربيه</p>
+    </div>
+    <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
+      <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
+      <p>English</p>
+    </div>
   </div>
 </div>
 

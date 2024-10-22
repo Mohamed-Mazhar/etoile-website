@@ -20,8 +20,10 @@ export class MainPageComponent implements OnInit {
   banners: BannerModel[] = []
   latestProducts: ProductModel | null = null
   popularProducts: ProductModel | null = null
-  bestSellerProducts: Product[][] = []
-  recommendedProducts: Product[][] = []
+  recommendedProducts: ProductModel | null = null
+  bestSellerProducts: ProductModel | null = null
+  chunkedBestSellerProducts: Product[][] = []
+  chunkedRecommendedProducts: Product[][] = []
   chunkSize: number = 2
 
   constructor(
@@ -34,6 +36,8 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
     if (window.innerWidth < 770) {
       this.chunkSize = 1
+    } else {
+      this.chunkSize = 2
     }
     this.configModelService.configModelSubject.subscribe({
       next: (configModel) => {
@@ -52,14 +56,16 @@ export class MainPageComponent implements OnInit {
     this.productsService.recommendedProducts.subscribe({
       next: (products) => {
         if (products !== null) {
-          this.recommendedProducts = this.chunkProducts(products!.products!)
+          this.recommendedProducts = products
+          this.chunkedRecommendedProducts = this.chunkProducts(products!.products!)
         }
       }
     })
     this.productsService.frequentlyBoughtProducts.subscribe({
       next: (products) => {
         if (products !== null) {
-          this.bestSellerProducts = this.chunkProducts(products!.products!)
+          this.bestSellerProducts = products
+          this.chunkedBestSellerProducts = this.chunkProducts(products!.products!)
         }
       }
     })
@@ -88,7 +94,10 @@ export class MainPageComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(_: any) {
-    this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2;
+    this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2
+    this.chunkedRecommendedProducts = this.chunkProducts(this.recommendedProducts?.products ?? [])
+    this.chunkedBestSellerProducts = this.chunkProducts(this.bestSellerProducts?.products ?? [])
+
   }
 
 }
