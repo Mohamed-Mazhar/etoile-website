@@ -18,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
   currentLanguage = "en"
   constructor(
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -38,5 +39,9 @@ export class HeaderComponent implements OnInit {
 
   dismissSearch() {
     AppEventBroadcaster.publish({event: AppEvent.hideSearchBarResult})
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language)
   }
 }

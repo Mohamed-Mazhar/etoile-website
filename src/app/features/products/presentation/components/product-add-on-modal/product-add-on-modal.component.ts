@@ -1,8 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {Product, Variation, VariationValue} from "../../../../../common/data-classes/ProductModel";
 import {VariationEntity, VariationValueEntity} from "../../../data/models/VariationEntity";
 import {SelectedAddonEntity} from "../../../data/models/SelectedAddonEntity";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 @Component({
   selector: 'app-product-add-on-modal',
@@ -15,9 +17,13 @@ export class ProductAddOnModalComponent implements OnInit {
   product: Product | null = null
   variationEntities: VariationEntity[] = []
   selectedAddons: SelectedAddonEntity[] = []
+  isButtonEnabled = true
+  configModel: ConfigModel | null = null
+  productPrice: number = 0
 
   constructor(
-    private cartService: CartProductsService
+    private cartService: CartProductsService,
+    private configModelService: ConfigModelService
   ) {
   }
 
@@ -27,11 +33,15 @@ export class ProductAddOnModalComponent implements OnInit {
         this.variationEntities = []
         this.selectedAddons = []
         this.product = product
+        this.productPrice = product?.price ?? 0
         this.product?.variations?.forEach((variation) => {
           this.variationEntities.push({
             variation: variation,
             selectedVariations: this.getVariationValues(variation.variationValues!)
           })
+          if (variation.isRequired) {
+            this.isButtonEnabled = false
+          }
         })
         this.product?.addOns?.forEach((addon) => {
           this.selectedAddons.push({
@@ -39,6 +49,11 @@ export class ProductAddOnModalComponent implements OnInit {
             isSelected: false
           })
         })
+      }
+    })
+    this.configModelService.configModelSubject.subscribe({
+      next: (configModel) => {
+        this.configModel = configModel
       }
     })
   }
@@ -62,9 +77,38 @@ export class ProductAddOnModalComponent implements OnInit {
     return variation.max! > 0
   }
 
-  checkForLimit(variationEntity: VariationEntity) {
+  adjustViews(variationEntity: VariationEntity) {
     let max = variationEntity.variation.max
     let min = variationEntity.variation.min
     let isRequired = variationEntity.variation.isRequired
+    let numberOfVariationsSelected = variationEntity.selectedVariations.filter((variationEntity) => variationEntity.isSelected).length
+
+    if (isRequired && numberOfVariationsSelected <= max! ) {
+      this.isButtonEnabled = variationEntity.selectedVariations.some((variationEntity) => variationEntity.isSelected)
+    } else {
+      this.isButtonEnabled = false
+    }
   }
+
+  updatePrice() {
+    let newPrice = 0
+    this.variationEntities.forEach((variationEntity) => {
+      variationEntity.selectedVariations.forEach((selectedVariation) => {
+        if (selectedVariation.isSelected) {
+          newPrice += selectedVariation.variation.optionPrice!
+        }
+      })
+    })
+    this.selectedAddons.forEach((addon) => {
+      if (addon.isSelected) {
+        newPrice += addon.addon.price!
+      }
+    })
+    this.productPrice += newPrice
+  }
+
+  getImage() {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${this.product?.image}`
+  }
+
 }

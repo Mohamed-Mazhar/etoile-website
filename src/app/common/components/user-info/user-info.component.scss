@@ -10,9 +10,6 @@
     color: VAR(--darkgray);
   }
 
-  @include res-md-styles {
-    display: block;
-  }
 }
 
 .icon-size {
@@ -30,6 +27,20 @@
     font-size: 0.75rem !important;
     color: VAR(--primary-color);
   }
+
+  @include res-md-styles {
+    column-gap: 0.25rem;
+    margin-inline-end: 0.5rem;
+    p {
+      font-size: 0.825rem;
+    }
+
+    i {
+      font-size: 1.25rem;
+    }
+
+  }
+
 }
 
 .canvas-width {
@@ -70,6 +81,11 @@
   align-items: center;
   margin-bottom: 0.5rem;
   justify-content: space-between;
+
+  @include res-md-styles {
+    justify-content: start;
+  }
+
 }
 
 .language-container {

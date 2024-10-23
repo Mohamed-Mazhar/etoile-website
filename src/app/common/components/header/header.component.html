@@ -1,7 +1,7 @@
 <div class="bg-white mb-3" (click)="dismissSearch()">
   <div class="header-content">
     <div class="logo-and-search">
-      <nav class="navbar navbar-expand-lg navbar-light d-lg-none">
+      <nav class="navbar navbar-expand-lg navbar-light d-lg-none p-0">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -10,10 +10,23 @@
       <div (click)="goToHome()" class="logo-centered clickable">
         <img loading="lazy" src="https://www.etoileeg.online/Upload?id=73012" class="img-fluid">
       </div>
+      <user-info *ngIf="isMobileView" [isMobileView]="isMobileView"></user-info>
       <search-bar class="search-bar" *ngIf="!isMobileView"></search-bar>
     </div>
-    <search-bar class="search-bar" *ngIf="isMobileView"></search-bar>
-    <div class="user-info-and-language">
+    <div class="d-flex align-items-center" *ngIf="isMobileView">
+      <search-bar class="search-bar"></search-bar>
+      <div>
+        <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
+          <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
+          <p>العربيه</p>
+        </div>
+        <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
+          <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
+          <p>English</p>
+        </div>
+      </div>
+    </div>
+    <div class="user-info-and-language" *ngIf="!isMobileView">
       <user-info [isMobileView]="isMobileView" class="ms-lg-auto"></user-info>
     </div>
   </div>

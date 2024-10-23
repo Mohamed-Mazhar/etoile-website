@@ -8,7 +8,7 @@ import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {forkJoin} from "rxjs";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-profile',
