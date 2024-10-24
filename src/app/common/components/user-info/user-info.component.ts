@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
 import {UserInfo} from "../../data-classes/UserInfo";
-import {SELECTED_BRANCH, USER_INFO} from "../../utils/constants";
+import {LANG, SELECTED_BRANCH, USER_INFO} from "../../utils/constants";
 import {Branch} from "../../data-classes/ConfigModel";
 import {Router} from "@angular/router";
 import {CartProductsService} from "../../services/cart-products.service";
@@ -58,6 +58,7 @@ export class UserInfoComponent implements OnInit {
 
   changeLanguage(language: string) {
     this.translate.use(language)
+    localStorage.setItem(LANG, language)
   }
 
 }

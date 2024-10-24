@@ -10,8 +10,8 @@
         <div class="cart-button" (click)="increaseProduct()"><i class="fas fa-plus"></i></div>
       </div>
       <div class="price-container">
-        <p>Price:</p>
-        <p>{{ cartProduct.product.price! }} {{ 'CURRENCY' | translate }}</p>
+        <p>{{ 'PRICE' | translate }}:</p>
+        <p>{{ getPrice() }} {{ 'CURRENCY' | translate }}</p>
       </div>
     </div>
     <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"

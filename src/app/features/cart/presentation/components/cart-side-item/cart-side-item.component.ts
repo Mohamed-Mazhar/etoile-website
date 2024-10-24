@@ -3,6 +3,7 @@ import {CartProductItem} from "../../../data/model/CartProductItem";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 
 @Component({
   selector: 'cart-side-item',
@@ -45,4 +46,7 @@ export class CartSideItemComponent implements OnInit {
     return `${this.configModel?.baseUrls?.productImageUrl}/${this.cartProduct.product.image}`
   }
 
+  getPrice() : number {
+    return ProductPriceUtil.calculatePrice(this.cartProduct)
+  }
 }

@@ -93,18 +93,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @include res-md-styles {
+    display: block;
+  }
+
 }
 
 .product-size {
   display: flex;
   column-gap: 1rem;
   align-items: center;
+
+  @include res-md-styles {
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
 }
 
 .product-selected-size {
   border: 1px solid VAR(--primary-color);
   border-radius: 0.5rem;
   padding: 1rem;
+
+  @include res-md-styles {
+    padding: 0.5rem;
+  }
+
 }
 
 .change-product-number {

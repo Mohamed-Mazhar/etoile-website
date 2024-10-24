@@ -1,7 +1,13 @@
-import {AddOns, Product} from "../../../../common/data-classes/ProductModel";
+import {AddOns, Product, VariationValue} from "../../../../common/data-classes/ProductModel";
 
 export interface CartProductItem {
-  product : Product,
+  product: Product,
   count: number,
-  productAddOns: AddOns[]
+  productAddOns: AddOns[],
+  variations: CartProductVariations[]
+}
+
+export interface CartProductVariations {
+  name: string,
+  values: VariationValue[]
 }

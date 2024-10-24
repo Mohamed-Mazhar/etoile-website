@@ -1,10 +1,11 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {Product, Variation, VariationValue} from "../../../../../common/data-classes/ProductModel";
 import {VariationEntity, VariationValueEntity} from "../../../data/models/VariationEntity";
 import {SelectedAddonEntity} from "../../../data/models/SelectedAddonEntity";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {CartProductItem, CartProductVariations} from "../../../../cart/data/model/CartProductItem";
 
 @Component({
   selector: 'app-product-add-on-modal',
@@ -20,6 +21,7 @@ export class ProductAddOnModalComponent implements OnInit {
   isButtonEnabled = true
   configModel: ConfigModel | null = null
   productPrice: number = 0
+  productVariations: CartProductVariations[] = []
 
   constructor(
     private cartService: CartProductsService,
@@ -83,21 +85,50 @@ export class ProductAddOnModalComponent implements OnInit {
     let isRequired = variationEntity.variation.isRequired
     let numberOfVariationsSelected = variationEntity.selectedVariations.filter((variationEntity) => variationEntity.isSelected).length
 
-    if (isRequired && numberOfVariationsSelected <= max! ) {
+    if (isRequired && numberOfVariationsSelected <= max! && numberOfVariationsSelected >= min!) {
       this.isButtonEnabled = variationEntity.selectedVariations.some((variationEntity) => variationEntity.isSelected)
     } else {
       this.isButtonEnabled = false
     }
+    this.updatePrice()
+  }
+
+  getImage() {
+    return `${this.configModel?.baseUrls?.productImageUrl}/${this.product?.image}`
+  }
+
+  updateSelectedOption(variationEntity: VariationEntity, selectedIndex: number) {
+    let updatedVariationIndex = this.variationEntities.findIndex((entity) => entity.variation.name === variationEntity.variation.name)
+    let selectedVariation = this.variationEntities[updatedVariationIndex].selectedVariations
+    let newVariationValues: VariationValueEntity[] = []
+    selectedVariation.forEach((variationValue, index) => {
+      newVariationValues.push({
+        variation: variationValue.variation,
+        isSelected: index === selectedIndex
+      })
+    })
+    this.variationEntities[updatedVariationIndex].selectedVariations = newVariationValues
+    this.updatePrice()
   }
 
   updatePrice() {
+    this.productVariations = []
+    this.productPrice = this.product?.price!
     let newPrice = 0
     this.variationEntities.forEach((variationEntity) => {
+      let selectedValues: VariationValue[] = []
       variationEntity.selectedVariations.forEach((selectedVariation) => {
         if (selectedVariation.isSelected) {
           newPrice += selectedVariation.variation.optionPrice!
+          selectedValues.push(selectedVariation.variation)
         }
       })
+      if (selectedValues.isNotEmpty()) {
+        this.productVariations.push({
+          name: variationEntity.variation.name!,
+          values: selectedValues
+        })
+      }
     })
     this.selectedAddons.forEach((addon) => {
       if (addon.isSelected) {
@@ -107,8 +138,16 @@ export class ProductAddOnModalComponent implements OnInit {
     this.productPrice += newPrice
   }
 
-  getImage() {
-    return `${this.configModel?.baseUrls?.productImageUrl}/${this.product?.image}`
+  addToCart() {
+    let cartProductItem: CartProductItem = {
+      product: this.product!,
+      count: 1,
+      productAddOns: [...this.selectedAddons.filter((entity) => entity.isSelected).map((entity) => entity.addon)],
+      variations: this.productVariations
+    }
+    console.log("Product added to cart ", cartProductItem)
+    this.cartService.addProduct(cartProductItem)
+    this.closeElem.nativeElement.click()
   }
 
 }

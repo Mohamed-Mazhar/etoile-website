@@ -32,11 +32,11 @@ export class ProductItemComponent implements OnInit {
   }
 
   addProduct() {
-    this.toastService.showToast('normal', 'Product Added')
     this.cartService.addProduct({
       product: this.product,
       count: 1,
-      productAddOns: []
+      productAddOns: [],
+      variations: []
     })
   }
 

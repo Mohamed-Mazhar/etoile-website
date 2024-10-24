@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {NavigationEnd, Router} from "@angular/router";
 import {SplashApi} from "./common/apis/splash-api";
 import {ConfigModelService} from "./common/services/config-model.service";
-import {SELECTED_BRANCH} from "./common/utils/constants";
+import {LANG, SELECTED_BRANCH} from "./common/utils/constants";
 
 @Component({
   selector: 'app-root',
@@ -25,14 +25,21 @@ export class AppComponent {
       }
       window.scrollTo(0, 0)
     });
-    this.translate.setDefaultLang("en")
-    this.translate.use("en")
+    let lang = localStorage.getItem(LANG)
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang)
+      this.translate.use(lang)
+    } else {
+      this.translate.setDefaultLang("en")
+      this.translate.use("en")
+    }
+
     this.translate.onLangChange.subscribe((event) => {
       this.setDirection(event.lang);
       this.translate.use(event.lang)
     });
     this.splashApi.getAppConfigurations().subscribe({
-      next:(res) => {
+      next: (res) => {
         this.configModelService.setConfigModel(res)
       }
     })

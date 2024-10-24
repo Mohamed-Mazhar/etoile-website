@@ -18,6 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   productRating = 0
   productCount = 1
   configModel: ConfigModel | null = null
+  selectedSize = "Select Size"
 
   constructor(
     private route: ActivatedRoute,
@@ -66,7 +67,8 @@ export class ProductDetailsComponent implements OnInit {
     this.cartService.addProduct({
       product: this.product!,
       count: this.productCount,
-      productAddOns: []
+      productAddOns: [],
+      variations: []
     })
   }
 
@@ -75,7 +77,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   openProductAddOns() {
-    console.log("Edit produc")
     this.cartService.editProduct(this.product!)
   }
 }

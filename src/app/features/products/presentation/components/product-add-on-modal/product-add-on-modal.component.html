@@ -58,10 +58,11 @@
         </div>
 
         <div class="options-container" *ngIf="!variationEntity.variation.isMultiSelect">
-          <div class="option-item-width" *ngFor="let option of variationEntity.selectedVariations">
+          <div class="option-item-width" *ngFor="let option of variationEntity.selectedVariations; let i = index">
             <input
               [checked]="option.isSelected"
-              (change)="updatePrice()"
+              [value]="i"
+              (change)="updateSelectedOption(variationEntity, i)"
               class="form-check-input me-2"
               type="radio"
               name="{{variationEntity.variation.name}}"
@@ -93,6 +94,7 @@
       <primary-button
         [enabled]="isButtonEnabled"
         class="cart-button"
+        (onClick)="addToCart()"
         [title]="'ADD_TO_CART' | translate">
       </primary-button>
     </div>

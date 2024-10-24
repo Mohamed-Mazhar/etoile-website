@@ -3,6 +3,7 @@ import {CartProductItem} from "../../../data/model/CartProductItem";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {Router} from "@angular/router";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 
 @Component({
   selector: 'cart-side-page',
@@ -28,7 +29,7 @@ export class CartSidePageComponent implements OnInit {
         this.totalPrice = 0
         this.cartProducts = products
         for (let cartProduct of this.cartProducts) {
-          let price = cartProduct.product.price!
+          let price = ProductPriceUtil.calculatePrice(cartProduct)
           let count = cartProduct.count
           this.totalPrice += price * count
         }

@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Category} from "../../data-classes/Category";
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
+import {LANG} from "../../utils/constants";
 
 @Component({
   selector: 'app-header',
@@ -43,5 +44,6 @@ export class HeaderComponent implements OnInit {
 
   changeLanguage(language: string) {
     this.translate.use(language)
+    localStorage.setItem(LANG, language)
   }
 }

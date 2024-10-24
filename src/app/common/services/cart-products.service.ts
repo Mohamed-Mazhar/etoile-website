@@ -4,6 +4,7 @@ import {BehaviorSubject} from "rxjs";
 import {AppEventBroadcaster} from "../app-events/app-event-broadcaster";
 import {AppEvent} from "../app-events/app-event";
 import {Product} from "../data-classes/ProductModel";
+import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,13 @@ import {Product} from "../data-classes/ProductModel";
 export class CartProductsService {
 
   private cartProducts: CartProductItem[] = []
-
   public cartProductToRemove = new BehaviorSubject<CartProductItem | null>(null)
-
   public cartProductsSubject = new BehaviorSubject<CartProductItem[]>(this.cartProducts)
   public productToEditSubject = new BehaviorSubject<Product | null>(null)
 
-  constructor() {
+  constructor(
+    private toastService: ToastService
+  ) {
 
   }
 
@@ -26,7 +27,9 @@ export class CartProductsService {
     if (existingProductIndex !== -1) {
       let existingAddons = JSON.stringify(this.cartProducts[existingProductIndex].productAddOns)
       let newProductAddons = JSON.stringify(cartProduct.productAddOns)
-      if (existingAddons === newProductAddons) {
+      let existingVariations = JSON.stringify(this.cartProducts[existingProductIndex].variations)
+      let newVariations = JSON.stringify(cartProduct.variations)
+      if (existingAddons === newProductAddons && existingVariations === newVariations) {
         this.increaseQuantity(cartProduct, existingProductIndex)
       } else {
         this.addNewProduct(cartProduct)
@@ -34,6 +37,7 @@ export class CartProductsService {
     } else {
       this.addNewProduct(cartProduct)
     }
+    this.toastService.showToast('normal', 'Product Added')
   }
 
   private addNewProduct(cartProduct: CartProductItem) {
@@ -51,7 +55,8 @@ export class CartProductsService {
       this.cartProducts[productIndex] = {
         product: cartProduct.product,
         count: this.cartProducts[productIndex].count - 1,
-        productAddOns: cartProduct.productAddOns
+        productAddOns: cartProduct.productAddOns,
+        variations: cartProduct.variations
       }
       this.cartProductsSubject.next(this.cartProducts)
     } else {
@@ -64,7 +69,8 @@ export class CartProductsService {
     this.cartProducts[productIndex] = {
       product: cartProduct.product,
       count: this.cartProducts[productIndex].count + 1,
-      productAddOns: cartProduct.productAddOns
+      productAddOns: cartProduct.productAddOns,
+      variations: cartProduct.variations,
     }
     this.cartProductsSubject.next(this.cartProducts)
   }
