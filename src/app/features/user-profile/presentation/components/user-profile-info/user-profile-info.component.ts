@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, UntypedFormGroup} from "@angular/forms";
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {USER_INFO} from "../../../../../common/utils/constants";
@@ -18,7 +18,7 @@ export class UserProfileInfoComponent implements OnInit, AfterViewInit {
   @Input() userInfo!: UserInfo
   @ViewChild('myToast', {static: true}) toastEl!: ElementRef<HTMLDivElement>
   // toast: Toast | null = null;
-  formGroup: FormGroup = new FormGroup({})
+  formGroup: UntypedFormGroup = new UntypedFormGroup({})
   loading = false
   username: AbstractControl | null = null
   password: AbstractControl | null = null

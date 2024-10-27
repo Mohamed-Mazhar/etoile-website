@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
-import {FormGroup, Validators} from "@angular/forms";
+import {UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   readonly InputType = InputType;
   readonly Validators = Validators;
   @ViewChild('close') closeIcon!: ElementRef
-  formGroup: FormGroup = new FormGroup({})
+  formGroup: UntypedFormGroup = new UntypedFormGroup({})
   isLoading: boolean = false
   errorMessage: string | null = null
 

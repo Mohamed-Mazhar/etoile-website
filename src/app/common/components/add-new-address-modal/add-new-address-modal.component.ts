@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AddressService} from "../../services/address.service";
-import {FormGroup, Validators} from "@angular/forms";
+import {UntypedFormGroup, Validators} from "@angular/forms";
 import {InputType} from "../inputs/enums/InputType";
 import {AddressModel} from "../../data-classes/AddressModel";
 import {AddressApi} from "../../apis/address-api";
@@ -20,7 +20,7 @@ export class AddNewAddressModalComponent implements OnInit {
   readonly InputType = InputType;
   title: string = ""
   loading = false
-  formGroup = new FormGroup({})
+  formGroup = new UntypedFormGroup({})
   address: AddressModel | null = null
 
   constructor(

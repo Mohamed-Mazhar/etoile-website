@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {ProductsApi} from "../../../../../common/apis/products-api";
 import {ToastService} from "../../../../../common/services/toast.service";
 
@@ -18,8 +18,8 @@ export class AddProductReviewModalComponent implements OnInit {
   star4 = "assets/images/in-active-star-icon.svg"
   star5 = "assets/images/in-active-star-icon.svg"
   selectedRate = 0
-  form: FormGroup = new FormGroup({});
-  control: FormControl = new FormControl()
+  form: UntypedFormGroup = new UntypedFormGroup({});
+  control: UntypedFormControl = new UntypedFormControl()
   loading = false
 
   constructor(

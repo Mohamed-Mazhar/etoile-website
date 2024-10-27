@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 import {AddressService} from "../../../../../common/services/address.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-shipping-tab',
@@ -12,13 +12,13 @@ export class ShippingTabComponent implements OnInit {
 
   @Output() onProceedClicked: EventEmitter<number> = new EventEmitter<number>();
   @Input() addresses: AddressModel[] = []
-  formGroup: FormGroup = this.fb.group({
+  formGroup: UntypedFormGroup = this.fb.group({
     deliveryAddress: ['', Validators.required]
   })
 
   constructor(
     private addressService: AddressService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) { }
 
   ngOnInit(): void {

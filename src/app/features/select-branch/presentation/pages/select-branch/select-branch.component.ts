@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {Branch} from "../../../../../common/data-classes/ConfigModel";
 import {SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
@@ -15,14 +15,14 @@ export class SelectBranchComponent implements OnInit {
 
   selectedBranch: Branch | null = null
   searchText: string = ""
-  form: FormGroup = this.fb.group({
+  form: UntypedFormGroup = this.fb.group({
     'search': ['']
   })
   branches: Branch[] = []
   filteredBranches: Branch[] = []
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configModelService: ConfigModelService,
     private cartService: CartProductsService,
     private router: Router

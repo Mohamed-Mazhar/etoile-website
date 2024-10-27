@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {FormControl, FormGroup, ValidatorFn} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, ValidatorFn} from "@angular/forms";
 import {BehaviorSubject} from "rxjs";
 import {InputType} from "../enums/InputType";
 import {NameValidationError} from "../../../validators/name-validator";
@@ -20,13 +20,13 @@ export class InputTextFieldComponent implements OnInit {
   @Input() inputType?: InputType = InputType.normal;
   @Input() floatingLabel?: string = "";
   @Input() id!: string;
-  @Input() group!: FormGroup;
+  @Input() group!: UntypedFormGroup;
   @Input() validators: ValidatorFn[] = [];
   @Input() showEmailHint: boolean = false;
   @Input() isReadOnly: boolean = false;
   @Input() enableNumericOnly: boolean = false;
   @Input() showPrefixIcon: boolean = false
-  control: FormControl = new FormControl();
+  control: UntypedFormControl = new UntypedFormControl();
   isPasswordVisible: boolean = false;
 
   constructor(

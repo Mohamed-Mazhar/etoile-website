@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
-import {FormGroup, Validators} from "@angular/forms";
+import {UntypedFormGroup, Validators} from "@angular/forms";
 import {USER_INFO, USER_PASSWORD} from "../../../../../common/utils/constants";
 
 @Component({
@@ -15,7 +15,7 @@ export class ChangePasswordModalComponent implements OnInit {
   readonly InputType = InputType
   readonly Validators = Validators
   loading = false
-  formGroup: FormGroup = new FormGroup({})
+  formGroup: UntypedFormGroup = new UntypedFormGroup({})
   constructor(
     private userProfileApi: UserProfileApi
   ) { }

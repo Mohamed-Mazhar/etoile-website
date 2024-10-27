@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {ProductsApi} from "../../apis/products-api";
 import {throttleTime} from "rxjs";
 import {Product} from "../../data-classes/ProductModel";
@@ -18,7 +18,7 @@ export class SearchBarComponent implements OnInit {
 
 
   @ViewChild('productsElem') productsElem!: ElementRef
-  formGroup: FormGroup = this.fb.group({
+  formGroup: UntypedFormGroup = this.fb.group({
     'search': ['']
   });
   products: Product[] = []
@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private productsApi: ProductsApi,
     private configService: ConfigModelService,
     private router: Router

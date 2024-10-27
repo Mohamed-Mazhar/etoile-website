@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
@@ -15,7 +15,7 @@ import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 export class RegistrationComponent implements OnInit {
 
   @ViewChild('close') closeIcon!: ElementRef
-  formGroup: FormGroup = this.fb.group({
+  formGroup: UntypedFormGroup = this.fb.group({
     termsAndConditions: [false, Validators.requiredTrue]
   })
   readonly InputType = InputType
@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
   errorMessage: string | null = null
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private registrationServiceApi: AuthenticationApi,
     private userProfileApi: UserProfileApi
   ) {

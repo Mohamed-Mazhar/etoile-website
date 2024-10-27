@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   ValidatorFn,
   Validators,
 } from "@angular/forms";
@@ -25,14 +25,14 @@ export class MobileNumberComponent implements OnInit {
   @Input() mobileNumberId!: string;
   @Input() countryCodeId!: string;
 
-  @Input() group!: FormGroup;
+  @Input() group!: UntypedFormGroup;
   @Input() validators: ValidatorFn[] = [];
 
   @Output() onSelected: EventEmitter<any> = new EventEmitter<any>();
   @Output() onSearchChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  control: FormControl = new FormControl();
-  countryControl: FormControl = new FormControl({value: "+02", disabled: true}, Validators.required);
+  control: UntypedFormControl = new UntypedFormControl();
+  countryControl: UntypedFormControl = new UntypedFormControl({value: "+02", disabled: true}, Validators.required);
   loadingTimeout: any;
   countryCode: string = "+20";
   mobileNumber: string = "";
