@@ -79,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "etoile-website:build:production"
+              "buildTarget": "etoile-website:build:production"
             },
             "development": {
-              "browserTarget": "etoile-website:build:development"
+              "buildTarget": "etoile-website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -90,7 +90,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "etoile-website:build"
+            "buildTarget": "etoile-website:build"
           }
         },
         "test": {
@@ -120,5 +120,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "26696ecf-c0e5-4375-af21-c91bf1e4f544"
   }
 }

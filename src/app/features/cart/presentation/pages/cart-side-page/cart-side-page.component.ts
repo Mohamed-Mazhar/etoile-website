@@ -4,6 +4,8 @@ import {CartProductsService} from "../../../../../common/services/cart-products.
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {Router} from "@angular/router";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'cart-side-page',
@@ -19,7 +21,8 @@ export class CartSidePageComponent implements OnInit {
 
   constructor(
     private cartService: CartProductsService,
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -40,6 +43,15 @@ export class CartSidePageComponent implements OnInit {
   goToCheckOut() {
     let user = localStorage.getItem(USER_INFO)
     if (user !== null) {
+      this.analyticsService.logEvent({
+        event: AnalyticsEvent.checkout,
+        parameters: new Map<string, any>(
+          [
+            ['value', this.totalPrice],
+            ['currency', 'EGP']
+          ]
+        )
+      })
       this.router.navigate(['/checkout']).then()
     } else {
       this.loginElem.nativeElement.click()

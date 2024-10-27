@@ -12,7 +12,9 @@ import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
 import {DatePipe} from '@angular/common';
-import {Route, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 
 @Component({
@@ -41,7 +43,8 @@ export class CheckOutComponent implements OnInit {
     private cartProductsService: CartProductsService,
     private toastService: ToastService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -132,7 +135,7 @@ export class CheckOutComponent implements OnInit {
         this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
         this.orderId = orderNumber
         this.cartProductsService.clearCart()
-
+        this.logOrderEvent(placeOrder)
       },
       error: (err) => {
         this.placingOrder = false
@@ -157,5 +160,20 @@ export class CheckOutComponent implements OnInit {
       return false
     }
     return false
+  }
+
+  private logOrderEvent(placeOrder: PlaceOrderBody) {
+    let parameters = new Map<string, any>()
+    parameters.set('sum', this.totalPrice)
+    parameters.set('value', this.totalPrice)
+    parameters.set('currency', 'EGP')
+    parameters.set('transaction_id', this.orderId)
+    parameters.set('store_name', this.selectedBranch?.name)
+    parameters.set('payment_type', placeOrder.paymentMethod)
+    parameters.set('order_type', placeOrder.orderType)
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.placeOrder,
+      parameters: parameters
+    })
   }
 }
