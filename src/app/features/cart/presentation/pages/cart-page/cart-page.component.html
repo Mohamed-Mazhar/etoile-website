@@ -1,8 +1,13 @@
 <div class="container">
   <div class="cart-page-container" *ngIf="cartItems.isNotEmpty()">
     <div class="full-width">
-      <div class="product-item-container" *ngFor="let cartProduct of cartItems">
-        <app-cart-product-item class="full-width" [cartProduct]="cartProduct"></app-cart-product-item>
+      <div class="product-item-container" *ngFor="let cartProduct of cartItems; let i = index">
+        <cart-side-item
+          class="full-width pb-3"
+          [productIndex]="i"
+          [hideSeparator]="true"
+          [cartProduct]="cartProduct">
+        </cart-side-item>
       </div>
     </div>
     <div class="order-container">
@@ -27,7 +32,8 @@
         <primary-button (onClick)="proceed()" title="Proceed to checkout" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2">
-        <primary-button routerLink="/" class="mt-2" [title]="'CONTINUE_SHOPPING' | translate" [buttonPadding]="0.5"></primary-button>
+        <primary-button routerLink="/" class="mt-2" [title]="'CONTINUE_SHOPPING' | translate"
+                        [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2 text-center text-decoration-underline clickable fw-bold" data-bs-target="#clearCart"
            data-bs-toggle="modal">
@@ -38,7 +44,8 @@
   <div class="empty-cart" *ngIf="cartItems.isEmpty()">
     <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
     <p class="mb-3">{{ 'EMPTY_CART' | translate }}</p>
-    <primary-button class="button-width" [title]="'CONTINUE_SHOPPING' | translate" (onClick)="continue()"></primary-button>
+    <primary-button class="button-width" [title]="'CONTINUE_SHOPPING' | translate"
+                    (onClick)="continue()"></primary-button>
   </div>
 </div>
 

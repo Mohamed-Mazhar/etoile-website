@@ -3,6 +3,7 @@ import {CartProductsService} from "../../../../../common/services/cart-products.
 import {CartProductItem} from "../../../data/model/CartProductItem";
 import {Router} from "@angular/router";
 import {USER_INFO} from "../../../../../common/utils/constants";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 
 @Component({
   selector: 'app-cart-page',
@@ -23,11 +24,14 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartProductService.cartProductsSubject.subscribe({
-      next: (cartProducts) => {
-        this.cartItems = cartProducts
-        this.cartItems.forEach((cart) => {
-          this.price += ((cart.product.price ?? 0) * cart.count)
-        })
+      next: (products) => {
+        this.price = 0
+        this.cartItems = products
+        for (let cartProduct of this.cartItems) {
+          let price = ProductPriceUtil.calculatePrice(cartProduct)
+          let count = cartProduct.count
+          this.price += price * count
+        }
       }
     })
   }

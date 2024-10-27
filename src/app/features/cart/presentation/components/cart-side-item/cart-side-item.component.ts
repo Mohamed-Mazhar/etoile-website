@@ -14,6 +14,7 @@ export class CartSideItemComponent implements OnInit {
 
   @Input() cartProduct!: CartProductItem
   @Input() productIndex!: number
+  @Input() hideSeparator: boolean = false
   configModel: ConfigModel | null = null
 
   constructor(

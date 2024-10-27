@@ -5,6 +5,7 @@ import {AppEventBroadcaster} from "../app-events/app-event-broadcaster";
 import {AppEvent} from "../app-events/app-event";
 import {Product} from "../data-classes/ProductModel";
 import {ToastService} from "./toast.service";
+import {CART} from "../utils/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,11 @@ export class CartProductsService {
   constructor(
     private toastService: ToastService
   ) {
-
+    let existingCart = localStorage.getItem(CART)
+    if (existingCart !== null) {
+      this.cartProducts = JSON.parse(existingCart)
+      this.cartProductsSubject.next(this.cartProducts)
+    }
   }
 
   public addProduct(cartProduct: CartProductItem) {
@@ -43,11 +48,13 @@ export class CartProductsService {
   private addNewProduct(cartProduct: CartProductItem) {
     this.cartProducts.push(cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
+    localStorage.setItem(CART, JSON.stringify(this.cartProducts))
   }
 
   public removeProduct(cartProduct: CartProductItem) {
     this.cartProducts = this.cartProducts.filter(cartProductItem => cartProductItem !== cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
+    localStorage.setItem(CART, JSON.stringify(this.cartProducts))
   }
 
   decreaseQuantity(cartProduct: CartProductItem, productIndex: number) {
@@ -59,6 +66,7 @@ export class CartProductsService {
         variations: cartProduct.variations
       }
       this.cartProductsSubject.next(this.cartProducts)
+      localStorage.setItem(CART, JSON.stringify(this.cartProducts))
     } else {
       this.cartProductToRemove.next(cartProduct)
       AppEventBroadcaster.publish({event: AppEvent.showRemoveProductAlert})
@@ -73,11 +81,13 @@ export class CartProductsService {
       variations: cartProduct.variations,
     }
     this.cartProductsSubject.next(this.cartProducts)
+    localStorage.setItem(CART, JSON.stringify(this.cartProducts))
   }
 
   clearCart() {
     this.cartProducts = []
     this.cartProductsSubject.next(this.cartProducts)
+    localStorage.removeItem(CART)
   }
 
   editProduct(product: Product) {

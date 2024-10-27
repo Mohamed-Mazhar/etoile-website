@@ -3,3 +3,5 @@ export const USER_INFO = "userInfo"
 export const SELECTED_BRANCH = "selected_branch"
 export const USER_PASSWORD = "password"
 export const LANG = "language"
+
+export const CART = "cart"
