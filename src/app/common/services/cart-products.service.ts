@@ -6,6 +6,9 @@ import {AppEvent} from "../app-events/app-event";
 import {Product} from "../data-classes/ProductModel";
 import {ToastService} from "./toast.service";
 import {CART} from "../utils/constants";
+import {AnalyticsService} from "../../features/analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../features/analytics/data/models/AnalyticsEvent";
+import {ProductPriceUtil} from "../utils/ProductPriceUtil";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +21,8 @@ export class CartProductsService {
   public productToEditSubject = new BehaviorSubject<Product | null>(null)
 
   constructor(
-    private toastService: ToastService
+    private toastService: ToastService,
+    private analyticsService: AnalyticsService
   ) {
     let existingCart = localStorage.getItem(CART)
     if (existingCart !== null) {
@@ -49,12 +53,19 @@ export class CartProductsService {
     this.cartProducts.push(cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
     localStorage.setItem(CART, JSON.stringify(this.cartProducts))
+    this.logAnalytics(cartProduct)
   }
 
   public removeProduct(cartProduct: CartProductItem) {
     this.cartProducts = this.cartProducts.filter(cartProductItem => cartProductItem !== cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
     localStorage.setItem(CART, JSON.stringify(this.cartProducts))
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.removeProduct,
+      parameters: new Map<string, any>([
+        ['item_id', cartProduct.product.id]
+      ])
+    })
   }
 
   decreaseQuantity(cartProduct: CartProductItem, productIndex: number) {
@@ -82,6 +93,7 @@ export class CartProductsService {
     }
     this.cartProductsSubject.next(this.cartProducts)
     localStorage.setItem(CART, JSON.stringify(this.cartProducts))
+    this.logAnalytics(cartProduct)
   }
 
   clearCart() {
@@ -92,6 +104,22 @@ export class CartProductsService {
 
   editProduct(product: Product) {
     this.productToEditSubject.next(product)
+  }
+
+  private logAnalytics(cartProduct: CartProductItem) {
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.addToCart,
+      parameters: new Map<string, any>([
+        ['item_id', cartProduct.product.id],
+        ['item_name', cartProduct.product.name],
+        ['quantity', cartProduct.count],
+        ['price', cartProduct.product.price],
+        ['value', ProductPriceUtil.calculatePrice(cartProduct)],
+        ['currency', 'EGP'],
+        ['type', 'product'],
+        ['modificator_ids', cartProduct.variations.map((variation) => variation.values)],
+      ])
+    })
   }
 
 }

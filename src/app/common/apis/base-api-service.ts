@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {catchError, map, mergeMap, Observable, of, throwError} from "rxjs";
+import {catchError, map, Observable, of, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
@@ -171,70 +171,4 @@ export class BaseApiService {
     this.jwtToken = localStorage.getItem(USER_TOKEN) ?? ""
   }
 
-  saveJWTToken(jwtToken: string) {
-
-  }
-
-  // saveJWTToken(jwtToken: JWTToken) {
-  //   this.clearJWTToken()
-  //   console.log("Received jwt token ", jwtToken)
-  //   this.jwtToken = jwtToken
-  //   localStorage.setItem("token", this.jwtToken.accessToken)
-  //   localStorage.setItem("tokenExpiry", Math.floor(new Date().getTime() / 1000) + this.jwtToken.accessToken)
-  //   localStorage.setItem("tokenType", this.jwtToken.tokenType)
-  //   if (this.jwtToken != null && this.jwtToken.user != null)
-  //     localStorage.setItem("user", JSON.stringify(this.jwtToken.user));
-  //   else
-  //     localStorage.removeItem("user")
-  //
-  //   if (this.jwtToken != null && this.jwtToken.customer != null) {
-  //     localStorage.setItem("customer", JSON.stringify(this.jwtToken.customer));
-  //   } else {
-  //     localStorage.removeItem("customer")
-  //   }
-  //
-  //
-  //   clearTimeout(this.refreshTokenTimer) // Not sure if this is needed.
-  //   let timerTickIn = (this.jwtToken.expiresIn * 0.9)
-  //   console.log("refreshing token in " + timerTickIn)
-  //   this.refreshTokenTimer = setTimeout(() => {
-  //     console.log("refreshing token now")
-  //     this.refreshToken().subscribe()
-  //   }, timerTickIn * 1000);
-  // }
-
-  clearJWTToken() {
-    console.log("clearing token now")
-    // this.jwtToken = null
-    this.jwtToken = ""
-    localStorage.clear() // TEST
-    // TODO remove mobile number from local storage
-  }
-
-  // refreshToken() {
-  //   return this.httpClient.post<JWTToken>(this.baseUrl + '/' + this.version + '/account/refreshToken', "")
-  //     .pipe(
-  //       catchError((error: HttpErrorResponse) => {
-  //         if (error.status === 401) {
-  //           console.log("Unauthorized response.")
-  //         } else if (error.status === 422) {
-  //           console.log("Validation error..")
-  //         }
-  //         // Return an ObservableInput
-  //         // return Observable;
-  //         // Return an observable with a user-facing error message.
-  //         // return throwError(() => new Error('Something bad happened; please try again later.'));
-  //         return throwError(() => error)
-  //       }),
-  //       map((response: JWTToken) => {
-  //           this.saveJWTToken(response)
-  //           return response
-  //         }
-  //       )
-  //     )
-  // }
-
-  getJwt(): string | null {
-    return this.jwtToken
-  }
 }

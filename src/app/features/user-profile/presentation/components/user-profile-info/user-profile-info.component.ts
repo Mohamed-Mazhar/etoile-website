@@ -6,6 +6,9 @@ import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+
 // import {Toast} from "bootstrap";
 
 @Component({
@@ -27,7 +30,8 @@ export class UserProfileInfoComponent implements OnInit, AfterViewInit {
   showAlert = false
 
   constructor(
-    private userProfileApi: UserProfileApi
+    private userProfileApi: UserProfileApi,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -75,6 +79,10 @@ export class UserProfileInfoComponent implements OnInit, AfterViewInit {
           })
           localStorage.setItem(USER_INFO, JSON.stringify(newUser))
           this.showToast()
+          this.analyticsService.logEvent({
+            event: AnalyticsEvent.updateProfile,
+            parameters: null
+          })
           AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
         },
         error: (err) => {

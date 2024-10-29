@@ -7,6 +7,8 @@ import {Branch} from "../../data-classes/ConfigModel";
 import {Router} from "@angular/router";
 import {CartProductsService} from "../../services/cart-products.service";
 import {TranslateService} from "@ngx-translate/core";
+import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../features/analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'user-info',
@@ -25,7 +27,8 @@ export class UserInfoComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private router: Router,
-    private cartService: CartProductsService
+    private cartService: CartProductsService,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -53,6 +56,10 @@ export class UserInfoComponent implements OnInit {
     localStorage.clear()
     localStorage.setItem(SELECTED_BRANCH, JSON.stringify(selectedBranch))
     AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.logout,
+      parameters: null
+    })
     this.router.navigate(['/']).then()
   }
 

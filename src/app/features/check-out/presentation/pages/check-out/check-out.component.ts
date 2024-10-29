@@ -137,11 +137,13 @@ export class CheckOutComponent implements OnInit {
         this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
         this.orderId = orderNumber
         this.cartProductsService.clearCart()
-        this.logOrderEvent(placeOrder)
+        this.logOrderEvent(placeOrder, null)
+        this.logProductPurchaseEvent(placeOrder)
       },
       error: (err) => {
         this.placingOrder = false
         this.errorMessage = err
+        this.logOrderEvent(placeOrder, err)
       }
     })
   }
@@ -164,7 +166,7 @@ export class CheckOutComponent implements OnInit {
     return false
   }
 
-  private logOrderEvent(placeOrder: PlaceOrderBody) {
+  private logOrderEvent(placeOrder: PlaceOrderBody, errorMessage: string | null) {
     let parameters = new Map<string, any>()
     parameters.set('sum', placeOrder.orderAmount)
     parameters.set('value', placeOrder.orderAmount)
@@ -173,9 +175,29 @@ export class CheckOutComponent implements OnInit {
     parameters.set('store_name', this.selectedBranch?.name)
     parameters.set('payment_type', placeOrder.paymentMethod)
     parameters.set('order_type', placeOrder.orderType)
+    if (errorMessage !== null) {
+      parameters.set('failed_reason', errorMessage)
+    }
     this.analyticsService.logEvent({
-      event: AnalyticsEvent.placeOrder,
+      event: errorMessage === null ? AnalyticsEvent.placeOrder : AnalyticsEvent.placeOrderFailed,
       parameters: parameters
+    })
+  }
+
+  private logProductPurchaseEvent(placeOrder: PlaceOrderBody) {
+    placeOrder.cart?.forEach((cartProduct) => {
+      let parameters = new Map<string, any>()
+      parameters.set('item_id', cartProduct.product.id)
+      parameters.set('item_name', cartProduct.product.name)
+      parameters.set('item_quantity', cartProduct.count)
+      parameters.set('item_value', cartProduct.product.price)
+      parameters.set('item_currency', 'EGP')
+      parameters.set('type', 'product')
+      parameters.set('transaction_id', this.orderId)
+      this.analyticsService.logEvent({
+        event: AnalyticsEvent.productBought,
+        parameters: parameters
+      })
     })
   }
 }

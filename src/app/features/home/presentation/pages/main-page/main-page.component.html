@@ -1,9 +1,11 @@
 <div class="scroll-container">
-  <main-products-carousel *ngIf="banners.isNotEmpty()" [banners]="banners"
-                          [bannersUrl]="configModel?.baseUrls?.bannerImageUrl ?? ''"></main-products-carousel>
-  <div class="panner-item"></div>
+  <main-products-carousel
+    *ngIf="banners.isNotEmpty()" [banners]="banners"
+    [bannersUrl]="configModel?.baseUrls?.bannerImageUrl ?? ''">
+  </main-products-carousel>
+  <div class="banner-item"></div>
 
-  <div class="panner-item image-container">
+  <div class="banner-item image-container">
     <img class="img-fluid w-100"
          loading="lazy"
          src="https://linktsp.blob.core.windows.net/xretoile/246371f5-3a6e-4297-a125-8b3f9842c4c0-638473300556020330.png">
@@ -29,7 +31,7 @@
     [titleSection]="'Best Seller'">
   </desserts>
 
-  <div class="panner-item">
+  <div class="banner-item">
     <img alt="Bakeries"
          class="img-fluid w-100"
          loading="lazy"

@@ -3,7 +3,7 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item dropdown" *ngFor="let category of categories">
-          <div (click)="loadCategory(category.name!)" class="nav-link category"
+          <div (click)="loadCategory(category)" class="nav-link category"
                id="{{ category.id?.toString() }}"
                data-bs-toggle="dropdown" aria-expanded="false">
             <p>{{ category.name }}</p>
@@ -11,7 +11,7 @@
           <ul *ngIf="hasSubCategories(category.subCategories!)" class="dropdown-menu" aria-labelledby="navbarDropdown" [attr.aria-label]="category.id?.toString()">
             <ul>
               <li *ngFor="let subCategory of category.subCategories"
-                  (click)="loadSubCategory(category.name ?? '', subCategory.name ?? '')">
+                  (click)="loadSubCategory(category, subCategory)">
                 <a class="dropdown-item">{{ subCategory.name }}</a>
               </li>
             </ul>

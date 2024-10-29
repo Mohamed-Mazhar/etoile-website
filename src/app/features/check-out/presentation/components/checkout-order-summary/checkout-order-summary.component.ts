@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
@@ -6,6 +6,8 @@ import {CouponApi} from "../../../../../common/apis/coupon-api";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -30,7 +32,8 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   constructor(
     private configModelService: ConfigModelService,
     private cartService: CartProductsService,
-    private couponApi: CouponApi
+    private couponApi: CouponApi,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -68,6 +71,14 @@ export class CheckoutOrderSummaryComponent implements OnInit {
         this.loading = false
         this.couponModel = coupon
         this.onCouponAppliedSuccessfully.emit(coupon)
+        this.analyticsService.logEvent({
+          event: AnalyticsEvent.coupon,
+          parameters: new Map<string, any>([
+            ['id', coupon.id],
+            ['code', coupon.code],
+            ['type', coupon.discountType]
+          ])
+        })
       },
       error: (err) => {
         this.loading = false

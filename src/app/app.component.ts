@@ -6,6 +6,8 @@ import {ConfigModelService} from "./common/services/config-model.service";
 import {LANG, SELECTED_BRANCH} from "./common/utils/constants";
 import {GoogleTagManagerService} from "angular-google-tag-manager";
 import {NgcCookieConsentService} from "ngx-cookieconsent";
+import {AnalyticsService} from "./features/analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "./features/analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,8 @@ export class AppComponent {
     private splashApi: SplashApi,
     private configModelService: ConfigModelService,
     private gtmService: GoogleTagManagerService,
-    private cookieConsentService: NgcCookieConsentService
+    private cookieConsentService: NgcCookieConsentService,
+    private analyticsService: AnalyticsService
   ) {
     this.router.events.forEach((item) => {
       if (!(item instanceof NavigationEnd)) {
@@ -40,6 +43,13 @@ export class AppComponent {
     this.translate.onLangChange.subscribe((event) => {
       this.setDirection(event.lang);
       this.translate.use(event.lang)
+      this.analyticsService.logEvent({
+        event: AnalyticsEvent.languageChanged,
+        parameters: new Map<string, any>([
+          ['new_lang', event.lang],
+          ['old_lang', event.lang === 'ar' ? 'en' : 'ar']
+        ])
+      })
     });
 
     this.splashApi.getAppConfigurations().subscribe({

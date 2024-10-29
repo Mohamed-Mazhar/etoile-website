@@ -6,6 +6,8 @@ import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-login',
@@ -22,8 +24,9 @@ export class LoginComponent implements OnInit {
   errorMessage: string | null = null
 
   constructor(
-    private registrationServiceApi: AuthenticationApi,
-    private userProfileApi: UserProfileApi
+    private authenticationApi: AuthenticationApi,
+    private userProfileApi: UserProfileApi,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -32,7 +35,8 @@ export class LoginComponent implements OnInit {
   }
 
   forgetPassword() {
-
+    this.isLoading = true
+    // this.authenticationApi.forgetPassword()
   }
 
   login() {
@@ -40,7 +44,7 @@ export class LoginComponent implements OnInit {
     let password = this.formGroup.get('loginPassword')?.value
     this.isLoading = true
     this.errorMessage = null
-    this.registrationServiceApi.login(email, password).subscribe({
+    this.authenticationApi.login(email, password).subscribe({
       next: (response) => {
         this.isLoading = false
         localStorage.setItem(
@@ -57,6 +61,10 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         this.isLoading = false
         this.errorMessage = err
+        this.analyticsService.logEvent({
+          event: AnalyticsEvent.loginFailed,
+          parameters: null
+        })
       }
     })
   }
@@ -68,6 +76,12 @@ export class LoginComponent implements OnInit {
         this.closeIcon.nativeElement.click()
         this.isLoading = false
         localStorage.setItem(USER_INFO, JSON.stringify(response))
+        this.analyticsService.logEvent({
+          event: AnalyticsEvent.loginSuccess,
+          parameters: new Map<string, any>([
+            ['user_id', response.id]
+          ])
+        })
         AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
       },
       error: (err) => {

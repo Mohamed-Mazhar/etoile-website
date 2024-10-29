@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BannerModel} from "../../../../../common/data-classes/BannerModel";
 import {Router} from "@angular/router";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'main-products-carousel',
@@ -13,7 +15,8 @@ export class MainProductsCarouselComponent implements OnInit {
   @Input() bannersUrl: string = ""
 
   constructor(
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -26,7 +29,13 @@ export class MainProductsCarouselComponent implements OnInit {
   }
 
   showProduct(banner: BannerModel) {
-    console.log("Selected banner is", banner)
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.bannerClicked,
+      parameters: new Map<string, any>([
+        ['filename', banner.image],
+        ['banner_id', banner.id]
+      ])
+    })
     if (banner.categoryId === null) {
       this.router.navigate(['/product', banner.productId]).then()
     } else {

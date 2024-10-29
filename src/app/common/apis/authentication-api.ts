@@ -63,4 +63,15 @@ export class AuthenticationApi {
     )
   }
 
+  forgetPassword(email: string) : Observable<string> {
+    return this.baseApiService.call<{}, string>({
+      apiType: ApiType.forgetPassword,
+      requestType: RequestType.POST,
+      body: {
+        email_or_phone: 'email',
+        email: email
+      }
+    })
+  }
+
 }
