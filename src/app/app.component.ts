@@ -5,6 +5,7 @@ import {SplashApi} from "./common/apis/splash-api";
 import {ConfigModelService} from "./common/services/config-model.service";
 import {LANG, SELECTED_BRANCH} from "./common/utils/constants";
 import {GoogleTagManagerService} from "angular-google-tag-manager";
+import {NgcCookieConsentService} from "ngx-cookieconsent";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ export class AppComponent {
     private router: Router,
     private splashApi: SplashApi,
     private configModelService: ConfigModelService,
-    private gtmService: GoogleTagManagerService
+    private gtmService: GoogleTagManagerService,
+    private cookieConsentService: NgcCookieConsentService
   ) {
     this.router.events.forEach((item) => {
       if (!(item instanceof NavigationEnd)) {

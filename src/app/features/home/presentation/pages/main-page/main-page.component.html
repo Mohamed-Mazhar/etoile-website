@@ -11,8 +11,10 @@
   </div>
 
   <desserts
-    *ngIf="chunkedRecommendedProducts.isNotEmpty()"
+    *ngIf="chunkedBestSellerProducts.isNotEmpty()"
+    class="mb-4"
     [direction]="'left'"
+    [productModel]="bestSellerProducts"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
     [products]="chunkedRecommendedProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
@@ -23,6 +25,7 @@
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
     [products]="chunkedBestSellerProducts"
+    [productModel]="bestSellerProducts"
     [titleSection]="'Best Seller'">
   </desserts>
 
@@ -33,16 +36,19 @@
          src="https://linktsp.blob.core.windows.net/xretoile/355f4491-2a5a-4032-a710-1cc313484648-638473297841348912.png">
   </div>
 
-  <app-list-scroll-horizontal *ngIf="popularProducts !== null && popularProducts!.products!.isNotEmpty()"
-                              [items]="popularProducts"
-                              [title]="'Most Trendy'"
-                              direction="left">
+  <app-list-scroll-horizontal
+    *ngIf="popularProducts !== null && popularProducts!.products!.isNotEmpty()"
+    [items]="popularProducts"
+    [title]="'Most Trendy'"
+    direction="left">
   </app-list-scroll-horizontal>
 
-  <app-list-scroll-horizontal *ngIf="latestProducts !== null && latestProducts!.products!.isNotEmpty()"
-                              [items]="latestProducts"
-                              [title]="'New Arrival'"
-                              direction="right">
+  <app-list-scroll-horizontal
+    *ngIf="latestProducts !== null && latestProducts!.products!.isNotEmpty()"
+    [items]="latestProducts"
+    [title]="'New Arrival'"
+    direction="right">
+
   </app-list-scroll-horizontal>
   <app-scroll-up-btn></app-scroll-up-btn>
   <div #openDelete data-bs-target="#deleteProduct" data-bs-toggle="modal">

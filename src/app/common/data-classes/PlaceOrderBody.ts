@@ -92,17 +92,28 @@ export class PlaceOrderBody {
 
   toJson(): any {
     let jsonBody: { [key: string]: any } = {}
-    jsonBody['cart'] = this.cart!.map(v => {
+    jsonBody['cart'] = this.cart!.map(cartItem => {
         return {
-          product_id: v.product.id,
-          price: v.product.price?.toString(),
+          product_id: cartItem.product.id,
+          price: cartItem.product.price?.toString(),
           discount_amount: 0,
-          quantity: v.count,
+          quantity: cartItem.count,
           tax_amount: 0,
           variant: [],
-          // variations: [],
-          add_on_ids: v.productAddOns.map((addOn) => addOn.id),
-          add_on_qtys: []
+          variations: cartItem.variations.isNotEmpty() ?
+            cartItem.variations.map((variation) => {
+              return {
+                name: variation.name,
+                values: [...variation.values.map((variationValue) => {
+                  return {
+                    label: variationValue.optionLabel
+                  }
+                })]
+              }
+            }) : [],
+          // add_on_ids: cartItem.productAddOns.map((addOn) => addOn.id),
+          add_on_ids: [],
+          add_on_qtys: [1]
           // add_on_qtys: this.addOnQtys,
         }
       }

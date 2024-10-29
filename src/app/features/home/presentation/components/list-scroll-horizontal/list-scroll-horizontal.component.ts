@@ -21,6 +21,7 @@ export class ListScrollHorizontalComponent implements OnInit {
 
   //
   ngOnInit(): void {
+    this.startScrolling()
   }
 
   ngOnChanges(changes: SimpleChanges): void {

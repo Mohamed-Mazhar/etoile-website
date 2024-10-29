@@ -26,6 +26,8 @@
     "angular-google-tag-manager": "^1.9.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "cookieconsent": "^3.1.1",
+    "ngx-cookieconsent": "^6.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"

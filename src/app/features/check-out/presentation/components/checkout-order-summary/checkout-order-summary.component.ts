@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {CouponApi} from "../../../../../common/apis/coupon-api";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
+import {CartProductsService} from "../../../../../common/services/cart-products.service";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -13,9 +15,9 @@ import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 export class CheckoutOrderSummaryComponent implements OnInit {
 
   @Input() showExtraDetails: boolean = false
-  @Input() products: CartProductItem[] = []
   @Output() onCouponAppliedSuccessfully: EventEmitter<CouponModel | null> = new EventEmitter<CouponModel | null>()
 
+  products: CartProductItem[] = []
   numberOfItems: number = 0
   totalPrice: number = 0
   configModel: ConfigModel | null = null
@@ -27,22 +29,32 @@ export class CheckoutOrderSummaryComponent implements OnInit {
 
   constructor(
     private configModelService: ConfigModelService,
+    private cartService: CartProductsService,
     private couponApi: CouponApi
   ) {
   }
 
   ngOnInit(): void {
-    for (let cartProduct of this.products) {
-      this.numberOfItems += cartProduct.count
-      this.totalPrice += (cartProduct.count * cartProduct.product.price!)
-    }
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config
         this.deliveryCharge = config?.deliveryCharge ?? 0
       }
     })
+    this.cartService.cartProductsSubject.subscribe({
+      next: (cartProducts) => {
+        this.totalPrice = 0
+        this.numberOfItems = 0
+        this.products = cartProducts
+        for (let cartProduct of this.products) {
+          this.numberOfItems += cartProduct.count
+          let productPrice = ProductPriceUtil.calculatePrice(cartProduct)
+          this.totalPrice += (cartProduct.count * productPrice)
+        }
+      }
+    })
   }
+
 
   getImage(image: string) {
     return `${this.configModel?.baseUrls?.productImageUrl}/${image}`

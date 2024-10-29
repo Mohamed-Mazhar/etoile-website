@@ -47,7 +47,6 @@
       </div>
     </div>
     <app-checkout-order-summary
-      [products]="cartProductItems"
       (onCouponAppliedSuccessfully)="applyCoupon($event)"
       [showExtraDetails]="activeTab === 'payment'"
       class="order-summary">

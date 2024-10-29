@@ -15,6 +15,7 @@ import {DatePipe} from '@angular/common';
 import {Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 
 
 @Component({
@@ -69,7 +70,8 @@ export class CheckOutComponent implements OnInit {
       next: (cartProducts) => {
         this.cartProductItems = cartProducts
         for (let cartProduct of cartProducts) {
-          this.totalPrice += (cartProduct.count * cartProduct.product.price!)
+          let price = ProductPriceUtil.calculatePrice(cartProduct)
+          this.totalPrice += (cartProduct.count * price)
         }
       }
     })
@@ -164,8 +166,8 @@ export class CheckOutComponent implements OnInit {
 
   private logOrderEvent(placeOrder: PlaceOrderBody) {
     let parameters = new Map<string, any>()
-    parameters.set('sum', this.totalPrice)
-    parameters.set('value', this.totalPrice)
+    parameters.set('sum', placeOrder.orderAmount)
+    parameters.set('value', placeOrder.orderAmount)
     parameters.set('currency', 'EGP')
     parameters.set('transaction_id', this.orderId)
     parameters.set('store_name', this.selectedBranch?.name)

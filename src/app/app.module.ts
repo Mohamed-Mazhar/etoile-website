@@ -112,11 +112,35 @@ import {
   ProductAddOnModalComponent
 } from './features/products/presentation/components/product-add-on-modal/product-add-on-modal.component';
 import {OrderDetailsComponent} from './features/orders/presentation/pages/order-details/order-details.component';
+import {NgcCookieConsentConfig, NgcCookieConsentModule} from "ngx-cookieconsent";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const cookieConfig: NgcCookieConsentConfig = {
+  cookie: {
+    domain: 'localhost' // or 'your.domain.com' // it is mandatory to set a domain, for cookies to work properly (see https://goo.gl/S2Hy2A)
+  },
+  palette: {
+    popup: {
+      background: '#000'
+    },
+    button: {
+      background: '#f1d600'
+    }
+  },
+  theme: 'edgeless',
+  type: 'opt-out',
+  content: {
+    message: 'We use cookies to improve your experience on our site.',
+    allow: 'Allow all cookies',
+    deny: 'Deny all',
+    link: 'Learn more',
+    href: '/privacy',
+  }
+};
 
 @NgModule({
   declarations: [
@@ -189,7 +213,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     NgxSliderModule,
-    FormsModule
+    FormsModule,
+    NgcCookieConsentModule.forRoot(cookieConfig)
   ],
   providers: [
     AuthGuard,
