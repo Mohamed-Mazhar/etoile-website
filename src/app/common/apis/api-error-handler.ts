@@ -9,7 +9,7 @@ export class ApiErrorHandler {
 
   handleError(error: HttpErrorResponse): string {
     console.log("Handling error inside api-error-handler", error)
-    if (error.status === 401 || error.status === 403) {
+    if (error.status === 401 || error.status === 403 || error.status === 404) {
       if (error.error?.message?.hasActualValue()) {
         return error.error.message
       }

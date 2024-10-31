@@ -186,6 +186,7 @@
   "PRICE_LOWEST": "Lowest Price",
   "WELCOME_USER": "Welcome",
   "PROFILE": "Profile",
+  "LOGOUT": "Logout",
   "ADDRESS": "Address",
   "MY_ORDERS": "My Orders",
   "NUMBER_OF_ORDERS": "Number of Orders this month:",
@@ -244,5 +245,18 @@
   "GO_SHOPPING": "Go Shopping",
   "CONTINUE_SHOPPING": "Continue Shopping",
   "ORDER_SUCCESS": "Order Placed Successfully: {{orderId}}",
-  "VIEW_ORDER_DETAILS": "View order details"
+  "VIEW_ORDER_DETAILS": "View order details",
+  "FORGET_PASSWORD_SUBTITLE": "Enter the email address associated with your account and we will send a link to your email to reset your password.",
+  "SEND": "Send",
+  "PROCEED_CHECKOUT": "Proceed to checkout",
+  "ORDER_STATUS": "Order status",
+  "TRACK_ORDER": "Track order",
+  "ORDER_NUMBER": "Order number",
+  "DELIVERY_ADDRESS": "Delivery address",
+  "PAYMENT_METHOD": "Payment method",
+  "PAYMENT_SUMMARY": "Payment summary",
+  "DELIVERY_CHARGE": "Delivery Charge",
+  "PRODUCT_REVIEW": "Review Product",
+  "SERVICE_REVIEW": "Service Review",
+  "PRODUCT": "Product(s)"
 }

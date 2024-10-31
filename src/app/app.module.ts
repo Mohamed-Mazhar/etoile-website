@@ -113,6 +113,10 @@ import {
 } from './features/products/presentation/components/product-add-on-modal/product-add-on-modal.component';
 import {OrderDetailsComponent} from './features/orders/presentation/pages/order-details/order-details.component';
 import {NgcCookieConsentConfig, NgcCookieConsentModule} from "ngx-cookieconsent";
+import {
+    ForgetPasswordComponent
+} from "./features/registration-and-login/presentation/components/forget-password/forget-password.component";
+import {ProductInfoComponent} from "./features/orders/presentation/components/product-info/product-info.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -197,7 +201,9 @@ const cookieConfig: NgcCookieConsentConfig = {
     LoadingProductsComponent,
     AddProductReviewModalComponent,
     ProductAddOnModalComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    ForgetPasswordComponent,
+    ProductInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -214,13 +220,16 @@ const cookieConfig: NgcCookieConsentConfig = {
     }),
     NgxSliderModule,
     FormsModule,
-    NgcCookieConsentModule.forRoot(cookieConfig)
+    NgcCookieConsentModule.forRoot(cookieConfig),
   ],
   providers: [
     AuthGuard,
     {provide: 'googleTagManagerId', useValue: 'G-8KZJPHK13W'}
   ],
   bootstrap: [AppComponent],
+  exports: [
+    InputTextFieldComponent
+  ]
 })
 export class AppModule {
 }

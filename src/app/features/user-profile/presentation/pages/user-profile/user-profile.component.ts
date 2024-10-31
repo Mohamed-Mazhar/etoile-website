@@ -31,7 +31,9 @@ export class UserProfileComponent implements OnInit, AfterViewInit {
   ) {
     let tab = this.router.getCurrentNavigation()?.extras.state as { tab: string }
     console.log("State variable inside constructor ", tab)
-    this.defaultActiveTab = tab.tab
+    if (tab) {
+      this.defaultActiveTab = tab.tab
+    }
   }
 
   ngAfterViewInit(): void {

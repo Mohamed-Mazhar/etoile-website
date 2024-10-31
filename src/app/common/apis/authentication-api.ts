@@ -69,6 +69,7 @@ export class AuthenticationApi {
       requestType: RequestType.POST,
       body: {
         email_or_phone: 'email',
+        type: 'email',
         email: email
       }
     })

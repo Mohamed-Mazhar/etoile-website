@@ -20,6 +20,7 @@ import {
   ProductDetailsComponent
 } from "./features/products/presentation/pages/product-details/product-details.component";
 import {CheckoutGuard} from "./common/guards/checkout.guard";
+import {OrderDetailsComponent} from "./features/orders/presentation/pages/order-details/order-details.component";
 
 const routes: Routes = [
   {
@@ -36,7 +37,8 @@ const routes: Routes = [
       {path: 'cart', component: CartPageComponent},
       {path: 'checkout', component: CheckOutComponent, canActivate: [CheckoutGuard, AuthGuard]},
       {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
-      {path: 'product/:id', component: ProductDetailsComponent}
+      {path: 'product/:id', component: ProductDetailsComponent},
+      {path: 'order', component: OrderDetailsComponent}
     ]
   },
   {path: 'branch', component: SelectBranchComponent},

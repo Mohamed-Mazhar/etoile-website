@@ -1,8 +1,10 @@
 <div class="modal-dialog modal-dialog-centered">
   <div class="modal-content">
-    <div class="modal-header">
+    <div class="modal-header justify-content-between w-100">
       <h1 class="modal-title fs-5">{{ 'ADD_REVIEW' | translate }}</h1>
-      <button #closeElem type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div #closeElem type="button" data-bs-dismiss="modal" aria-label="Close">
+        <i class="fas fa-close"></i>
+      </div>
     </div>
     <div class="modal-body">
       <p>{{ 'RATE_PRODUCT' | translate }}</p>

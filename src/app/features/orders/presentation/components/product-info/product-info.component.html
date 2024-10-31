@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="cart-item-container">
+    <img [src]="getImage()"/>
+    <div class="text-center">
+      <p>{{ cartProduct?.product?.name }}</p>
+      <div class="price-container">
+        <p>{{ 'PRICE' | translate }}:</p>
+        <p>{{ getPrice() }} {{ 'CURRENCY' | translate }}</p>
+      </div>
+    </div>
+    <p>{{'QUANTITY' | translate}}</p>
+    <p>{{ cartProduct?.count }}</p>
+    <primary-button
+      data-bs-target="#orderedProductReview"
+      data-bs-toggle="modal"
+      [buttonPadding]="0.5"
+      [title]="'PRODUCT_REVIEW' | translate">
+    </primary-button>
+  </div>
+</div>
+
+<div class="modal fade modal-index" id="orderedProductReview" tabindex="-1" aria-labelledby="addReviewLabel" aria-hidden="true">
+  <app-add-product-review-modal [productId]="cartProduct?.product?.id!"></app-add-product-review-modal>
+</div>

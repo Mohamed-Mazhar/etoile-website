@@ -1,4 +1,4 @@
-import {Product} from "./ProductModel"
+import {Product, Variation} from "./ProductModel"
 import {OrderModel} from "./OrderModel"
 
 export class OrderDetailsModel {
@@ -17,6 +17,7 @@ export class OrderDetailsModel {
   addOnPrices?: number[]
   addOnQtys?: number[]
   addOnTaxAmount?: number
+  variations?: Variation[]
   orderModel?: OrderModel
 
   constructor(data: {
@@ -35,7 +36,8 @@ export class OrderDetailsModel {
     addOnQtys?: number[]
     addOnTaxAmount?: number
     addOnPrices?: number[]
-    orderModel?: OrderModel
+    orderModel?: OrderModel,
+    variations?: Variation[]
   }) {
     Object.assign(this, data)
   }
@@ -74,6 +76,10 @@ export class OrderDetailsModel {
         : undefined,
       addOnTaxAmount: Number(json['add_on_tax_amount']),
       orderModel: OrderModel.fromJson(json['order']),
+      variations: (json['variation'] as Map<string, any>[]).map((jsonVariations) => {
+        console.log("Order product variation ", jsonVariations)
+        return Variation.fromJson(jsonVariations)
+      })
     })
   }
 }

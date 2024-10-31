@@ -48,14 +48,6 @@
   }
 }
 
-.canvas-width {
-  width: 40%;
-
-  @include res-md-styles {
-    width: 100%;
-  }
-}
-
 .username {
   font-weight: bold;
   color: VAR(--primary-color) !important;

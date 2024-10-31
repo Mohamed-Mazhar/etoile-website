@@ -21,6 +21,10 @@
   --success: #008000FF
 }
 
+body {
+  font-family: 'Cairo', sans-serif;
+}
+
 p {
   margin-bottom: 0;
 }
@@ -28,6 +32,14 @@ p {
 .offcanvas {
   overflow-y: auto;
   height: 100%;
+}
+
+.canvas-width {
+  width: 40% !important;
+
+  @include res-lg-styles {
+    width: 100% !important;
+  }
 }
 
 .form-control:focus {

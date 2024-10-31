@@ -1,0 +1,37 @@
+.container {
+  width: 100%;
+}
+
+.cart-item-container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    width: 8rem;
+  }
+}
+
+.product-description {
+  margin-top: 0.25rem;
+  p {
+    font-size: 0.85rem;
+    color: VAR(--darkgray);
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 10rem;
+  }
+}
+
+.price-container {
+  display: flex;
+  margin-top: 1rem;
+  column-gap: 0.5rem;
+  justify-content: center;
+}
+
+

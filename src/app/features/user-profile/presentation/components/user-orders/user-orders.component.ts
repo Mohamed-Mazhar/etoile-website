@@ -19,6 +19,10 @@ export class UserOrdersComponent implements OnInit {
   }
 
   openDetails(id: number) {
-
+    this.router.navigate(['/order'], {
+      queryParams: {
+        id: id
+      }
+    }).then()
   }
 }

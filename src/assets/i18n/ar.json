@@ -186,6 +186,7 @@
   "PRICE_LOWEST": "الاقل سعرا",
   "WELCOME_USER": "مرحبا",
   "PROFILE": "حساب تعريفي",
+  "LOGOUT": "تسجيل الخروج",
   "ADDRESS": "العنوان",
   "MY_ORDERS": "الطلبات",
   "NUMBER_OF_ORDERS": "عدد الطلبات هذا الشهر:",
@@ -244,5 +245,18 @@
   "GO_SHOPPING": "الذهاب للتسوق",
   "CONTINUE_SHOPPING": "اكمل التسوق",
   "ORDER_SUCCESS": "تم تقديم الطلب بنجاح: {{orderId}}",
-  "VIEW_ORDER_DETAILS": "تفاصيل الطلب"
+  "VIEW_ORDER_DETAILS": "تفاصيل الطلب",
+  "FORGET_PASSWORD_SUBTITLE": "أدخل عنوان البريد الإلكتروني المرتبط بحسابك سنرسل رابطًا إلى بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك",
+  "SEND": "ارسال",
+  "PROCEED_CHECKOUT": "الذهاب إلى الدفع",
+  "ORDER_STATUS": "حالة الطلب",
+  "TRACK_ORDER": "تتبع الطلب",
+  "ORDER_NUMBER": "رقم الطلب",
+  "DELIVERY_ADDRESS": "عنوان التوصيل",
+  "PAYMENT_METHOD": "طريقة الدفع",
+  "PAYMENT_SUMMARY": "ملخص الدفع",
+  "DELIVERY_CHARGE": "مصاريف التوصيل",
+  "PRODUCT_REVIEW": "تقيم المنتج",
+  "SERVICE_REVIEW": "قيم الخدمه",
+  "PRODUCT": "منتج (ات)"
 }

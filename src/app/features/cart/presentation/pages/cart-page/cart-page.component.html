@@ -29,7 +29,7 @@
       </div>
       <div class="mt-4">
         <div #login data-bs-toggle="offcanvas" data-bs-target="#loginView"></div>
-        <primary-button (onClick)="proceed()" title="Proceed to checkout" [buttonPadding]="0.5"></primary-button>
+        <primary-button (onClick)="proceed()" [title]="'PROCEED_CHECKOUT' | translate" [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2">
         <primary-button routerLink="/" class="mt-2" [title]="'CONTINUE_SHOPPING' | translate"

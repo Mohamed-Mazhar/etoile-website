@@ -113,7 +113,7 @@ export class PlaceOrderBody {
             }) : [],
           // add_on_ids: cartItem.productAddOns.map((addOn) => addOn.id),
           add_on_ids: [],
-          add_on_qtys: [1]
+          add_on_qtys: []
           // add_on_qtys: this.addOnQtys,
         }
       }

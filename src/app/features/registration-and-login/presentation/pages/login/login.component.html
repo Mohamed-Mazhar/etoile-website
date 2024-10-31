@@ -25,7 +25,7 @@
       [validators]="[Validators.required]"
       [floatingLabel]="'PASSWORD' | translate">
     </input-text-field>
-    <div (click)="forgetPassword()" class="forget-password ms-auto">
+    <div data-bs-target="#forgetPassword" data-bs-toggle="offcanvas" class="forget-password ms-auto">
       <p>{{ 'FORGET_PASSWORD' | translate }}</p>
     </div>
     <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>

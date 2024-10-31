@@ -1,1 +1,50 @@
-<p>order-details works!</p>
+<div class="container">
+  <app-loading [loadingData]="loading"></app-loading>
+  <div class="order-details-page-container" *ngIf="ordersDetails.isNotEmpty()">
+    <div class="full-width">
+      <div class="product-item-container" *ngFor="let details of ordersDetails; let i = index">
+        <app-product-info
+          class="full-width pb-3"
+          [orderDetailsModel]="details">
+        </app-product-info>
+      </div>
+    </div>
+    <div class="order-container">
+      <div class="order-summary-container">
+        <h4>{{ 'TRACK_ORDER' | translate }}</h4>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'ORDER_NUMBER' | translate }}</p>
+          <p>{{ ordersDetails[0].orderId ?? 0 }}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'ORDER_STATUS' | translate }}</p>
+          <p>{{ ordersDetails[0].orderModel?.orderStatus }}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'DELIVERY_ADDRESS' | translate }}</p>
+          <p>{{ ordersDetails[0].orderModel?.deliveryAddress?.address }}</p>
+        </div>
+        <div class="horizontal-separator"></div>
+        <h4>{{ 'PAYMENT_METHOD' | translate }}</h4>
+        <p>{{ ordersDetails[0].orderModel?.paymentMethod ?? '' }}</p>
+        <div class="horizontal-separator"></div>
+        <h4>{{ 'PAYMENT_SUMMARY' | translate }}</h4>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'SUBTOTAL' | translate }}</p>
+          <p>{{ ordersDetails[0].orderModel?.orderAmount ?? '' }}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'DELIVERY_CHARGE' | translate }}</p>
+          <p>{{ ordersDetails[0].orderModel?.deliveryCharge ?? '' }}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4 fw-bold">
+          <p>{{ 'TOTAL' | translate }}</p>
+          <p>{{ (ordersDetails[0].orderModel?.deliveryCharge ?? 0) + (ordersDetails[0].orderModel?.orderAmount ?? 0) }}</p>
+        </div>
+      </div>
+      <div class="mt-4">
+        <primary-button [title]="'SERVICE_REVIEW' | translate" [buttonPadding]="0.5"></primary-button>
+      </div>
+    </div>
+  </div>
+</div>
