@@ -258,5 +258,7 @@
   "DELIVERY_CHARGE": "Delivery Charge",
   "PRODUCT_REVIEW": "Review Product",
   "SERVICE_REVIEW": "Service Review",
-  "PRODUCT": "Product(s)"
+  "PRODUCT": "Product(s)",
+  "REMOVE_COUPON": "Remove code",
+  "COUPON_TITLE": "Coupon name"
 }

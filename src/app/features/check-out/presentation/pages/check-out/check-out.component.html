@@ -47,6 +47,7 @@
       </div>
     </div>
     <app-checkout-order-summary
+      *ngIf="activeTab !== 'confirm'"
       (onCouponAppliedSuccessfully)="applyCoupon($event)"
       [showExtraDetails]="activeTab === 'payment'"
       class="order-summary">

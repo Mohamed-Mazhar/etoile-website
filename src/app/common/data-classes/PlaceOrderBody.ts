@@ -119,19 +119,19 @@ export class PlaceOrderBody {
       }
     )
     jsonBody['delivery_address_id'] = this.deliveryAddressId
-    // jsonBody['coupon_discount_amount'] = this.couponDiscountAmount ?? 0
-    // jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
+    jsonBody['coupon_discount_amount'] = this.couponDiscountAmount ?? 0
+    jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
     jsonBody['order_amount'] = this.orderAmount
     jsonBody['order_type'] = this.orderType
     jsonBody['payment_method'] = this.paymentMethod
     jsonBody['order_note'] = this.orderNote ?? ''
-    // jsonBody['coupon_code'] = this.couponCode ?? ''
+    jsonBody['coupon_code'] = this.couponCode ?? ''
     jsonBody['delivery_time'] = this.deliveryTime
     jsonBody['delivery_date'] = this.deliveryDate
     jsonBody['branch_id'] = this.branchId
     jsonBody['distance'] = this.distance ?? -1
     jsonBody['is_partial'] = 0
-    // jsonBody['is_cutlery_required'] = 0
+    jsonBody['is_cutlery_required'] = 0
     if (this.transactionReference !== null) {
       jsonBody['transaction_reference'] = this.transactionReference
     }
@@ -140,35 +140,6 @@ export class PlaceOrderBody {
     }
     jsonBody['selected_delivery_area'] = 1 //Todo change it to the right value
     return jsonBody
-    // return {
-    //   cart: this.cart ? this.cart.map(v => {
-    //     return {
-    //       product_id: v.product.id,
-    //       price: v.product.price,
-    //       // discount_amount: this.discountAmount,
-    //       quantity: v.count,
-    //       // tax_amount: this.taxAmount,
-    //       add_on_ids: v.productAddOns.map((addOn) => addOn.id),
-    //       // add_on_qtys: this.addOnQtys,
-    //     }
-    //   }) : null,
-    //   coupon_discount_amount: this.couponDiscountAmount,
-    //   coupon_discount_title: this.couponDiscountTitle,
-    //   order_amount: this.orderAmount,
-    //   order_type: this.orderType,
-    //   delivery_address_id: this.deliveryAddressId,
-    //   payment_method: this.paymentMethod,
-    //   order_note: this.orderNote,
-    //   coupon_code: this.couponCode,
-    //   delivery_time: this.deliveryTime,
-    //   delivery_date: this.deliveryDate,
-    //   branch_id: this.branchId,
-    //   distance: this.distance,
-    //   // transaction_reference: this.transactionReference,
-    //   // payment_info: this.paymentInfo ? this.paymentInfo.toJson() : null,
-    //   is_partial: this.isPartial,
-    //   is_cutlery_required: this.isCutleryRequired,
-    // };
   }
 }
 

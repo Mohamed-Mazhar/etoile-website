@@ -258,5 +258,7 @@
   "DELIVERY_CHARGE": "مصاريف التوصيل",
   "PRODUCT_REVIEW": "تقيم المنتج",
   "SERVICE_REVIEW": "قيم الخدمه",
-  "PRODUCT": "منتج (ات)"
+  "PRODUCT": "منتج (ات)",
+  "REMOVE_COUPON": "ازالة الكود",
+  "COUPON_TITLE": "اسم الكوبون"
 }

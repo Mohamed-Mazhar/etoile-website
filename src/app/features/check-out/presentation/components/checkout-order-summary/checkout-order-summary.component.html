@@ -12,6 +12,9 @@
         [title]="'APPLY' | translate">
       </primary-button>
     </div>
+    <div class="remove-coupon" *ngIf="showRemoveCoupon" (click)="removeCoupon()">
+      <p>{{ 'REMOVE_COUPON' | translate }}</p>
+    </div>
     <div class="alert alert-danger form-alert" *ngIf="errorMessage.hasActualValue()">{{ errorMessage }}</div>
   </div>
   <div class="horizontal-separator"></div>
@@ -22,6 +25,16 @@
   <div class="d-flex justify-content-between" *ngIf="showExtraDetails">
     <p>{{ 'DELIVERY_FEES' | translate }}</p>
     <p>{{ deliveryCharge }} {{ 'CURRENCY' | translate }} </p>
+  </div>
+  <div *ngIf="couponModel !== null">
+    <div class="d-flex justify-content-between">
+      <p>{{ 'COUPON_TITLE' | translate }}</p>
+      <p>{{ couponModel.title }}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+      <p>{{ 'DISCOUNT' | translate }}</p>
+      <p> {{ getDiscountAmount() }} </p>
+    </div>
   </div>
   <div class="horizontal-separator"></div>
   <div class="total-price-container">

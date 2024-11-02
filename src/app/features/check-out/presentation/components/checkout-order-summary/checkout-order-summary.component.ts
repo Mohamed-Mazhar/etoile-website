@@ -8,6 +8,7 @@ import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -28,12 +29,14 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   couponModel: CouponModel | null = null
   errorMessage = ""
   deliveryCharge = 0
+  showRemoveCoupon = false
 
   constructor(
     private configModelService: ConfigModelService,
     private cartService: CartProductsService,
     private couponApi: CouponApi,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private translateService: TranslateService
   ) {
   }
 
@@ -49,13 +52,31 @@ export class CheckoutOrderSummaryComponent implements OnInit {
         this.totalPrice = 0
         this.numberOfItems = 0
         this.products = cartProducts
-        for (let cartProduct of this.products) {
-          this.numberOfItems += cartProduct.count
-          let productPrice = ProductPriceUtil.calculatePrice(cartProduct)
-          this.totalPrice += (cartProduct.count * productPrice)
-        }
+        this.calculateTotalPrice()
+        this.applyCouponDiscount()
       }
     })
+  }
+
+  private calculateTotalPrice() {
+    this.totalPrice = 0
+    for (let cartProduct of this.products) {
+      this.numberOfItems += cartProduct.count
+      let productPrice = ProductPriceUtil.calculatePrice(cartProduct)
+      this.totalPrice += (cartProduct.count * productPrice)
+    }
+  }
+
+  private applyCouponDiscount() {
+    if (this.couponModel) {
+      if (this.couponModel.discountType === 'percent') {
+        this.totalPrice = this.totalPrice - (this.totalPrice * this.couponModel.discount!)
+      } else {
+        this.totalPrice -= this.couponModel.discount!
+      }
+    } else {
+      this.calculateTotalPrice()
+    }
   }
 
 
@@ -69,8 +90,10 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     this.couponApi.applyCoupon(this.coupon).subscribe({
       next: (coupon) => {
         this.loading = false
+        this.showRemoveCoupon = true
         this.couponModel = coupon
         this.onCouponAppliedSuccessfully.emit(coupon)
+        this.applyCouponDiscount()
         this.analyticsService.logEvent({
           event: AnalyticsEvent.coupon,
           parameters: new Map<string, any>([
@@ -81,11 +104,29 @@ export class CheckoutOrderSummaryComponent implements OnInit {
         })
       },
       error: (err) => {
+        this.showRemoveCoupon = false
         this.loading = false
         this.errorMessage = err
+        this.couponModel = null
         this.onCouponAppliedSuccessfully.emit(null)
+        this.applyCouponDiscount()
       }
     })
+  }
+
+  removeCoupon() {
+    this.couponModel = null
+    this.showRemoveCoupon = false
+    this.onCouponAppliedSuccessfully.emit(null)
+    this.calculateTotalPrice()
+  }
+
+  getDiscountAmount() {
+    if (this.couponModel?.discountType === "percent") {
+      return `-${this.couponModel.discount} %`
+    } else {
+      return `-${this.couponModel?.discount} ${this.translateService.instant('CURRENCY')}`
+    }
   }
 
 }

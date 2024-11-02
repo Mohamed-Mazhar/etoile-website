@@ -80,8 +80,13 @@ export class BaseApiService {
         throw ""
       }
     } else {
-      const queryParameters = new URLSearchParams(request).toString();
-      let urlWithParameters: string = `${url}?${queryParameters}`;
+      let queryParameters = new URLSearchParams(request).toString();
+      if (!queryParameters.hasActualValue()) {
+        queryParameters = ''
+      } else {
+        queryParameters = `?${queryParameters}`
+      }
+      let urlWithParameters: string = `${url}${queryParameters}`;
       let headers = this.getRequestHeaders({
         isPostRequest: false,
       })
@@ -107,15 +112,17 @@ export class BaseApiService {
     if (this.jwtToken) {
       headers = new HttpHeaders({
         Authorization: `Bearer ${this.jwtToken}`,
+        lang: this.translate.currentLang,
       });
     } else {
-      headers = new HttpHeaders({});
+      headers = new HttpHeaders({
+        'lang': this.translate.currentLang,
+      })
     }
     if (localStorage.getItem(SELECTED_BRANCH) !== null) {
       let selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
       headers = headers.append("branch-id", `${selectedBranch.id}`)
     }
-
     if (parameters.isPostRequest) {
       headers = headers.append("Content-Type", "application/json");
     }
@@ -123,11 +130,9 @@ export class BaseApiService {
   }
 
   private getDefaultParameters(body: any): any {
-    let lang = this.translate.currentLang
     return {
-      ...body,
-      lang: lang,
-    };
+      ...body
+    }
   }
 
   private handleResponse<RESPONSE>(response: HttpResponse<RESPONSE>): RESPONSE {

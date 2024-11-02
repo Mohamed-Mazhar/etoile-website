@@ -51,3 +51,15 @@
    }
 }
 
+.remove-coupon {
+  text-decoration-line: underline;
+  text-decoration-color: VAR(--primary-color);
+  cursor: pointer;
+
+  p {
+    font-size: 0.825rem;
+    color: VAR(--primary-color);
+  }
+
+}
+

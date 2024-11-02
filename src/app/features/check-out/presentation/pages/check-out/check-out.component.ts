@@ -3,7 +3,7 @@ import {AddressApi} from "../../../../../common/apis/address-api";
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
-import {Branch, PaymentMethod} from "../../../../../common/data-classes/ConfigModel";
+import {Branch, ConfigModel, PaymentMethod} from "../../../../../common/data-classes/ConfigModel";
 import {PlaceOrderBody} from "../../../../../common/data-classes/PlaceOrderBody";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class CheckOutComponent implements OnInit {
   placingOrder = false
   errorMessage: string | null = null
   orderId: string = ""
+  configModel : ConfigModel | null = null
 
   constructor(
     private addressApi: AddressApi,
@@ -45,7 +47,8 @@ export class CheckOutComponent implements OnInit {
     private toastService: ToastService,
     private datePipe: DatePipe,
     private router: Router,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private configModelService: ConfigModelService,
   ) {
   }
 
@@ -75,6 +78,11 @@ export class CheckOutComponent implements OnInit {
         }
       }
     })
+    this.configModelService.configModelSubject.subscribe({
+      next: (configModel) => {
+        this.configModel = configModel
+      }
+    })
   }
 
   moveToPayment(addressId: number) {
@@ -84,6 +92,9 @@ export class CheckOutComponent implements OnInit {
 
   applyCoupon(couponModel: CouponModel | null) {
     this.couponModel = couponModel
+    if (couponModel != null) {
+
+    }
   }
 
   placeOrder(paymentMethod: PaymentMethod) {
@@ -94,7 +105,7 @@ export class CheckOutComponent implements OnInit {
       this.couponModel?.code ?? '',
       this.totalPrice,
       this.selectedAddressId,
-      'delivery',
+      this.configModel?.selfPickup === true ? 'take away' : '',
       paymentMethod.getWay ?? '',
       this.selectedBranch?.id ?? 1,
       'now',
@@ -106,7 +117,7 @@ export class CheckOutComponent implements OnInit {
       null,
       null
     )
-    if (paymentMethod.getWay === 'CashOnDelivery') {
+    if (paymentMethod.getWay === 'selfPickup') {
       this.callPlaceOrder(placeOrder)
     } else {
       this.makeOnlinePayment(placeOrder)

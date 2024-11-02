@@ -136,78 +136,10 @@ export class Product {
     product.updatedAt = json['updated_at'];
     product.attributes = json['attributes']?.map((attr: any) => String(attr));
     if (json['variations']) {
-      // product.variations = json['variations'].map((v: any) => Variation.fromJson(v));
-      //Todo remove this line when variations are added for products
-      product.variations = [
-        new Variation({
-          name: "Size with AddOn",
-          min: 1,
-          max: 2,
-          isRequired: true,
-          isMultiSelect: true,
-          variationValues: [
-            new VariationValue({
-                optionLabel: "Extra meat",
-                optionPrice: 12,
-              }),
-            new VariationValue({
-              optionLabel: "Extra sauce",
-              optionPrice: 22,
-            }),
-            new VariationValue({
-              optionLabel: "Extra Cheese",
-              optionPrice: 12,
-            })
-          ]
-        }),
-        new Variation({
-          name: "Drinks",
-          min: 0,
-          max: 0,
-          isRequired: false,
-          isMultiSelect: false,
-          variationValues: [
-            new VariationValue({
-              optionLabel: "Combo juice",
-              optionPrice: 32,
-            }),
-            new VariationValue({
-              optionLabel: "Single juice",
-              optionPrice: 12,
-            })
-          ]
-        }),
-      ]
+      product.variations = json['variations'].map((v: any) => Variation.fromJson(v));
     }
     if (json['add_ons']) {
-      // product.addOns = json['add_ons'].map((v: any) => AddOns.fromJson(v));
-      //Todo remove this line when addOns are added for products
-      product.addOns = [
-        new AddOns({
-          id: 7,
-          name: 'Cheese',
-          price: 20,
-          createdAt: 'now',
-          updatedAt: 'now',
-          tax: 0,
-        }),
-        new AddOns({
-          id: 8,
-          name: 'Coke',
-          price: 10,
-          createdAt: 'now',
-          updatedAt: 'now',
-          tax: 0,
-        }),
-        new AddOns({
-          id: 9,
-          name: 'Water',
-          price: 8,
-          createdAt: 'now',
-          updatedAt: 'now',
-          tax: 0,
-        })
-      ]
+      product.addOns = json['add_ons'].map((v: any) => AddOns.fromJson(v));
     }
     if (json['category_ids']) {
       product.categoryIds = json['category_ids'].map((v: any) => CategoryId.fromJson(v));
