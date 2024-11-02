@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {PaymentMethod} from "../../../../../common/data-classes/ConfigModel";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-payments-tab',
@@ -10,12 +11,15 @@ import {PaymentMethod} from "../../../../../common/data-classes/ConfigModel";
 export class PaymentsTabComponent implements OnInit {
 
   @Output() onPayClicked: EventEmitter<PaymentMethod> = new EventEmitter<PaymentMethod>()
-  @Input()loading = false
+  @Input() loading = false
   activePaymentMethods: PaymentMethod[] = []
   selectedPayment: PaymentMethod = this.defaultPayment
+  digitalPaymentsActive = false
+  isSelfPickUp = false
 
   constructor(
     private configService: ConfigModelService,
+    private translateService: TranslateService
   ) {
   }
 
@@ -23,6 +27,8 @@ export class PaymentsTabComponent implements OnInit {
     this.configService.configModelSubject.subscribe({
       next: (config) => {
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
+        this.digitalPaymentsActive = config?.digitalPayment ?? false
+        this.isSelfPickUp = config?.selfPickup ?? false
       }
     })
   }
@@ -42,5 +48,13 @@ export class PaymentsTabComponent implements OnInit {
 
   placeOrder() {
     this.onPayClicked.emit(this.selectedPayment)
+  }
+
+  getPayment() {
+    if (this.isSelfPickUp) {
+      return this.translateService.instant('CASH_ON_PICKUP')
+    } else {
+      return this.translateService.instant('CASH_ON_DELIVERY')
+    }
   }
 }

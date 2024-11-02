@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow-y: hidden;
 
   img {
     width: 8rem;
@@ -31,11 +32,13 @@
 
 .product-description {
   margin-top: 0.25rem;
+  overflow-y: hidden;
 
   p {
     font-size: 0.85rem;
     color: VAR(--darkgray);
     overflow-x: hidden;
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 10rem;

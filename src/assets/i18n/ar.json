@@ -218,6 +218,7 @@
   "CHECKOUT": "إتمام الشراء",
   "REMOVE_ITEM_NOTE": "هل أنت متأكد أنك تريد إزالة هذا العنصر؟",
   "CASH_ON_DELIVERY": "الدفع عند الاستلام (COD) نقداً فقط",
+  "CASH_ON_PICKUP": " الدفع عند الاستلام (COP)",
   "CHECKOUT_ORDER_SUMMARY": "ملخص طلبك",
   "QUANTITY": "الكميه",
   "APPLY": "تطبيق",

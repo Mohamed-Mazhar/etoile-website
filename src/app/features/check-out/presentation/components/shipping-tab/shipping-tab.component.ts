@@ -11,6 +11,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 export class ShippingTabComponent implements OnInit {
 
   @Output() onProceedClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Input() isSelfPickupOnly: boolean = false
   @Input() addresses: AddressModel[] = []
   formGroup: UntypedFormGroup = this.fb.group({
     deliveryAddress: ['', Validators.required]

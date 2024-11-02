@@ -49,8 +49,6 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     })
     this.cartService.cartProductsSubject.subscribe({
       next: (cartProducts) => {
-        this.totalPrice = 0
-        this.numberOfItems = 0
         this.products = cartProducts
         this.calculateTotalPrice()
         this.applyCouponDiscount()
@@ -59,6 +57,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   }
 
   private calculateTotalPrice() {
+    this.numberOfItems = 0
     this.totalPrice = 0
     for (let cartProduct of this.products) {
       this.numberOfItems += cartProduct.count
@@ -68,6 +67,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   }
 
   private applyCouponDiscount() {
+    this.calculateTotalPrice()
     if (this.couponModel) {
       if (this.couponModel.discountType === 'percent') {
         this.totalPrice = this.totalPrice - (this.totalPrice * this.couponModel.discount!)

@@ -112,11 +112,11 @@ export class BaseApiService {
     if (this.jwtToken) {
       headers = new HttpHeaders({
         Authorization: `Bearer ${this.jwtToken}`,
-        lang: this.translate.currentLang,
+        'X-localization': this.translate.currentLang,
       });
     } else {
       headers = new HttpHeaders({
-        'lang': this.translate.currentLang,
+        'X-localization': this.translate.currentLang,
       })
     }
     if (localStorage.getItem(SELECTED_BRANCH) !== null) {

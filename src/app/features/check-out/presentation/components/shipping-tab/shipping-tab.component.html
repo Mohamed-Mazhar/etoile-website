@@ -3,12 +3,12 @@
     <h5>{{ 'SHIPPING' | translate }}</h5>
     <div class="d-flex justify-content-between">
       <p>{{ 'SELECT_SHIPPING' | translate }}</p>
-      <div class="add-address-container" data-bs-target="#address" data-bs-toggle="modal" (click)="addAddress()">
+      <div class="add-address-container" *ngIf="!isSelfPickupOnly" data-bs-target="#address" data-bs-toggle="modal" (click)="addAddress()">
         <i class="fas fa-plus-circle pr-1"></i>
         <p>{{ 'ADD_NEW_ADDRESS' | translate }}</p>
       </div>
     </div>
-    <div class="addresses-container">
+    <div class="addresses-container"  *ngIf="!isSelfPickupOnly">
       <div class="address-container" *ngFor="let address of addresses; let i = index">
         <input formControlName="deliveryAddress"
                [value]="address.id"
@@ -25,6 +25,19 @@
         <div class="ms-auto clickable" (click)="setAddress(address)" data-bs-target="#address" data-bs-toggle="modal">
           <i class="fas fa-edit"></i>
         </div>
+      </div>
+    </div>
+    <div class="addresses-container"  *ngIf="isSelfPickupOnly">
+      <div class="address-container">
+        <input formControlName="deliveryAddress"
+               class="mt-2 form-check-input"
+               type="radio"
+               [value]="0"
+               name="deliveryAddress"
+               id="takeAway" checked>
+        <label class="mt-1" for="takeAway">
+          <p>Take Away</p>
+        </label>
       </div>
     </div>
     <div class="payment-button">

@@ -26,7 +26,11 @@
       <div class="tab-content">
         <div class='tab-pane container fade active show' id='shipping'
              [ngClass]="{'show': activeTab === 'shipping', 'active': activeTab === 'shipping'}">
-          <app-shipping-tab [addresses]="addresses" (onProceedClicked)="moveToPayment($event)"></app-shipping-tab>
+          <app-shipping-tab
+            [addresses]="addresses"
+            [isSelfPickupOnly]="configModel?.selfPickup ?? false"
+            (onProceedClicked)="moveToPayment($event)">
+          </app-shipping-tab>
         </div>
         <div class='tab-pane container fade' id='payment'
              [ngClass]="{'show': activeTab === 'payment', 'active': activeTab === 'payment' }">
