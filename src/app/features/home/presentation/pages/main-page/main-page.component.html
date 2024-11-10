@@ -13,10 +13,10 @@
   </div>
 
   <desserts
-    *ngIf="chunkedBestSellerProducts.isNotEmpty()"
+    *ngIf="showRecommended()"
     class="mb-4"
     [direction]="'left'"
-    [productModel]="bestSellerProducts"
+    [productModel]="recommendedProducts"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
     [products]="chunkedRecommendedProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">

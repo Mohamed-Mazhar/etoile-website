@@ -9,6 +9,7 @@ import {CartProductsService} from "../../services/cart-products.service";
 import {TranslateService} from "@ngx-translate/core";
 import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../features/analytics/data/models/AnalyticsEvent";
+import {AdjustEvent} from "../../../features/analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'user-info',
@@ -60,6 +61,7 @@ export class UserInfoComponent implements OnInit {
       event: AnalyticsEvent.logout,
       parameters: null
     })
+    this.analyticsService.logAdjustEvent({event: AdjustEvent.logout})
     this.router.navigate(['/']).then()
   }
 

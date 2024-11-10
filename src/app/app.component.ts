@@ -5,9 +5,12 @@ import {SplashApi} from "./common/apis/splash-api";
 import {ConfigModelService} from "./common/services/config-model.service";
 import {LANG, SELECTED_BRANCH} from "./common/utils/constants";
 import {GoogleTagManagerService} from "angular-google-tag-manager";
-import {NgcCookieConsentService} from "ngx-cookieconsent";
+import {NgcCookieConsentService, NgcStatusChangeEvent} from "ngx-cookieconsent";
 import {AnalyticsService} from "./features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "./features/analytics/data/models/AnalyticsEvent";
+import Adjust from "@adjustcom/adjust-web-sdk";
+import {environment} from "../environments/environment";
+import {AdjustEvent} from "./features/analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'app-root',
@@ -26,6 +29,11 @@ export class AppComponent {
     private cookieConsentService: NgcCookieConsentService,
     private analyticsService: AnalyticsService
   ) {
+    Adjust.initSdk({
+      appToken: environment.adjustToken,
+      environment: "sandbox",
+    });
+
     this.router.events.forEach((item) => {
       if (!(item instanceof NavigationEnd)) {
         return;
@@ -43,6 +51,7 @@ export class AppComponent {
     this.translate.onLangChange.subscribe((event) => {
       this.setDirection(event.lang);
       this.translate.use(event.lang)
+      this.analyticsService.logAdjustEvent({event: AdjustEvent.languageSelected})
       this.analyticsService.logEvent({
         event: AnalyticsEvent.languageChanged,
         parameters: new Map<string, any>([
@@ -62,6 +71,19 @@ export class AppComponent {
       this.router.navigate(['/branch']).then()
     }
 
+    this.cookieConsentService.statusChange$.subscribe((event: NgcStatusChangeEvent) => {
+      if (event.status === 'allow') {
+        this.initializeGTM();
+      }
+    });
+
+  }
+
+  private initializeGTM() {
+    const gtmScript = document.createElement('script');
+    gtmScript.async = true;
+    gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=G-8KZJPHK13W';
+    document.head.appendChild(gtmScript);
   }
 
   setDirection(lang: string) {

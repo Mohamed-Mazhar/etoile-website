@@ -8,6 +8,7 @@ import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-br
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'app-login',
@@ -82,6 +83,7 @@ export class LoginComponent implements OnInit {
             ['user_id', response.id]
           ])
         })
+        this.analyticsService.logAdjustEvent({event: AdjustEvent.loginSuccess})
         AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
       },
       error: (err) => {

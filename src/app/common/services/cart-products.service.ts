@@ -9,6 +9,7 @@ import {CART} from "../utils/constants";
 import {AnalyticsService} from "../../features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../features/analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../utils/ProductPriceUtil";
+import {AdjustEvent} from "../../features/analytics/data/models/AdjustEvent";
 
 @Injectable({
   providedIn: 'root'
@@ -120,6 +121,7 @@ export class CartProductsService {
         ['modificator_ids', cartProduct.variations.map((variation) => variation.values)],
       ])
     })
+    this.analyticsService.logAdjustEvent({event: AdjustEvent.addToCart})
   }
 
 }

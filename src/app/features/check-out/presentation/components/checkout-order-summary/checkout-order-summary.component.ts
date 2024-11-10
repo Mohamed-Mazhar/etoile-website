@@ -9,6 +9,7 @@ import {CartProductsService} from "../../../../../common/services/cart-products.
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {TranslateService} from "@ngx-translate/core";
+import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -102,6 +103,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
             ['type', coupon.discountType]
           ])
         })
+        this.analyticsService.logAdjustEvent({event: AdjustEvent.promoCodeAdded})
       },
       error: (err) => {
         this.showRemoveCoupon = false

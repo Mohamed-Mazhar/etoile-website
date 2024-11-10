@@ -3,6 +3,7 @@ import {BannerModel} from "../../../../../common/data-classes/BannerModel";
 import {Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'main-products-carousel',
@@ -36,7 +37,9 @@ export class MainProductsCarouselComponent implements OnInit {
         ['banner_id', banner.id]
       ])
     })
+    this.analyticsService.logAdjustEvent({event: AdjustEvent.bannerClicked})
     if (banner.categoryId === null) {
+      this.analyticsService.logAdjustEvent({event: AdjustEvent.productDetailsClicked})
       this.router.navigate(['/product', banner.productId]).then()
     } else {
       this.router.navigate(['/products', banner.categoryId]).then()

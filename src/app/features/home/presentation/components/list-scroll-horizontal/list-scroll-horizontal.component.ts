@@ -46,7 +46,7 @@ export class ListScrollHorizontalComponent implements OnInit {
       if (previousPosition === this.container.nativeElement.scrollLeft) {
         this.container.nativeElement.scrollLeft = this.direction === 'right' ? 0 : this.container.nativeElement.scrollWidth;
       }
-    }, 50);
+    }, 20);
   }
 
   isLeft(): boolean {

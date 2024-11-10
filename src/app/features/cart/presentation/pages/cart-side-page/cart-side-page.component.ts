@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'cart-side-page',
@@ -52,6 +53,7 @@ export class CartSidePageComponent implements OnInit {
           ]
         )
       })
+      this.analyticsService.logAdjustEvent({event: AdjustEvent.startCheckout})
       this.router.navigate(['/checkout']).then()
     } else {
       this.loginElem.nativeElement.click()

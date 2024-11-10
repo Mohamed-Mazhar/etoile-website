@@ -8,6 +8,8 @@ import {ConfigModelService} from "../../services/config-model.service";
 import {Router} from "@angular/router";
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
+import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
+import {AdjustEvent} from "../../../features/analytics/data/models/AdjustEvent";
 
 @Component({
   selector: 'search-bar',
@@ -30,7 +32,8 @@ export class SearchBarComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private productsApi: ProductsApi,
     private configService: ConfigModelService,
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -65,6 +68,7 @@ export class SearchBarComponent implements OnInit {
 
   openDetails(product: Product) {
     this.router.navigate(['/product', product.id]).then()
+    this.analyticsService.logAdjustEvent({event: AdjustEvent.productDetailsClicked})
     this.productsElem.nativeElement.classList.add('hide')
   }
 

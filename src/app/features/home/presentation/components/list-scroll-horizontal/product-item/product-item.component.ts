@@ -5,6 +5,8 @@ import {CartProductsService} from "../../../../../../common/services/cart-produc
 import {Router} from "@angular/router";
 import {ConfigModelService} from "../../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../../common/data-classes/ConfigModel";
+import {AdjustEvent} from "../../../../../analytics/data/models/AdjustEvent";
+import {AnalyticsService} from "../../../../../analytics/data/services/analytics-service";
 
 @Component({
   selector: 'app-product-item',
@@ -20,7 +22,8 @@ export class ProductItemComponent implements OnInit {
     private toastService: ToastService,
     private cartService: CartProductsService,
     private configModelService: ConfigModelService,
-    private router: Router
+    private router: Router,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +44,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   goToDetails() {
+    this.analyticsService.logAdjustEvent({event: AdjustEvent.productDetailsClicked})
     this.router.navigate(['/product', this.product.id]).then()
   }
 

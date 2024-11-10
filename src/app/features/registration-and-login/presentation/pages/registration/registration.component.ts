@@ -6,6 +6,8 @@ import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
+import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 
 @Component({
   selector: 'app-registration',
@@ -26,7 +28,8 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private registrationServiceApi: AuthenticationApi,
-    private userProfileApi: UserProfileApi
+    private userProfileApi: UserProfileApi,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -62,6 +65,7 @@ export class RegistrationComponent implements OnInit {
         localStorage.setItem(USER_PASSWORD, password?.value)
         if (response.token) {
           this.getUserInfo()
+          this.analyticsService.logAdjustEvent({event: AdjustEvent.newRegister})
         } else {
           this.closeIcon.nativeElement.click()
         }

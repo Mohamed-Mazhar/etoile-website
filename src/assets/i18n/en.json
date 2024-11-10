@@ -261,5 +261,7 @@
   "SERVICE_REVIEW": "Service Review",
   "PRODUCT": "Product(s)",
   "REMOVE_COUPON": "Remove code",
-  "COUPON_TITLE": "Coupon name"
+  "COUPON_TITLE": "Coupon name",
+  "TAKE_AWAY": "Take Away",
+  "SELECT_BRANCH": "Select branch"
 }

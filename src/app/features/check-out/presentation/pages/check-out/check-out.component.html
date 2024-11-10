@@ -29,6 +29,7 @@
           <app-shipping-tab
             [addresses]="addresses"
             [isSelfPickupOnly]="configModel?.selfPickup ?? false"
+            [isHomeDelivery]="configModel?.homeDelivery ?? false"
             (onProceedClicked)="moveToPayment($event)">
           </app-shipping-tab>
         </div>

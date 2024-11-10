@@ -97,7 +97,10 @@ export class MainPageComponent implements OnInit {
     this.chunkSize = window.innerWidth < 770 && window.innerHeight < 1020 ? 1 : 2
     this.chunkedRecommendedProducts = this.chunkProducts(this.recommendedProducts?.products ?? [])
     this.chunkedBestSellerProducts = this.chunkProducts(this.bestSellerProducts?.products ?? [])
+  }
 
+  showRecommended() {
+    return this.recommendedProducts && this.recommendedProducts.products?.isNotEmpty()
   }
 
 }

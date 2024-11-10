@@ -11,7 +11,7 @@
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   aria-expanded="false">
-            {{ selectedBranch?.name ?? 'Select branch'}}
+            {{ selectedBranch?.name ?? 'SELECT_BRANCH' | translate }}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <form [formGroup]="form">
