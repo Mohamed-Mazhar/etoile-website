@@ -200,7 +200,7 @@ export class ConfigModel {
       json['maintenance_mode'] ? MaintenanceMode.fromJson(json['maintenance_mode']) : undefined,
       json['country_code'],
       json['self_pickup'],
-      json['home_delivery'],
+      json['delivery'],
       json['restaurant_location_coverage']
         ? RestaurantLocationCoverage.fromJson(json['restaurant_location_coverage'])
         : undefined,

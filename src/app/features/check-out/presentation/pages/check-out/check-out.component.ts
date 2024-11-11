@@ -17,6 +17,7 @@ import {AnalyticsService} from "../../../../analytics/data/services/analytics-se
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {MyFatoorahApi} from "../../../../../common/apis/my-fatoorah-api";
 
 
 @Component({
@@ -49,6 +50,7 @@ export class CheckOutComponent implements OnInit {
     private router: Router,
     private analyticsService: AnalyticsService,
     private configModelService: ConfigModelService,
+    private myFatoorahApi: MyFatoorahApi
   ) {
   }
 
@@ -119,6 +121,9 @@ export class CheckOutComponent implements OnInit {
     )
     if (paymentMethod.getWay === 'selfPickup') {
       this.callPlaceOrder(placeOrder)
+    } else if (paymentMethod.getWay === 'my_fatoorah') {
+      console.log("Selected payment my_fattorah")
+      this.startMyFatoorah()
     } else {
       this.makeOnlinePayment(placeOrder)
     }
@@ -209,6 +214,19 @@ export class CheckOutComponent implements OnInit {
         event: AnalyticsEvent.productBought,
         parameters: parameters
       })
+    })
+  }
+
+  private startMyFatoorah() {
+    this.placingOrder = true
+    this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
+      next: (payments) => {
+        this.placingOrder = false
+      },
+      error: (err) => {
+        this.placingOrder = false
+        console.log("Error received ", err)
+      }
     })
   }
 }

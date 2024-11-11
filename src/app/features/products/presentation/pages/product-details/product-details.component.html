@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="horizontal-separator"></div>
-    <primary-button [title]="'ADD_TO_CART' | translate" (onClick)="addToCart()"></primary-button>
+    <primary-button [enabled]="isProductAvailable()" [title]="getText()" (onClick)="addToCart()"></primary-button>
     <div class="delivery-info">
       <p>{{ 'DELIVERED_WITHIN' | translate }}</p>
     </div>

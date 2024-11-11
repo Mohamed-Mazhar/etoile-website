@@ -35,7 +35,7 @@
         </div>
         <div class='tab-pane container fade' id='payment'
              [ngClass]="{'show': activeTab === 'payment', 'active': activeTab === 'payment' }">
-          <app-payments-tab [loading]="placingOrder" (onPayClicked)="placeOrder($event)"></app-payments-tab>
+          <app-payments-tab [selectedAddressId]="selectedAddressId" [loading]="placingOrder" (onPayClicked)="placeOrder($event)"></app-payments-tab>
         </div>
         <div class='tab-pane container fade' id='confirm'
              [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">

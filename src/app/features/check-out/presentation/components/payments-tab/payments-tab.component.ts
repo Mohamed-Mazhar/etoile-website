@@ -12,6 +12,7 @@ export class PaymentsTabComponent implements OnInit {
 
   @Output() onPayClicked: EventEmitter<PaymentMethod> = new EventEmitter<PaymentMethod>()
   @Input() loading = false
+  @Input() selectedAddressId!: number
   activePaymentMethods: PaymentMethod[] = []
   selectedPayment: PaymentMethod = this.defaultPayment
   digitalPaymentsActive = false
@@ -29,6 +30,9 @@ export class PaymentsTabComponent implements OnInit {
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
+        this.activePaymentMethods.push(new PaymentMethod(
+          'my_fatoorah', 'My Fatoorah', ''
+        ))
       }
     })
   }
@@ -51,7 +55,7 @@ export class PaymentsTabComponent implements OnInit {
   }
 
   getPayment() {
-    if (this.isSelfPickUp) {
+    if (this.selectedAddressId === 0) {
       return this.translateService.instant('CASH_ON_PICKUP')
     } else {
       return this.translateService.instant('CASH_ON_DELIVERY')

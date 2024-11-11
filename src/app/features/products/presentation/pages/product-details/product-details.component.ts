@@ -5,6 +5,7 @@ import {ProductsApi} from "../../../../../common/apis/products-api";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,8 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private productsApi: ProductsApi,
     private cartService: CartProductsService,
-    private configModelService: ConfigModelService
+    private configModelService: ConfigModelService,
+    private translateService: TranslateService
   ) {
 
   }
@@ -78,5 +80,14 @@ export class ProductDetailsComponent implements OnInit {
 
   openProductAddOns() {
     this.cartService.editProduct(this.product!)
+  }
+
+  isProductAvailable() {
+    return this.product?.branchProduct?.isAvailable ?? false
+  }
+
+  getText() {
+    return this.product?.branchProduct?.isAvailable === true ?
+      this.translateService.instant('ADD_TO_CART') : this.translateService.instant('NOT_AVAILABLE')
   }
 }

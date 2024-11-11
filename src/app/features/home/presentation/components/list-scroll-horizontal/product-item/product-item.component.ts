@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ToastService} from "../../../../../../common/services/toast.service";
 import {Product} from "../../../../../../common/data-classes/ProductModel";
 import {CartProductsService} from "../../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
@@ -19,7 +18,6 @@ export class ProductItemComponent implements OnInit {
   configModel: ConfigModel | null = null
 
   constructor(
-    private toastService: ToastService,
     private cartService: CartProductsService,
     private configModelService: ConfigModelService,
     private router: Router,
