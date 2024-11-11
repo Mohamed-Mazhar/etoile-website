@@ -5,10 +5,14 @@
       <i class="fa fa-times"></i>
     </div>
   </div>
+  <div class="alert alert-danger form-alert ms-2 me-2"
+       *ngIf="errorMessage.hasActualValue() && cartProducts.isNotEmpty()"
+       [innerHTML]="errorMessage"></div>
   <div class="products-container">
     <cart-side-item
       *ngFor="let cartProduct of cartProducts; let i = index;"
       [productIndex]="i"
+      [isAvailable]="checkAvailability(cartProduct)"
       [cartProduct]="cartProduct">
     </cart-side-item>
   </div>
@@ -29,10 +33,12 @@
       data-bs-dismiss="offcanvas"
       [buttonPadding]="0.5">
     </primary-button>
-    <button type="button" (click)="goToCheckOut()" class="btn btn-secondary" data-bs-dismiss="offcanvas">
-      {{ 'CHECKOUT' | translate }}
+    <button type="button" (click)="goToCheckOut()" class="btn btn-secondary">
+      <p *ngIf="!loading">{{ 'CHECKOUT' | translate }}</p>
+      <span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm"></span>
     </button>
   </div>
 </div>
 
+<div #closeSideBar data-bs-dismiss="offcanvas"></div>
 <div #loginElemRef data-bs-target="#loginView" data-bs-toggle="offcanvas"></div>

@@ -15,6 +15,7 @@ export class CartSideItemComponent implements OnInit {
   @Input() cartProduct!: CartProductItem
   @Input() productIndex!: number
   @Input() hideSeparator: boolean = false
+  @Input() isAvailable: boolean = true
   configModel: ConfigModel | null = null
 
   constructor(
@@ -24,6 +25,7 @@ export class CartSideItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("Is product available ", this.isAvailable)
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config
@@ -36,18 +38,22 @@ export class CartSideItemComponent implements OnInit {
   }
 
   decreaseProduct() {
-    this.cartProductsService.decreaseQuantity(this.cartProduct, this.productIndex)
+    if (this.isAvailable) {
+      this.cartProductsService.decreaseQuantity(this.cartProduct, this.productIndex)
+    }
   }
 
   increaseProduct() {
-    this.cartProductsService.increaseQuantity(this.cartProduct, this.productIndex)
+    if (this.isAvailable) {
+      this.cartProductsService.increaseQuantity(this.cartProduct, this.productIndex)
+    }
   }
 
   getImage() {
     return `${this.configModel?.baseUrls?.productImageUrl}/${this.cartProduct.product.image}`
   }
 
-  getPrice() : number {
+  getPrice(): number {
     return ProductPriceUtil.calculatePrice(this.cartProduct)
   }
 }

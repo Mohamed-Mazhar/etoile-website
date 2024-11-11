@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="alert alert-danger form-alert"
+       *ngIf="errorMessage.hasActualValue() && cartItems.isNotEmpty()"
+       [innerHTML]="errorMessage"></div>
   <div class="cart-page-container" *ngIf="cartItems.isNotEmpty()">
     <div class="full-width">
       <div class="product-item-container" *ngFor="let cartProduct of cartItems; let i = index">
@@ -6,6 +9,7 @@
           class="full-width pb-3"
           [productIndex]="i"
           [hideSeparator]="true"
+          [isAvailable]="checkAvailability(cartProduct)"
           [cartProduct]="cartProduct">
         </cart-side-item>
       </div>
@@ -29,7 +33,10 @@
       </div>
       <div class="mt-4">
         <div #login data-bs-toggle="offcanvas" data-bs-target="#loginView"></div>
-        <primary-button (onClick)="proceed()" [title]="'PROCEED_CHECKOUT' | translate" [buttonPadding]="0.5"></primary-button>
+        <primary-button
+          [loading]="loading"
+          (onClick)="checkProductsAvailability()" [title]="'PROCEED_CHECKOUT' | translate"
+          [buttonPadding]="0.5"></primary-button>
       </div>
       <div class="mt-2">
         <primary-button routerLink="/" class="mt-2" [title]="'CONTINUE_SHOPPING' | translate"

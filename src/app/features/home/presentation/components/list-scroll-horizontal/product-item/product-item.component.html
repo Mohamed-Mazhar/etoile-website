@@ -19,7 +19,7 @@
     <p class="subtitle">{{ product.price }} {{ 'CURRENCY' | translate }}</p>
     <primary-button
       class="mt-2"
-      [enabled]="true"
+      [enabled]="product.branchProduct?.isAvailable ?? true"
       (onClick)="addProduct()"
       [buttonPadding]="0.5"
       [title]="'ADD_TO_CART' | translate">

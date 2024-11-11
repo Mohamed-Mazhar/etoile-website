@@ -16,6 +16,7 @@ export enum ApiType {
   productDetails = "api/v1/products/details/{}",
   searchProducts = "api/v1/products/search?limit=10&offset={}",
   submitProductReview = "api/v1/products/reviews/submit",
+  checkAvailability = "api/v1/products/chk-availability",
   getAddresses = "api/v1/customer/address/list",
   addAddress = "api/v1/customer/address/add",
   updateAddress = "api/v1/customer/address/update/{}",

@@ -14,6 +14,8 @@ export class ApiErrorHandler {
         return error.error.message
       }
       return this.getMessage(error.error.errors as ErrorResponse[])
+    } else if (error.status === 400) {
+      throw error
     } else if (error.status === 500) {
       return 'Server error occurred. Please try again later.';
     } else {
@@ -24,7 +26,7 @@ export class ApiErrorHandler {
   private getMessage(error: ErrorResponse[]): string {
     let message: string = ""
     for (let errorResponse of error) {
-     message += errorResponse.message + "\n"
+      message += errorResponse.message + "\n"
     }
     return message
   }
