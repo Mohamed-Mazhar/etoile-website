@@ -23,13 +23,14 @@
   </desserts>
 
   <desserts
-    *ngIf="chunkedBestSellerProducts.isNotEmpty()"
+    *ngIf="bestSellerProducts !== null && bestSellerProducts.products!.isNotEmpty()"
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
     [products]="chunkedBestSellerProducts"
     [productModel]="bestSellerProducts"
     [titleSection]="'Best Seller'">
   </desserts>
+
 
   <div class="banner-item">
     <img alt="Bakeries"
@@ -50,8 +51,8 @@
     [items]="latestProducts"
     [title]="'New Arrival'"
     direction="right">
-
   </app-list-scroll-horizontal>
+
   <app-scroll-up-btn></app-scroll-up-btn>
   <div #openDelete data-bs-target="#deleteProduct" data-bs-toggle="modal">
   </div>

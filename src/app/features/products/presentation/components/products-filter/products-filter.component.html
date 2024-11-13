@@ -8,14 +8,14 @@
   <div class="filter-by-item" *ngFor="let category of categoriesCheckedModel; let i = index">
     <input [(ngModel)]="category.isChecked"
            (change)="toggleMainCategory(category)"
-           class="form-check-input me-2"
+           class="form-check-input me-2 ms-2"
            type="checkbox"
            id="input-{{category.categoryId}}" name="{{category.categoryId}}" value="{{category.categoryId}}">
-    <label for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
-    <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4">
+    <label class="fw-bold" for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
+    <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4 me-4">
       <input [(ngModel)]="subCategory.isChecked"
              (change)="applyFilter()"
-             class="form-check-input me-2"
+             class="form-check-input me-2 ms-2"
              type="checkbox" id="input-{{subCategory.categoryId}}"
              name="{{subCategory.categoryId}}"
              value="{{subCategory.categoryId}}">

@@ -11,6 +11,7 @@ import {AnalyticsEvent} from "./features/analytics/data/models/AnalyticsEvent";
 import Adjust from "@adjustcom/adjust-web-sdk";
 import {environment} from "../environments/environment";
 import {AdjustEvent} from "./features/analytics/data/models/AdjustEvent";
+import {Meta, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -27,40 +28,18 @@ export class AppComponent {
     private configModelService: ConfigModelService,
     private gtmService: GoogleTagManagerService,
     private cookieConsentService: NgcCookieConsentService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private titleService: Title,
+    private metaService: Meta
   ) {
     Adjust.initSdk({
       appToken: environment.adjustToken,
       environment: "sandbox",
     });
 
-    this.router.events.forEach((item) => {
-      if (!(item instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0)
-      const gtmTag = {
-        event: 'page',
-        pageName: item.url
-      };
-      this.gtmService.pushTag(gtmTag).then();
-    }).then()
-
+    this.scrollPageToTop()
     this.initializeLanguage()
-
-    this.translate.onLangChange.subscribe((event) => {
-      this.setDirection(event.lang);
-      this.translate.use(event.lang)
-      this.analyticsService.logAdjustEvent({event: AdjustEvent.languageSelected})
-      this.analyticsService.logEvent({
-        event: AnalyticsEvent.languageChanged,
-        parameters: new Map<string, any>([
-          ['new_lang', event.lang],
-          ['old_lang', event.lang === 'ar' ? 'en' : 'ar']
-        ])
-      })
-    });
-
+    this.listenForLanguageChanges()
     this.splashApi.getAppConfigurations().subscribe({
       next: (res) => {
         this.configModelService.setConfigModel(res)
@@ -76,7 +55,7 @@ export class AppComponent {
         this.initializeGTM();
       }
     });
-
+    this.setAppMetaTags()
   }
 
   private initializeGTM() {
@@ -102,6 +81,47 @@ export class AppComponent {
       this.translate.setDefaultLang("en")
       this.translate.use("en")
     }
+  }
+
+  private setAppMetaTags() {
+    this.translate.get('SITE_TITLE').subscribe((title) => {
+      this.titleService.setTitle(title)
+    })
+    this.translate.get('SITE_DESC').subscribe((desc) => {
+      this.metaService.updateTag({ name: 'description', content: desc })
+    })
+    this.translate.get('SITE_KEYWORDS').subscribe((keywords) => {
+      this.metaService.updateTag({ name: 'keywords', content: keywords });
+    })
+  }
+
+  private listenForLanguageChanges() {
+    this.translate.onLangChange.subscribe((event) => {
+      this.setDirection(event.lang);
+      this.translate.use(event.lang)
+      this.analyticsService.logAdjustEvent({event: AdjustEvent.languageSelected})
+      this.analyticsService.logEvent({
+        event: AnalyticsEvent.languageChanged,
+        parameters: new Map<string, any>([
+          ['new_lang', event.lang],
+          ['old_lang', event.lang === 'ar' ? 'en' : 'ar']
+        ])
+      })
+    });
+  }
+
+  private scrollPageToTop() {
+    this.router.events.forEach((item) => {
+      if (!(item instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(0, 0)
+      const gtmTag = {
+        event: 'page',
+        pageName: item.url
+      };
+      this.gtmService.pushTag(gtmTag).then();
+    }).then()
   }
 }
 

@@ -1,4 +1,7 @@
 {
+  "SITE_TITLE": "Etoile Patisserie",
+  "SITE_DESC": "An exquisite Patisserie that sells happiness",
+  "SITE_KEYWORDS": "cake, gateau, ice cream, pastry",
   "LOGIN": "Login",
   "REGISTER": "Register",
   "CHANGE": "Change",

@@ -88,24 +88,29 @@
 
 .carousel-container {
   width: 87%;
-}
-
-
-.carousel-control-prev-icon {
-  background-color: VAR(--primary-color);
-}
-
-.carousel-control-next-icon {
-  background-color: VAR(--primary-color);
-}
-
-.product-width {
-  width: 27%;
 
   @include res-md-styles {
-    width: 50%;
+    width: 94%;
   }
+
 }
+
+
+//.carousel-control-prev-icon {
+//  background-color: VAR(--primary-color);
+//}
+//
+//.carousel-control-next-icon {
+//  background-color: VAR(--primary-color);
+//}
+
+//.product-width {
+//  width: 27%;
+//
+//  @include res-md-styles {
+//    width: 50%;
+//  }
+//}
 
 
 //@import "src/app/common/styles/mixin";
@@ -203,10 +208,10 @@
 }
 
 .item {
-  min-width: 33%;
+  min-width: 32%;
 
   @include res-md-styles {
-    min-width: 21%;
+    min-width: 19%;
   }
 
 }
