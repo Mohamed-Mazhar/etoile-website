@@ -117,6 +117,9 @@ import {
     ForgetPasswordComponent
 } from "./features/registration-and-login/presentation/components/forget-password/forget-password.component";
 import {ProductInfoComponent} from "./features/orders/presentation/components/product-info/product-info.component";
+import {
+  MyFatoorahPaymentsModalComponent
+} from "./features/check-out/presentation/components/my-fatoorah-payments-modal/my-fatoorah-payments-modal.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -203,7 +206,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     ProductAddOnModalComponent,
     OrderDetailsComponent,
     ForgetPasswordComponent,
-    ProductInfoComponent
+    ProductInfoComponent,
+    MyFatoorahPaymentsModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header justify-content-between w-100">
+      <h1 class="modal-title fs-5">Select Payment Method</h1>
+      <div type="button" data-bs-dismiss="modal" aria-label="Close">
+        <i class="fas fa-close"></i>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div
+        class="payment-method-container"
+        data-bs-dismiss="modal"
+        *ngFor="let paymentMethod of myFatoorahPaymentMethods"
+        (click)="setPaymentMethod(paymentMethod.paymentMethodId!)">
+        <img [src]="paymentMethod.imageUrl">
+        <p>{{ getPaymentMethodName(paymentMethod) }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

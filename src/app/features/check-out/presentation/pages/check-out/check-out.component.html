@@ -1,6 +1,10 @@
 <div class="container">
   <app-loading [loadingData]="loading"></app-loading>
-  <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
+  <div class="alert alert-danger alert-dismissible form-alert" *ngIf="errorMessage !== null">
+    {{ errorMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="errorMessage=''">
+    </button>
+  </div>
   <div class="checkout-container" *ngIf="!shouldHideTabs()">
     <div class="tabs-container">
       <div class="nav">
@@ -35,7 +39,8 @@
         </div>
         <div class='tab-pane container fade' id='payment'
              [ngClass]="{'show': activeTab === 'payment', 'active': activeTab === 'payment' }">
-          <app-payments-tab [selectedAddressId]="selectedAddressId" [loading]="placingOrder" (onPayClicked)="placeOrder($event)"></app-payments-tab>
+          <app-payments-tab [selectedAddressId]="selectedAddressId" [loading]="placingOrder"
+                            (onPayClicked)="placeOrder($event)"></app-payments-tab>
         </div>
         <div class='tab-pane container fade' id='confirm'
              [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">
@@ -68,4 +73,13 @@
       [title]="'GO_SHOPPING' | translate">
     </primary-button>
   </div>
+</div>
+
+<div #openMyFatoorahElem data-bs-target="#myFatoorah" data-bs-toggle="modal"></div>
+
+<div class="modal fade modal-index" id="myFatoorah" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+  <app-my-fatoorah-payments-modal
+    [myFatoorahPaymentMethods]="myFatoorahPaymentMethods"
+    (onPaymentSelected)="executeMyFatoorahTransaction($event)">
+  </app-my-fatoorah-payments-modal>
 </div>

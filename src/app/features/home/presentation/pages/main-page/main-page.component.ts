@@ -44,6 +44,7 @@ export class MainPageComponent implements OnInit {
         if (configModel !== null) {
           this.configModel = configModel
           this.getHomeBanners()
+          this.productsService.loadProducts()
         }
       }
     })

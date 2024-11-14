@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AddressApi} from "../../../../../common/apis/address-api";
 import {AddressModel} from "../../../../../common/data-classes/AddressModel";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
@@ -7,17 +7,19 @@ import {Branch, ConfigModel, PaymentMethod} from "../../../../../common/data-cla
 import {PlaceOrderBody} from "../../../../../common/data-classes/PlaceOrderBody";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
-import {SELECTED_BRANCH} from "../../../../../common/utils/constants";
+import {ORDER_BODY, SELECTED_BRANCH} from "../../../../../common/utils/constants";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
 import {DatePipe} from '@angular/common';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {MyFatoorahApi} from "../../../../../common/apis/my-fatoorah-api";
+import {MyFatoorahPaymentMethod} from "../../../../../common/data-classes/MyFatoorahPaymentMethod";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -28,6 +30,7 @@ import {MyFatoorahApi} from "../../../../../common/apis/my-fatoorah-api";
 })
 export class CheckOutComponent implements OnInit {
 
+  @ViewChild('openMyFatoorahElem') openMyFatoorahElem!: ElementRef
   activeTab = 'shipping'
   loading = false
   addresses: AddressModel[] = []
@@ -39,7 +42,9 @@ export class CheckOutComponent implements OnInit {
   placingOrder = false
   errorMessage: string | null = null
   orderId: string = ""
-  configModel : ConfigModel | null = null
+  configModel: ConfigModel | null = null
+  myFatoorahPaymentMethods: MyFatoorahPaymentMethod[] = []
+  placeOrderBody: PlaceOrderBody | null = null
 
   constructor(
     private addressApi: AddressApi,
@@ -50,11 +55,14 @@ export class CheckOutComponent implements OnInit {
     private router: Router,
     private analyticsService: AnalyticsService,
     private configModelService: ConfigModelService,
-    private myFatoorahApi: MyFatoorahApi
+    private myFatoorahApi: MyFatoorahApi,
+    private route: ActivatedRoute,
+    private translateService: TranslateService,
   ) {
   }
 
   ngOnInit(): void {
+
     this.loading = true
     this.addressApi.getAddresses().subscribe({
       next: (addresses) => {
@@ -85,6 +93,11 @@ export class CheckOutComponent implements OnInit {
         this.configModel = configModel
       }
     })
+    let paymentId = this.route.snapshot.queryParamMap.get('paymentId')
+    if (paymentId?.hasActualValue()) {
+      this.processMyFatoorahPayment(paymentId)
+      this.activeTab = 'payment'
+    }
   }
 
   moveToPayment(addressId: number) {
@@ -100,7 +113,7 @@ export class CheckOutComponent implements OnInit {
   }
 
   placeOrder(paymentMethod: PaymentMethod) {
-    let placeOrder = new PlaceOrderBody(
+    this.placeOrderBody = new PlaceOrderBody(
       this.cartProductItems,
       this.couponModel !== null ? (this.couponModel?.discount ?? 0) : 0,
       this.couponModel?.title ?? '',
@@ -120,12 +133,12 @@ export class CheckOutComponent implements OnInit {
       null
     )
     if (paymentMethod.getWay === 'selfPickup') {
-      this.callPlaceOrder(placeOrder)
+      this.callPlaceOrder()
     } else if (paymentMethod.getWay === 'my_fatoorah') {
       console.log("Selected payment my_fattorah")
       this.startMyFatoorah()
     } else {
-      this.makeOnlinePayment(placeOrder)
+      this.makeOnlinePayment()
     }
   }
 
@@ -143,33 +156,33 @@ export class CheckOutComponent implements OnInit {
     })
   }
 
-  private callPlaceOrder(placeOrder: PlaceOrderBody) {
+  private callPlaceOrder() {
     this.placingOrder = true
     this.errorMessage = null
-    this.ordersApi.placeOrder(placeOrder).subscribe({
+    this.ordersApi.placeOrder(this.placeOrderBody!).subscribe({
       next: (orderNumber) => {
         this.placingOrder = false
         this.activeTab = 'confirm'
         this.toastService.showToast('normal', `Order Successful\n Order no: ${orderNumber}`)
         this.orderId = orderNumber
         this.cartProductsService.clearCart()
-        this.logOrderEvent(placeOrder, null)
-        this.logProductPurchaseEvent(placeOrder)
+        this.logOrderEvent(this.placeOrderBody!, null)
+        this.logProductPurchaseEvent(this.placeOrderBody!)
       },
       error: (err) => {
         this.placingOrder = false
         this.errorMessage = err
-        this.logOrderEvent(placeOrder, err)
+        this.logOrderEvent(this.placeOrderBody!, err)
       }
     })
   }
 
-  private makeOnlinePayment(placeOrder: PlaceOrderBody) {
+  private makeOnlinePayment() {
 
   }
 
   goToOrderDetails() {
-    this.router.navigate(['/profile'], { state: { tab: 'orders' } }).then()
+    this.router.navigate(['/profile'], {state: {tab: 'orders'}}).then()
   }
 
   shouldHideTabs() {
@@ -218,14 +231,51 @@ export class CheckOutComponent implements OnInit {
   }
 
   private startMyFatoorah() {
+    if (this.myFatoorahPaymentMethods.isEmpty()) {
+      this.placingOrder = true
+      this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
+        next: (payments) => {
+          this.placingOrder = false
+          this.myFatoorahPaymentMethods = payments
+          this.openMyFatoorahElem.nativeElement.click()
+        },
+        error: (err) => {
+          this.placingOrder = false
+          console.log("Error received ", err)
+        }
+      })
+    } else {
+      this.openMyFatoorahElem.nativeElement.click()
+    }
+  }
+
+  executeMyFatoorahTransaction(paymentMethodId: number) {
     this.placingOrder = true
-    this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
-      next: (payments) => {
+    this.myFatoorahApi.executePayment(paymentMethodId, this.totalPrice).subscribe({
+      next: (paymentUrl) => {
+        localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))
         this.placingOrder = false
+        window.open(paymentUrl, "_self")
+      }
+    })
+  }
+
+  private processMyFatoorahPayment(paymentId: string) {
+    this.loading = true
+    this.myFatoorahApi.getPaymentStatus(paymentId).subscribe({
+      next: (paymentResponse) => {
+        this.loading = false
+        this.placeOrderBody = JSON.parse(localStorage.getItem(ORDER_BODY)!)
+        if (paymentResponse.Data.InvoiceStatus === "Paid") {
+          this.placeOrderBody = Object.assign(new PlaceOrderBody(), this.placeOrderBody, {transactionReference: paymentResponse.Data.InvoiceId})
+          this.callPlaceOrder()
+        } else {
+          this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')
+        }
       },
       error: (err) => {
-        this.placingOrder = false
-        console.log("Error received ", err)
+        this.loading = false
+        console.log("Error for payment response", err)
       }
     })
   }

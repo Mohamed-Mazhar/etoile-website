@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   categories: Category[] = []
   loadingData: boolean = false
   latestProducts: ProductModel[] = []
-  popularProducts : ProductModel[] = []
+  popularProducts: ProductModel[] = []
   showToast = false
 
   constructor(
@@ -39,8 +39,7 @@ export class HomePageComponent implements OnInit {
         if (configModel !== null) {
           this.configModel = configModel
           this.loadingData = false
-          this.getCategories()
-          this.productsService.loadProducts()
+          this.loadProductsAndCategories()
         }
       }
     })
@@ -49,6 +48,14 @@ export class HomePageComponent implements OnInit {
         this.showToast = true
       }
     })
+    this.loadProductsAndCategories()
+  }
+
+  loadProductsAndCategories() {
+    if (this.configModel !== null) {
+      this.getCategories()
+      this.productsService.loadProducts()
+    }
   }
 
   getCategories() {

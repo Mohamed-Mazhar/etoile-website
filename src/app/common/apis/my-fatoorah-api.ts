@@ -3,6 +3,8 @@ import {BaseApiService} from "./base-api-service";
 import {map, Observable} from "rxjs";
 import {ApiType} from "../enums/ApiType";
 import {MyFatoorahPaymentMethod} from "../data-classes/MyFatoorahPaymentMethod";
+import {environment} from "../../../environments/environment";
+import {MyFatoorahPaymentStatusResponse} from "../data-classes/MyFatoorahPaymentStatus";
 
 @Injectable({providedIn: 'root'})
 export class MyFatoorahApi {
@@ -26,5 +28,31 @@ export class MyFatoorahApi {
       })
     )
   }
+
+  executePayment(paymentMethodId: number, orderAmount: number): Observable<string>  {
+    return this.baseApiService.callMyFatoorahApi<{}, { [key: string]: any }>({
+      apiType: ApiType.executePayment,
+      body: {
+        InvoiceValue: orderAmount,
+        PaymentMethodId: paymentMethodId,
+        CallBackUrl: `${environment.myFatoorahCallbackUrl}/checkout`
+      }
+    }).pipe(
+      map((response) => {
+        return response['Data']['PaymentURL']
+      })
+    )
+  }
+
+  getPaymentStatus(paymentId: string) : Observable<MyFatoorahPaymentStatusResponse>{
+    return this.baseApiService.callMyFatoorahApi<{}, MyFatoorahPaymentStatusResponse>({
+      apiType: ApiType.getPaymentStatus,
+      body: {
+        Key: paymentId,
+        KeyType: 'PaymentId'
+      }
+    })
+  }
+
 
 }

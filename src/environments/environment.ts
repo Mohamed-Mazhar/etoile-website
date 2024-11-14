@@ -7,7 +7,8 @@ export const environment = {
   // apiUrl: 'https://etoilecafe.com',
   apiUrl: 'https://test.etoilecafe.com',
   adjustToken: '9df5d2z4zthc',
-  myFatoorahApi: '/api'
+  myFatoorahApi: '/api',
+  myFatoorahCallbackUrl: 'https://eighty-islands-grin.loca.lt'
 };
 
 /*

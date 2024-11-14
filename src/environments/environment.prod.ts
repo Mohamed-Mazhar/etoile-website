@@ -3,5 +3,6 @@ export const environment = {
   // apiUrl: 'https://etoilecafe.com',
   apiUrl: 'https://test.etoilecafe.com',
   adjustToken: '9df5d2z4zthc',
-  myFatoorahApi: 'https://apitest.myfatoorah.com'
+  myFatoorahApi: 'https://apitest.myfatoorah.com',
+  myFatoorahCallbackUrl: 'https://test.etoileeg.com'
 };

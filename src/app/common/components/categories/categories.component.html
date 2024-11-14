@@ -8,7 +8,8 @@
                data-bs-toggle="dropdown" aria-expanded="false">
             <p>{{ category.name }}</p>
           </div>
-          <ul *ngIf="hasSubCategories(category.subCategories!)" class="dropdown-menu" aria-labelledby="navbarDropdown" [attr.aria-label]="category.id?.toString()">
+          <ul *ngIf="hasSubCategories(category.subCategories!)" class="dropdown-menu" aria-labelledby="navbarDropdown"
+              [attr.aria-label]="category.id?.toString()">
             <ul>
               <li *ngFor="let subCategory of category.subCategories"
                   (click)="loadSubCategory(category, subCategory)">

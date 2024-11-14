@@ -22,8 +22,18 @@
 }
 
 .dropdown-menu li .dropdown-item {
-  color: gray;
+  color: VAR(--white);
   font-size: 0.875rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: VAR(--white);
+  }
+
+  &:focus {
+    color: VAR(--white);
+  }
+
 }
 
 .navbar-dark .navbar-nav a.nav-link {

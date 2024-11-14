@@ -1,0 +1,14 @@
+.payment-method-container {
+  margin: 1rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: VAR(--lightgray);
+  display: flex;
+  column-gap: 2rem;
+  cursor: pointer;
+
+  img {
+    width: 3rem;
+  }
+
+}

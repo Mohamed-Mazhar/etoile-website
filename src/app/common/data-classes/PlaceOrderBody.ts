@@ -19,42 +19,61 @@ export class PlaceOrderBody {
   isPartial: string | null;
   isCutleryRequired: string | null;
 
+  constructor(cart: CartProductItem[] | null,
+              couponDiscountAmount: number | null,
+              couponDiscountTitle: string | null,
+              couponCode: string | null,
+              orderAmount: number,
+              deliveryAddressId: number | null,
+              orderType: string | null,
+              paymentMethod: string,
+              branchId: number,
+              deliveryTime: string,
+              deliveryDate: string,
+              orderNote: string,
+              distance: number,
+              isPartial: string,
+              transactionReference?: string | null,
+              paymentInfo?: OfflinePaymentInfo | null,
+              isCutleryRequired?: string | null);
+  constructor();
+
   constructor(
-    cart: CartProductItem[] | null,
-    couponDiscountAmount: number | null,
-    couponDiscountTitle: string | null,
-    couponCode: string | null,
-    orderAmount: number,
-    deliveryAddressId: number | null,
-    orderType: string | null,
-    paymentMethod: string,
-    branchId: number,
-    deliveryTime: string,
-    deliveryDate: string,
-    orderNote: string,
-    distance: number,
-    isPartial: string,
+    cart?: CartProductItem[] | null,
+    couponDiscountAmount?: number | null,
+    couponDiscountTitle?: string | null,
+    couponCode?: string | null,
+    orderAmount?: number,
+    deliveryAddressId?: number | null,
+    orderType?: string | null,
+    paymentMethod?: string,
+    branchId?: number,
+    deliveryTime?: string,
+    deliveryDate?: string,
+    orderNote?: string,
+    distance?: number,
+    isPartial?: string,
     transactionReference?: string | null,
     paymentInfo?: OfflinePaymentInfo | null,
     isCutleryRequired?: string | null
   ) {
-    this.cart = cart;
-    this.couponDiscountAmount = couponDiscountAmount;
-    this.couponDiscountTitle = couponDiscountTitle;
-    this.couponCode = couponCode;
-    this.orderAmount = orderAmount;
-    this.deliveryAddressId = deliveryAddressId;
-    this.orderType = orderType;
-    this.paymentMethod = paymentMethod;
-    this.orderNote = orderNote;
-    this.deliveryTime = deliveryTime;
-    this.deliveryDate = deliveryDate;
-    this.branchId = branchId;
-    this.distance = distance;
-    this.transactionReference = transactionReference || null;
-    this.paymentInfo = paymentInfo || null;
-    this.isPartial = isPartial;
-    this.isCutleryRequired = isCutleryRequired || null;
+    this.cart = cart ?? null;
+    this.couponDiscountAmount = couponDiscountAmount ?? null;
+    this.couponDiscountTitle = couponDiscountTitle ?? null;
+    this.couponCode = couponCode ?? null;
+    this.orderAmount = orderAmount ?? 0;
+    this.deliveryAddressId = deliveryAddressId ?? null;
+    this.orderType = orderType ?? null;
+    this.paymentMethod = paymentMethod ?? "";
+    this.branchId = branchId ?? 0;
+    this.deliveryTime = deliveryTime ?? "";
+    this.deliveryDate = deliveryDate ?? "";
+    this.orderNote = orderNote ?? "";
+    this.distance = distance ?? 0;
+    this.isPartial = isPartial ?? "";
+    this.transactionReference = transactionReference ?? null;
+    this.paymentInfo = paymentInfo ?? null;
+    this.isCutleryRequired = isCutleryRequired ?? null;
   }
 
   copyWith(paymentMethod?: string, transactionReference?: string | null): PlaceOrderBody {
