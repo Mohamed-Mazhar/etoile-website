@@ -3,7 +3,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {NavigationEnd, Router} from "@angular/router";
 import {SplashApi} from "./common/apis/splash-api";
 import {ConfigModelService} from "./common/services/config-model.service";
-import {LANG, SELECTED_BRANCH} from "./common/utils/constants";
+import {EXPIRE_BRANCH, EXPIRE_BRANCH_TIME, LANG, SELECTED_BRANCH} from "./common/utils/constants";
 import {GoogleTagManagerService} from "angular-google-tag-manager";
 import {NgcCookieConsentService, NgcStatusChangeEvent} from "ngx-cookieconsent";
 import {AnalyticsService} from "./features/analytics/data/services/analytics-service";
@@ -12,6 +12,7 @@ import Adjust from "@adjustcom/adjust-web-sdk";
 import {environment} from "../environments/environment";
 import {AdjustEvent} from "./features/analytics/data/models/AdjustEvent";
 import {Meta, Title} from "@angular/platform-browser";
+import {CartProductsService} from "./common/services/cart-products.service";
 
 @Component({
   selector: 'app-root',
@@ -30,13 +31,14 @@ export class AppComponent {
     private cookieConsentService: NgcCookieConsentService,
     private analyticsService: AnalyticsService,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private cartService: CartProductsService
   ) {
     Adjust.initSdk({
       appToken: environment.adjustToken,
       environment: "sandbox",
     });
-
+    this.initializeSelectedBranch()
     this.scrollPageToTop()
     this.initializeLanguage()
     this.listenForLanguageChanges()
@@ -45,10 +47,6 @@ export class AppComponent {
         this.configModelService.setConfigModel(res)
       }
     })
-
-    if (localStorage.getItem(SELECTED_BRANCH) === null) {
-      this.router.navigate(['/branch']).then()
-    }
 
     this.cookieConsentService.statusChange$.subscribe((event: NgcStatusChangeEvent) => {
       if (event.status === 'allow') {
@@ -88,10 +86,10 @@ export class AppComponent {
       this.titleService.setTitle(title)
     })
     this.translate.get('SITE_DESC').subscribe((desc) => {
-      this.metaService.updateTag({ name: 'description', content: desc })
+      this.metaService.updateTag({name: 'description', content: desc})
     })
     this.translate.get('SITE_KEYWORDS').subscribe((keywords) => {
-      this.metaService.updateTag({ name: 'keywords', content: keywords });
+      this.metaService.updateTag({name: 'keywords', content: keywords});
     })
   }
 
@@ -122,6 +120,22 @@ export class AppComponent {
       };
       this.gtmService.pushTag(gtmTag).then();
     }).then()
+  }
+
+  private initializeSelectedBranch() {
+    let expiredBranch = localStorage.getItem(EXPIRE_BRANCH)
+    console.log("Current time is", new Date().getTime())
+    console.log("Expire  time is", expiredBranch)
+    if (expiredBranch !== null && expiredBranch <= new Date().getTime().toString()) {
+      localStorage.removeItem(SELECTED_BRANCH)
+      localStorage.removeItem(EXPIRE_BRANCH)
+      this.cartService.clearCart()
+    } else {
+      localStorage.setItem(EXPIRE_BRANCH, (new Date().getTime() + EXPIRE_BRANCH_TIME * 60 * 1000).toString())
+    }
+    if (localStorage.getItem(SELECTED_BRANCH) === null) {
+      this.router.navigate(['/branch']).then()
+    }
   }
 }
 

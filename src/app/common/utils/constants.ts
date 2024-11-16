@@ -5,3 +5,6 @@ export const USER_PASSWORD = "password"
 export const LANG = "language"
 export const CART = "cart"
 export const ORDER_BODY = "order_body"
+export const EXPIRE_BRANCH = "expire_branch"
+// Time is in minutes
+export const EXPIRE_BRANCH_TIME = 10

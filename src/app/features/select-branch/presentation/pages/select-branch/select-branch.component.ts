@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {Branch} from "../../../../../common/data-classes/ConfigModel";
-import {SELECTED_BRANCH} from "../../../../../common/utils/constants";
+import {EXPIRE_BRANCH, EXPIRE_BRANCH_TIME, SELECTED_BRANCH} from "../../../../../common/utils/constants";
 import {Router} from "@angular/router";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
@@ -65,6 +65,7 @@ export class SelectBranchComponent implements OnInit {
     })
     if (this.selectedBranch !== null) {
       localStorage.setItem(SELECTED_BRANCH, JSON.stringify(this.selectedBranch))
+      localStorage.setItem(EXPIRE_BRANCH, (new Date().getTime() + EXPIRE_BRANCH_TIME * 60 * 1000).toString())
       this.cartService.clearCart()
       this.router.navigate(['/']).then()
     }
