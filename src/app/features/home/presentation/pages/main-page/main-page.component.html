@@ -42,15 +42,15 @@
   <app-list-scroll-horizontal
     *ngIf="popularProducts !== null && popularProducts!.products!.isNotEmpty()"
     [items]="popularProducts"
-    [title]="'Most Trendy'"
-    direction="left">
+    [title]="'MOST_TRENDY' | translate"
+    [direction]="translateService.currentLang === 'en' ? 'left' : 'right' ">
   </app-list-scroll-horizontal>
 
   <app-list-scroll-horizontal
     *ngIf="latestProducts !== null && latestProducts!.products!.isNotEmpty()"
     [items]="latestProducts"
-    [title]="'New Arrival'"
-    direction="right">
+    [title]="'NEW_ARRIVALS' | translate"
+    [direction]="translateService.currentLang === 'en' ? 'right': 'left'">
   </app-list-scroll-horizontal>
 
   <app-scroll-up-btn></app-scroll-up-btn>

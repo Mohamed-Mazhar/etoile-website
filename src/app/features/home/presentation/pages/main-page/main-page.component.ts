@@ -7,6 +7,7 @@ import {Product, ProductModel} from "../../../../../common/data-classes/ProductM
 import {ProductsService} from "../../../../../common/services/products.service";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-main-page',
@@ -30,6 +31,7 @@ export class MainPageComponent implements OnInit {
     private configModelService: ConfigModelService,
     private bannersApi: BannersApi,
     private productsService: ProductsService,
+    public translateService: TranslateService,
   ) {
   }
 

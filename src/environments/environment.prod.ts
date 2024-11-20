@@ -4,5 +4,5 @@ export const environment = {
   apiUrl: 'https://test.etoilecafe.com',
   adjustToken: '9df5d2z4zthc',
   myFatoorahApi: 'https://apitest.myfatoorah.com',
-  myFatoorahCallbackUrl: 'https://test.etoileeg.com'
+  myFatoorahCallbackUrl: 'https://etoileksa.com'
 };

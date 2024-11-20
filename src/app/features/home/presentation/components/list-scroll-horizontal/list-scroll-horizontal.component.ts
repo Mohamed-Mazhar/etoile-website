@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {ProductModel} from "../../../../../common/data-classes/ProductModel";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-list-scroll-horizontal',
@@ -16,7 +17,9 @@ export class ListScrollHorizontalComponent implements OnInit {
   @Input() direction: 'left' | 'right' | undefined;
   private scrollInterval: any;
 
-  constructor() {
+  constructor(
+    public translateService: TranslateService
+  ) {
   }
 
   //
@@ -38,6 +41,7 @@ export class ListScrollHorizontalComponent implements OnInit {
       return
     }
     const scrollStep = this.direction === 'right' ? 1 : -1;
+
 
     this.scrollInterval = setInterval(() => {
       const previousPosition = this.container.nativeElement.scrollLeft;

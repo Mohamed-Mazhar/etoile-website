@@ -107,8 +107,12 @@ export class CheckOutComponent implements OnInit {
 
   applyCoupon(couponModel: CouponModel | null) {
     this.couponModel = couponModel
-    if (couponModel != null) {
-
+    if (this.couponModel) {
+      if (this.couponModel.discountType === 'percent') {
+        this.totalPrice = this.totalPrice - (this.totalPrice * this.couponModel.discount!)
+      } else {
+        this.totalPrice -= this.couponModel.discount!
+      }
     }
   }
 
@@ -231,22 +235,19 @@ export class CheckOutComponent implements OnInit {
   }
 
   private startMyFatoorah() {
-    if (this.myFatoorahPaymentMethods.isEmpty()) {
-      this.placingOrder = true
-      this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
-        next: (payments) => {
-          this.placingOrder = false
-          this.myFatoorahPaymentMethods = payments
-          this.openMyFatoorahElem.nativeElement.click()
-        },
-        error: (err) => {
-          this.placingOrder = false
-          console.log("Error received ", err)
-        }
-      })
-    } else {
-      this.openMyFatoorahElem.nativeElement.click()
-    }
+    this.placingOrder = true
+    this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
+      next: (payments) => {
+        this.placingOrder = false
+        this.myFatoorahPaymentMethods = payments
+        this.openMyFatoorahElem.nativeElement.click()
+      },
+      error: (err) => {
+        this.placingOrder = false
+        console.log("Error received ", err)
+      }
+    })
+
   }
 
   executeMyFatoorahTransaction(paymentMethodId: number) {
