@@ -203,7 +203,7 @@ export class CheckOutComponent implements OnInit {
     let parameters = new Map<string, any>()
     parameters.set('sum', placeOrder.orderAmount)
     parameters.set('value', placeOrder.orderAmount)
-    parameters.set('currency', 'EGP')
+    parameters.set('currency', this.configModel?.currencySymbol)
     parameters.set('transaction_id', this.orderId)
     parameters.set('store_name', this.selectedBranch?.name)
     parameters.set('payment_type', placeOrder.paymentMethod)

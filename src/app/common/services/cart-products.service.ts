@@ -10,6 +10,8 @@ import {AnalyticsService} from "../../features/analytics/data/services/analytics
 import {AnalyticsEvent} from "../../features/analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../utils/ProductPriceUtil";
 import {AdjustEvent} from "../../features/analytics/data/models/AdjustEvent";
+import {ConfigModel} from "../data-classes/ConfigModel";
+import {ConfigModelService} from "./config-model.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +22,11 @@ export class CartProductsService {
   public cartProductToRemove = new BehaviorSubject<CartProductItem | null>(null)
   public cartProductsSubject = new BehaviorSubject<CartProductItem[]>(this.cartProducts)
   public productToEditSubject = new BehaviorSubject<Product | null>(null)
-
+  configModel: ConfigModel | null = null
   constructor(
     private toastService: ToastService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private configModelService: ConfigModelService
   ) {
     let existingCart = localStorage.getItem(CART)
     if (existingCart !== null) {
@@ -48,6 +51,11 @@ export class CartProductsService {
       this.addNewProduct(cartProduct)
     }
     this.toastService.showToast('normal', 'Product Added')
+    this.configModelService.configModelSubject.subscribe({
+      next:(configModel) => {
+        this.configModel = configModel
+      }
+    })
   }
 
   private addNewProduct(cartProduct: CartProductItem) {
@@ -116,7 +124,7 @@ export class CartProductsService {
         ['quantity', cartProduct.count],
         ['price', cartProduct.product.price],
         ['value', ProductPriceUtil.calculatePrice(cartProduct)],
-        ['currency', 'EGP'],
+        ['currency', this.configModel?.currencySymbol],
         ['type', 'product'],
         ['modificator_ids', cartProduct.variations.map((variation) => variation.values)],
       ])

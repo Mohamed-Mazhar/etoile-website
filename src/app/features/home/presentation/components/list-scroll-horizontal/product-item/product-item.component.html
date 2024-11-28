@@ -7,7 +7,7 @@
           <p>{{ product.branchProduct?.discount }} <br/>{{ 'DISCOUNT' | translate }}</p>
         </div>
         <div *ngIf="!isPercentage()">
-          <p>{{ product.branchProduct?.discount }} <br/>{{ 'CURRENCY' | translate }}</p>
+          <p>{{ product.branchProduct?.discount }} <br/>{{ configModel?.currencySymbol }}</p>
         </div>
       </div>
       <div class="not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
@@ -16,7 +16,7 @@
       <img alt="" class="img" loading="lazy" [src]=getImage(product.image!)>
     </div>
     <p class="title">{{ product.name }}</p>
-    <p class="subtitle">{{ product.price }} {{ 'CURRENCY' | translate }}</p>
+    <p class="subtitle">{{ product.price }} {{ configModel?.currencySymbol }}</p>
     <primary-button
       class="mt-2"
       [enabled]="product.branchProduct?.isAvailable ?? true"

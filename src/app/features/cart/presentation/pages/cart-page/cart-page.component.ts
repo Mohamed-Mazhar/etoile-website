@@ -5,6 +5,8 @@ import {Router} from "@angular/router";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ProductsApi} from "../../../../../common/apis/products-api";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 @Component({
   selector: 'app-cart-page',
@@ -19,11 +21,12 @@ export class CartPageComponent implements OnInit {
   errorMessage = ""
   unAvailableProductsIds: number[] = []
   loading = false
-
+  configModel: ConfigModel | null = null
   constructor(
     private cartProductService: CartProductsService,
     private router: Router,
-    private productsApi: ProductsApi
+    private productsApi: ProductsApi,
+    private configModelService: ConfigModelService
   ) {
   }
 
@@ -37,6 +40,11 @@ export class CartPageComponent implements OnInit {
           let count = cartProduct.count
           this.price += price * count
         }
+      }
+    })
+    this.configModelService.configModelSubject.subscribe({
+      next: (configModel) => {
+        this.configModel = configModel
       }
     })
   }

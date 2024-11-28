@@ -9,7 +9,7 @@
         <div class="horizontal-separator"></div>
         <div class="order-item-container">
           <p>{{ 'TOTAL' | translate }}</p>
-          <p>{{ (order.orderAmount ?? 0)  }} {{ 'CURRENCY' | translate }}</p>
+          <p>{{ (order.orderAmount ?? 0)  }} {{ configModel?.currencySymbol }}</p>
         </div>
         <div class="horizontal-separator"></div>
         <div class="order-item-container">

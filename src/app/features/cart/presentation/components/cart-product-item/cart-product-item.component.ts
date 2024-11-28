@@ -17,7 +17,7 @@ export class CartProductItemComponent implements OnInit {
 
   constructor(
     private configService: ConfigModelService,
-    private cartProductsService: CartProductsService
+    private cartProductsService: CartProductsService,
   ) {
   }
 

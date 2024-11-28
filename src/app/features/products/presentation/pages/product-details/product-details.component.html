@@ -7,7 +7,7 @@
     <div class="product-name"><p>{{ product.name }}</p></div>
     <p>{{ 'PRODUCT_CODE' | translate : {productId: product.branchProduct?.id} }}</p>
     <div class="product-price">
-      <p>{{ (product.price ?? 0) }} {{ 'CURRENCY' | translate }}</p>
+      <p>{{ (product.price ?? 0) }} {{ configModel?.currencySymbol }}</p>
     </div>
     <p>{{ 'PRODUCTS_PRICE_VAT' | translate }}</p>
     <div class="product-review-container">

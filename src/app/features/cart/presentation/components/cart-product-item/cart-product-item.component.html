@@ -2,7 +2,7 @@
   <div class="product-title"><h4>{{ cartProduct.product.name }}</h4></div>
   <div class="price-container">
     <p>Price:</p>
-    <p>{{ cartProduct.product.price! }} {{ 'CURRENCY' | translate }}</p>
+    <p>{{ cartProduct.product.price! }} {{ configModel?.currencySymbol }}</p>
   </div>
   <div class="cart-item-container">
     <img [src]="getImage()"/>

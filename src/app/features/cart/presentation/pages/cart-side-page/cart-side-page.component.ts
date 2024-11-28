@@ -8,6 +8,8 @@ import {AnalyticsService} from "../../../../analytics/data/services/analytics-se
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 import {ProductsApi} from "../../../../../common/apis/products-api";
+import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 @Component({
   selector: 'cart-side-page',
@@ -23,16 +25,23 @@ export class CartSidePageComponent implements OnInit {
   errorMessage = ""
   unAvailableProductsIds: number[] = []
   loading = false
+  configModel: ConfigModel | null = null
 
   constructor(
     private cartService: CartProductsService,
     private router: Router,
     private analyticsService: AnalyticsService,
-    private productsApi: ProductsApi
+    private productsApi: ProductsApi,
+    private configModelService: ConfigModelService
   ) {
   }
 
   ngOnInit(): void {
+    this.configModelService.configModelSubject.subscribe({
+      next: (configModel) => {
+        this.configModel = configModel
+      }
+    })
     this.cartService.cartProductsSubject.subscribe({
       next: (products) => {
         this.totalPrice = 0
@@ -78,7 +87,7 @@ export class CartSidePageComponent implements OnInit {
         parameters: new Map<string, any>(
           [
             ['value', this.totalPrice],
-            ['currency', 'EGP']
+            ['currency', this.configModel?.currencySymbol]
           ]
         )
       })

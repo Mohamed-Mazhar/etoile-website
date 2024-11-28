@@ -127,7 +127,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     if (this.couponModel?.discountType === "percent") {
       return `-${this.couponModel.discount} %`
     } else {
-      return `-${this.couponModel?.discount} ${this.translateService.instant('CURRENCY')}`
+      return `-${this.couponModel?.discount} ${this.configModel?.currencySymbol}`
     }
   }
 

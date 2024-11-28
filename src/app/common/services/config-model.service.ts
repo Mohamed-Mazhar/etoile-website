@@ -10,6 +10,7 @@ export class ConfigModelService {
 
   public configModelSubject = new BehaviorSubject<ConfigModel | null>(null)
   public categoriesSubject = new BehaviorSubject<Category[]>([])
+
   constructor() { }
 
   setConfigModel(configModel: ConfigModel) {
@@ -20,3 +21,4 @@ export class ConfigModelService {
     this.categoriesSubject.next(categories)
   }
 }
+

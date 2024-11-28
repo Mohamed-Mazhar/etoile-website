@@ -5,7 +5,7 @@
       <p>{{ cartProduct?.product?.name }}</p>
       <div class="price-container">
         <p>{{ 'PRICE' | translate }}:</p>
-        <p>{{ getPrice() }} {{ 'CURRENCY' | translate }}</p>
+        <p>{{ getPrice() }} {{ configModel?.currencySymbol }}</p>
       </div>
     </div>
     <p>{{'QUANTITY' | translate}}</p>
