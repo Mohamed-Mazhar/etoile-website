@@ -2,12 +2,11 @@
   <app-loading [loadingData]="loading"></app-loading>
   <div class="list-page-content">
     <app-products-filter
-      *ngIf="productsMaxPrice !== null"
       [categories]="categories"
       (onClearClicked)="clearFilters()"
       (onchange)="applyFilter($event)"
       (onApplyButtonClicked)="applyButtonFilters($event)"
-      [maxPrice]="productsMaxPrice">
+      [maxPrice]="productsMaxPrice ?? 0">
     </app-products-filter>
     <div class="products-container">
       <div class="products-details-container">

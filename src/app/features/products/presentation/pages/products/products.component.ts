@@ -38,16 +38,25 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.charactersToSearch = this.route.snapshot.queryParamMap.get('name') ?? ""
-    this.category = this.route.snapshot.params['category'];
-    let categoryId = this.route.snapshot.queryParamMap.get('categoryId')
-    this.loading = true
-    if (this.charactersToSearch.hasActualValue()) {
-      this.loadProducts(false, {name: this.charactersToSearch})
-    } else if (categoryId?.hasActualValue()) {
-      this.loadProducts(false, {category_id: [categoryId]})
-    } else {
-      this.loadProducts(false, null)
-    }
+    this.route.params.subscribe({
+      next: (params) => {
+        this.category = params['category']
+      }
+    })
+    this.route.queryParams.subscribe({
+      next: (queryParams) => {
+        let categoryId = queryParams['categoryId']
+        this.loading = true
+        if (this.charactersToSearch.hasActualValue()) {
+          this.loadProducts(false, {name: this.charactersToSearch})
+        } else if (categoryId?.hasActualValue()) {
+          this.loadProducts(false, {category_id: [categoryId]})
+        } else {
+          this.loadProducts(false, null)
+        }
+      }
+    })
+
     this.configModelService.categoriesSubject.subscribe({
       next: (categories) => {
         this.categories = categories

@@ -30,7 +30,11 @@ export class CategoriesComponent implements OnInit {
         ['category_name', category.name]
       ])
     })
-    this.router.navigate(['/products', category.name]).then()
+    this.router.navigate(['/products', category.name], {
+      queryParams: {
+        categoryId: category.id
+      }
+    }).then()
   }
 
   loadSubCategory(category: Category, subCategory: Category) {
