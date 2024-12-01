@@ -9,7 +9,7 @@ import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 })
 export class DessertsComponent implements OnInit {
 
-  @Input() products: Product[][] = []
+
   @Input() titleSection: string = ''
   @Input() imageSection: string = ''
   @Input() direction: string = 'left'

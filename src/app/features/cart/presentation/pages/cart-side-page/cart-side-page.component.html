@@ -25,7 +25,7 @@
   <div class="action-buttons" *ngIf="cartProducts.isNotEmpty()">
     <div class="price-container">
       <p>{{ 'SUBTOTAL' | translate }}</p>
-      <p>{{ totalPrice }} {{  }}</p>
+      <p>{{ totalPrice }} {{ configModel?.currencySymbol }}</p>
     </div>
     <primary-button
       [title]="'VIEW_CART' | translate"

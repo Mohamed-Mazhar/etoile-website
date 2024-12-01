@@ -9,14 +9,11 @@
     <div [class.isLeft]="isLeft()" class="container-item">
       <button (click)="scrollLeft()" [ngClass]="{'disabled': atStart}" class="arrow">&#9664;</button>
       <div #scrollList (scroll)="checkScrollPosition()" class="scroll-list">
-        <div *ngIf="productModel !== null" class="d-flex">
-          <div *ngFor="let product of productModel?.products" class="item">
-            <app-product-item
-              [product]="product"
-              class="item">
-            </app-product-item>
-          </div>
-        </div>
+        <app-product-item
+          *ngFor="let product of productModel?.products"
+          [product]="product"
+          class="item">
+        </app-product-item>
       </div>
       <button (click)="scrollRight()" [ngClass]="{'disabled': atEnd}" class="arrow">&#9654;</button>
     </div>

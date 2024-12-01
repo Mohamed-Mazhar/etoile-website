@@ -1,6 +1,5 @@
 <div class="container-item">
   <div class="item">
-
     <div class="image-container clickable" (click)="goToDetails()">
       <div class="discount-container" *ngIf="hasDiscount()">
         <div *ngIf="isPercentage()">
@@ -13,7 +12,7 @@
       <div class="not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
         <p>{{ 'NOT_AVAILABLE' | translate }}</p>
       </div>
-      <img alt="" class="img" loading="lazy" [src]=getImage(product.image!)>
+      <img alt="" class="product-image" loading="lazy" [src]=getImage(product.image!)>
     </div>
     <p class="title">{{ product.name }}</p>
     <p class="subtitle">{{ product.price }} {{ configModel?.currencySymbol }}</p>

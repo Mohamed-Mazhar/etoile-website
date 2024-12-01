@@ -13,12 +13,11 @@
   </div>
 
   <desserts
-    *ngIf="showRecommended()"
     class="mb-4"
+    *ngIf="showRecommended()"
     [direction]="'left'"
     [productModel]="recommendedProducts"
     [imageSection]="'assets/images/home-asset/bg-section1.png'"
-    [products]="chunkedRecommendedProducts"
     [titleSection]="'OUR ESPEICAL GATEAUX'">
   </desserts>
 
@@ -26,7 +25,6 @@
     *ngIf="bestSellerProducts !== null && bestSellerProducts.products!.isNotEmpty()"
     [direction]="'right'"
     [imageSection]="'assets/images/home-asset/bg-section2.png'"
-    [products]="chunkedBestSellerProducts"
     [productModel]="bestSellerProducts"
     [titleSection]="'Best Seller'">
   </desserts>

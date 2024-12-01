@@ -17,6 +17,14 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
+
+    p {
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      white-space: nowrap;
+      width: 10rem;
+    }
   }
 
   .subtitle {
@@ -52,7 +60,7 @@
   box-shadow: 0 2px 5px 1px rgb(107 107 107/50%);
   overflow: hidden;
 
-  .img {
+  .product-image {
     width: 80%;
     aspect-ratio: 1 / 1;
   }
