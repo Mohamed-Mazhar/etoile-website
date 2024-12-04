@@ -19,7 +19,11 @@
         <h4>{{ 'ORDER_SUMMARY' | translate }}</h4>
         <div class="d-flex justify-content-between mt-4">
           <p>{{ 'ITEM_PRICES' | translate }}</p>
-          <p>{{ price }} {{ configModel?.currencySymbol }}</p>
+          <p>{{ priceWithOutTax }} {{ configModel?.currencySymbol }}</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <p>{{ 'VAT' | translate }}</p>
+          <p>{{ totalTax.toFixed(2) }} {{ configModel?.currencySymbol }}</p>
         </div>
         <div class="horizontal-separator"></div>
         <div class="d-flex justify-content-between mt-2 fw-bold mb-4">
@@ -49,7 +53,7 @@
     </div>
   </div>
   <div class="empty-cart" *ngIf="cartItems.isEmpty()">
-    <img src="https://etoileeg.online/public/Content/images/basket.png" loading="lazy">
+    <img src="assets/images/basket.png" loading="lazy">
     <p class="mb-3">{{ 'EMPTY_CART' | translate }}</p>
     <primary-button class="button-width" [title]="'CONTINUE_SHOPPING' | translate"
                     (onClick)="continue()"></primary-button>

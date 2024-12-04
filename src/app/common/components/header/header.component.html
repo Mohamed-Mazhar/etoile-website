@@ -8,7 +8,7 @@
         </button>
       </nav>
       <div (click)="goToHome()" class="logo-centered clickable">
-        <img loading="lazy" src="https://www.etoileeg.online/Upload?id=73012" class="img-fluid">
+        <img loading="lazy" src="assets/images/logo.png" class="img-fluid">
       </div>
       <user-info *ngIf="isMobileView" [isMobileView]="isMobileView"></user-info>
       <search-bar class="search-bar" *ngIf="!isMobileView"></search-bar>
@@ -17,11 +17,11 @@
       <search-bar class="search-bar"></search-bar>
       <div>
         <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
-          <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
+          <img loading="lazy" src="assets/images/saudi-arabia-flag.png">
           <p>العربيه</p>
         </div>
         <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
-          <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
+          <img loading="lazy" src="assets/images/usa-flag.png">
           <p>English</p>
         </div>
       </div>

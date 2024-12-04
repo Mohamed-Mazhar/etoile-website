@@ -122,7 +122,7 @@ export class CartProductsService {
         ['item_id', cartProduct.product.id],
         ['item_name', cartProduct.product.name],
         ['quantity', cartProduct.count],
-        ['price', cartProduct.product.price],
+        ['price', cartProduct.product.priceIncludingTax],
         ['value', ProductPriceUtil.calculatePrice(cartProduct)],
         ['currency', this.configModel?.currencySymbol],
         ['type', 'product'],

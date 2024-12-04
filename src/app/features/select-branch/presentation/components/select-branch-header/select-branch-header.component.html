@@ -1,14 +1,14 @@
 <div class="select-branch-container">
   <div class="language-container" (click)="changeLanguage('ar')" *ngIf="currentLanguage === 'en'">
     <p>العربيه</p>
-    <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/egypt.png">
+    <img loading="lazy" src="assets/images/saudi-arabia-flag.png">
   </div>
   <div class="language-container" (click)="changeLanguage('en')" *ngIf="currentLanguage === 'ar'">
     <p>English</p>
-    <img loading="lazy" src="https://www.etoileeg.online/public/Content/images/usa.png">
+    <img loading="lazy" src="assets/images/usa-flag.png">
   </div>
   <div class="logo">
-    <img loading="lazy" src="https://www.etoileeg.online/Upload?id=73012" class="img-fluid">
+    <img loading="lazy" src="assets/images/logo.png" class="img-fluid">
   </div>
   <div class="user-action-container" *ngIf="userInfo === null">
     <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#loginView"
