@@ -62,7 +62,6 @@ export class CheckOutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.loading = true
     this.addressApi.getAddresses().subscribe({
       next: (addresses) => {
@@ -109,9 +108,16 @@ export class CheckOutComponent implements OnInit {
     this.couponModel = couponModel
     if (this.couponModel) {
       if (this.couponModel.discountType === 'percent') {
-        this.totalPrice = this.totalPrice - (this.totalPrice * this.couponModel.discount!)
+        let discount = this.couponModel.discount! / 100
+        this.totalPrice = this.totalPrice - (this.totalPrice * discount)
       } else {
         this.totalPrice -= this.couponModel.discount!
+      }
+    } else {
+      this.totalPrice = 0
+      for (let cartProduct of this.cartProductItems) {
+        let price = ProductPriceUtil.calculatePrice(cartProduct)
+        this.totalPrice += (cartProduct.count * price)
       }
     }
   }
@@ -236,6 +242,7 @@ export class CheckOutComponent implements OnInit {
 
   private startMyFatoorah() {
     this.placingOrder = true
+    console.log("Starting my fatoorah ", this.totalPrice)
     this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
       next: (payments) => {
         this.placingOrder = false

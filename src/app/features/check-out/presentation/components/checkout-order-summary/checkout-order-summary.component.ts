@@ -71,7 +71,8 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     this.calculateTotalPrice()
     if (this.couponModel) {
       if (this.couponModel.discountType === 'percent') {
-        this.totalPrice = this.totalPrice - (this.totalPrice * this.couponModel.discount!)
+        let discount = this.couponModel.discount! / 100
+        this.totalPrice = this.totalPrice - (this.totalPrice * discount)
       } else {
         this.totalPrice -= this.couponModel.discount!
       }

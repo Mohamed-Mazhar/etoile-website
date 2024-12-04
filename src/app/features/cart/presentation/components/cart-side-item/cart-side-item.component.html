@@ -16,7 +16,7 @@
       </div>
       <div class="price-container">
         <p>{{ 'PRICE' | translate }}:</p>
-        <p>{{ getPrice() }} {{ configModel?.currencySymbol }}</p>
+        <p>{{ getPrice().toFixed(2) }} {{ configModel?.currencySymbol }}</p>
       </div>
     </div>
     <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"

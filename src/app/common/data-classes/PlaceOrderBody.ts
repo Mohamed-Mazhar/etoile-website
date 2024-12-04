@@ -1,4 +1,5 @@
 import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
+import {ProductPriceUtil} from "../utils/ProductPriceUtil";
 
 export class PlaceOrderBody {
   cart: CartProductItem[] | null;
@@ -117,7 +118,7 @@ export class PlaceOrderBody {
           price: cartItem.product.price?.toString(),
           discount_amount: 0,
           quantity: cartItem.count,
-          tax_amount: 0,
+          tax_amount: ProductPriceUtil.calculateTax(cartItem),
           variant: [],
           variations: cartItem.variations.isNotEmpty() ?
             cartItem.variations.map((variation) => {
