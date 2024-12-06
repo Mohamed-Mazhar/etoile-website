@@ -145,7 +145,6 @@ export class CheckOutComponent implements OnInit {
     if (paymentMethod.getWay === 'selfPickup') {
       this.callPlaceOrder()
     } else if (paymentMethod.getWay === 'my_fatoorah') {
-      console.log("Selected payment my_fattorah")
       this.startMyFatoorah()
     } else {
       this.makeOnlinePayment()
@@ -242,7 +241,6 @@ export class CheckOutComponent implements OnInit {
 
   private startMyFatoorah() {
     this.placingOrder = true
-    console.log("Starting my fatoorah ", this.totalPrice)
     this.myFatoorahApi.getPaymentGateWays(this.totalPrice).subscribe({
       next: (payments) => {
         this.placingOrder = false
@@ -275,7 +273,13 @@ export class CheckOutComponent implements OnInit {
         this.loading = false
         this.placeOrderBody = JSON.parse(localStorage.getItem(ORDER_BODY)!)
         if (paymentResponse.Data.InvoiceStatus === "Paid") {
-          this.placeOrderBody = Object.assign(new PlaceOrderBody(), this.placeOrderBody, {transactionReference: paymentResponse.Data.InvoiceId})
+          this.placeOrderBody = Object.assign(
+            new PlaceOrderBody(),
+            this.placeOrderBody,
+            {
+              transactionReference: paymentResponse.Data.InvoiceId,
+              paymentMethod: this.translateService.instant('MY_FATOORAH'),
+            })
           this.callPlaceOrder()
         } else {
           this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')

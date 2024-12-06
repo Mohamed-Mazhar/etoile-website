@@ -144,8 +144,7 @@ export class PlaceOrderBody {
     jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
     jsonBody['order_amount'] = this.orderAmount
     jsonBody['order_type'] = this.orderType
-    // jsonBody['payment_method'] = this.paymentMethod
-    jsonBody['payment_method'] = "cash_on_delivery"
+    jsonBody['payment_method'] = this.paymentMethod
     jsonBody['order_note'] = this.orderNote ?? ''
     jsonBody['coupon_code'] = this.couponCode ?? ''
     jsonBody['delivery_time'] = this.deliveryTime

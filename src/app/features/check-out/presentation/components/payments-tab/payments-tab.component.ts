@@ -31,7 +31,7 @@ export class PaymentsTabComponent implements OnInit {
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
         this.activePaymentMethods.push(new PaymentMethod(
-          'my_fatoorah', 'My Fatoorah', ''
+          'my_fatoorah', this.translateService.instant('MY_FATOORAH'), ''
         ))
       }
     })
