@@ -186,7 +186,7 @@ export class BaseApiService {
     headers = new HttpHeaders({
       Authorization: `Bearer ${apiToken}`,
     });
-    let url: string = `${environment.myFatoorahApi}/${parameters.apiType}`
+    let url: string = `${environment.apiUrl}/${parameters.apiType}`
     let response: Observable<HttpResponse<RESPONSE>>
     response = this.httpClient.post<RESPONSE>(url!, parameters.body, {
       observe: "response",

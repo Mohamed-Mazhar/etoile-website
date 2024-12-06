@@ -27,7 +27,7 @@ export enum ApiType {
   applyCoupon = "api/v1/coupon/apply?code={}",
   forgetPassword = "api/v1/auth/forgot-password",
 
-  initiatePayment = "v2/InitiatePayment",
-  executePayment = "v2/ExecutePayment",
-  getPaymentStatus = "v2/GetPaymentStatus"
+  initiatePayment = "api/v1/myfatoorah/InitiatePayment",
+  executePayment = "api/v1/myfatoorah/ExecutePayment",
+  getPaymentStatus = "api/v1/myfatoorah/GetPaymentStatus"
 }

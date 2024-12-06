@@ -5,6 +5,7 @@ import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {Product, ProductModel} from "../data-classes/ProductModel";
 import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
+import {ProductPriceUtil} from "../utils/ProductPriceUtil";
 
 @Injectable({providedIn: 'root'})
 export class ProductsApi {
@@ -123,7 +124,7 @@ export class ProductsApi {
         price: cartItem.product.price?.toString(),
         discount_amount: 0,
         quantity: cartItem.count,
-        tax_amount: 0,
+        tax_amount: ProductPriceUtil.calculateTax(cartItem),
         variant: [],
         variations: cartItem.variations.isNotEmpty() ?
           cartItem.variations.map((variation) => {
