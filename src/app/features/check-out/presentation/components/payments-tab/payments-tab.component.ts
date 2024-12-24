@@ -43,7 +43,7 @@ export class PaymentsTabComponent implements OnInit {
 
   get defaultPayment() {
     return new PaymentMethod(
-      'selfPickup',
+      'cash_on_delivery',
       'Take away',
       '',
       '',

@@ -45,6 +45,7 @@ export class CheckOutComponent implements OnInit {
   configModel: ConfigModel | null = null
   myFatoorahPaymentMethods: MyFatoorahPaymentMethod[] = []
   placeOrderBody: PlaceOrderBody | null = null
+  discountAmountFromCoupon: number = 0
 
   constructor(
     private addressApi: AddressApi,
@@ -109,12 +110,15 @@ export class CheckOutComponent implements OnInit {
     if (this.couponModel) {
       if (this.couponModel.discountType === 'percent') {
         let discount = this.couponModel.discount! / 100
+        this.discountAmountFromCoupon = this.totalPrice * discount
         this.totalPrice = this.totalPrice - (this.totalPrice * discount)
       } else {
+        this.discountAmountFromCoupon = couponModel?.discount ?? 0
         this.totalPrice -= this.couponModel.discount!
       }
     } else {
       this.totalPrice = 0
+      this.discountAmountFromCoupon = 0
       for (let cartProduct of this.cartProductItems) {
         let price = ProductPriceUtil.calculatePrice(cartProduct)
         this.totalPrice += (cartProduct.count * price)
@@ -125,7 +129,7 @@ export class CheckOutComponent implements OnInit {
   placeOrder(paymentMethod: PaymentMethod) {
     this.placeOrderBody = new PlaceOrderBody(
       this.cartProductItems,
-      this.couponModel !== null ? (this.couponModel?.discount ?? 0) : 0,
+      this.couponModel !== null ? this.discountAmountFromCoupon : 0,
       this.couponModel?.title ?? '',
       this.couponModel?.code ?? '',
       this.totalPrice,
