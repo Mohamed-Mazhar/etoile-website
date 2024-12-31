@@ -251,16 +251,22 @@ export class Variation {
 export class VariationValue {
   optionLabel?: string
   optionPrice?: number
+  isDefault?: boolean
+  isAvailable?: boolean
 
   constructor(data: Partial<VariationValue> = {}) {
     this.optionLabel = data.optionLabel
     this.optionPrice = data.optionPrice
+    this.isAvailable = data.isDefault
+    this.isDefault = data.isDefault
   }
 
   static fromJson(json: any): VariationValue {
     const variationValue = new VariationValue()
     variationValue.optionLabel = json.label
     variationValue.optionPrice = parseFloat(json.optionPrice?.toString())
+    variationValue.isDefault = json.is_default
+    variationValue.isAvailable = json.is_available
     return variationValue
   }
 
@@ -279,7 +285,7 @@ export class BranchProduct {
   branchId?: number
   price?: number
   isAvailable?: boolean
-  // variations?: Variation[]
+  variations?: Variation[]
   discount?: number
   discountType?: string
   stock?: number
@@ -292,7 +298,7 @@ export class BranchProduct {
     this.branchId = data?.branchId
     this.price = data?.price
     this.isAvailable = data?.isAvailable
-    // this.variations = data?.variations
+    this.variations = data?.variations
     this.discount = data?.discount
     this.discountType = data?.discountType
     this.stock = data?.stock
@@ -307,12 +313,12 @@ export class BranchProduct {
       branchId: json['branch_id'],
       price: parseFloat(json['price']),
       isAvailable: json['is_available'] === 1 || json['is_available'] === true,
-      // variations: json['variations']?.map((v: any) => {
-      //   if (!v.hasOwnProperty('price')) {
-      //     return Variation.fromJson(v) // Assuming Variation has a similar fromJson method
-      //   }
-      //   return null
-      // }).filter((v: any) => v !== null), // Filter out null values if variations don't have price
+      variations: json['variations']?.map((v: any) => {
+        if (!v.hasOwnProperty('price')) {
+          return Variation.fromJson(v) // Assuming Variation has a similar fromJson method
+        }
+        return null
+      }).filter((v: any) => v !== null), // Filter out null values if variations don't have price
       discount: parseFloat(json['discount']),
       discountType: json['discount_type'],
       stock: json['stock'],
@@ -328,7 +334,7 @@ export class BranchProduct {
       branch_id: this.branchId,
       price: this.price,
       is_available: this.isAvailable,
-      // variations: this.variations?.map(v => v.toJson()), // Assuming Variation has a toJson method
+      variations: this.variations?.map(v => v.toJson()), // Assuming Variation has a toJson method
       discount: this.discount,
       discount_type: this.discountType,
       stock: this.stock,

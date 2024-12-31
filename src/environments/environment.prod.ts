@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   // apiUrl: 'https://etoilecafe.com',
   // apiUrl: 'https://test.etoilecafe.com',
-  apiUrl: 'https://backend112024.etoileksa.com',
+  apiUrl: 'https://backend1224.etoileeg.shop',
   adjustToken: '9df5d2z4zthc',
   myFatoorahApi: 'https://api-sa.myfatoorah.com',
   myFatoorahCallbackUrl: 'https://etoileksa.com',

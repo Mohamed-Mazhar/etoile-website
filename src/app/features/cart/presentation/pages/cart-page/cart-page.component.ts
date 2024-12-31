@@ -17,7 +17,7 @@ export class CartPageComponent implements OnInit {
 
   @ViewChild('login') loginElem!: ElementRef
   cartItems: CartProductItem[] = []
-  price = 0
+  totalPrice = 0
   priceWithOutTax = 0
   totalTax = 0
   errorMessage = ""
@@ -35,7 +35,7 @@ export class CartPageComponent implements OnInit {
   ngOnInit(): void {
     this.cartProductService.cartProductsSubject.subscribe({
       next: (products) => {
-        this.price = 0
+        this.totalPrice = 0
         this.priceWithOutTax = 0
         this.totalTax = 0
         this.cartItems = products
@@ -43,7 +43,7 @@ export class CartPageComponent implements OnInit {
           let price = ProductPriceUtil.calculatePrice(cartProduct)
           let priceWithoutTax = ProductPriceUtil.calculatePriceWithoutTax(cartProduct)
           let count = cartProduct.count
-          this.price += price * count
+          this.totalPrice += price * count
           this.priceWithOutTax += priceWithoutTax * count
           this.totalTax += ProductPriceUtil.calculateTax(cartProduct)
         }

@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../../../../common/data-classes/ProductModel";
+import {Product, VariationValue} from "../../../../../common/data-classes/ProductModel";
 import {ActivatedRoute} from "@angular/router";
 import {ProductsApi} from "../../../../../common/apis/products-api";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {TranslateService} from "@ngx-translate/core";
+import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
+import {CartProductVariations} from "../../../../cart/data/model/CartProductItem";
 
 @Component({
   selector: 'app-product-details',
@@ -20,6 +22,8 @@ export class ProductDetailsComponent implements OnInit {
   productCount = 1
   configModel: ConfigModel | null = null
   selectedSize = "Select Size"
+  indexOfVariationSize = -1
+  productPrice = 0
 
   constructor(
     private route: ActivatedRoute,
@@ -38,10 +42,12 @@ export class ProductDetailsComponent implements OnInit {
       next: (product) => {
         this.loading = false
         this.product = product
+        this.productPrice = ProductPriceUtil.getProductPrice(product)
         this.productRating = product.rating?.reduce((pre, current) => {
             return pre + current.average!
           }, 0
         )! / product.rating?.length!
+        this.setDefaultSelectedSize()
       },
       error: (err) => {
         this.loading = false
@@ -66,11 +72,27 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
+    let variations: CartProductVariations[] = []
+    if (this.showSizeVariant()) {
+      let size = this.product?.branchProduct?.variations![this.indexOfVariationSize]!
+      variations.push({
+        name: size.name!,
+        values: [
+          new VariationValue({
+            optionLabel: this.selectedSize,
+            optionPrice: this.productPrice,
+            isAvailable: true,
+            isDefault: false
+          })
+        ]
+      })
+    }
+    console.log("Adding to cart with variation ", variations)
     this.cartService.addProduct({
       product: this.product!,
       count: this.productCount,
       productAddOns: [],
-      variations: []
+      variations: variations
     })
   }
 
@@ -90,4 +112,32 @@ export class ProductDetailsComponent implements OnInit {
     return this.product?.branchProduct?.isAvailable === true ?
       this.translateService.instant('ADD_TO_CART') : this.translateService.instant('NOT_AVAILABLE')
   }
+
+  private setDefaultSelectedSize() {
+    if (this.showSizeVariant()) {
+      let indexOfVariationSize = this.product!.branchProduct?.variations?.findIndex((variation) => {
+        return variation.name?.toLowerCase() === "size"
+      })
+      if (indexOfVariationSize !== undefined && indexOfVariationSize !== -1) {
+        let indexOfDefault = this.product!.branchProduct?.variations![indexOfVariationSize].variationValues?.findIndex((varValue) => {
+          return varValue.isDefault
+        })
+        this.selectedSize = this.product!.branchProduct?.variations![indexOfVariationSize]!.variationValues![indexOfDefault!].optionLabel!
+      }
+    }
+  }
+
+  setProductVariation(variationValue: VariationValue) {
+    this.selectedSize = variationValue.optionLabel!
+    this.productPrice = variationValue.optionPrice!
+  }
+
+  showSizeVariant() {
+    this.indexOfVariationSize = this.product?.branchProduct?.variations?.findIndex((variation) => {
+      return variation.name?.toLowerCase() === "size"
+    }) ?? -1
+    return this.indexOfVariationSize !== -1
+  }
+
+  protected readonly ProductPriceUtil = ProductPriceUtil;
 }

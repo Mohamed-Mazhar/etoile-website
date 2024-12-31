@@ -6,6 +6,7 @@ import {ConfigModelService} from "../../../../../../common/services/config-model
 import {ConfigModel} from "../../../../../../common/data-classes/ConfigModel";
 import {AdjustEvent} from "../../../../../analytics/data/models/AdjustEvent";
 import {AnalyticsService} from "../../../../../analytics/data/services/analytics-service";
+import {ProductPriceUtil} from "../../../../../../common/utils/ProductPriceUtil";
 
 @Component({
   selector: 'app-product-item',
@@ -16,13 +17,15 @@ export class ProductItemComponent implements OnInit {
 
   @Input() product!: Product
   configModel: ConfigModel | null = null
+  productPrice = 0
 
   constructor(
     private cartService: CartProductsService,
     private configModelService: ConfigModelService,
     private router: Router,
     private analyticsService: AnalyticsService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.configModelService.configModelSubject.subscribe({
@@ -30,6 +33,7 @@ export class ProductItemComponent implements OnInit {
         this.configModel = config
       }
     })
+    this.productPrice = ProductPriceUtil.getProductPrice(this.product)
   }
 
   addProduct() {

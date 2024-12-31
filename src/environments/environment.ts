@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   // apiUrl: 'https://etoilecafe.com',
   // apiUrl: 'https://test.etoilecafe.com',
-  apiUrl: 'https://backend112024.etoileksa.com',
+  apiUrl: 'https://demo.etoileksa.com',
   adjustToken: '9df5d2z4zthc',
   myFatoorahApi: '/api',
   myFatoorahCallbackUrl: 'https://eighty-islands-grin.loca.lt',

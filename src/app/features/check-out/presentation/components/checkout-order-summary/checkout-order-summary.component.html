@@ -50,7 +50,7 @@
         <div class="quantity-container"><p>{{ 'QUANTITY' | translate }} ({{ cartProductItem.count }})</p></div>
       </div>
       <div class="item-price">
-        <p>{{ cartProductItem.product.priceIncludingTax! }} {{ configModel?.currencySymbol }}</p>
+        <p>{{ ProductPriceUtil.calculatePrice(cartProductItem)! }} {{ configModel?.currencySymbol }}</p>
       </div>
     </div>
     <div class="horizontal-separator" *ngIf="i !== (products.length - 1)"></div>

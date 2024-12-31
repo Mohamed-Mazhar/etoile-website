@@ -58,17 +58,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px 1px rgb(107 107 107/50%);
-  overflow: hidden;
 
   .product-image {
     width: 80%;
     aspect-ratio: 1 / 1;
+    border-radius: 50%;
   }
 }
 
 .discount-container {
   position: absolute;
-  top: 0.5rem;
+  top: 10%;
   border-radius: 100%;
   background-color: VAR(--primary-color);
   width: 3.5rem;

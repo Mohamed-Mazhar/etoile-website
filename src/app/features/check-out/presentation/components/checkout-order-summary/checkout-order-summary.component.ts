@@ -132,4 +132,5 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     }
   }
 
+  protected readonly ProductPriceUtil = ProductPriceUtil;
 }

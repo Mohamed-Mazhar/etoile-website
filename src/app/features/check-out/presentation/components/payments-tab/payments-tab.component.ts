@@ -14,7 +14,7 @@ export class PaymentsTabComponent implements OnInit {
   @Input() loading = false
   @Input() selectedAddressId!: number
   activePaymentMethods: PaymentMethod[] = []
-  selectedPayment: PaymentMethod = this.defaultPayment
+  selectedPayment!: PaymentMethod
   digitalPaymentsActive = false
   isSelfPickUp = false
 
@@ -25,8 +25,10 @@ export class PaymentsTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("Selected address id is", this.selectedAddressId)
     this.configService.configModelSubject.subscribe({
       next: (config) => {
+        this.activePaymentMethods = []
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
@@ -35,22 +37,38 @@ export class PaymentsTabComponent implements OnInit {
         ))
       }
     })
+    this.selectedPayment = this.defaultPayment
   }
 
   onPaymentSelectionChanged(payment: PaymentMethod) {
+    console.log("Selected payment method onPaymentSelectionChanged", payment)
     this.selectedPayment = payment
   }
 
   get defaultPayment() {
-    return new PaymentMethod(
-      'cash_on_delivery',
-      'Take away',
-      '',
-      '',
-    )
+    let defaultPayment;
+    console.log("Selected address id is ", this.selectedAddressId)
+    if (this.selectedAddressId === 0) {
+      defaultPayment = new PaymentMethod(
+        'cash_on_pick_up',
+        'Take away',
+        '',
+        '',
+      )
+    } else {
+      defaultPayment = new PaymentMethod(
+        'cash_on_delivery',
+        'Delivery',
+        '',
+        '',
+      )
+    }
+    console.log("Default payment inside default", defaultPayment)
+    return defaultPayment
   }
 
   placeOrder() {
+    console.log("Selected payment ", this.selectedPayment)
     this.onPayClicked.emit(this.selectedPayment)
   }
 

@@ -3,7 +3,7 @@
     <div class="image-container clickable" (click)="goToDetails()">
       <div class="discount-container" *ngIf="hasDiscount()">
         <div *ngIf="isPercentage()">
-          <p>{{ product.branchProduct?.discount }} <br/>{{ 'DISCOUNT' | translate }}</p>
+          <p>{{ product.branchProduct?.discount }}%<br/>{{ 'DISCOUNT' | translate }}</p>
         </div>
         <div *ngIf="!isPercentage()">
           <p>{{ product.branchProduct?.discount }} <br/>{{ configModel?.currencySymbol }}</p>
@@ -15,7 +15,7 @@
       <img alt="" class="product-image" loading="lazy" [src]=getImage(product.image!)>
     </div>
     <p class="title">{{ product.name }}</p>
-    <p class="subtitle">{{ product.priceIncludingTax }} {{ configModel?.currencySymbol }}</p>
+    <p class="subtitle">{{ productPrice }} {{ configModel?.currencySymbol }}</p>
     <primary-button
       class="mt-2"
       [enabled]="product.branchProduct?.isAvailable ?? true"

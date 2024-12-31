@@ -139,7 +139,7 @@ export class PlaceOrderBody {
       }
     )
     // jsonBody['delivery_address_id'] = this.deliveryAddressId
-    jsonBody['delivery_address_id'] = this.paymentMethod === 'cash_on_delivery' ? 0 : this.deliveryAddressId
+    jsonBody['delivery_address_id'] = this.paymentMethod === 'cash_on_pick_up' ? 0 : this.deliveryAddressId
     jsonBody['coupon_discount_amount'] = this.couponDiscountAmount ?? 0
     jsonBody['coupon_discount_title'] = this.couponDiscountTitle ?? ''
     jsonBody['order_amount'] = this.orderAmount
