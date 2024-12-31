@@ -14,7 +14,7 @@ export class PaymentsTabComponent implements OnInit {
   @Input() loading = false
   @Input() selectedAddressId!: number
   activePaymentMethods: PaymentMethod[] = []
-  selectedPayment: PaymentMethod = this.defaultPayment
+  selectedPayment!: PaymentMethod
   digitalPaymentsActive = false
   isSelfPickUp = false
 
@@ -27,6 +27,7 @@ export class PaymentsTabComponent implements OnInit {
   ngOnInit(): void {
     this.configService.configModelSubject.subscribe({
       next: (config) => {
+        this.activePaymentMethods = []
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
@@ -35,6 +36,7 @@ export class PaymentsTabComponent implements OnInit {
         ))
       }
     })
+    this.selectedPayment = this.defaultPayment
   }
 
   onPaymentSelectionChanged(payment: PaymentMethod) {
@@ -42,12 +44,23 @@ export class PaymentsTabComponent implements OnInit {
   }
 
   get defaultPayment() {
-    return new PaymentMethod(
-      'cash_on_delivery',
-      'Take away',
-      '',
-      '',
-    )
+    let defaultPayment;
+    if (this.selectedAddressId === 0) {
+      defaultPayment = new PaymentMethod(
+        'cash_on_delivery',
+        'Take away',
+        '',
+        '',
+      )
+    } else {
+      defaultPayment = new PaymentMethod(
+        'cash_on_delivery',
+        'Delivery',
+        '',
+        '',
+      )
+    }
+    return defaultPayment
   }
 
   placeOrder() {

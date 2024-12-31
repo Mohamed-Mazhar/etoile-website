@@ -146,7 +146,7 @@ export class CheckOutComponent implements OnInit {
       null,
       null
     )
-    if (paymentMethod.getWay === 'selfPickup') {
+    if (paymentMethod.getWay === 'cash_on_pick_up' || paymentMethod.getWay === 'cash_on_delivery') {
       this.callPlaceOrder()
     } else if (paymentMethod.getWay === 'my_fatoorah') {
       this.startMyFatoorah()
