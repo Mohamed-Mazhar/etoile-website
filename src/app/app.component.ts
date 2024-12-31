@@ -36,7 +36,7 @@ export class AppComponent {
   ) {
     Adjust.initSdk({
       appToken: environment.adjustToken,
-      environment: "sandbox",
+      environment: "production",
     });
     this.initializeSelectedBranch()
     this.scrollPageToTop()
