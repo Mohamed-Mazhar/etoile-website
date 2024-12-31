@@ -48,6 +48,12 @@ export class AppComponent {
       }
     })
 
+    this.splashApi.getPolicyPages().subscribe({
+      next: (policyModel) => {
+        this.configModelService.setPolicyModel(policyModel)
+      }
+    })
+
     this.cookieConsentService.statusChange$.subscribe((event: NgcStatusChangeEvent) => {
       if (event.status === 'allow') {
         this.initializeGTM();

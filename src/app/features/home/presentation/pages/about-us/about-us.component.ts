@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ConfigModelService} from "../../../../../common/services/config-model.service";
 
 @Component({
   selector: 'app-about-us',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutUsComponent implements OnInit {
 
-  constructor() { }
+  aboutUsContent = ""
+  constructor(
+    private configService: ConfigModelService
+  ) { }
 
   ngOnInit(): void {
+    this.configService.policyModelSubject.subscribe({
+      next: (policyModel) => {
+        this.aboutUsContent = policyModel?.aboutUs ?? ""
+      }
+    })
   }
 
 }

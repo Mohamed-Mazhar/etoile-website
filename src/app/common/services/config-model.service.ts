@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ConfigModel} from "../data-classes/ConfigModel";
 import {BehaviorSubject} from "rxjs";
 import {Category} from "../data-classes/Category";
+import {PolicyModel} from "../data-classes/PolicyModel";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ConfigModelService {
 
   public configModelSubject = new BehaviorSubject<ConfigModel | null>(null)
   public categoriesSubject = new BehaviorSubject<Category[]>([])
-
+  public policyModelSubject = new BehaviorSubject<PolicyModel | null>(null)
   constructor() { }
 
   setConfigModel(configModel: ConfigModel) {
@@ -19,6 +20,10 @@ export class ConfigModelService {
 
   setCategories(categories: Category[]) {
     this.categoriesSubject.next(categories)
+  }
+
+  setPolicyModel(policyModel: PolicyModel) {
+    this.policyModelSubject.next(policyModel)
   }
 }
 
