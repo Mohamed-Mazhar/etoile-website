@@ -32,9 +32,9 @@ export class PaymentsTabComponent implements OnInit {
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
-        this.activePaymentMethods.push(new PaymentMethod(
-          'my_fatoorah', this.translateService.instant('MY_FATOORAH'), ''
-        ))
+        // this.activePaymentMethods.push(new PaymentMethod(
+        //   'my_fatoorah', this.translateService.instant('MY_FATOORAH'), ''
+        // ))
       }
     })
     this.selectedPayment = this.defaultPayment
