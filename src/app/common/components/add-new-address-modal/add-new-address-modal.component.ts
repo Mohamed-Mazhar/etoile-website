@@ -7,6 +7,8 @@ import {AddressApi} from "../../apis/address-api";
 import {Observable} from "rxjs";
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
+import {Branch} from "../../data-classes/ConfigModel";
+import {SELECTED_BRANCH} from "../../utils/constants";
 
 @Component({
   selector: 'app-add-new-address-modal',
@@ -53,6 +55,7 @@ export class AddNewAddressModalComponent implements OnInit {
   }
 
   updateAddress() {
+    let selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
     let addressModel = new AddressModel({
       ...Object.assign(
         {},
@@ -65,7 +68,8 @@ export class AddNewAddressModalComponent implements OnInit {
           streetNumber: this.formGroup.get('streetNumber')?.value,
           houseNumber: this.formGroup.get('houseNumber')?.value,
           address: this.formGroup.get('contactAddress')?.value,
-          isDefault: false
+          isDefault: false,
+          branchId: selectedBranch.id
         })
     })
     this.loading = true

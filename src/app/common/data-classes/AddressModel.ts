@@ -1,19 +1,21 @@
 export class AddressModel {
-  id?: number;
-  addressType?: string;
-  contactPersonNumber?: string;
-  address?: string;
-  latitude?: string;
-  longitude?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  userId?: number;
-  method?: string;
-  contactPersonName?: string;
-  streetNumber?: string;
-  floorNumber?: string;
-  houseNumber?: string;
-  isDefault?: boolean;
+  id?: number
+  addressType?: string
+  contactPersonNumber?: string
+  address?: string
+  latitude?: string
+  longitude?: string
+  createdAt?: string
+  updatedAt?: string
+  userId?: number
+  method?: string
+  contactPersonName?: string
+  streetNumber?: string
+  floorNumber?: string
+  houseNumber?: string
+  isDefault?: boolean
+  deliveryAreaId?: number
+  branchId?: number
 
   constructor(
     data:
@@ -33,23 +35,27 @@ export class AddressModel {
         floorNumber?: string,
         houseNumber?: string,
         isDefault?: boolean,
+        deliveryAreaId?: number,
+        branchId?: number
       }
   ) {
-    this.id = data.id;
-    this.addressType = data.addressType;
-    this.contactPersonNumber = data.contactPersonNumber;
-    this.address = data.address;
-    this.latitude = data.latitude;
-    this.longitude = data.longitude;
-    this.createdAt = data.createdAt;
-    this.updatedAt = data.updatedAt;
-    this.userId = data.userId;
-    this.method = data.method;
-    this.contactPersonName = data.contactPersonName;
-    this.streetNumber = data.streetNumber;
-    this.floorNumber = data.floorNumber;
-    this.houseNumber = data.houseNumber;
-    this.isDefault = data.isDefault;
+    this.id = data.id
+    this.addressType = data.addressType
+    this.contactPersonNumber = data.contactPersonNumber
+    this.address = data.address
+    this.latitude = data.latitude
+    this.longitude = data.longitude
+    this.createdAt = data.createdAt
+    this.updatedAt = data.updatedAt
+    this.userId = data.userId
+    this.method = data.method
+    this.contactPersonName = data.contactPersonName
+    this.streetNumber = data.streetNumber
+    this.floorNumber = data.floorNumber
+    this.houseNumber = data.houseNumber
+    this.isDefault = data.isDefault
+    this.deliveryAreaId = data.deliveryAreaId
+    this.branchId = data.branchId
   }
 
   static fromJson(json: { [key: string]: any }): AddressModel {
@@ -69,9 +75,11 @@ export class AddressModel {
         streetNumber: json['road'],
         floorNumber: json['floor'],
         houseNumber: json['house'],
-        isDefault: `${json['is_default']}`.includes('1')
+        isDefault: `${json['is_default']}`.includes('1'),
+        deliveryAreaId: json['area_id'],
+        branchId: json['branch_id']
   },
-    );
+    )
   }
 
   toJson(): { [key: string]: any } {
@@ -91,6 +99,8 @@ export class AddressModel {
       floor: this.floorNumber,
       house: this.houseNumber,
       is_default: this.isDefault ? 1 : 0,
-    };
+      area_id: this.deliveryAreaId,
+      branch_id: this.branchId
+    }
   }
 }
