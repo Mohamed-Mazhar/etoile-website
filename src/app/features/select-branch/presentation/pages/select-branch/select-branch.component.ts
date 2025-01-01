@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
+import {SplashApi} from "../../../../../common/apis/splash-api";
 
 @Component({
   selector: 'app-select-branch',
@@ -64,6 +65,7 @@ export class SelectBranchComponent implements OnInit {
       ])
     })
     if (this.selectedBranch !== null) {
+      this.configModelService.getBranchDeliveryInfo(this.selectedBranch.id!)
       localStorage.setItem(SELECTED_BRANCH, JSON.stringify(this.selectedBranch))
       localStorage.setItem(EXPIRE_BRANCH, (new Date().getTime() + EXPIRE_BRANCH_TIME * 60 * 1000).toString())
       this.cartService.clearCart()

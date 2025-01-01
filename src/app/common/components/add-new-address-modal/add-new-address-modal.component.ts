@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AddressService} from "../../services/address.service";
-import {UntypedFormGroup, Validators} from "@angular/forms";
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {InputType} from "../inputs/enums/InputType";
 import {AddressModel} from "../../data-classes/AddressModel";
 import {AddressApi} from "../../apis/address-api";
@@ -9,6 +9,8 @@ import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
 import {Branch} from "../../data-classes/ConfigModel";
 import {SELECTED_BRANCH} from "../../utils/constants";
+import {DeliveryChargeByArea, DeliveryInfoModel} from "../../data-classes/DeliveryInfoModel";
+import {ConfigModelService} from "../../services/config-model.service";
 
 @Component({
   selector: 'app-add-new-address-modal',
@@ -24,10 +26,13 @@ export class AddNewAddressModalComponent implements OnInit {
   loading = false
   formGroup = new UntypedFormGroup({})
   address: AddressModel | null = null
+  deliveryInfoModel: DeliveryInfoModel | null = null
+  selectedZone: DeliveryChargeByArea | null = null
 
   constructor(
     private addressService: AddressService,
-    private addressApi: AddressApi
+    private addressApi: AddressApi,
+    private configService: ConfigModelService
   ) {
   }
 
@@ -41,6 +46,12 @@ export class AddNewAddressModalComponent implements OnInit {
           this.title = "Update Address"
         }
         this.initializeViews()
+      }
+    })
+    this.configService.deliveryInfoSubject.subscribe({
+      next: (deliveryInfo) => {
+        console.log("Returned delivery info inside add new address", deliveryInfo)
+        this.deliveryInfoModel = deliveryInfo
       }
     })
   }
@@ -69,7 +80,8 @@ export class AddNewAddressModalComponent implements OnInit {
           houseNumber: this.formGroup.get('houseNumber')?.value,
           address: this.formGroup.get('contactAddress')?.value,
           isDefault: false,
-          branchId: selectedBranch.id
+          branchId: selectedBranch.id,
+          deliveryAreaId: this.selectedZone?.id
         })
     })
     this.loading = true

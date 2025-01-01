@@ -51,4 +51,16 @@ export class AddressApi {
     })
   }
 
+  getDeliveryFees(branchId: number, distance: number, deliveryAreaId: number) : Observable<number> {
+    return this.baseApiService.call<null, { [key: string]: any }>({
+      apiType: ApiType.getDeliveryFees,
+      requestType: RequestType.GET,
+      listDataUrl: [branchId.toString(), distance.toString(), deliveryAreaId.toString()]
+    }).pipe(
+      map(response => {
+        return response['deliveryCharge']
+      })
+    )
+  }
+
 }

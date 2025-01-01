@@ -46,6 +46,7 @@ export class CheckOutComponent implements OnInit {
   myFatoorahPaymentMethods: MyFatoorahPaymentMethod[] = []
   placeOrderBody: PlaceOrderBody | null = null
   discountAmountFromCoupon: number = 0
+  deliveryCharge: number = 0
 
   constructor(
     private addressApi: AddressApi,
@@ -102,7 +103,25 @@ export class CheckOutComponent implements OnInit {
 
   moveToPayment(addressId: number) {
     this.selectedAddressId = addressId
-    this.activeTab = 'payment'
+    let selectedAddress = this.addresses.find((address) => address.id === addressId)
+    if (selectedAddress) {
+      this.loading = true
+      this.addressApi.getDeliveryFees(this.selectedBranch?.id!, 0, selectedAddress!.deliveryAreaId!).subscribe({
+        next: (deliveryCharge) => {
+          this.loading = false
+          console.log("Retrieved fees inside move to payment ", deliveryCharge)
+          this.deliveryCharge = deliveryCharge
+          this.activeTab = 'payment'
+        },
+        error: (err) => {
+          this.loading = false
+          console.log("Error while getting delivery fees", err)
+        }
+      })
+    } else {
+      this.deliveryCharge = 0
+      this.activeTab = 'payment'
+    }
   }
 
   applyCoupon(couponModel: CouponModel | null) {
@@ -132,7 +151,7 @@ export class CheckOutComponent implements OnInit {
       this.couponModel !== null ? this.discountAmountFromCoupon : 0,
       this.couponModel?.title ?? '',
       this.couponModel?.code ?? '',
-      this.totalPrice,
+      +this.totalPrice + +this.deliveryCharge,
       this.selectedAddressId,
       this.configModel?.selfPickup === true ? 'take_away' : 'delivery',
       paymentMethod.getWay ?? '',

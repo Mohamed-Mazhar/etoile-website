@@ -28,7 +28,6 @@ export class ShippingTabComponent implements OnInit {
   }
 
   moveToPayment() {
-    console.log("Selected delivery address", this.formGroup.get('deliveryAddress')?.value)
     let address = this.formGroup.get('deliveryAddress')?.value
     this.onProceedClicked.emit(address)
   }

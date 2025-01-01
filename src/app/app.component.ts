@@ -13,6 +13,7 @@ import {environment} from "../environments/environment";
 import {AdjustEvent} from "./features/analytics/data/models/AdjustEvent";
 import {Meta, Title} from "@angular/platform-browser";
 import {CartProductsService} from "./common/services/cart-products.service";
+import {Branch} from "./common/data-classes/ConfigModel";
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,8 @@ export class AppComponent {
     this.splashApi.getAppConfigurations().subscribe({
       next: (res) => {
         this.configModelService.setConfigModel(res)
+        let currentBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+        this.configModelService.getBranchDeliveryInfo(currentBranch.id!)
       }
     })
 
@@ -130,8 +133,6 @@ export class AppComponent {
 
   private initializeSelectedBranch() {
     let expiredBranch = localStorage.getItem(EXPIRE_BRANCH)
-    console.log("Current time is", new Date().getTime())
-    console.log("Expire  time is", expiredBranch)
     if (expiredBranch !== null && expiredBranch <= new Date().getTime().toString()) {
       localStorage.removeItem(SELECTED_BRANCH)
       localStorage.removeItem(EXPIRE_BRANCH)

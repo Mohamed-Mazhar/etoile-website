@@ -45,9 +45,32 @@
         [validators]="[Validators.required]"
         floatingLabel="Street number">
       </input-text-field>
+      <div *ngIf="deliveryInfoModel !== null">
+        <div class="mt-4"></div>
+        <div class="select-zone">
+          <div class="dropdown w-100">
+            <button class="btn dropdown-toggle zone-button"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+              {{ selectedZone?.areaName ?? 'SELECT_ZIP_AREA_CODE' | translate }}
+            </button>
+            <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+<!--              <form [formGroup]="form">-->
+<!--                <input type="text" formControlName="search" class="form-control search-field"-->
+<!--                       [placeholder]="'SEARCH_FOR' | translate">-->
+<!--              </form>-->
+              <li class="mt-2" *ngFor="let zone of deliveryInfoModel.deliveryChargeByArea" (click)="selectedZone = zone">
+                <p class="dropdown-item">{{ zone.areaName }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <primary-button
         (onClick)="updateAddress()"
-        [enabled]="formGroup.valid"
+        [enabled]="formGroup.valid && selectedZone !== null"
         [loading]="loading"
         title="{{title}}">
       </primary-button>

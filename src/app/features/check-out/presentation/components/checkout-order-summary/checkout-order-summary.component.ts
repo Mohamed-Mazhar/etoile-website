@@ -19,6 +19,7 @@ import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 export class CheckoutOrderSummaryComponent implements OnInit {
 
   @Input() showExtraDetails: boolean = false
+  @Input() delivery: number = 0
   @Output() onCouponAppliedSuccessfully: EventEmitter<CouponModel | null> = new EventEmitter<CouponModel | null>()
 
   products: CartProductItem[] = []
@@ -29,7 +30,6 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   coupon = ""
   couponModel: CouponModel | null = null
   errorMessage = ""
-  deliveryCharge = 0
   showRemoveCoupon = false
 
   constructor(
@@ -45,7 +45,6 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config
-        this.deliveryCharge = config?.deliveryCharge ?? 0
       }
     })
     this.cartService.cartProductsSubject.subscribe({

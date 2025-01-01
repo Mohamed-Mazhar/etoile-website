@@ -5,6 +5,7 @@ import {ConfigModel} from "../data-classes/ConfigModel";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {PolicyModel} from "../data-classes/PolicyModel";
+import {DeliveryInfoModel} from "../data-classes/DeliveryInfoModel";
 
 @Injectable({providedIn: 'root'})
 export class SplashApi {
@@ -32,6 +33,18 @@ export class SplashApi {
     }).pipe(
       map((response) => {
         return PolicyModel.fromJson(response)
+      })
+    )
+  }
+
+  getBranchDeliveryAreas(branchId: number): Observable<DeliveryInfoModel> {
+    return this.baseApiService.call<null, { [key: string]: any }>({
+      apiType: ApiType.getDeliveryInfo,
+      requestType: RequestType.GET,
+      pathVariables: [branchId.toString()]
+    }).pipe(
+      map((response) => {
+        return DeliveryInfoModel.fromJson(response)
       })
     )
   }

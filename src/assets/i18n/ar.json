@@ -273,5 +273,8 @@
   "REMOVE_ALL_PRODUCTS_NOTE": "هل أنت متأكد أنك تريد إزالة جميع المنتجات؟",
   "PAYMENT_FAILED_MESSAGE": "فشل الدفع. يرجى المحاولة مرة أخرى....",
   "MOST_TRENDY": "الأكثر رواجًا",
-  "MY_FATOORAH": "My fatoorah"
+  "MY_FATOORAH": "My fatoorah",
+  "ZIP_AREA": "الرمز البريدي / المنطقة",
+  "SELECT_ZIP_AREA_CODE": "حدد الرمز البريدي / المنطقة",
+  "PLEASE_SELECT_ZONE": "يجب تحديد المنطقه"
 }
