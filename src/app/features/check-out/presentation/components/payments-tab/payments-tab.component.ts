@@ -50,7 +50,7 @@ export class PaymentsTabComponent implements OnInit {
     console.log("Selected address id is ", this.selectedAddressId)
     if (this.selectedAddressId === 0) {
       defaultPayment = new PaymentMethod(
-        'cash_on_pick_up',
+        'cash_on_delivery',
         'Take away',
         '',
         '',
