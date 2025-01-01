@@ -32,7 +32,7 @@ export class MobileNumberComponent implements OnInit {
   @Output() onSearchChanged: EventEmitter<any> = new EventEmitter<any>();
 
   control: UntypedFormControl = new UntypedFormControl();
-  countryControl: UntypedFormControl = new UntypedFormControl({value: "+966", disabled: true}, Validators.required);
+  countryControl: UntypedFormControl = new UntypedFormControl({value: "+20", disabled: true}, Validators.required);
   loadingTimeout: any;
   mobileNumber: string = "";
   dropdownOpen: boolean = false;
