@@ -280,7 +280,7 @@ export class CheckOutComponent implements OnInit {
       next: (clientSecret) => {
         this.placingOrder = false
         localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))
-        let paymentUrl = `https://accept.paymob.com/unifiedcheckout/?publicKey=${environment.payMobPublicKey}&clientSecret=${clientSecret}`
+        let paymentUrl = `https://accept.paymob.com/unifiedcheckout/?publicKey=${environment.payMobPublic}&clientSecret=${clientSecret}`
         window.open(paymentUrl, "_self")
         // this.myFatoorahPaymentMethods = payments
         // this.openMyFatoorahElem.nativeElement.click()

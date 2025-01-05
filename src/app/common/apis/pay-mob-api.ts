@@ -14,7 +14,7 @@ export class PayMobApi {
   createPaymentIntention(orderAmount: number, user: UserInfo): Observable<string> {
     return this.baseApiService.callPayMobApis<{}, { [key: string]: any }>({
       apiType: ApiType.createPaymentIntention,
-      headerKey: environment.payMobSecretKey,
+      headerKey: environment.payMobPrivate,
       body: {
         amount: orderAmount * 100,
         currency: "EGP",
