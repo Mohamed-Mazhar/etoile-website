@@ -32,22 +32,20 @@ export class PaymentsTabComponent implements OnInit {
         this.activePaymentMethods = config?.activePaymentMethodList ?? []
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
-        // this.activePaymentMethods.push(new PaymentMethod(
-        //   'my_fatoorah', this.translateService.instant('MY_FATOORAH'), ''
-        // ))
+        this.activePaymentMethods.push(new PaymentMethod(
+          'pay_mob', 'Pay mob', ''
+        ))
       }
     })
     this.selectedPayment = this.defaultPayment
   }
 
   onPaymentSelectionChanged(payment: PaymentMethod) {
-    console.log("Selected payment method onPaymentSelectionChanged", payment)
     this.selectedPayment = payment
   }
 
   get defaultPayment() {
     let defaultPayment;
-    console.log("Selected address id is ", this.selectedAddressId)
     if (this.selectedAddressId === 0) {
       defaultPayment = new PaymentMethod(
         'cash_on_delivery',
@@ -63,7 +61,6 @@ export class PaymentsTabComponent implements OnInit {
         '',
       )
     }
-    console.log("Default payment inside default", defaultPayment)
     return defaultPayment
   }
 

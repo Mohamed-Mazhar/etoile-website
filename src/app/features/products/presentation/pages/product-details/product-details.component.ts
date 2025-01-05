@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   selectedSize = "Select Size"
   indexOfVariationSize = -1
   productPrice = 0
+  productImage = ""
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,7 @@ export class ProductDetailsComponent implements OnInit {
       next: (product) => {
         this.loading = false
         this.product = product
+        this.productImage = this.getImage()
         this.productPrice = ProductPriceUtil.getProductPrice(product)
         this.productRating = product.rating?.reduce((pre, current) => {
             return pre + current.average!
@@ -137,6 +139,10 @@ export class ProductDetailsComponent implements OnInit {
       return variation.name?.toLowerCase() === "size"
     }) ?? -1
     return this.indexOfVariationSize !== -1
+  }
+
+  setDefaultPic() {
+    this.productImage = "assets/images/placeholder_image.jpg"
   }
 
   protected readonly ProductPriceUtil = ProductPriceUtil;

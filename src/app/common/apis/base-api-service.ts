@@ -176,17 +176,17 @@ export class BaseApiService {
     this.jwtToken = localStorage.getItem(USER_TOKEN) ?? ""
   }
 
-  callMyFatoorahApi<REQUEST, RESPONSE>(parameters : {
+  callPayMobApis<REQUEST, RESPONSE>(parameters : {
     apiType: ApiType,
+    headerKey: string,
     pathVariables?: string[]
     body?: REQUEST | null
   }) : Observable<RESPONSE> {
-    let apiToken = environment.myFatoorahKey
     let headers: HttpHeaders
     headers = new HttpHeaders({
-      Authorization: `Bearer ${apiToken}`,
+      Authorization: `Bearer ${parameters.headerKey}`,
     });
-    let url: string = `${environment.apiUrl}/${parameters.apiType}`
+    let url: string = `${environment.payMobBaseUrl}/${parameters.apiType}`
     let response: Observable<HttpResponse<RESPONSE>>
     response = this.httpClient.post<RESPONSE>(url!, parameters.body, {
       observe: "response",

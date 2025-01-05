@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Product} from "../../../../../../common/data-classes/ProductModel";
 import {CartProductsService} from "../../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
@@ -13,11 +13,12 @@ import {ProductPriceUtil} from "../../../../../../common/utils/ProductPriceUtil"
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemComponent implements OnInit, AfterViewInit {
 
   @Input() product!: Product
   configModel: ConfigModel | null = null
   productPrice = 0
+  productImage = ""
 
   constructor(
     private cartService: CartProductsService,
@@ -25,6 +26,10 @@ export class ProductItemComponent implements OnInit {
     private router: Router,
     private analyticsService: AnalyticsService
   ) {
+  }
+
+  ngAfterViewInit(): void {
+    this.productImage = this.getImage(this.product.image!)
   }
 
   ngOnInit(): void {
@@ -52,6 +57,10 @@ export class ProductItemComponent implements OnInit {
 
   getImage(image: string) {
     return `${this.configModel?.baseUrls?.productImageUrl}/${image}`
+  }
+
+  setDefaultPic() {
+    this.productImage = "assets/images/placeholder_image.jpg"
   }
 
   hasDiscount() {

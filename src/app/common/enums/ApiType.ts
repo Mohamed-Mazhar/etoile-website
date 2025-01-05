@@ -30,7 +30,5 @@ export enum ApiType {
   getDeliveryInfo = 'api/v1/config/delivery-fee?branch_id={}',
   getDeliveryFees = 'api/v1/config/delivery-calc?branch_id={}&distance={}&area_id={}',
 
-  initiatePayment = "api/v1/myfatoorah/InitiatePayment",
-  executePayment = "api/v1/myfatoorah/ExecutePayment",
-  getPaymentStatus = "api/v1/myfatoorah/GetPaymentStatus"
+  createPaymentIntention = "intention",
 }

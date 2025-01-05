@@ -1,7 +1,7 @@
 <div class="product-details-container container">
   <app-loading [loadingData]="loading"></app-loading>
   <div class="product-image">
-    <img [src]="getImage()">
+    <img [src]="productImage" (error)="setDefaultPic()">
   </div>
   <div class="product-details" *ngIf="product !== null && product !== undefined">
     <div class="product-name"><p>{{ product.name }}</p></div>

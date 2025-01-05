@@ -6,11 +6,12 @@ export const environment = {
   production: false,
   // apiUrl: 'https://etoilecafe.com',
   // apiUrl: 'https://test.etoilecafe.com',
-  apiUrl: 'https://demo.etoileksa.com',
+  apiUrl: 'https://backend1224.etoileeg.shop',
   adjustToken: '9df5d2z4zthc',
-  myFatoorahApi: '/api',
-  myFatoorahCallbackUrl: 'https://eighty-islands-grin.loca.lt',
-  myFatoorahKey: 'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL'
+  payMobBaseUrl: 'https://accept.paymob.com/v1',
+  payMobSecretKey: 'egy_sk_test_d3ea9b4c5082a6d01ffe0e1ed8010a66c36a8055a38939eb2fb8cae78845faad',
+  payMobPublicKey: 'egy_pk_test_IPKrLfV3hP8KBwIa0HEUz4YNQcQZnUTE',
+  payMobCallBackUrl: 'https://eighty-islands-grin.loca.lt',
 };
 
 /*
