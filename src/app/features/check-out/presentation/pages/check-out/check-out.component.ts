@@ -67,10 +67,16 @@ export class CheckOutComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true
+    this.addresses = []
+    let currentBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
     this.addressApi.getAddresses().subscribe({
       next: (addresses) => {
         this.loading = false
-        this.addresses = addresses
+        addresses.forEach((address) => {
+          if (address.branchId === currentBranch.id) {
+            this.addresses.push(address)
+          }
+        })
       },
       error: (err) => {
         this.loading = false
@@ -190,7 +196,13 @@ export class CheckOutComponent implements OnInit {
     this.addressApi.getAddresses().subscribe({
       next: (addresses) => {
         this.loading = false
-        this.addresses = addresses
+        this.addresses = []
+        addresses.forEach((address) => {
+          let currentBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+          if (address.branchId === currentBranch.id) {
+            this.addresses.push(address)
+          }
+        })
       },
       error: (err) => {
         this.loading = false
@@ -276,7 +288,7 @@ export class CheckOutComponent implements OnInit {
   private startPayMob() {
     this.placingOrder = true
     let user: UserInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
-    this.payMobApi.createPaymentIntention(this.totalPrice, user).subscribe({
+    this.payMobApi.createPaymentIntention(this.placeOrderBody?.orderAmount ?? 0, user).subscribe({
       next: (clientSecret) => {
         this.placingOrder = false
         localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))

@@ -7,7 +7,6 @@ import {Router} from "@angular/router";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
-import {SplashApi} from "../../../../../common/apis/splash-api";
 
 @Component({
   selector: 'app-select-branch',

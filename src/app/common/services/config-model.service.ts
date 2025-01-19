@@ -32,6 +32,7 @@ export class ConfigModelService {
   }
 
   getBranchDeliveryInfo(branchId: number) {
+    this.deliveryInfoSubject.next(null)
     this.splashApi.getBranchDeliveryAreas(branchId).subscribe({
       next: (deliveryInfo) => {
         console.log("Setting delivery info inside config service ", deliveryInfo)

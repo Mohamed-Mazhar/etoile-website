@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AddressService} from "../../services/address.service";
-import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms";
+import {UntypedFormGroup, Validators} from "@angular/forms";
 import {InputType} from "../inputs/enums/InputType";
 import {AddressModel} from "../../data-classes/AddressModel";
 import {AddressApi} from "../../apis/address-api";
@@ -45,13 +45,26 @@ export class AddNewAddressModalComponent implements OnInit {
         } else {
           this.title = "Update Address"
         }
+        if (this.address !== null) {
+          this.loading = true
+          this.configService.getBranchDeliveryInfo(this.address.branchId!)
+        } else {
+          let currentBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+          this.configService.getBranchDeliveryInfo(currentBranch.id!)
+        }
+        this.configService.deliveryInfoSubject.subscribe({
+          next: (deliveryInfo) => {
+            if (deliveryInfo !== null) {
+              this.loading = false
+            }
+            this.deliveryInfoModel = deliveryInfo
+            let deliveryArea = this.deliveryInfoModel?.deliveryChargeByArea?.find((area) => area.id === this.address?.deliveryAreaId)
+            if (deliveryArea) {
+              this.selectedZone = deliveryArea
+            }
+          }
+        })
         this.initializeViews()
-      }
-    })
-    this.configService.deliveryInfoSubject.subscribe({
-      next: (deliveryInfo) => {
-        console.log("Returned delivery info inside add new address", deliveryInfo)
-        this.deliveryInfoModel = deliveryInfo
       }
     })
   }
