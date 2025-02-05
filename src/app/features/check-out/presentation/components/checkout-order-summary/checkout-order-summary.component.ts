@@ -10,6 +10,7 @@ import {AnalyticsService} from "../../../../analytics/data/services/analytics-se
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {TranslateService} from "@ngx-translate/core";
 import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
+import {Product} from "../../../../../common/data-classes/ProductModel";
 
 @Component({
   selector: 'app-checkout-order-summary',
@@ -21,10 +22,14 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   @Input() showExtraDetails: boolean = false
   @Input() delivery: number = 0
   @Output() onCouponAppliedSuccessfully: EventEmitter<CouponModel | null> = new EventEmitter<CouponModel | null>()
+  @Output() discountAmount = new EventEmitter<number>();
+
 
   products: CartProductItem[] = []
   numberOfItems: number = 0
   totalPrice: number = 0
+  totalPriceWithoutDiscount = 0
+  totalDiscount = 0
   configModel: ConfigModel | null = null
   loading = false
   coupon = ""
@@ -59,11 +64,24 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   private calculateTotalPrice() {
     this.numberOfItems = 0
     this.totalPrice = 0
+    this.totalPriceWithoutDiscount = 0
+    this.totalDiscount = 0
     for (let cartProduct of this.products) {
       this.numberOfItems += cartProduct.count
-      let productPrice = ProductPriceUtil.calculatePrice(cartProduct)
-      this.totalPrice += (cartProduct.count * productPrice)
+      // let productPrice = ProductPriceUtil.calculatePrice(cartProduct)
+      // this.totalPrice += (cartProduct.count * productPrice)
+      let price = ProductPriceUtil.convertDiscount(
+        ProductPriceUtil.calculatePrice(cartProduct),
+        cartProduct.product.discount,
+        cartProduct.product.discountType,
+      )
+      let count = cartProduct.count
+      let priceWithNoDiscount = ProductPriceUtil.calculatePrice(cartProduct)
+      this.totalDiscount += (priceWithNoDiscount - price) * count
+      this.totalPrice += price * count
+      this.totalPriceWithoutDiscount += priceWithNoDiscount * count
     }
+    this.discountAmount.emit(this.totalDiscount)
   }
 
   private applyCouponDiscount() {
@@ -129,6 +147,15 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     } else {
       return `-${this.couponModel?.discount} ${this.configModel?.currencySymbol}`
     }
+  }
+
+  getProductPriceAfterDiscount(product: Product) {
+    return ProductPriceUtil.convertDiscount(product.priceIncludingTax, product.discount, product.discountType)
+  }
+
+  productHasDiscount(product: Product) {
+    let priceWithDiscount = this.getProductPriceAfterDiscount(product)
+    return priceWithDiscount > 0 && priceWithDiscount !== ProductPriceUtil.getProductPrice(product)!
   }
 
   protected readonly ProductPriceUtil = ProductPriceUtil;

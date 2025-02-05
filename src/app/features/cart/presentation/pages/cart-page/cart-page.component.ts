@@ -18,12 +18,15 @@ export class CartPageComponent implements OnInit {
   @ViewChild('login') loginElem!: ElementRef
   cartItems: CartProductItem[] = []
   totalPrice = 0
+  totalPriceWithoutDiscount = 0
   priceWithOutTax = 0
   totalTax = 0
+  totalDiscount = 0
   errorMessage = ""
   unAvailableProductsIds: number[] = []
   loading = false
   configModel: ConfigModel | null = null
+
   constructor(
     private cartProductService: CartProductsService,
     private router: Router,
@@ -40,11 +43,18 @@ export class CartPageComponent implements OnInit {
         this.totalTax = 0
         this.cartItems = products
         for (let cartProduct of this.cartItems) {
-          let price = ProductPriceUtil.calculatePrice(cartProduct)
+          let price = ProductPriceUtil.convertDiscount(
+            ProductPriceUtil.calculatePrice(cartProduct),
+            cartProduct.product.discount,
+            cartProduct.product.discountType,
+          )
           let priceWithoutTax = ProductPriceUtil.calculatePriceWithoutTax(cartProduct)
           let count = cartProduct.count
+          let priceWithNoDiscount = ProductPriceUtil.calculatePrice(cartProduct)
+          this.totalDiscount += (priceWithNoDiscount - price) * count
           this.totalPrice += price * count
           this.priceWithOutTax += priceWithoutTax * count
+          this.totalPriceWithoutDiscount += priceWithNoDiscount * count
           this.totalTax += ProductPriceUtil.calculateTax(cartProduct)
         }
       }

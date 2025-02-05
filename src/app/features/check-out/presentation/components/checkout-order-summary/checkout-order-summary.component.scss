@@ -21,14 +21,18 @@
 
   img {
     width: 7rem;
+    border-radius: 50%;
   }
 }
 
 .item-price {
+  display: flex;
+  column-gap: 0.8rem;
   margin-inline-start: auto;
 
   p {
     font-weight: 600;
+    color: VAR(--primary-color);
   }
 }
 
@@ -63,3 +67,9 @@
 
 }
 
+.discount-price {
+  text-decoration: underline;
+  text-underline-offset: -0.4rem;
+  text-decoration-skip-ink: none;
+  color: VAR(--darkgray) !important;
+}

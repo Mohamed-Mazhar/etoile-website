@@ -9,14 +9,29 @@
     <p>{{ 'LOGIN_SUB_TITLE' | translate }}</p>
   </div>
   <div class="container">
-    <input-text-field
-      id="loginEmail"
-      [group]="formGroup"
-      [showPrefixIcon]="true"
-      [inputType]="InputType.email"
-      [validators]="[Validators.required, Validators.email]"
-      [floatingLabel]="'EMAIL' | translate">
-    </input-text-field>
+    <div class="d-flex column-gap-4">
+      <input-text-field
+        *ngIf="!isMobileNumber"
+        class="w-100"
+        id="loginEmail"
+        [group]="formGroup"
+        [showPrefixIcon]="true"
+        [inputType]="InputType.email"
+        [validators]="[Validators.required, Validators.email]"
+        [floatingLabel]="'EMAIL' | translate">
+      </input-text-field>
+      <mobile-number
+        countryCodeId="countryCode"
+        mobileNumberId="loginMobile"
+        class="w-100"
+        *ngIf="isMobileNumber"
+        [group]="formGroup"
+        [validators]="[Validators.required]">
+      </mobile-number>
+      <div class="swap-icon mb-3" (click)="isMobileNumber = !isMobileNumber">
+        <i class="fa fa-right-left"></i>
+      </div>
+    </div>
     <input-text-field
       id="loginPassword"
       [group]="formGroup"

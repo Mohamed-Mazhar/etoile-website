@@ -29,6 +29,6 @@ export enum ApiType {
   policyPage = "api/v1/pages",
   getDeliveryInfo = 'api/v1/config/delivery-fee?branch_id={}',
   getDeliveryFees = 'api/v1/config/delivery-calc?branch_id={}&distance={}&area_id={}',
-
+  checkDiscountAvailability = 'api/v1/config/apply-discount',
   createPaymentIntention = "intention",
 }

@@ -22,6 +22,8 @@ import {MyFatoorahPaymentMethod} from "../../../../../common/data-classes/MyFato
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../../../environments/environment.prod";
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
+import {SplashApi} from "../../../../../common/apis/splash-api";
+import {DiscountAvailabilityModel} from "../../../../../common/data-classes/DiscountAvailabilityModel";
 
 
 @Component({
@@ -33,6 +35,7 @@ import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 export class CheckOutComponent implements OnInit {
 
   @ViewChild('openMyFatoorahElem') openMyFatoorahElem!: ElementRef
+  @ViewChild('discountAvailElem') discountAvailElem!: ElementRef
   activeTab = 'shipping'
   loading = false
   addresses: AddressModel[] = []
@@ -49,6 +52,10 @@ export class CheckOutComponent implements OnInit {
   placeOrderBody: PlaceOrderBody | null = null
   discountAmountFromCoupon: number = 0
   deliveryCharge: number = 0
+  totalDiscount = 0
+  discountAvailabilityModel: DiscountAvailabilityModel | null = null
+  selectedAddress: AddressModel | null = null
+
 
   constructor(
     private addressApi: AddressApi,
@@ -62,6 +69,7 @@ export class CheckOutComponent implements OnInit {
     private payMobApi: PayMobApi,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    private splashApi: SplashApi,
   ) {
   }
 
@@ -92,7 +100,11 @@ export class CheckOutComponent implements OnInit {
       next: (cartProducts) => {
         this.cartProductItems = cartProducts
         for (let cartProduct of cartProducts) {
-          let price = ProductPriceUtil.calculatePrice(cartProduct)
+          let price = ProductPriceUtil.convertDiscount(
+            ProductPriceUtil.calculatePrice(cartProduct),
+            cartProduct.product.discount,
+            cartProduct.product.discountType,
+          )
           this.totalPrice += (cartProduct.count * price)
         }
       }
@@ -123,12 +135,13 @@ export class CheckOutComponent implements OnInit {
     let selectedAddress = this.addresses.find((address) => address.id === addressId)
     if (selectedAddress) {
       this.loading = true
+      this.selectedAddress = selectedAddress
       this.addressApi.getDeliveryFees(this.selectedBranch?.id!, 0, selectedAddress!.deliveryAreaId!).subscribe({
         next: (deliveryCharge) => {
           this.loading = false
-          console.log("Retrieved fees inside move to payment ", deliveryCharge)
           this.deliveryCharge = deliveryCharge
           this.activeTab = 'payment'
+          this.checkDiscountAvailability()
         },
         error: (err) => {
           this.loading = false
@@ -156,10 +169,42 @@ export class CheckOutComponent implements OnInit {
       this.totalPrice = 0
       this.discountAmountFromCoupon = 0
       for (let cartProduct of this.cartProductItems) {
-        let price = ProductPriceUtil.calculatePrice(cartProduct)
+        let price = ProductPriceUtil.convertDiscount(
+          ProductPriceUtil.calculatePrice(cartProduct),
+          cartProduct.product.discount,
+          cartProduct.product.discountType,
+        )
         this.totalPrice += (cartProduct.count * price)
       }
     }
+    this.checkDiscountAvailability()
+  }
+
+  checkDiscountAvailability() {
+    this.loading = true
+    this.splashApi.checkDiscountAvailability(
+      this.cartProductItems,
+      +this.totalPrice + +this.deliveryCharge,
+      this.totalDiscount,
+      this.couponModel?.discount ?? 0
+    ).subscribe({
+      next: (discountAvailabilityModel) => {
+        this.loading = false
+        if (discountAvailabilityModel?.status == null || discountAvailabilityModel?.status != "no_discount") {
+          if (this.discountAvailabilityModel?.discountId !== discountAvailabilityModel.discountId) {
+            this.discountAvailElem.nativeElement.click()
+          }
+        }
+        this.discountAvailabilityModel = discountAvailabilityModel
+        if (this.discountAvailabilityModel?.type === "free_delivery") {
+          this.deliveryCharge = 0
+        }
+      },
+      error: (err) => {
+        this.loading = false
+        console.log("Error received inside discount availability", err)
+      }
+    })
   }
 
   placeOrder(paymentMethod: PaymentMethod) {
@@ -180,7 +225,10 @@ export class CheckOutComponent implements OnInit {
       '0',
       null,
       null,
-      null
+      null,
+      this.selectedAddress?.deliveryAreaId,
+      this.discountAvailabilityModel?.discountId,
+      this.discountAvailabilityModel?.applicableAmount
     )
     if (paymentMethod.getWay === 'cash_on_pick_up' || paymentMethod.getWay === 'cash_on_delivery') {
       this.callPlaceOrder()

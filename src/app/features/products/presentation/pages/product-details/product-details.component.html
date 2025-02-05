@@ -7,7 +7,12 @@
     <div class="product-name"><p>{{ product.name }}</p></div>
     <p>{{ 'PRODUCT_CODE' | translate : {productId: product.branchProduct?.id} }}</p>
     <div class="product-price">
-      <p>{{ productPrice }} {{ configModel?.currencySymbol }}</p>
+      <p [ngClass]="productDiscountPrice !== productPrice ? 'discount-price' : ''">
+        {{ productPrice }} {{ configModel?.currencySymbol }}
+      </p>
+      <p *ngIf="productPrice !== productDiscountPrice && productDiscountPrice > 0">
+        {{ productDiscountPrice }} {{ configModel?.currencySymbol }}
+      </p>
     </div>
     <p>{{ 'PRODUCTS_PRICE_VAT' | translate }}</p>
     <div class="product-review-container">

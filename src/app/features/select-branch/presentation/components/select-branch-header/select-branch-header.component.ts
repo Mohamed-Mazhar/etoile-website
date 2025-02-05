@@ -29,6 +29,11 @@ export class SelectBranchHeaderComponent implements OnInit {
     if (user !== null) {
       this.userInfo = JSON.parse(user)
     }
+    AppEventBroadcaster.on({event: AppEvent.loadUserInfo}).subscribe({
+      next: (_) => {
+        this.userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+      }
+    })
   }
 
   changeLanguage(language: string) {
@@ -38,9 +43,12 @@ export class SelectBranchHeaderComponent implements OnInit {
   }
 
   logout() {
-    let selectedBranch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+    let selectedBranchJson = localStorage.getItem(SELECTED_BRANCH)
     localStorage.clear()
-    localStorage.setItem(SELECTED_BRANCH, JSON.stringify(selectedBranch))
+    if (selectedBranchJson !== null) {
+      let selectedBranch = JSON.parse(selectedBranchJson)
+      localStorage.setItem(SELECTED_BRANCH, JSON.stringify(selectedBranch))
+    }
     AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
     this.router.navigate(['/']).then()
   }

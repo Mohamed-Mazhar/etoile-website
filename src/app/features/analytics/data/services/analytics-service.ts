@@ -23,9 +23,9 @@ export class AnalyticsService {
   }
 
   logAdjustEvent(parameter: {event: AdjustEvent}) {
-    Adjust.trackEvent({
-      eventToken: parameter.event
-    }).then(r => console.log("Event tracked"))
+    // Adjust.trackEvent({
+    //   eventToken: parameter.event
+    // }).then(r => console.log("Event tracked"))
   }
 
 }

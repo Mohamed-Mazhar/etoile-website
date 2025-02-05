@@ -97,3 +97,9 @@
   }
 }
 
+.discount-price {
+  text-decoration: underline;
+  text-underline-offset: -0.4rem;
+  text-decoration-skip-ink: none;
+  color: VAR(--lightgray) !important;
+}

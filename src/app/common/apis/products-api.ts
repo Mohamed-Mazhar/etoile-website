@@ -4,7 +4,7 @@ import {map, Observable} from "rxjs";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {Product, ProductModel} from "../data-classes/ProductModel";
-import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
+import {CartProductItem, convertCartProductsToJson} from "../../features/cart/data/model/CartProductItem";
 import {ProductPriceUtil} from "../utils/ProductPriceUtil";
 
 @Injectable({providedIn: 'root'})
@@ -116,33 +116,7 @@ export class ProductsApi {
   }
 
   checkAvailability(cartProducts: CartProductItem[]) {
-    let jsonBody: { [key: string]: any } = {}
-    jsonBody['cart'] = []
-    for (let cartItem of cartProducts) {
-      jsonBody['cart'].push({
-        product_id: cartItem.product.id,
-        price: cartItem.product.price?.toString(),
-        discount_amount: 0,
-        quantity: cartItem.count,
-        tax_amount: ProductPriceUtil.calculateTax(cartItem),
-        variant: [],
-        variations: cartItem.variations.isNotEmpty() ?
-          cartItem.variations.map((variation) => {
-            return {
-              name: variation.name,
-              values: [...variation.values.map((variationValue) => {
-                return {
-                  label: variationValue.optionLabel
-                }
-              })]
-            }
-          }) : [],
-        // add_on_ids: cartItem.productAddOns.map((addOn) => addOn.id),
-        add_on_ids: [],
-        add_on_qtys: []
-        // add_on_qtys: this.addOnQtys,
-      })
-    }
+    let jsonBody: { [key: string]: any } = convertCartProductsToJson(cartProducts)
     return this.baseApiService.call<{}, void>({
       apiType: ApiType.checkAvailability,
       requestType: RequestType.POST,

@@ -17,6 +17,7 @@ export class CartSideItemComponent implements OnInit {
   @Input() hideSeparator: boolean = false
   @Input() isAvailable: boolean = true
   configModel: ConfigModel | null = null
+  productDiscountPrice = 0
 
   constructor(
     private cartProductsService: CartProductsService,
@@ -31,6 +32,11 @@ export class CartSideItemComponent implements OnInit {
         this.configModel = config
       }
     })
+    this.productDiscountPrice = ProductPriceUtil.convertDiscount(
+      this.cartProduct.product.priceIncludingTax,
+      this.cartProduct.product.discount,
+      this.cartProduct.product.discountType
+    )
   }
 
   removeProduct(cartProduct: CartProductItem) {

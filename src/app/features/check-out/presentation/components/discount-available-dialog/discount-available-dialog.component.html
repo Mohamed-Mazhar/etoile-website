@@ -1,0 +1,11 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-body discount-details-container">
+      <i class="fa fa-gift gift-icon"></i>
+      <h3>{{ 'CONGRATULATIONS' | translate }}</h3>
+      <p>{{ getDiscountText() }}</p>
+      <primary-button [buttonPadding]="0.5" [title]="'OK' | translate" data-bs-dismiss="modal"></primary-button>
+    </div>
+  </div>
+</div>

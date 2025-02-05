@@ -43,14 +43,14 @@ export class AuthenticationApi {
     )
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
+  login(email: string, password: string, isPhone: boolean): Observable<LoginResponse> {
     return this.baseApiService.call<{}, {}>({
       apiType: ApiType.login,
       requestType: RequestType.POST,
       body: {
         email_or_phone: email,
         password: password,
-        type: 'email'
+        type: isPhone ? 'phone': 'email'
       }
     }).pipe(
       map((response: { [key: string]: any }) => {

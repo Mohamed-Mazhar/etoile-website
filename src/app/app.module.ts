@@ -120,6 +120,9 @@ import {ProductInfoComponent} from "./features/orders/presentation/components/pr
 import {
   MyFatoorahPaymentsModalComponent
 } from "./features/check-out/presentation/components/my-fatoorah-payments-modal/my-fatoorah-payments-modal.component";
+import {
+  DiscountAvailableDialogComponent
+} from "./features/check-out/presentation/components/discount-available-dialog/discount-available-dialog.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -207,7 +210,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     OrderDetailsComponent,
     ForgetPasswordComponent,
     ProductInfoComponent,
-    MyFatoorahPaymentsModalComponent
+    MyFatoorahPaymentsModalComponent,
+    DiscountAvailableDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -232,7 +236,8 @@ const cookieConfig: NgcCookieConsentConfig = {
   ],
   bootstrap: [AppComponent],
   exports: [
-    InputTextFieldComponent
+    InputTextFieldComponent,
+    PrimaryButtonComponent
   ]
 })
 export class AppModule {

@@ -61,6 +61,7 @@
       [delivery]="deliveryCharge"
       (onCouponAppliedSuccessfully)="applyCoupon($event)"
       [showExtraDetails]="activeTab === 'payment'"
+      (discountAmount)="totalDiscount = $event"
       class="order-summary">
     </app-checkout-order-summary>
   </div>
@@ -83,4 +84,11 @@
 <!--    [myFatoorahPaymentMethods]="myFatoorahPaymentMethods"-->
 <!--    (onPaymentSelected)="executeMyFatoorahTransaction($event)">-->
 <!--  </app-my-fatoorah-payments-modal>-->
+</div>
+
+<div #discountAvailElem data-bs-target="#discountModal" data-bs-toggle="modal"></div>
+<div class="modal fade modal-index" id="discountModal">
+  <app-discount-available-dialog
+    [discountAvailabilityModel]="discountAvailabilityModel">
+  </app-discount-available-dialog>
 </div>

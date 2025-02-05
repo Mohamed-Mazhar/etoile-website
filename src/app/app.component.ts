@@ -8,8 +8,6 @@ import {GoogleTagManagerService} from "angular-google-tag-manager";
 import {NgcCookieConsentService, NgcStatusChangeEvent} from "ngx-cookieconsent";
 import {AnalyticsService} from "./features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "./features/analytics/data/models/AnalyticsEvent";
-import Adjust from "@adjustcom/adjust-web-sdk";
-import {environment} from "../environments/environment";
 import {AdjustEvent} from "./features/analytics/data/models/AdjustEvent";
 import {Meta, Title} from "@angular/platform-browser";
 import {CartProductsService} from "./common/services/cart-products.service";
@@ -35,10 +33,10 @@ export class AppComponent {
     private metaService: Meta,
     private cartService: CartProductsService
   ) {
-    Adjust.initSdk({
-      appToken: environment.adjustToken,
-      environment: "production",
-    });
+    // Adjust.initSdk({
+    //   appToken: environment.adjustToken,
+    //   environment: "production",
+    // });
     this.initializeSelectedBranch()
     this.scrollPageToTop()
     this.initializeLanguage()
@@ -140,7 +138,8 @@ export class AppComponent {
     } else {
       localStorage.setItem(EXPIRE_BRANCH, (new Date().getTime() + EXPIRE_BRANCH_TIME * 60 * 1000).toString())
     }
-    if (localStorage.getItem(SELECTED_BRANCH) === null) {
+    console.log("App component selected branch ", localStorage.getItem(SELECTED_BRANCH))
+    if (localStorage.getItem(SELECTED_BRANCH) === null || localStorage.getItem(SELECTED_BRANCH) === 'null') {
       this.router.navigate(['/branch']).then()
     }
   }

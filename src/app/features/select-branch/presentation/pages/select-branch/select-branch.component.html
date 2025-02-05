@@ -13,7 +13,7 @@
                   aria-expanded="false">
             {{ selectedBranch?.name ?? 'SELECT_BRANCH' | translate }}
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ul class="dropdown-menu branches-container" aria-labelledby="dropdownMenuButton1">
             <form [formGroup]="form">
               <input type="text" formControlName="search" class="form-control search-field"
                      [placeholder]="'SEARCH_FOR' | translate">

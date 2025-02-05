@@ -1,0 +1,19 @@
+.discount-details-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-close {
+  margin-inline-start: auto;
+  margin-inline-end: 1rem;
+  margin-top: 1rem;
+}
+
+.gift-icon {
+  font-size: 3rem;
+  color: VAR(--primary-color);
+}

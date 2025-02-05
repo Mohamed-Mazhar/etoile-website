@@ -276,5 +276,9 @@
   "MY_FATOORAH": "My fatoorah",
   "ZIP_AREA": "Zip Code / Area",
   "SELECT_ZIP_AREA_CODE": "Select Zip Code / Area",
-  "PLEASE_SELECT_ZONE": "Zone area is required"
+  "PLEASE_SELECT_ZONE": "Zone area is required",
+  "PRODUCT_DISCOUNT" : "Discount",
+  "FREE_DELIVERY": "You've got Free Delivery! \uD83C\uDF89",
+  "DISCOUNT_MESSAGE": "You got {{discount}} discount \uD83C\uDF89",
+  "CONGRATULATIONS": "Congratulations !"
 }

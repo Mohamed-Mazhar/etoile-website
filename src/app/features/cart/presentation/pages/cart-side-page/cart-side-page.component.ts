@@ -47,7 +47,11 @@ export class CartSidePageComponent implements OnInit {
         this.totalPrice = 0
         this.cartProducts = products
         for (let cartProduct of this.cartProducts) {
-          let price = ProductPriceUtil.calculatePrice(cartProduct)
+          let price = ProductPriceUtil.convertDiscount(
+            ProductPriceUtil.calculatePrice(cartProduct),
+            cartProduct.product.discount,
+            cartProduct.product.discountType,
+          )
           let count = cartProduct.count
           this.totalPrice += price * count
         }

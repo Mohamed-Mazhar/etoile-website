@@ -1,24 +1,27 @@
-import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
-import {ProductPriceUtil} from "../utils/ProductPriceUtil";
+import {CartProductItem} from "../../features/cart/data/model/CartProductItem"
+import {ProductPriceUtil} from "../utils/ProductPriceUtil"
 
 export class PlaceOrderBody {
-  cart: CartProductItem[] | null;
-  couponDiscountAmount: number | null;
-  couponDiscountTitle: string | null;
-  orderAmount: number | null;
-  orderType: string | null;
-  deliveryAddressId: number | null;
-  paymentMethod: string | null;
-  orderNote: string | null;
-  couponCode: string | null;
-  deliveryTime: string | null;
-  deliveryDate: string | null;
-  branchId: number | null;
-  distance: number | null;
-  transactionReference: string | null;
-  paymentInfo: OfflinePaymentInfo | null;
-  isPartial: string | null;
-  isCutleryRequired: string | null;
+  cart: CartProductItem[] | null
+  couponDiscountAmount: number | null
+  couponDiscountTitle: string | null
+  orderAmount: number | null
+  orderType: string | null
+  deliveryAddressId: number | null
+  paymentMethod: string | null
+  orderNote: string | null
+  couponCode: string | null
+  deliveryTime: string | null
+  deliveryDate: string | null
+  branchId: number | null
+  distance: number | null
+  transactionReference: string | null
+  paymentInfo: OfflinePaymentInfo | null
+  isPartial: string | null
+  isCutleryRequired: string | null
+  discountId: number | null
+  extraDiscount: number | null
+  selectedDeliveryArea: number | null
 
   constructor(cart: CartProductItem[] | null,
               couponDiscountAmount: number | null,
@@ -36,8 +39,12 @@ export class PlaceOrderBody {
               isPartial: string,
               transactionReference?: string | null,
               paymentInfo?: OfflinePaymentInfo | null,
-              isCutleryRequired?: string | null);
-  constructor();
+              isCutleryRequired?: string | null,
+              selectedDeliveryArea?: number | null,
+              discountId?: number | null,
+              extraDiscount?: number | null
+              )
+  constructor()
 
   constructor(
     cart?: CartProductItem[] | null,
@@ -56,39 +63,45 @@ export class PlaceOrderBody {
     isPartial?: string,
     transactionReference?: string | null,
     paymentInfo?: OfflinePaymentInfo | null,
-    isCutleryRequired?: string | null
+    isCutleryRequired?: string | null,
+    selectedDeliveryArea?: number | null,
+    discountId?: number | null,
+    extraDiscount?: number | null,
   ) {
-    this.cart = cart ?? null;
-    this.couponDiscountAmount = couponDiscountAmount ?? null;
-    this.couponDiscountTitle = couponDiscountTitle ?? null;
-    this.couponCode = couponCode ?? null;
-    this.orderAmount = orderAmount ?? 0;
-    this.deliveryAddressId = deliveryAddressId ?? null;
-    this.orderType = orderType ?? null;
-    this.paymentMethod = paymentMethod ?? "";
-    this.branchId = branchId ?? 0;
-    this.deliveryTime = deliveryTime ?? "";
-    this.deliveryDate = deliveryDate ?? "";
-    this.orderNote = orderNote ?? "";
-    this.distance = distance ?? 0;
-    this.isPartial = isPartial ?? "";
-    this.transactionReference = transactionReference ?? null;
-    this.paymentInfo = paymentInfo ?? null;
-    this.isCutleryRequired = isCutleryRequired ?? null;
+    this.cart = cart ?? null
+    this.couponDiscountAmount = couponDiscountAmount ?? null
+    this.couponDiscountTitle = couponDiscountTitle ?? null
+    this.couponCode = couponCode ?? null
+    this.orderAmount = orderAmount ?? 0
+    this.deliveryAddressId = deliveryAddressId ?? null
+    this.orderType = orderType ?? null
+    this.paymentMethod = paymentMethod ?? ""
+    this.branchId = branchId ?? 0
+    this.deliveryTime = deliveryTime ?? ""
+    this.deliveryDate = deliveryDate ?? ""
+    this.orderNote = orderNote ?? ""
+    this.distance = distance ?? 0
+    this.isPartial = isPartial ?? ""
+    this.transactionReference = transactionReference ?? null
+    this.paymentInfo = paymentInfo ?? null
+    this.isCutleryRequired = isCutleryRequired ?? null
+    this.selectedDeliveryArea = selectedDeliveryArea ?? null
+    this.extraDiscount = extraDiscount ?? null
+    this.discountId = discountId ?? null
   }
 
   copyWith(paymentMethod?: string, transactionReference?: string | null): PlaceOrderBody {
     if (paymentMethod) {
-      this.paymentMethod = paymentMethod;
+      this.paymentMethod = paymentMethod
     }
     if (transactionReference) {
-      this.transactionReference = transactionReference;
+      this.transactionReference = transactionReference
     }
-    return this;
+    return this
   }
 
   static fromJson(json: any): PlaceOrderBody {
-    const cart = json.cart ? json.cart.map((v: any) => Cart.fromJson(v)) : null;
+    const cart = json.cart ? json.cart.map((v: any) => Cart.fromJson(v)) : null
     return new PlaceOrderBody(
       cart,
       json['coupon_discount_amount'],
@@ -106,8 +119,9 @@ export class PlaceOrderBody {
       json.is_partial,
       json.transaction_reference,
       json.payment_info ? OfflinePaymentInfo.fromJson(json.payment_info) : null,
+      json.selected_delivery_area,
       json['is_cutlery_required']
-    );
+    )
   }
 
   toJson(): any {
@@ -159,21 +173,27 @@ export class PlaceOrderBody {
     if (this.paymentInfo !== null) {
       jsonBody['payment_info'] = this.paymentInfo
     }
-    jsonBody['selected_delivery_area'] = 1 //Todo change it to the right value
+    jsonBody['selected_delivery_area'] = this.selectedDeliveryArea
+    if (this.discountId) {
+      jsonBody['discount_id'] = this.discountId
+    }
+    if (this.extraDiscount) {
+      jsonBody['extra_discount'] = this.extraDiscount
+    }
     return jsonBody
   }
 }
 
 class Cart {
-  productId: string | null;
-  price: string | null;
-  variant: string[] | null;
-  variation: OrderVariation[] | null;
-  discountAmount: number | null;
-  quantity: number | null;
-  taxAmount: number | null;
-  addOnIds: number[] | null;
-  addOnQtys: number[] | null;
+  productId: string | null
+  price: string | null
+  variant: string[] | null
+  variation: OrderVariation[] | null
+  discountAmount: number | null
+  quantity: number | null
+  taxAmount: number | null
+  addOnIds: number[] | null
+  addOnQtys: number[] | null
 
   constructor(
     productId: string | null,
@@ -186,21 +206,21 @@ class Cart {
     addOnIds: number[] | null,
     addOnQtys: number[] | null
   ) {
-    this.productId = productId;
-    this.price = price;
-    this.variant = variant;
-    this.variation = variation;
-    this.discountAmount = discountAmount;
-    this.quantity = quantity;
-    this.taxAmount = taxAmount;
-    this.addOnIds = addOnIds;
-    this.addOnQtys = addOnQtys;
+    this.productId = productId
+    this.price = price
+    this.variant = variant
+    this.variation = variation
+    this.discountAmount = discountAmount
+    this.quantity = quantity
+    this.taxAmount = taxAmount
+    this.addOnIds = addOnIds
+    this.addOnQtys = addOnQtys
   }
 
   static fromJson(json: any): Cart {
     const variation = json.variations
       ? json.variations.map((v: any) => OrderVariation.fromJson(v))
-      : null;
+      : null
     return new Cart(
       json.product_id,
       json.price,
@@ -211,7 +231,7 @@ class Cart {
       json.tax_amount,
       json.add_on_ids,
       json.add_on_qtys
-    );
+    )
   }
 
   toJson(): any {
@@ -225,57 +245,57 @@ class Cart {
       tax_amount: this.taxAmount,
       add_on_ids: this.addOnIds,
       add_on_qtys: this.addOnQtys,
-    };
+    }
   }
 }
 
 class OrderVariation {
-  name: string | null;
-  values: OrderVariationValue | null;
+  name: string | null
+  values: OrderVariationValue | null
 
   constructor(name: string | null, values: OrderVariationValue | null) {
-    this.name = name;
-    this.values = values;
+    this.name = name
+    this.values = values
   }
 
   static fromJson(json: any): OrderVariation {
     return new OrderVariation(
       json.name,
       json.values ? OrderVariationValue.fromJson(json.values) : null
-    );
+    )
   }
 
   toJson(): any {
     return {
       name: this.name,
       values: this.values ? this.values.toJson() : null,
-    };
+    }
   }
 }
 
 class OrderVariationValue {
-  label: string[] | null;
+  label: string[] | null
 
   constructor(label: string[] | null) {
-    this.label = label;
+    this.label = label
   }
 
   static fromJson(json: any): OrderVariationValue {
-    return new OrderVariationValue(json.label);
+    return new OrderVariationValue(json.label)
   }
 
   toJson(): any {
     return {
       label: this.label,
-    };
+    }
   }
 }
 
 class OfflinePaymentInfo {
-  paymentName: string | null;
-  paymentNote: string | null;
-  methodFields: Array<Map<string, any> | null> | null;
-  methodInformation: Array<Map<string, string>> | null;
+  paymentName: string | null
+  paymentNote: string | null
+  methodFields: Array<Map<string, any> | null> | null
+  methodInformation: Array<Map<string, string>> | null
 
   constructor(
     paymentName: string | null,
@@ -283,10 +303,10 @@ class OfflinePaymentInfo {
     methodFields: Array<Map<string, any> | null> | null,
     methodInformation: Array<Map<string, string>> | null
   ) {
-    this.paymentName = paymentName;
-    this.paymentNote = paymentNote;
-    this.methodFields = methodFields;
-    this.methodInformation = methodInformation;
+    this.paymentName = paymentName
+    this.paymentNote = paymentNote
+    this.methodFields = methodFields
+    this.methodInformation = methodInformation
   }
 
   static fromJson(json: any): OfflinePaymentInfo {
@@ -295,7 +315,7 @@ class OfflinePaymentInfo {
       json.payment_note,
       json.method_fields,
       json.method_information
-    );
+    )
   }
 
   toJson(): any {
@@ -304,6 +324,6 @@ class OfflinePaymentInfo {
       payment_note: this.paymentNote,
       method_fields: this.methodFields,
       method_information: this.methodInformation,
-    };
+    }
   }
 }

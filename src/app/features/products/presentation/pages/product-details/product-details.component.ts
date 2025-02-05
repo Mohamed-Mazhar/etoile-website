@@ -24,6 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   selectedSize = "Select Size"
   indexOfVariationSize = -1
   productPrice = 0
+  productDiscountPrice = 0
   productImage = ""
 
   constructor(
@@ -45,6 +46,9 @@ export class ProductDetailsComponent implements OnInit {
         this.product = product
         this.productImage = this.getImage()
         this.productPrice = ProductPriceUtil.getProductPrice(product)
+        this.productDiscountPrice = ProductPriceUtil.convertDiscount(
+          product.priceIncludingTax, product.discount, product.discountType
+        )
         this.productRating = product.rating?.reduce((pre, current) => {
             return pre + current.average!
           }, 0

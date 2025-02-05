@@ -54,4 +54,14 @@ export class ProductPriceUtil {
     }
     return productPrice!
   }
+
+  static convertDiscount(priceIncludingTax?: number, discount?: number, discountType?: string) {
+    let price = priceIncludingTax
+    if (discountType == 'amount') {
+      price = discount;
+    } else if (discountType == 'percent') {
+      price = (discount! / 100) * price!;
+    }
+    return priceIncludingTax! - price!;
+  }
 }

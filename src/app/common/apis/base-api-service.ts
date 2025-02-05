@@ -119,8 +119,9 @@ export class BaseApiService {
         'X-localization': this.translate.currentLang,
       })
     }
-    if (localStorage.getItem(SELECTED_BRANCH) !== null) {
-      let selectedBranch: Branch = JSON.parse(localStorage.getItem(SELECTED_BRANCH)!)
+    let branchJson = localStorage.getItem(SELECTED_BRANCH)
+    if (branchJson !== null && branchJson !== "null") {
+      let selectedBranch: Branch = JSON.parse(branchJson)
       headers = headers.append("branch-id", `${selectedBranch.id}`)
     }
     if (parameters.isPostRequest) {

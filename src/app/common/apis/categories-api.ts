@@ -4,6 +4,7 @@ import {map, Observable} from "rxjs";
 import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {Category} from "../data-classes/Category";
+import {ProductModel} from "../data-classes/ProductModel";
 
 @Injectable({providedIn: 'root'})
 export class CategoriesApi {
@@ -36,16 +37,22 @@ export class CategoriesApi {
     )
   }
 
-  getCategoryProducts(categoryId?: string, name?: string): Observable<void> {
-    return this.baseApiService.call({
+  getCategoryProducts(offset: number, categoryId: string, name: string | null): Observable<ProductModel> {
+    let body: { [key: string]: any } = {
+      offset: offset,
+      product_type: 'all',
+    }
+    if (name !== null) {
+      body['name'] = name
+    }
+    return this.baseApiService.call<{}, { [key: string]: any }>({
       apiType: ApiType.categoryProducts,
       requestType: RequestType.GET,
       pathVariables: [categoryId ?? ''],
-      body: {
-        product_type: 'all',
-        search: name ?? ''
-      }
-    })
+      body: body
+    }).pipe(
+      map((response) => ProductModel.fromJson(response))
+    )
   }
 
 }

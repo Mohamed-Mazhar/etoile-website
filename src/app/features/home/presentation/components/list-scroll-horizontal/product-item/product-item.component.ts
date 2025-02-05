@@ -19,6 +19,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
   configModel: ConfigModel | null = null
   productPrice = 0
   productImage = ""
+  productDiscountPrice = 0
 
   constructor(
     private cartService: CartProductsService,
@@ -39,6 +40,11 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
       }
     })
     this.productPrice = ProductPriceUtil.getProductPrice(this.product)
+    this.productDiscountPrice = ProductPriceUtil.convertDiscount(
+      this.product.priceIncludingTax,
+      this.product.discount,
+      this.product.discountType
+    ) ?? this.productPrice
   }
 
   addProduct() {

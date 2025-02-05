@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   formGroup: UntypedFormGroup = new UntypedFormGroup({})
   isLoading: boolean = false
   errorMessage: string | null = null
+  isMobileNumber = true
 
   constructor(
     private authenticationApi: AuthenticationApi,
@@ -42,10 +43,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     let email = this.formGroup.get('loginEmail')?.value
+    let phone = this.formGroup.get('loginMobile')?.value
+    let countryCode = this.formGroup.get('countryCode')?.value
+    let mobileNumber = `${countryCode}${phone}`
+    console.log("Entered phone ", [countryCode, phone])
     let password = this.formGroup.get('loginPassword')?.value
     this.isLoading = true
     this.errorMessage = null
-    this.authenticationApi.login(email, password).subscribe({
+    this.authenticationApi.login(this.isMobileNumber ? mobileNumber : email, password, this.isMobileNumber).subscribe({
       next: (response) => {
         this.isLoading = false
         localStorage.setItem(

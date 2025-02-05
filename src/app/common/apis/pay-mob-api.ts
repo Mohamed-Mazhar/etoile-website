@@ -12,6 +12,11 @@ export class PayMobApi {
   }
 
   createPaymentIntention(orderAmount: number, user: UserInfo): Observable<string> {
+    let firstName = user.fName
+    let lastName = user.lName
+    if (!lastName?.hasActualValue() && firstName!.split(" ").length > 1) {
+      lastName = firstName?.split(" ").last() ?? firstName
+    }
     return this.baseApiService.callPayMobApis<{}, { [key: string]: any }>({
       apiType: ApiType.createPaymentIntention,
       headerKey: environment.payMobPrivate,
@@ -20,8 +25,8 @@ export class PayMobApi {
         currency: "EGP",
         redirection_url: `${environment.payMobCallBackUrl}/checkout`,
         billing_data: {
-          first_name: user.fName,
-          last_name: user.lName,
+          first_name: firstName,
+          last_name: lastName,
           phone_number: user.phone ?? ''
         },
         payment_methods: [

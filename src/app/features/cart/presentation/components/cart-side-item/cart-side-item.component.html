@@ -16,7 +16,12 @@
       </div>
       <div class="price-container">
         <p>{{ 'PRICE' | translate }}:</p>
-        <p>{{ getPrice().toFixed(2) }} {{ configModel?.currencySymbol }}</p>
+        <p [ngClass]="productDiscountPrice !== getPrice() ? 'discount-price' : ''">
+          {{ getPrice().toFixed(2) }} {{ configModel?.currencySymbol }}
+        </p>
+        <p class="subtitle" *ngIf="getPrice() !== productDiscountPrice && productDiscountPrice > 0">
+          {{ productDiscountPrice }} {{ configModel?.currencySymbol }}
+        </p>
       </div>
     </div>
     <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"
