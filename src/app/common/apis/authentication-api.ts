@@ -34,6 +34,7 @@ export class AuthenticationApi {
       body: registerRequest
     }).pipe(
       map((response: { [key: string]: any }) => {
+        console.log("Registration response ", response)
           return {
             token: response['token'],
             temporaryToken: response['temporary_token']
@@ -71,6 +72,27 @@ export class AuthenticationApi {
         email_or_phone: 'email',
         type: 'email',
         email: email
+      }
+    })
+  }
+
+  checkPhone(phoneNumber: string) : Observable<void> {
+    return this.baseApiService.call({
+      apiType: ApiType.checkPhone,
+      requestType: RequestType.POST,
+      body: {
+        phone: phoneNumber
+      }
+    })
+  }
+
+  verifyPhone(phoneNumber: string, smsCode: string): Observable<{ [key: string]: any }> {
+    return this.baseApiService.call({
+      apiType: ApiType.verifyPhone,
+      requestType: RequestType.POST,
+      body: {
+        phone: phoneNumber,
+        token: smsCode,
       }
     })
   }

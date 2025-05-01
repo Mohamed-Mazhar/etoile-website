@@ -1,0 +1,47 @@
+<div class="modal-container">
+  <div #close class="modal-close-icon" data-bs-dismiss="offcanvas">
+    <i class="fa fa-times"></i>
+  </div>
+  <body class="container d-block">
+  <div class="row justify-content-center">
+    <div class="w-100">
+      <div class="mb-5 mt-5">
+        <div class="card-body text-center">
+          <h4>Verify</h4>
+          <i class="fa fa-mobile-screen mobile-icon" aria-hidden="true"></i>
+          <p class="mb-4">Enter the 6-digit code sent to your phone {{ mobileNumber }}</p>
+
+          <div class="alert alert-danger form-alert" *ngIf="errorMessage !== null">{{ errorMessage }}</div>
+
+          <div class="otp-field mb-4">
+            <input *ngFor="let digit of otp; let i = index"
+                   type="text"
+                   maxlength="1"
+                   [disabled]="i !== 0"
+                   (keyup)="onKeyUp($event, i)"
+                   (paste)="onPaste($event)"
+                   #otpInputs>
+          </div>
+
+          <primary-button
+            title="Verify"
+            [buttonPadding]="0.5"
+            [loading]="loading"
+            (onClick)="verifySmsCode()"
+            [enabled]="isButtonActive">
+          </primary-button>
+
+          <div class="mb-0 mt-4" *ngIf="remainingTime === 0">
+            <p class="resend">{{ 'DIDNT_RECEIVE_CODE' | translate }}
+              <span (click)="resendCode()" class="resend-code">{{ 'REQUEST_AGAIN' | translate }}</span>
+            </p>
+          </div>
+          <div class="mb-0 mt-4" *ngIf="remainingTime > 0">
+            <p class="resend">{{ 'RESEND_PIN' | translate : {value : remainingTime} }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</div>

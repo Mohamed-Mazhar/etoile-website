@@ -30,5 +30,8 @@ export enum ApiType {
   getDeliveryInfo = 'api/v1/config/delivery-fee?branch_id={}',
   getDeliveryFees = 'api/v1/config/delivery-calc?branch_id={}&distance={}&area_id={}',
   checkDiscountAvailability = 'api/v1/config/apply-discount',
+  checkPhone = 'api/v1/auth/check-phone?phone=',
+  verifyPhone = 'api/v1/auth/verify-phone',
   createPaymentIntention = "intention",
+  initiateGeideaPayment = "api/v1/geidea/InitiatePayment"
 }

@@ -14,7 +14,9 @@
       </div>
       <img alt="" class="product-image" loading="lazy" [src]="productImage" (error)="setDefaultPic()">
     </div>
-    <p class="title">{{ product.name }}</p>
+    <div class="title">
+      <p>{{ product.name }}</p>
+    </div>
     <div class="d-flex gap-4 justify-content-center">
       <p class="subtitle" [ngClass]="productDiscountPrice !== productPrice ? 'discount-price' : ''">
         {{ productPrice }} {{ configModel?.currencySymbol }}

@@ -4,9 +4,11 @@ import {map, Observable, of} from "rxjs";
 import {ApiType} from "../enums/ApiType";
 import {environment} from "../../../environments/environment";
 import {UserInfo} from "../data-classes/UserInfo";
+import {PlaceOrderBody} from "../data-classes/PlaceOrderBody";
+import {RequestType} from "../enums/RequestType";
 
 @Injectable({providedIn: 'root'})
-export class PayMobApi {
+export class OnlinePaymentApi {
 
   constructor(private baseApiService: BaseApiService) {
   }
@@ -23,7 +25,7 @@ export class PayMobApi {
       body: {
         amount: orderAmount * 100,
         currency: "EGP",
-        redirection_url: `${environment.payMobCallBackUrl}/checkout`,
+        redirection_url: environment.paymentCallBackUrl,
         billing_data: {
           first_name: firstName,
           last_name: lastName,
@@ -40,6 +42,19 @@ export class PayMobApi {
         return response['client_secret']
       })
     )
+  }
+
+  initiateGeideaPayment(
+    placeOrderBody: PlaceOrderBody
+  ): Observable<{ [key: string]: any }> {
+    const parameters = placeOrderBody.toJson()
+    parameters['callbackUrl'] = environment.paymentCallBackUrl
+    parameters['returnUrl'] = environment.paymentCallBackUrl
+    return this.baseApiService.call<{}, { [key: string]: any }>({
+      apiType: ApiType.initiateGeideaPayment,
+      requestType: RequestType.POST,
+      body: parameters
+    })
   }
 
   getPaymentStatus(paymentId: string): Observable<any> {

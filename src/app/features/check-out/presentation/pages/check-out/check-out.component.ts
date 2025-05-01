@@ -11,19 +11,20 @@ import {ORDER_BODY, SELECTED_BRANCH, USER_INFO} from "../../../../../common/util
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
-import {DatePipe} from '@angular/common';
+import {DatePipe, formatDate} from '@angular/common';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
-import {PayMobApi} from "../../../../../common/apis/pay-mob-api";
+import {OnlinePaymentApi} from "../../../../../common/apis/online-payment-api";
 import {MyFatoorahPaymentMethod} from "../../../../../common/data-classes/MyFatoorahPaymentMethod";
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../../../environments/environment.prod";
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 import {SplashApi} from "../../../../../common/apis/splash-api";
 import {DiscountAvailabilityModel} from "../../../../../common/data-classes/DiscountAvailabilityModel";
+import {generateSignature} from "../../../../../common/utils/EncryptionUtility";
 
 
 @Component({
@@ -66,7 +67,7 @@ export class CheckOutComponent implements OnInit {
     private router: Router,
     private analyticsService: AnalyticsService,
     private configModelService: ConfigModelService,
-    private payMobApi: PayMobApi,
+    private onlinePaymentApi: OnlinePaymentApi,
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private splashApi: SplashApi,
@@ -123,7 +124,17 @@ export class CheckOutComponent implements OnInit {
     let payMobStatus = this.route.snapshot.queryParamMap.get('success')
     if (payMobId) {
       if (payMobStatus === 'true') {
-        this.processPayMobPayment(payMobId!)
+        this.processOnlinePayment(payMobId!, 'pay_mob')
+      } else {
+        this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')
+      }
+    }
+    let geideaOrderId = this.route.snapshot.queryParamMap.get('orderId')
+    let paymentStatus = this.route.snapshot.queryParamMap.get('responseMessage')
+    console.log("Received payment from geidea", [geideaOrderId, paymentStatus])
+    if (geideaOrderId?.hasActualValue()) {
+      if (paymentStatus?.toLowerCase() === "success") {
+        this.processOnlinePayment(geideaOrderId, 'geidea')
       } else {
         this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')
       }
@@ -233,7 +244,8 @@ export class CheckOutComponent implements OnInit {
     if (paymentMethod.getWay === 'cash_on_pick_up' || paymentMethod.getWay === 'cash_on_delivery') {
       this.callPlaceOrder()
     } else if (paymentMethod.getWay === 'pay_mob') {
-      this.startPayMob()
+      // this.startPayMob()
+      this.startGediaPayment()
     } else {
       this.makeOnlinePayment()
     }
@@ -336,7 +348,7 @@ export class CheckOutComponent implements OnInit {
   private startPayMob() {
     this.placingOrder = true
     let user: UserInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
-    this.payMobApi.createPaymentIntention(this.placeOrderBody?.orderAmount ?? 0, user).subscribe({
+    this.onlinePaymentApi.createPaymentIntention(this.placeOrderBody?.orderAmount ?? 0, user).subscribe({
       next: (clientSecret) => {
         this.placingOrder = false
         localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))
@@ -350,17 +362,35 @@ export class CheckOutComponent implements OnInit {
         console.log("Error received ", err)
       }
     })
-
   }
 
-  private processPayMobPayment(paymentId: string) {
+  private startGediaPayment() {
+    this.placingOrder = true
+    this.onlinePaymentApi.initiateGeideaPayment(
+      this.placeOrderBody!,
+    ).subscribe({
+      next: (data) => {
+        console.log("Returned gedia session", data)
+        this.placingOrder = false
+        localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))
+        let paymentUrl = data['url']
+        window.open(paymentUrl, "_self")
+      },
+      error: (err) => {
+        this.placingOrder = false
+        console.log("Returned gedia session error", err)
+      }
+    })
+  }
+
+  private processOnlinePayment(paymentId: string, paymentMethod: string) {
     this.placeOrderBody = JSON.parse(localStorage.getItem(ORDER_BODY)!)
     this.placeOrderBody = Object.assign(
       new PlaceOrderBody(),
       this.placeOrderBody,
       {
         transactionReference: paymentId,
-        paymentMethod: 'pay_mob',
+        paymentMethod: paymentMethod,
       })
     this.callPlaceOrder()
   }

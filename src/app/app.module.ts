@@ -123,6 +123,9 @@ import {
 import {
   DiscountAvailableDialogComponent
 } from "./features/check-out/presentation/components/discount-available-dialog/discount-available-dialog.component";
+import {
+    VerificationComponent
+} from "./features/registration-and-login/presentation/pages/verification/verification.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -211,25 +214,26 @@ const cookieConfig: NgcCookieConsentConfig = {
     ForgetPasswordComponent,
     ProductInfoComponent,
     MyFatoorahPaymentsModalComponent,
-    DiscountAvailableDialogComponent
+    DiscountAvailableDialogComponent,
+    VerificationComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgxSliderModule,
-    FormsModule,
-    NgcCookieConsentModule.forRoot(cookieConfig),
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgxSliderModule,
+        FormsModule,
+        NgcCookieConsentModule.forRoot(cookieConfig),
+    ],
   providers: [
     AuthGuard,
     {provide: 'googleTagManagerId', useValue: 'G-8KZJPHK13W'}

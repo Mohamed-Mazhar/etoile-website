@@ -280,5 +280,8 @@
   "PRODUCT_DISCOUNT" : "Discount",
   "FREE_DELIVERY": "You've got Free Delivery! \uD83C\uDF89",
   "DISCOUNT_MESSAGE": "You got {{discount}} discount \uD83C\uDF89",
-  "CONGRATULATIONS": "Congratulations !"
+  "CONGRATULATIONS": "Congratulations !",
+  "DIDNT_RECEIVE_CODE": "Didn't receive code?",
+  "REQUEST_AGAIN": "Request again?",
+  "RESEND_PIN": "You can resend the PIN code in {{value}} seconds"
 }

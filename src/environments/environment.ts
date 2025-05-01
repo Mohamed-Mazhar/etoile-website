@@ -11,7 +11,7 @@ export const environment = {
   payMobBaseUrl: 'https://accept.paymob.com/v1',
   payMobPrivate: 'egy_sk_test_d3ea9b4c5082a6d01ffe0e1ed8010a66c36a8055a38939eb2fb8cae78845faad',
   payMobPublic: 'egy_pk_test_IPKrLfV3hP8KBwIa0HEUz4YNQcQZnUTE',
-  payMobCallBackUrl: 'https://eighty-islands-grin.loca.lt',
+  paymentCallBackUrl: 'https://www.etoileeg.online/checkout',
 };
 
 /*

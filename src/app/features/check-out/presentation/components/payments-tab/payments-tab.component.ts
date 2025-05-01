@@ -33,7 +33,7 @@ export class PaymentsTabComponent implements OnInit {
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
         this.activePaymentMethods.push(new PaymentMethod(
-          'pay_mob', 'Pay mob', ''
+          'pay_mob', 'Online', ''
         ))
       }
     })

@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
+import {MOBILE_NUMBER, USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
@@ -17,6 +17,7 @@ import {AnalyticsService} from "../../../../analytics/data/services/analytics-se
 export class RegistrationComponent implements OnInit {
 
   @ViewChild('close') closeIcon!: ElementRef
+  @ViewChild('openVerification') verificationPage!: ElementRef
   formGroup: UntypedFormGroup = this.fb.group({
     termsAndConditions: [false, Validators.requiredTrue]
   })
@@ -27,7 +28,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: UntypedFormBuilder,
-    private registrationServiceApi: AuthenticationApi,
+    private authenticationApi: AuthenticationApi,
     private userProfileApi: UserProfileApi,
     private analyticsService: AnalyticsService
   ) {
@@ -47,9 +48,10 @@ export class RegistrationComponent implements OnInit {
     let name = this.formGroup.get('name')?.value
     let mobileNumber = this.formGroup.get('mobile')?.value
     let email = this.formGroup.get('registrationEmail')?.value
+    localStorage.setItem(MOBILE_NUMBER, mobileNumber)
     this.isLoading = true
     this.errorMessage = null
-    this.registrationServiceApi.register({
+    this.authenticationApi.register({
       email: email,
       password: password?.value,
       userName: name,
@@ -63,9 +65,12 @@ export class RegistrationComponent implements OnInit {
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
         localStorage.setItem(USER_PASSWORD, password?.value)
-        if (response.token) {
+        console.log("Response inside the component ", response)
+        if (response.token !== null && response.token !== undefined) {
           this.getUserInfo()
           this.analyticsService.logAdjustEvent({event: AdjustEvent.newRegister})
+        } else if (response.temporaryToken !== null && response.temporaryToken !== undefined) {
+          this.checkPhone(mobileNumber)
         } else {
           this.closeIcon.nativeElement.click()
         }
@@ -86,6 +91,20 @@ export class RegistrationComponent implements OnInit {
         this.isLoading = false
         localStorage.setItem(USER_INFO, JSON.stringify(response))
         AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+      },
+      error: (err) => {
+        this.isLoading = false
+        this.errorMessage = err
+      }
+    })
+  }
+
+  private checkPhone(mobileNumber: string) {
+    this.isLoading = true
+    this.authenticationApi.checkPhone(mobileNumber).subscribe({
+      next: (_) => {
+        this.isLoading = false
+        this.verificationPage.nativeElement.click()
       },
       error: (err) => {
         this.isLoading = false

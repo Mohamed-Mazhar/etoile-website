@@ -280,5 +280,8 @@
   "PRODUCT_DISCOUNT" : "تخفيض",
   "FREE_DELIVERY": "لقد حصلت على توصيل مجاني! \uD83C\uDF89",
   "DISCOUNT_MESSAGE": "لقد حصلت علي {{discount}} تخفيض \uD83C\uDF89",
-  "CONGRATULATIONS": "مبروك !"
+  "CONGRATULATIONS": "مبروك !",
+  "DIDNT_RECEIVE_CODE": "لم تتلقى الرمز؟",
+  "REQUEST_AGAIN": "اطلب مرة أخرى؟",
+  "RESEND_PIN": "You can resend the PIN code in {{value}} seconds"
 }

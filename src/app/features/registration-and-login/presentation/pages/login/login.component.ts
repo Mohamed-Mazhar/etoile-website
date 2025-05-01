@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
+import {MOBILE_NUMBER, USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   readonly InputType = InputType;
   readonly Validators = Validators;
   @ViewChild('close') closeIcon!: ElementRef
+  @ViewChild('openVerification') verificationPage!: ElementRef
   formGroup: UntypedFormGroup = new UntypedFormGroup({})
   isLoading: boolean = false
   errorMessage: string | null = null
@@ -45,7 +46,8 @@ export class LoginComponent implements OnInit {
     let email = this.formGroup.get('loginEmail')?.value
     let phone = this.formGroup.get('loginMobile')?.value
     let countryCode = this.formGroup.get('countryCode')?.value
-    let mobileNumber = `${countryCode}${phone}`
+    let mobileNumber = `${phone}`
+    localStorage.setItem(MOBILE_NUMBER, mobileNumber)
     console.log("Entered phone ", [countryCode, phone])
     let password = this.formGroup.get('loginPassword')?.value
     this.isLoading = true
@@ -58,8 +60,11 @@ export class LoginComponent implements OnInit {
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
         localStorage.setItem(USER_PASSWORD, password)
-        if (response.token) {
+        if (response.token !== null && response.token !== undefined) {
           this.getUserInfo()
+          this.analyticsService.logAdjustEvent({event: AdjustEvent.newRegister})
+        } else if (response.temporaryToken !== null && response.temporaryToken !== undefined) {
+          this.checkPhone(mobileNumber)
         } else {
           this.closeIcon.nativeElement.click()
         }
@@ -90,6 +95,20 @@ export class LoginComponent implements OnInit {
         })
         this.analyticsService.logAdjustEvent({event: AdjustEvent.loginSuccess})
         AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+      },
+      error: (err) => {
+        this.isLoading = false
+        this.errorMessage = err
+      }
+    })
+  }
+
+  private checkPhone(mobileNumber: string) {
+    this.isLoading = true
+    this.authenticationApi.checkPhone(mobileNumber).subscribe({
+      next: (_) => {
+        this.isLoading = false
+        this.verificationPage.nativeElement.click()
       },
       error: (err) => {
         this.isLoading = false

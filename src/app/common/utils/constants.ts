@@ -6,5 +6,6 @@ export const LANG = "language"
 export const CART = "cart"
 export const ORDER_BODY = "order_body"
 export const EXPIRE_BRANCH = "expire_branch"
+export const MOBILE_NUMBER = "mobile_number"
 // Time is in minutes
 export const EXPIRE_BRANCH_TIME = 10
