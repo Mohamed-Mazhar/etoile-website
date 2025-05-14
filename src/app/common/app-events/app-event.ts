@@ -3,5 +3,6 @@ export enum AppEvent {
   loadUserInfo,
   userAddressesChanged,
   showRemoveProductAlert,
-  hideSearchBarResult
+  hideSearchBarResult,
+  checkPhoneCalled
 }

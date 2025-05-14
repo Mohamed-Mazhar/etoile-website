@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {MOBILE_NUMBER, USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
@@ -46,9 +46,10 @@ export class RegistrationComponent implements OnInit {
       return
     }
     let name = this.formGroup.get('name')?.value
-    let mobileNumber = this.formGroup.get('mobile')?.value
+    let countryCode = this.formGroup.get('countryCode')?.value
+    let phone = this.formGroup.get('mobile')?.value
+    let mobileNumber = `${phone}`
     let email = this.formGroup.get('registrationEmail')?.value
-    localStorage.setItem(MOBILE_NUMBER, mobileNumber)
     this.isLoading = true
     this.errorMessage = null
     this.authenticationApi.register({
@@ -104,6 +105,7 @@ export class RegistrationComponent implements OnInit {
     this.authenticationApi.checkPhone(mobileNumber).subscribe({
       next: (_) => {
         this.isLoading = false
+        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: mobileNumber})
         this.verificationPage.nativeElement.click()
       },
       error: (err) => {

@@ -11,7 +11,7 @@ import {ORDER_BODY, SELECTED_BRANCH, USER_INFO} from "../../../../../common/util
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
-import {DatePipe, formatDate} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
@@ -24,7 +24,6 @@ import {environment} from "../../../../../../environments/environment.prod";
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 import {SplashApi} from "../../../../../common/apis/splash-api";
 import {DiscountAvailabilityModel} from "../../../../../common/data-classes/DiscountAvailabilityModel";
-import {generateSignature} from "../../../../../common/utils/EncryptionUtility";
 
 
 @Component({
@@ -49,7 +48,6 @@ export class CheckOutComponent implements OnInit {
   errorMessage: string | null = null
   orderId: string = ""
   configModel: ConfigModel | null = null
-  myFatoorahPaymentMethods: MyFatoorahPaymentMethod[] = []
   placeOrderBody: PlaceOrderBody | null = null
   discountAmountFromCoupon: number = 0
   deliveryCharge: number = 0
@@ -131,7 +129,6 @@ export class CheckOutComponent implements OnInit {
     }
     let geideaOrderId = this.route.snapshot.queryParamMap.get('orderId')
     let paymentStatus = this.route.snapshot.queryParamMap.get('responseMessage')
-    console.log("Received payment from geidea", [geideaOrderId, paymentStatus])
     if (geideaOrderId?.hasActualValue()) {
       if (paymentStatus?.toLowerCase() === "success") {
         this.processOnlinePayment(geideaOrderId, 'geidea')

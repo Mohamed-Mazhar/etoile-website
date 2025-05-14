@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {InputType} from "../../../../../common/components/inputs/enums/InputType";
 import {UntypedFormGroup, Validators} from "@angular/forms";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
-import {MOBILE_NUMBER, USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_PASSWORD, USER_TOKEN} from "../../../../../common/utils/constants";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
     let phone = this.formGroup.get('loginMobile')?.value
     let countryCode = this.formGroup.get('countryCode')?.value
     let mobileNumber = `${phone}`
-    localStorage.setItem(MOBILE_NUMBER, mobileNumber)
     console.log("Entered phone ", [countryCode, phone])
     let password = this.formGroup.get('loginPassword')?.value
     this.isLoading = true
@@ -108,6 +107,7 @@ export class LoginComponent implements OnInit {
     this.authenticationApi.checkPhone(mobileNumber).subscribe({
       next: (_) => {
         this.isLoading = false
+        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: mobileNumber})
         this.verificationPage.nativeElement.click()
       },
       error: (err) => {

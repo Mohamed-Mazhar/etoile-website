@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {UserInfo} from "../../../../../common/data-classes/UserInfo";
-import {LANG, SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
+import {LANG, MOBILE_NUMBER, SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {Router} from "@angular/router";

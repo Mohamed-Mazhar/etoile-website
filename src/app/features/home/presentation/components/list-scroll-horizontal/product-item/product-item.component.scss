@@ -1,3 +1,5 @@
+@import 'src/app/common/styles/mixin';
+
 .container-item {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -61,12 +63,22 @@
   justify-content: center;
   box-shadow: 0 2px 5px 1px rgb(107 107 107/50%);
 
+  @include res-md-styles {
+    width: 10rem;
+    height: 10rem;
+  }
+
   .product-image {
     width: 15rem;
     height: 15rem;
     //aspect-ratio: 1 / 1;
     object-fit: contain;
     border-radius: 50%;
+
+    @include res-md-styles {
+      width: 10rem;
+      height: 10rem;
+    }
   }
 }
 

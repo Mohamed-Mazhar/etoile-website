@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren} from '@angular/core'
-import {MOBILE_NUMBER, USER_INFO, USER_TOKEN} from "../../../../../common/utils/constants";
+import {USER_INFO, USER_TOKEN} from "../../../../../common/utils/constants";
 import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
@@ -30,7 +30,11 @@ export class VerificationComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.mobileNumber = localStorage.getItem(MOBILE_NUMBER) ?? ''
+    AppEventBroadcaster.on({event: AppEvent.checkPhoneCalled}).subscribe({
+      next: (data) => {
+        this.mobileNumber = data.data
+      }
+    })
     this.otpInputs.first.nativeElement.focus()
   }
 
@@ -141,6 +145,7 @@ export class VerificationComponent implements AfterViewInit {
     this.loading = true
     this.authenticationApi.checkPhone(this.mobileNumber).subscribe({
       next: (_) => {
+        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: this.mobileNumber})
         this.loading = false
       },
       error: (err) => {
