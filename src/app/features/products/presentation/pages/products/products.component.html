@@ -6,7 +6,7 @@
       (onClearClicked)="clearFilters()"
       (onchange)="applyFilter($event)"
       (onApplyButtonClicked)="applyButtonFilters($event)"
-      [maxPrice]="productsMaxPrice ?? 0">
+      [priceRangeMax]="productsMaxPrice ?? 0">
     </app-products-filter>
     <div class="products-container">
       <div class="products-details-container">

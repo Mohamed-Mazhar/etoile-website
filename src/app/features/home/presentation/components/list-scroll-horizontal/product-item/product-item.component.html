@@ -1,37 +1,100 @@
-<div class="container-item">
-  <div class="item">
-    <div class="image-container clickable" (click)="goToDetails()">
-      <div class="discount-container" *ngIf="hasDiscount() && product.branchProduct?.isAvailable">
-        <div *ngIf="isPercentage()">
-          <p>{{ product.branchProduct?.discount }}%<br/>{{ 'DISCOUNT' | translate }}</p>
+<!-- HTML Template -->
+<div class="modern-container-item">
+  <div class="modern-item">
+    <!-- Favorite Button -->
+    <button class="favorite-btn" (click)="toggleFavorite($event)" [class.active]="isFavorite">
+      <i class="fas fa-heart"></i>
+    </button>
+
+    <div class="product-meta" *ngIf="product.categoryIds && categoryNamesDisplay.hasActualValue()">
+        <span class="category-badge"
+              *ngIf="product.categoryIds">{{ categoryNamesDisplay }}
+        </span>
+    </div>
+
+    <div class="modern-image-container clickable" (click)="goToDetails()">
+      <!-- Discount Badge -->
+      <div class="modern-discount-container" *ngIf="hasDiscount() && product.branchProduct?.isAvailable">
+        <div class="discount-content" *ngIf="isPercentage()">
+          <span class="discount-value">{{ product.branchProduct?.discount }}%</span>
+          <span class="discount-label">{{ 'OFF' | translate }}</span>
         </div>
-        <div *ngIf="!isPercentage()">
-          <p>{{ product.branchProduct?.discount }} <br/>{{ configModel?.currencySymbol }}</p>
+        <div class="discount-content" *ngIf="!isPercentage()">
+          <span class="discount-value">{{ product.branchProduct?.discount }}</span>
+          <span class="discount-label">{{ configModel?.currencySymbol }}</span>
         </div>
       </div>
-      <div class="not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
-        <p>{{ 'NOT_AVAILABLE' | translate }}</p>
+
+      <!-- Not Available Overlay -->
+      <div class="modern-not-available" *ngIf="!product.branchProduct?.isAvailable ?? true">
+        <div class="not-available-content">
+          <i class="fas fa-ban"></i>
+          <p>{{ 'NOT_AVAILABLE' | translate }}</p>
+        </div>
       </div>
-      <img alt="" class="product-image" loading="lazy" [src]="productImage" (error)="setDefaultPic()">
+
+      <!-- Product Image with Modern Styling -->
+      <div class="image-wrapper">
+        <img alt="" class="modern-product-image" loading="lazy" [src]="productImage" (error)="setDefaultPic()">
+      </div>
+
+      <!-- Hover Overlay -->
+      <div class="hover-overlay">
+        <i class="fas fa-eye"></i>
+      </div>
     </div>
-    <div class="title">
-      <p>{{ product.name }}</p>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <div class="modern-title">
+        <h3>{{ product.name }}</h3>
+      </div>
+
+
+      <!-- Rating Stars -->
+      <div class="rating-container" *ngIf="product.rating">
+        <div class="stars">
+          <i class="fas fa-star" *ngFor="let star of getStars(productRating)"></i>
+          <i class="far fa-star" *ngFor="let star of getEmptyStars(productRating)"></i>
+        </div>
+        <span class="rating-text">({{ product.rating.length || 0 }})</span>
+      </div>
+
+      <!-- Stock Status -->
+<!--      <div class="stock-status" *ngIf="product.branchProduct?.isAvailable">-->
+<!--        <div class="stock-indicator" [ngClass]="getStockClass()">-->
+<!--          <i class="fas fa-circle"></i>-->
+<!--          <span>{{ getStockText() }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+
+      <!-- Price Section -->
+      <div class="price-section">
+        <div class="price-row">
+          <span class="current-price" [ngClass]="productDiscountPrice !== productPrice ? 'has-discount' : ''">
+            {{ productDiscountPrice > 0 && productPrice !== productDiscountPrice ? productDiscountPrice.toFixed(2) : productPrice }}
+            {{ configModel?.currencySymbol }}
+          </span>
+          <span class="original-price" *ngIf="productPrice !== productDiscountPrice && productDiscountPrice > 0">
+            {{ productPrice }} {{ configModel?.currencySymbol }}
+          </span>
+        </div>
+        <!-- Savings Amount -->
+        <div class="savings-text" *ngIf="productPrice !== productDiscountPrice && productDiscountPrice > 0">
+          <span>{{ 'SAVE' | translate }} {{ (productPrice - productDiscountPrice).toFixed(2) }} {{ configModel?.currencySymbol }}</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <primary-button
+          class="add-to-cart-btn"
+          [enabled]="product.branchProduct?.isAvailable ?? true"
+          (onClick)="addProduct()"
+          [buttonPadding]="0.6"
+          [title]="'ADD_TO_CART' | translate">
+        </primary-button>
+      </div>
     </div>
-    <div class="d-flex gap-4 justify-content-center">
-      <p class="subtitle" [ngClass]="productDiscountPrice !== productPrice ? 'discount-price' : ''">
-        {{ productPrice }} {{ configModel?.currencySymbol }}
-      </p>
-      <p class="subtitle" *ngIf="productPrice !== productDiscountPrice && productDiscountPrice > 0">
-        {{ productDiscountPrice.toFixed(2) }} {{ configModel?.currencySymbol }}
-      </p>
-    </div>
-    <primary-button
-      class="mt-2"
-      [enabled]="product.branchProduct?.isAvailable ?? true"
-      (onClick)="addProduct()"
-      [buttonPadding]="0.5"
-      [title]="'ADD_TO_CART' | translate">
-    </primary-button>
   </div>
 </div>
-

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {Product} from "../../../../../../common/data-classes/ProductModel";
+import {CategoryId, Product} from "../../../../../../common/data-classes/ProductModel";
 import {CartProductsService} from "../../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
 import {ConfigModelService} from "../../../../../../common/services/config-model.service";
@@ -7,6 +7,8 @@ import {ConfigModel} from "../../../../../../common/data-classes/ConfigModel";
 import {AdjustEvent} from "../../../../../analytics/data/models/AdjustEvent";
 import {AnalyticsService} from "../../../../../analytics/data/services/analytics-service";
 import {ProductPriceUtil} from "../../../../../../common/utils/ProductPriceUtil";
+import {ProductsApi} from "../../../../../../common/apis/products-api";
+import {Category} from "../../../../../../common/data-classes/Category";
 
 @Component({
   selector: 'app-product-item',
@@ -20,17 +22,29 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
   productPrice = 0
   productImage = ""
   productDiscountPrice = 0
+  isFavorite: boolean = false; // You can bind this to your data model
+  productRating = 0
+  categories: Category[] = []
+  categoryNamesDisplay: string = '';
+
 
   constructor(
     private cartService: CartProductsService,
     private configModelService: ConfigModelService,
     private router: Router,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private productsApi: ProductsApi,
   ) {
   }
 
   ngAfterViewInit(): void {
     this.productImage = this.getImage(this.product.image!)
+    this.configModelService.categoriesSubject.subscribe({
+      next: (categories) => {
+        this.categories = categories;
+        this.categoryNamesDisplay = this.getCategory(this.product.categoryIds); // ← Save result
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -45,6 +59,13 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
       this.product.discount,
       this.product.discountType
     ) ?? this.productPrice
+
+    if (this.product.rating?.length) {
+      this.productRating = this.product.rating?.reduce((pre, current) => {
+          return pre + (current.average ?? 0)
+        }, 0
+      )! / this.product.rating?.length
+    }
   }
 
   addProduct() {
@@ -76,5 +97,59 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
   isPercentage() {
     return this.product.branchProduct?.discountType === "percent"
   }
+
+  toggleFavorite(event: Event): void {
+    event.stopPropagation();
+    this.isFavorite = !this.isFavorite;
+    if (this.isFavorite) {
+      this.productsApi.addToWishList(this.product.id!).subscribe()
+    } else {
+      this.productsApi.removeFromWishList(this.product.id!).subscribe()
+    }
+  }
+
+  getStars(rating: number): number[] {
+    const fullStars = Math.floor(rating);
+    return Array(fullStars).fill(1);
+  }
+
+  getEmptyStars(rating: number): number[] {
+    const fullStars = Math.floor(rating);
+    const emptyStars = 5 - fullStars;
+    return Array(emptyStars).fill(1);
+  }
+
+  // getStockClass(): string {
+  //   const quantity = this.product.branchProduct?.stock || 0;
+  //
+  //   if (quantity > 10) return 'in-stock';
+  //   if (quantity > 0) return 'low-stock';
+  //   return 'out-of-stock';
+  // }
+  //
+  // getStockText(): string {
+  //   const quantity = this.product.branchProduct?.stock || 0;
+  //   if (quantity > 10) return 'In Stock';
+  //   if (quantity > 0) return `Only ${quantity} left`;
+  //   return 'Out of Stock';
+  // }
+
+  getCategory(categoryIds: CategoryId[] | undefined): string {
+    if (!categoryIds || categoryIds.length === 0) return '';
+
+    const categoryNames = categoryIds.map(categoryIdObj => {
+      const categoryId = categoryIdObj.id?.toString();
+      const topLevelCategory = this.categories.find(category => category.id?.toString() === categoryId);
+      if (topLevelCategory) return topLevelCategory.name;
+      for (const parentCategory of this.categories) {
+        const subCategory = parentCategory.subCategories?.find(sub => sub.id?.toString() === categoryId);
+        if (subCategory) return subCategory.name;
+      }
+      return null;
+    }).filter(categoryName => !!categoryName);
+
+    return categoryNames.join(' | ');
+  }
+
 
 }

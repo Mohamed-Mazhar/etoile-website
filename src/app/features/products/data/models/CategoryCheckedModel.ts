@@ -4,5 +4,6 @@ export interface CategoryCheckedModel {
   categoryId: number,
   categoryName: string,
   isChecked: boolean,
-  subCategories: CategoryCheckedModel[]
+  subCategories: CategoryCheckedModel[],
+  isExpanded: boolean
 }

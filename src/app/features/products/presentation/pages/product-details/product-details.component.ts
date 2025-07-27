@@ -136,6 +136,9 @@ export class ProductDetailsComponent implements OnInit {
   setProductVariation(variationValue: VariationValue) {
     this.selectedSize = variationValue.optionLabel!
     this.productPrice = variationValue.optionPrice!
+    this.productDiscountPrice = ProductPriceUtil.convertDiscount(
+      this.productPrice, this.product?.discount, this.product?.discountType
+    )
   }
 
   showSizeVariant() {

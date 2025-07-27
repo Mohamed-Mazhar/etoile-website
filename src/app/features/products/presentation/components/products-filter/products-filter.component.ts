@@ -1,5 +1,4 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {LabelType} from "@angular-slider/ngx-slider";
 import {Category} from "../../../../../common/data-classes/Category";
 import {CategoryCheckedModel} from "../../../data/models/CategoryCheckedModel";
 
@@ -10,7 +9,7 @@ import {CategoryCheckedModel} from "../../../data/models/CategoryCheckedModel";
 })
 export class ProductsFilterComponent implements OnInit, OnChanges {
 
-  @Input() maxPrice!: number
+  @Input() priceRangeMax: number = 1000
   @Input() categories: Category[] = []
   @Output() onchange: EventEmitter<number[]> = new EventEmitter<number[]>();
   @Output() onClearClicked: EventEmitter<void> = new EventEmitter<void>()
@@ -19,34 +18,46 @@ export class ProductsFilterComponent implements OnInit, OnChanges {
     maximum: number
   }>()
 
-  value: number = 20
   isMobileView: boolean = false
-  options: any = {}
+  priceRangeMin: number = 0
   filteredCategoriesId: number[] = []
   categoriesCheckedModel: CategoryCheckedModel[] = []
-  maximumPrice: number = 0
+  maximumPrice: number = this.priceRangeMax
   minimumPrice: number = 0
+  priceStep: number = 1;
+
 
   constructor() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.setPriceRange()
-    this.categoriesCheckedModel = []
-    this.categories.forEach((category) => {
-      this.categoriesCheckedModel.push({
-        categoryId: category.id!,
-        categoryName: category.name!,
-        isChecked: false,
-        subCategories: this.getSubCategories(category.subCategories!)
-      })
-    })
+    if (changes['priceRangeMax'] && !changes['priceRangeMax'].firstChange) {
+      this.maximumPrice = this.priceRangeMax
+    }
+
+    if (changes['categories']) {
+      this.categoriesCheckedModel = [];
+      this.categories.forEach((category) => {
+        this.categoriesCheckedModel.push({
+          categoryId: category.id!,
+          categoryName: category.name!,
+          isChecked: false,
+          subCategories: this.getSubCategories(category.subCategories!),
+          isExpanded: false
+        });
+      });
+    }
   }
+
 
   ngOnInit(): void {
     if (window.innerWidth < 770) {
       this.isMobileView = true
     }
+  }
+
+  toggleCategoryExpansion(category: any): void {
+    category.isExpanded = !category.isExpanded;
   }
 
   private getSubCategories(categories: Category[]): CategoryCheckedModel[] {
@@ -56,7 +67,8 @@ export class ProductsFilterComponent implements OnInit, OnChanges {
         categoryId: category.id!,
         categoryName: category.name!,
         isChecked: false,
-        subCategories: []
+        subCategories: [],
+        isExpanded: false
       })
     })
     return subCategories
@@ -97,12 +109,37 @@ export class ProductsFilterComponent implements OnInit, OnChanges {
     this.onchange.emit(this.filteredCategoriesId)
   }
 
-  onMinPriceChange(event: any) {
-    this.minimumPrice = event
+  onMinPriceChange(event: any): void {
+    const value = Number(event.target.value);
+
+    if (value <= this.maximumPrice) {
+      this.minimumPrice = value;
+    } else {
+
+      this.minimumPrice = this.maximumPrice - this.priceStep;
+    }
+
+    // Apply the filter with new price range
+    this.applyPriceFilter();
   }
 
-  onMaxPriceChange(event: any) {
-    this.maximumPrice = event
+  onMaxPriceChange(event: any): void {
+    const value = Number(event.target.value);
+
+    if (value >= this.minimumPrice) {
+      this.maximumPrice = value;
+    } else {
+      this.maximumPrice = this.minimumPrice + this.priceStep;
+    }
+
+    this.applyPriceFilter();
+  }
+
+// Apply price filter to your products
+  applyPriceFilter(): void {
+
+    console.log(`Price range updated: $${this.minimumPrice} - $${this.maximumPrice}`);
+
   }
 
   applyFilterButtonClicked() {
@@ -113,27 +150,36 @@ export class ProductsFilterComponent implements OnInit, OnChanges {
     this.categoriesCheckedModel.forEach((category) => {
       category.isChecked = false
       category.subCategories.forEach((subCategory) => {
-        subCategory.isChecked  = false
+        subCategory.isChecked = false
       })
     })
-    this.setPriceRange()
+    // this.setPriceRange()
     this.onClearClicked.emit()
   }
 
-  private setPriceRange() {
-    this.options = {
-      floor: this.value,
-      ceil: this.maxPrice,
-      translate: (value: number, label: LabelType): string => {
-        switch (label) {
-          case LabelType.Low:
-            return value + ' <b>EGP</b>';
-          case LabelType.High:
-            return value + ' <b>EGP</b>';
-          default:
-            return '$' + value;
-        }
-      }
-    }
+  getMinPercent(): number {
+    return (this.priceRangeMin / 1000) * 100; // Use your max value here
   }
+
+  getRangeWidth(): number {
+    return ((this.priceRangeMax - this.priceRangeMin) / 1000) * 100;
+  }
+
+  // private setPriceRange() {
+  //   console.log("Setting price range")
+  //   this.options = {
+  //     floor: this.value,
+  //     ceil: this.maxPrice,
+  //     translate: (value: number, label: LabelType): string => {
+  //       switch (label) {
+  //         case LabelType.Low:
+  //           return value + ' <b>EGP</b>';
+  //         case LabelType.High:
+  //           return value + ' <b>EGP</b>';
+  //         default:
+  //           return '$' + value;
+  //       }
+  //     }
+  //   }
+  // }
 }

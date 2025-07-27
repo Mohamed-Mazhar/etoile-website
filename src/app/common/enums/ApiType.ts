@@ -32,6 +32,8 @@ export enum ApiType {
   checkDiscountAvailability = 'api/v1/config/apply-discount',
   checkPhone = 'api/v1/auth/check-phone?phone=',
   verifyPhone = 'api/v1/auth/verify-phone',
+  addWishListUri = 'api/v1/customer/wish-list/add',
+  removeWishListUri = 'api/v1/customer/wish-list/remove',
   createPaymentIntention = "intention",
   initiateGeideaPayment = "api/v1/geidea/InitiatePayment"
 }

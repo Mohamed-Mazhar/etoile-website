@@ -5,7 +5,7 @@ import {ApiType} from "../enums/ApiType";
 import {RequestType} from "../enums/RequestType";
 import {Product, ProductModel} from "../data-classes/ProductModel";
 import {CartProductItem, convertCartProductsToJson} from "../../features/cart/data/model/CartProductItem";
-import {ProductPriceUtil} from "../utils/ProductPriceUtil";
+
 
 @Injectable({providedIn: 'root'})
 export class ProductsApi {
@@ -121,6 +121,30 @@ export class ProductsApi {
       apiType: ApiType.checkAvailability,
       requestType: RequestType.POST,
       body: jsonBody
+    })
+  }
+
+  addToWishList(productId: number) {
+    let body = {
+      product_id: productId
+    }
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.addWishListUri,
+      requestType: RequestType.POST,
+      body: body
+    })
+  }
+
+  removeFromWishList(productId: number) {
+    let body = {
+      product_id: productId,
+      _method: 'delete',
+      type: 'single'
+    }
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.removeWishListUri,
+      requestType: RequestType.POST,
+      body: body
     })
   }
 

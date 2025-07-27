@@ -1,129 +1,226 @@
 <div class="filter-by-container" *ngIf="!isMobileView">
-  <div class="filter-by-title">
+  <div class="filter-header">
     <h5>{{ 'CATEGORIES' | translate }}</h5>
     <div class="clear-all" (click)="clear()">
-      <p>{{ 'CLEAR' | translate }}</p>
+      <i class="fa fa-refresh"></i>
+      <span>{{ 'CLEAR' | translate }}</span>
     </div>
   </div>
-  <div class="filter-by-item" *ngFor="let category of categoriesCheckedModel; let i = index">
-    <input [(ngModel)]="category.isChecked"
-           (change)="toggleMainCategory(category)"
-           class="form-check-input me-2 ms-2"
-           type="checkbox"
-           id="input-{{category.categoryId}}" name="{{category.categoryId}}" value="{{category.categoryId}}">
-    <label class="fw-bold" for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
-    <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4 me-4">
-      <input [(ngModel)]="subCategory.isChecked"
-             (change)="applyFilter()"
-             class="form-check-input me-2 ms-2"
-             type="checkbox" id="input-{{subCategory.categoryId}}"
-             name="{{subCategory.categoryId}}"
-             value="{{subCategory.categoryId}}">
-      <label for="input-{{subCategory.categoryId}}">{{ subCategory.categoryName }}</label><br>
+
+  <div class="filter-categories">
+    <div class="category-group" *ngFor="let category of categoriesCheckedModel; let i = index">
+      <div class="category-header" (click)="toggleCategoryExpansion(category)">
+        <div class="category-checkbox-wrapper">
+          <input [(ngModel)]="category.isChecked"
+                 (change)="toggleMainCategory(category)"
+                 (click)="$event.stopPropagation()"
+                 class="modern-checkbox"
+                 type="checkbox"
+                 id="input-{{category.categoryId}}"
+                 name="{{category.categoryId}}"
+                 value="{{category.categoryId}}">
+          <label class="category-name" for="input-{{category.categoryId}}">
+            {{ category.categoryName }}
+          </label>
+        </div>
+        <div class="expand-icon" [class.expanded]="category.isExpanded">
+          <i class="fa fa-chevron-down"></i>
+        </div>
+      </div>
+
+      <div class="subcategories" [class.expanded]="category.isExpanded" *ngIf="category.subCategories!.length > 0">
+        <div class="subcategory-item" *ngFor="let subCategory of category.subCategories">
+          <input [(ngModel)]="subCategory.isChecked"
+                 (change)="applyFilter()"
+                 class="modern-checkbox subcategory-checkbox"
+                 type="checkbox"
+                 id="input-{{subCategory.categoryId}}"
+                 name="{{subCategory.categoryId}}"
+                 value="{{subCategory.categoryId}}">
+          <label class="subcategory-name" for="input-{{subCategory.categoryId}}">
+            {{ subCategory.categoryName }}
+          </label>
+        </div>
+      </div>
     </div>
   </div>
-  <!--  <div class="horizontal-separator"></div>-->
-  <!--  <div class="filter-by-title">-->
-  <!--    <h5>{{ 'SIZE' | translate }}</h5>-->
-  <!--    <div class="clear-all" (click)="clear()">-->
-  <!--      <p>{{ 'CLEAR' | translate }}</p>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <!--  <div class="filter-categories">-->
-  <!--    <div class="filter-by-item" *ngFor="let size of size; let i = index">-->
-  <!--      <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">-->
-  <!--      <label for="{{size.id}}">{{ size.name }}</label><br>-->
-  <!--    </div>-->
-  <!--  </div>-->
-  <div class="horizontal-separator"></div>
-  <div class="filter-by-price-container">
-    <div class="filter-by-title">
+
+  <div class="filter-section">
+    <div class="section-header">
       <h5>{{ 'PRICE' | translate }}</h5>
     </div>
-    <ngx-slider
-      [(value)]="value"
-      [(highValue)]="maxPrice"
-      (valueChange)="onMinPriceChange($event)"
-      (highValueChange)="onMaxPriceChange($event)"
-      [options]="options">
-    </ngx-slider>
-    <div class="horizontal-separator"></div>
+    <div class="price-slider-container">
+      <div class="price-display">
+        <div class="price-label">
+          <span class="label">Min Price</span>
+          <span class="price-value">${{ minimumPrice }}</span>
+        </div>
+        <div class="price-label">
+          <span class="label">Max Price</span>
+          <span class="price-value">${{ maximumPrice }}</span>
+        </div>
+      </div>
+
+      <div class="dual-range-slider">
+        <div class="slider-track"></div>
+        <div class="slider-range" [style.left.%]="getMinPercent()" [style.width.%]="getRangeWidth()"></div>
+
+        <input
+          type="range"
+          [(ngModel)]="minimumPrice"
+          [min]="priceRangeMin"
+          [max]="priceRangeMax"
+          [step]="priceStep"
+          (input)="onMinPriceChange($event)"
+          class="slider-input slider-min">
+
+        <input
+          type="range"
+          [(ngModel)]="maximumPrice"
+          [min]="priceRangeMin"
+          [max]="priceRangeMax"
+          [step]="priceStep"
+          (input)="onMaxPriceChange($event)"
+          class="slider-input slider-max">
+      </div>
+
+      <div class="price-bounds">
+        <span class="bound-value">${{ priceRangeMin | number:'1.0-0' }}</span>
+        <span class="bound-value">${{ priceRangeMax | number:'1.0-0' }}</span>
+      </div>
+    </div>
   </div>
-  <primary-button
-    (onClick)="applyFilterButtonClicked()"
-    [buttonPadding]="0.5"
-    [title]="'FILTER_NOW' | translate">
-  </primary-button>
-  <div class="horizontal-separator"></div>
-  <div class="reset-button" (click)="resetFilters()">
-    <p>{{ 'RESET' | translate }}</p>
+
+  <div class="filter-actions">
+    <primary-button
+      (onClick)="applyFilterButtonClicked()"
+      [buttonPadding]="0.75"
+      [title]="'FILTER_NOW' | translate"
+      class="apply-filter-btn">
+    </primary-button>
+
+    <button class="reset-button" (click)="resetFilters()">
+      <i class="fa fa-undo"></i>
+      <span>{{ 'RESET' | translate }}</span>
+    </button>
   </div>
 </div>
 
+<!-- Mobile Filter Modal -->
 <div class="offcanvas offcanvas-start full-screen" tabindex="-1" id="mobileFilter" aria-labelledby="mobileFilterLabel">
   <div class="filter-by-container-mobile">
-    <div class="close-icon" data-bs-dismiss="offcanvas">
-      <i class="fa fa-times"></i>
+    <div class="mobile-header">
+      <h4>{{ 'FILTERS' | translate }}</h4>
+      <div class="close-icon" data-bs-dismiss="offcanvas">
+        <i class="fa fa-times"></i>
+      </div>
     </div>
-    <div class="filter-by-title">
+
+    <div class="filter-header">
       <h5>{{ 'CATEGORIES' | translate }}</h5>
       <div class="clear-all" (click)="clear()">
-        <p>{{ 'CLEAR' | translate }}</p>
+        <i class="fa fa-refresh"></i>
+        <span>{{ 'CLEAR' | translate }}</span>
       </div>
     </div>
-    <div class="filter-by-item" *ngFor="let category of categoriesCheckedModel; let i = index">
-      <input [(ngModel)]="category.isChecked"
-             (change)="toggleMainCategory(category)"
-             class="form-check-input me-2"
-             type="checkbox"
-             id="input-{{category.categoryId}}" name="{{category.categoryId}}" value="{{category.categoryId}}">
-      <label for="input-{{category.categoryId}}">{{ category.categoryName }}</label><br>
-      <div *ngFor="let subCategory of category.subCategories" class="mt-2 ms-4">
-        <input [(ngModel)]="subCategory.isChecked"
-               (change)="applyFilter()"
-               class="form-check-input me-2"
-               type="checkbox" id="input-{{subCategory.categoryId}}"
-               name="{{subCategory.categoryId}}"
-               value="{{subCategory.categoryId}}">
-        <label for="input-{{subCategory.categoryId}}">{{ subCategory.categoryName }}</label><br>
+
+    <div class="filter-categories">
+      <div class="category-group" *ngFor="let category of categoriesCheckedModel; let i = index">
+        <div class="category-header" (click)="toggleCategoryExpansion(category)">
+          <div class="category-checkbox-wrapper">
+            <input [(ngModel)]="category.isChecked"
+                   (change)="toggleMainCategory(category)"
+                   (click)="$event.stopPropagation()"
+                   class="modern-checkbox"
+                   type="checkbox"
+                   id="mobile-input-{{category.categoryId}}"
+                   name="{{category.categoryId}}"
+                   value="{{category.categoryId}}">
+            <label class="category-name" for="mobile-input-{{category.categoryId}}">
+              {{ category.categoryName }}
+            </label>
+          </div>
+          <div class="expand-icon" [class.expanded]="category.isExpanded">
+            <i class="fa fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <div class="subcategories" [class.expanded]="category.isExpanded" *ngIf="category.subCategories!.length > 0">
+          <div class="subcategory-item" *ngFor="let subCategory of category.subCategories">
+            <input [(ngModel)]="subCategory.isChecked"
+                   (change)="applyFilter()"
+                   class="modern-checkbox subcategory-checkbox"
+                   type="checkbox"
+                   id="mobile-input-{{subCategory.categoryId}}"
+                   name="{{subCategory.categoryId}}"
+                   value="{{subCategory.categoryId}}">
+            <label class="subcategory-name" for="mobile-input-{{subCategory.categoryId}}">
+              {{ subCategory.categoryName }}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
-    <!--    <div class="horizontal-separator"></div>-->
-    <!--    <div class="filter-by-title">-->
-    <!--      <h5>{{ 'SIZE' | translate }}</h5>-->
-    <!--      <div class="clear-all" (click)="clear()">-->
-    <!--        <p>{{ 'CLEAR' | translate }}</p>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="filter-categories">-->
-    <!--      <div class="filter-by-item" *ngFor="let size of size; let i = index">-->
-    <!--        <input type="checkbox" id="{{size.id}}" name="{{size.id}}" value="All">-->
-    <!--        <label for="{{size.id}}">{{ size.name }}</label><br>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <div class="horizontal-separator"></div>
-    <div class="filter-by-price-container">
-      <div class="filter-by-title">
+
+    <div class="filter-section">
+      <div class="section-header">
         <h5>{{ 'PRICE' | translate }}</h5>
       </div>
-      <ngx-slider
-        [(value)]="value"
-        [(highValue)]="maxPrice"
-        (valueChange)="onMinPriceChange($event)"
-        (highValueChange)="onMaxPriceChange($event)"
-        [options]="options">
-      </ngx-slider>
-      <div class="horizontal-separator"></div>
+      <div class="price-slider-container">
+        <div class="price-display">
+          <div class="price-label">
+            <span class="label">Min Price</span>
+            <span class="price-value">${{ minimumPrice }}</span>
+          </div>
+          <div class="price-label">
+            <span class="label">Max Price</span>
+            <span class="price-value">${{ maximumPrice }}</span>
+          </div>
+        </div>
+
+        <div class="dual-range-slider">
+          <div class="slider-track"></div>
+          <div class="slider-range" [style.left.%]="getMinPercent()" [style.width.%]="getRangeWidth()"></div>
+
+          <input
+            type="range"
+            [(ngModel)]="minimumPrice"
+            [min]="priceRangeMin"
+            [max]="priceRangeMax"
+            [step]="priceStep"
+            (input)="onMinPriceChange($event)"
+            class="slider-input slider-min">
+
+          <input
+            type="range"
+            [(ngModel)]="maximumPrice"
+            [min]="priceRangeMin"
+            [max]="priceRangeMax"
+            [step]="priceStep"
+            (input)="onMaxPriceChange($event)"
+            class="slider-input slider-max">
+        </div>
+
+        <div class="price-bounds">
+          <span class="bound-value">${{ priceRangeMin | number:'1.0-0' }}</span>
+          <span class="bound-value">${{ priceRangeMax | number:'1.0-0' }}</span>
+        </div>
+      </div>
     </div>
-    <primary-button
-      data-bs-dismiss="offcanvas"
-      (onClick)="applyFilterButtonClicked()"
-      [buttonPadding]="0.5"
-      [title]="'FILTER_NOW' | translate">
-    </primary-button>
-    <div class="horizontal-separator"></div>
-    <div class="reset-button" data-bs-dismiss="offcanvas" (click)="resetFilters()">
-      <p>{{ 'RESET' | translate }}</p>
+
+    <div class="filter-actions">
+      <primary-button
+        data-bs-dismiss="offcanvas"
+        (onClick)="applyFilterButtonClicked()"
+        [buttonPadding]="0.75"
+        [title]="'FILTER_NOW' | translate"
+        class="apply-filter-btn">
+      </primary-button>
+
+      <button class="reset-button" data-bs-dismiss="offcanvas" (click)="resetFilters()">
+        <i class="fa fa-undo"></i>
+        <span>{{ 'RESET' | translate }}</span>
+      </button>
     </div>
   </div>
 </div>
