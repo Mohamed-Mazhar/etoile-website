@@ -221,7 +221,7 @@ export class CheckOutComponent implements OnInit {
       this.couponModel !== null ? this.discountAmountFromCoupon : 0,
       this.couponModel?.title ?? '',
       this.couponModel?.code ?? '',
-      +this.totalPrice + +this.deliveryCharge,
+      +this.totalPrice,
       this.selectedAddressId,
       this.configModel?.selfPickup === true ? 'take_away' : 'delivery',
       paymentMethod.getWay ?? '',
