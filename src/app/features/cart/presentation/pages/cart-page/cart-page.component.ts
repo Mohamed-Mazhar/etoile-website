@@ -42,6 +42,7 @@ export class CartPageComponent implements OnInit {
         this.priceWithOutTax = 0
         this.totalTax = 0
         this.totalPriceWithoutDiscount = 0
+        this.totalDiscount = 0
         this.cartItems = products
         for (let cartProduct of this.cartItems) {
           let price = ProductPriceUtil.convertDiscount(
