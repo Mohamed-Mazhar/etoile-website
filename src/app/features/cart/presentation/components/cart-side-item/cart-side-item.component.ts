@@ -16,6 +16,7 @@ export class CartSideItemComponent implements OnInit {
   @Input() productIndex!: number
   @Input() hideSeparator: boolean = false
   @Input() isAvailable: boolean = true
+  productPrice: number = 0
   configModel: ConfigModel | null = null
   productDiscountPrice = 0
 
@@ -32,8 +33,9 @@ export class CartSideItemComponent implements OnInit {
         this.configModel = config
       }
     })
+    this.productPrice = ProductPriceUtil.calculatePrice(this.cartProduct)
     this.productDiscountPrice = ProductPriceUtil.convertDiscount(
-      this.cartProduct.product.priceIncludingTax,
+      this.productPrice,
       this.cartProduct.product.discount,
       this.cartProduct.product.discountType
     )
