@@ -23,6 +23,12 @@
           {{ productDiscountPrice }} {{ configModel?.currencySymbol }}
         </p>
       </div>
+      <div class="stock-status" *ngIf="cartProduct.product.branchProduct?.isAvailable">
+        <div class="stock-indicator justify-content-center" [ngClass]="getStockClass()">
+          <i class="fas fa-circle stock-size"></i>
+          <span class="stock-size">{{ getStockText() }}</span>
+        </div>
+      </div>
     </div>
     <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"
        class="fas fa-trash-alt delete-icon clickable"></i>

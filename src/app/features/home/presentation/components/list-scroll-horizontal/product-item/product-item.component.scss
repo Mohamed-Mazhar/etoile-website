@@ -265,44 +265,6 @@
 
 }
 
-// Stock Status
-//.stock-status {
-//  .stock-indicator {
-//    display: flex;
-//    align-items: center;
-//    gap: 4px;
-//    font-size: 11px;
-//    font-weight: 500;
-//
-//    &.in-stock {
-//      color: #38a169;
-//
-//      i {
-//        color: #38a169;
-//        font-size: 6px;
-//      }
-//    }
-//
-//    &.low-stock {
-//      color: #ed8936;
-//
-//      i {
-//        color: #ed8936;
-//        font-size: 6px;
-//      }
-//    }
-//
-//    &.out-of-stock {
-//      color: #e53e3e;
-//
-//      i {
-//        color: #e53e3e;
-//        font-size: 6px;
-//      }
-//    }
-//  }
-//}
-
 
 // Price Section
 .price-section {
@@ -386,6 +348,10 @@
 @include res-md-styles {
   .modern-container-item {
     padding: 0.25rem;
+  }
+
+  .add-to-cart-btn {
+    font-size: 0.7rem;
   }
 
   .product-info {

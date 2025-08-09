@@ -283,5 +283,9 @@
   "CONGRATULATIONS": "مبروك !",
   "DIDNT_RECEIVE_CODE": "لم تتلقى الرمز؟",
   "REQUEST_AGAIN": "اطلب مرة أخرى؟",
-  "RESEND_PIN": "You can resend the PIN code in {{value}} seconds"
+  "RESEND_PIN": "يمكنك إعادة إرسال رمز التحقق خلال {{value}} ثانية",
+  "IN_STOCK": "متوفر في المخزون",
+  "STOCK_QUANTITY_LEFT": "تبقى فقط {{quantity}}",
+  "OUT_OF_STOCK": "غير متوفر في المخزون"
+
 }

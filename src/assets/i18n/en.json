@@ -283,5 +283,8 @@
   "CONGRATULATIONS": "Congratulations !",
   "DIDNT_RECEIVE_CODE": "Didn't receive code?",
   "REQUEST_AGAIN": "Request again?",
-  "RESEND_PIN": "You can resend the PIN code in {{value}} seconds"
+  "RESEND_PIN": "You can resend the PIN code in {{value}} seconds",
+  "IN_STOCK": "In Stock",
+  "STOCK_QUANTITY_LEFT": "Only {{quantity}} left",
+  "OUT_OF_STOCK": "Out of Stock"
 }

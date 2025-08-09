@@ -9,6 +9,7 @@ import {AnalyticsService} from "../../../../../analytics/data/services/analytics
 import {ProductPriceUtil} from "../../../../../../common/utils/ProductPriceUtil";
 import {ProductsApi} from "../../../../../../common/apis/products-api";
 import {Category} from "../../../../../../common/data-classes/Category";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product-item',
@@ -34,6 +35,7 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
     private router: Router,
     private analyticsService: AnalyticsService,
     private productsApi: ProductsApi,
+    private translateService: TranslateService
   ) {
   }
 
@@ -119,20 +121,23 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
     return Array(emptyStars).fill(1);
   }
 
-  // getStockClass(): string {
-  //   const quantity = this.product.branchProduct?.stock || 0;
-  //
-  //   if (quantity > 10) return 'in-stock';
-  //   if (quantity > 0) return 'low-stock';
-  //   return 'out-of-stock';
-  // }
-  //
-  // getStockText(): string {
-  //   const quantity = this.product.branchProduct?.stock || 0;
-  //   if (quantity > 10) return 'In Stock';
-  //   if (quantity > 0) return `Only ${quantity} left`;
-  //   return 'Out of Stock';
-  // }
+  getStockClass(): string {
+    const quantity = this.product.branchProduct?.stock || 0;
+
+    if (quantity > 10 || this.product.branchProduct?.stockType === "unlimited") return 'in-stock'
+    if (quantity > 0) return 'low-stock'
+    return 'out-of-stock'
+  }
+
+  getStockText(): string {
+    const quantity = this.product.branchProduct?.stock || 0
+    if (quantity > 10 || this.product.branchProduct?.stockType === "unlimited") return this.translateService.instant('IN_STOCK')
+    if (quantity > 0) return this.translateService.instant(
+      'STOCK_QUANTITY_LEFT',
+      {quantity: quantity}
+    )
+    return this.translateService.instant('OUT_OF_STOCK')
+  }
 
   getCategory(categoryIds: CategoryId[] | undefined): string {
     if (!categoryIds || categoryIds.length === 0) return '';

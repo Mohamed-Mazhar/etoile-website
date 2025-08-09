@@ -60,13 +60,13 @@
         <span class="rating-text">({{ product.rating.length || 0 }})</span>
       </div>
 
-      <!-- Stock Status -->
-<!--      <div class="stock-status" *ngIf="product.branchProduct?.isAvailable">-->
-<!--        <div class="stock-indicator" [ngClass]="getStockClass()">-->
-<!--          <i class="fas fa-circle"></i>-->
-<!--          <span>{{ getStockText() }}</span>-->
-<!--        </div>-->
-<!--      </div>-->
+
+      <div class="stock-status" *ngIf="product.branchProduct?.isAvailable">
+        <div class="stock-indicator" [ngClass]="getStockClass()">
+          <i class="fas fa-circle"></i>
+          <span>{{ getStockText() }}</span>
+        </div>
+      </div>
 
       <!-- Price Section -->
       <div class="price-section">

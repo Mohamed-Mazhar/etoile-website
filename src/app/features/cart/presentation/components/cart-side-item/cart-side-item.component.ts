@@ -4,6 +4,7 @@ import {CartProductsService} from "../../../../../common/services/cart-products.
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'cart-side-item',
@@ -22,7 +23,8 @@ export class CartSideItemComponent implements OnInit {
 
   constructor(
     private cartProductsService: CartProductsService,
-    private configModelService: ConfigModelService
+    private configModelService: ConfigModelService,
+    private translateService: TranslateService,
   ) {
   }
 
@@ -63,5 +65,23 @@ export class CartSideItemComponent implements OnInit {
 
   getPrice(): number {
     return ProductPriceUtil.calculatePrice(this.cartProduct)
+  }
+
+  getStockClass(): string {
+    const quantity = this.cartProduct.product.branchProduct?.stock || 0;
+
+    if (quantity > 10 || this.cartProduct.product.branchProduct?.stockType === "unlimited") return 'in-stock'
+    if (quantity > 0) return 'low-stock'
+    return 'out-of-stock'
+  }
+
+  getStockText(): string {
+    const quantity = this.cartProduct.product.branchProduct?.stock || 0
+    if (quantity > 10 || this.cartProduct.product.branchProduct?.stockType === "unlimited") return this.translateService.instant('IN_STOCK')
+    if (quantity > 0) return this.translateService.instant(
+      'STOCK_QUANTITY_LEFT',
+      {quantity: quantity}
+    )
+    return this.translateService.instant('OUT_OF_STOCK')
   }
 }

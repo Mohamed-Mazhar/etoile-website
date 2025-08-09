@@ -152,5 +152,23 @@ export class ProductDetailsComponent implements OnInit {
     this.productImage = "assets/images/placeholder_image.jpg"
   }
 
+  getStockClass(): string {
+    const quantity = this.product?.branchProduct?.stock || 0;
+
+    if (quantity > 10 || this.product?.branchProduct?.stockType === "unlimited") return 'in-stock'
+    if (quantity > 0) return 'low-stock'
+    return 'out-of-stock'
+  }
+
+  getStockText(): string {
+    const quantity = this.product?.branchProduct?.stock || 0
+    if (quantity > 10 || this.product?.branchProduct?.stockType === "unlimited") return this.translateService.instant('IN_STOCK')
+    if (quantity > 0) return this.translateService.instant(
+      'STOCK_QUANTITY_LEFT',
+      {quantity: quantity}
+    )
+    return this.translateService.instant('OUT_OF_STOCK')
+  }
+
   protected readonly ProductPriceUtil = ProductPriceUtil;
 }

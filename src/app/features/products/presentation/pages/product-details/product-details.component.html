@@ -14,6 +14,12 @@
         {{ productDiscountPrice }} {{ configModel?.currencySymbol }}
       </p>
     </div>
+    <div class="stock-status" *ngIf="product.branchProduct?.isAvailable">
+      <div class="stock-indicator" [ngClass]="getStockClass()">
+        <i class="fas fa-circle stock-size"></i>
+        <span class="stock-size">{{ getStockText() }}</span>
+      </div>
+    </div>
     <p>{{ 'PRODUCTS_PRICE_VAT' | translate }}</p>
     <div class="product-review-container">
       <div class="customer-rate" *ngIf=" product.rating !== undefined">

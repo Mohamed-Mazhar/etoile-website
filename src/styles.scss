@@ -120,3 +120,40 @@ app-products-filter {
   }
 }
 
+//Stock Status
+.stock-status {
+  .stock-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &.in-stock {
+      color: #38a169;
+
+      i {
+        color: #38a169;
+        font-size: 0.8rem;
+      }
+    }
+
+    &.low-stock {
+      color: #ed8936;
+
+      i {
+        color: #ed8936;
+        font-size: 0.8rem;
+      }
+    }
+
+    &.out-of-stock {
+      color: #e53e3e;
+
+      i {
+        color: #e53e3e;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
