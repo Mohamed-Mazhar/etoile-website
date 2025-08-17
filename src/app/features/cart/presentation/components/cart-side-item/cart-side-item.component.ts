@@ -43,8 +43,12 @@ export class CartSideItemComponent implements OnInit {
     )
   }
 
-  removeProduct(cartProduct: CartProductItem) {
-    this.cartProductsService.cartProductToRemove.next(cartProduct)
+  removeProduct() {
+    this.cartProductsService.cartProductToRemove.next(this.cartProduct)
+  }
+
+  get hasDiscount(): boolean {
+    return this.productDiscountPrice > 0 && this.productDiscountPrice !== this.getPrice();
   }
 
   decreaseProduct() {

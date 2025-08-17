@@ -72,6 +72,11 @@
 .order-summary {
   min-width: 36%;
   max-width: 45%;
+
+  @include res-md-styles {
+    min-width: 100%;
+  }
+
 }
 
 .empty-cart {

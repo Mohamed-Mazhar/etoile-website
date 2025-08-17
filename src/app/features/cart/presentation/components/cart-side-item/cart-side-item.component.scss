@@ -61,13 +61,6 @@
 
 }
 
-.price-container {
-  display: flex;
-  margin-top: 1rem;
-  column-gap: 0.5rem;
-  justify-content: center;
-}
-
 .delete-icon {
   font-size: 1.5rem;
   color: VAR(--primary-color);
@@ -97,13 +90,118 @@
   }
 }
 
-.discount-price {
-  text-decoration: underline;
-  text-underline-offset: -0.4rem;
-  text-decoration-skip-ink: none;
-  color: VAR(--lightgray) !important;
-}
-
 .stock-size {
   font-size: 0.8rem !important;
+}
+
+.price-section {
+  .price-container {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .price-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .price {
+    font-weight: 700;
+    font-size: 1.125rem;
+
+    &.original-price {
+      color: var(--text-primary);
+
+      &.discounted {
+        text-decoration: line-through;
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+
+    &.discount-price {
+      color: var(--danger-color);
+      font-size: 1.25rem;
+    }
+  }
+
+  .savings-amount {
+    color: var(--success-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+  }
+}
+
+.quantity-controls {
+
+  .quantity-wrapper {
+    display: inline-flex;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    align-items: center;
+    background: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    //overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .quantity-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+    font-size: 0.875rem;
+
+    &:hover:not(:disabled) {
+      background: var(--primary-color);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      color: var(--text-muted);
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+  }
+
+  .quantity-display {
+    padding: 0 1rem;
+    text-align: center;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .quantity-number {
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .quantity-label {
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+  }
 }

@@ -9,19 +9,51 @@
     <div class="text-center">
       <p>{{ cartProduct.product.name }}</p>
       <div class="product-description"><p>{{ cartProduct.product.description }}</p></div>
-      <div class="add-remove-cart-container">
-        <div class="cart-button" [ngClass]="!isAvailable ? 'disabled' : ''" (click)="decreaseProduct()"><i class="fas fa-minus"></i></div>
-        <div class="ms-3 me-3"><p>{{ cartProduct.count }}</p></div>
-        <div class="cart-button" [ngClass]="!isAvailable ? 'disabled' : ''" (click)="increaseProduct()"><i class="fas fa-plus"></i></div>
+      <div class="quantity-controls">
+        <div class="quantity-wrapper">
+          <button
+            type="button"
+            class="btn quantity-btn decrease-btn"
+            [disabled]="!isAvailable || cartProduct.count <= 1"
+            (click)="decreaseProduct()"
+            [attr.aria-label]="'DECREASE_QUANTITY' | translate">
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <div class="quantity-display">
+            <span class="quantity-number">{{ cartProduct.count }}</span>
+            <span class="quantity-label">{{ cartProduct.count === 1 ? ('ITEM' | translate) : ('ITEMS' | translate) }}</span>
+          </div>
+
+          <button
+            type="button"
+            class="btn quantity-btn increase-btn"
+            [disabled]="!isAvailable"
+            (click)="increaseProduct()"
+            [attr.aria-label]="'INCREASE_QUANTITY' | translate">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
       </div>
-      <div class="price-container">
-        <p>{{ 'PRICE' | translate }}:</p>
-        <p [ngClass]="productDiscountPrice !== getPrice() ? 'discount-price' : ''">
-          {{ getPrice().toFixed(2) }} {{ configModel?.currencySymbol }}
-        </p>
-        <p class="subtitle" *ngIf="getPrice() !== productDiscountPrice && productDiscountPrice > 0">
-          {{ productDiscountPrice }} {{ configModel?.currencySymbol }}
-        </p>
+      <div class="price-section mb-3">
+        <div class="price-container">
+          <span class="price-label">{{ 'PRICE' | translate }}:</span>
+
+          <!-- Original Price (crossed out if discounted) -->
+          <span class="price original-price" [class.discounted]="hasDiscount">
+              {{ getPrice().toFixed(2) }} {{ configModel?.currencySymbol }}
+            </span>
+
+          <!-- Discount Price -->
+          <span class="price discount-price" *ngIf="hasDiscount">
+              {{ productDiscountPrice.toFixed(2) }} {{ configModel?.currencySymbol }}
+            </span>
+        </div>
+
+        <!-- Savings Amount -->
+        <div class="savings-amount" *ngIf="hasDiscount">
+          {{ 'SAVE' | translate }} {{ (getPrice() - productDiscountPrice).toFixed(2) }} {{ configModel?.currencySymbol }}
+        </div>
       </div>
       <div class="stock-status" *ngIf="cartProduct.product.branchProduct?.isAvailable">
         <div class="stock-indicator justify-content-center" [ngClass]="getStockClass()">
@@ -30,7 +62,7 @@
         </div>
       </div>
     </div>
-    <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct(cartProduct)"
+    <i data-bs-toggle="modal" data-bs-target="#deleteProduct" (click)="removeProduct()"
        class="fas fa-trash-alt delete-icon clickable"></i>
   </div>
   <div class="horizontal-separator" *ngIf="!hideSeparator"></div>

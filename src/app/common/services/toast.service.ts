@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {ToastData} from "../data-classes/ToastData";
 
-export declare type ToastType = 'normal' | 'alert'
+export declare type ToastType = 'normal' | 'alert' | 'warning'
 @Injectable({
   providedIn: 'root'
 })

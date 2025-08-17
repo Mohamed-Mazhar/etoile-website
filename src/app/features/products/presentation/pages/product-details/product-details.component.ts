@@ -170,5 +170,12 @@ export class ProductDetailsComponent implements OnInit {
     return this.translateService.instant('OUT_OF_STOCK')
   }
 
+  getDiscountPercentage(): number {
+    if (this.productPrice > 0 && this.productDiscountPrice > 0 && this.productPrice !== this.productDiscountPrice) {
+      return Math.round(((this.productPrice - this.productDiscountPrice) / this.productPrice) * 100);
+    }
+    return 0;
+  }
+
   protected readonly ProductPriceUtil = ProductPriceUtil;
 }

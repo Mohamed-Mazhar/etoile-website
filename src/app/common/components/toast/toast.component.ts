@@ -33,6 +33,8 @@ export class ToastComponent implements OnInit, OnDestroy {
           this.message = toast?.message ?? ""
           if (toast?.type === 'normal') {
             this.toastType = 'success'
+          } else if (toast?.type === 'warning') {
+            this.toastType = 'warning'
           } else {
             this.toastType = 'error'
           }

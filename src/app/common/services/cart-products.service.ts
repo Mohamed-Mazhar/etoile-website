@@ -88,11 +88,11 @@ export class CartProductsService {
       const maxCanAdd = availableStock - currentQuantityInCart
 
       if (maxCanAdd > 0) {
-        this.toastService.showToast('normal', `Only ${maxCanAdd} items available. Added maximum possible quantity.`)
+        this.toastService.showToast('warning', `Only ${maxCanAdd} items available. Added maximum possible quantity.`)
         this.increaseCart(cartProduct, productIndex, maxCanAdd)
         return true
       } else {
-        this.toastService.showToast('normal', 'Product exceeded stock amount')
+        this.toastService.showToast('warning', 'Product exceeded stock amount')
         return false
       }
     }
