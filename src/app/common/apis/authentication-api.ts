@@ -34,7 +34,7 @@ export class AuthenticationApi {
       body: registerRequest
     }).pipe(
       map((response: { [key: string]: any }) => {
-        console.log("Registration response ", response)
+          console.log("Registration response ", response)
           return {
             token: response['token'],
             temporaryToken: response['temporary_token']
@@ -51,7 +51,7 @@ export class AuthenticationApi {
       body: {
         email_or_phone: email,
         password: password,
-        type: isPhone ? 'phone': 'email'
+        type: isPhone ? 'phone' : 'email'
       }
     }).pipe(
       map((response: { [key: string]: any }) => {
@@ -64,19 +64,20 @@ export class AuthenticationApi {
     )
   }
 
-  forgetPassword(email: string) : Observable<string> {
+  forgetPassword(email: string, isMobile: boolean): Observable<string> {
+    let body: { [key: string]: any } = {
+      email_or_phone: email,
+      type: isMobile ? 'phone' : 'email',
+    }
+
     return this.baseApiService.call<{}, string>({
       apiType: ApiType.forgetPassword,
       requestType: RequestType.POST,
-      body: {
-        email_or_phone: 'email',
-        type: 'email',
-        email: email
-      }
+      body: body
     })
   }
 
-  checkPhone(phoneNumber: string) : Observable<void> {
+  checkPhone(phoneNumber: string): Observable<void> {
     return this.baseApiService.call({
       apiType: ApiType.checkPhone,
       requestType: RequestType.POST,

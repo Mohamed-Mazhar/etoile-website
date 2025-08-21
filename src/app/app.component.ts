@@ -77,7 +77,6 @@ export class AppComponent {
   }
 
   private initializeLanguage() {
-
     let lang = localStorage.getItem(LANG)
     if (lang !== null) {
       this.translate.setDefaultLang(lang)
