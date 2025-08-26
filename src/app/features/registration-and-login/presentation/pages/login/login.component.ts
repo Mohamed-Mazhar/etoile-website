@@ -107,7 +107,9 @@ export class LoginComponent implements OnInit {
     this.authenticationApi.checkPhone(mobileNumber).subscribe({
       next: (_) => {
         this.isLoading = false
-        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: mobileNumber})
+        AppEventBroadcaster.publish({
+          event: AppEvent.checkPhoneCalled, data: {phone: mobileNumber, isForgetPassword: false}
+        })
         this.verificationPage.nativeElement.click()
       },
       error: (err) => {

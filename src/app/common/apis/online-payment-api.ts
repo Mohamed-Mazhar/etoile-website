@@ -57,6 +57,14 @@ export class OnlinePaymentApi {
     })
   }
 
+  logOnlinePaymentResponse(body: { [key: string]: any }) {
+    return this.baseApiService.call<{}, void>({
+      apiType: ApiType.logOnlinePaymentResponse,
+      requestType: RequestType.POST,
+      body: body
+    })
+  }
+
   getPaymentStatus(paymentId: string): Observable<any> {
     return of("")
     // return this.baseApiService.callPayMobApis<{}, MyFatoorahPaymentStatusResponse>({

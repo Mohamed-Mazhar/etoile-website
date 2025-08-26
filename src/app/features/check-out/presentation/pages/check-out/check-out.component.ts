@@ -7,7 +7,7 @@ import {Branch, ConfigModel, PaymentMethod} from "../../../../../common/data-cla
 import {PlaceOrderBody} from "../../../../../common/data-classes/PlaceOrderBody";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
-import {ORDER_BODY, SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
+import {ORDER_BODY, SELECTED_BRANCH} from "../../../../../common/utils/constants";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
@@ -18,10 +18,7 @@ import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {OnlinePaymentApi} from "../../../../../common/apis/online-payment-api";
-import {MyFatoorahPaymentMethod} from "../../../../../common/data-classes/MyFatoorahPaymentMethod";
 import {TranslateService} from "@ngx-translate/core";
-import {environment} from "../../../../../../environments/environment.prod";
-import {UserInfo} from "../../../../../common/data-classes/UserInfo";
 import {SplashApi} from "../../../../../common/apis/splash-api";
 import {DiscountAvailabilityModel} from "../../../../../common/data-classes/DiscountAvailabilityModel";
 
@@ -129,8 +126,14 @@ export class CheckOutComponent implements OnInit {
     }
     let geideaOrderId = this.route.snapshot.queryParamMap.get('orderId')
     let paymentStatus = this.route.snapshot.queryParamMap.get('responseMessage')
+    let responseCode = this.route.snapshot.queryParamMap.get('responseCode')
     if (geideaOrderId?.hasActualValue()) {
-      if (paymentStatus?.toLowerCase() === "success") {
+      if (responseCode?.toString() === "000") {
+        this.logOnlinePaymentResponse({
+          "orderId": geideaOrderId,
+          "responseCode": responseCode,
+          "state": paymentStatus,
+        })
         this.processOnlinePayment(geideaOrderId, 'geidea')
       } else {
         this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')
@@ -216,12 +219,13 @@ export class CheckOutComponent implements OnInit {
   }
 
   placeOrder(paymentMethod: PaymentMethod) {
+    const discount = Number(this.discountAvailabilityModel?.applicableAmount) || 0;
     this.placeOrderBody = new PlaceOrderBody(
       this.cartProductItems,
       this.couponModel !== null ? this.discountAmountFromCoupon : 0,
       this.couponModel?.title ?? '',
       this.couponModel?.code ?? '',
-      +this.totalPrice,
+      +this.totalPrice - discount,
       this.selectedAddressId,
       this.configModel?.selfPickup === true ? 'take_away' : 'delivery',
       paymentMethod.getWay ?? '',
@@ -241,7 +245,6 @@ export class CheckOutComponent implements OnInit {
     if (paymentMethod.getWay === 'cash_on_pick_up' || paymentMethod.getWay === 'cash_on_delivery') {
       this.callPlaceOrder()
     } else if (paymentMethod.getWay === 'pay_mob') {
-      // this.startPayMob()
       this.startGediaPayment()
     } else {
       this.makeOnlinePayment()
@@ -341,26 +344,6 @@ export class CheckOutComponent implements OnInit {
       })
     })
   }
-
-  private startPayMob() {
-    this.placingOrder = true
-    let user: UserInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
-    this.onlinePaymentApi.createPaymentIntention(this.placeOrderBody?.orderAmount ?? 0, user).subscribe({
-      next: (clientSecret) => {
-        this.placingOrder = false
-        localStorage.setItem(ORDER_BODY, JSON.stringify(this.placeOrderBody))
-        let paymentUrl = `https://accept.paymob.com/unifiedcheckout/?publicKey=${environment.payMobPublic}&clientSecret=${clientSecret}`
-        window.open(paymentUrl, "_self")
-        // this.myFatoorahPaymentMethods = payments
-        // this.openMyFatoorahElem.nativeElement.click()
-      },
-      error: (err) => {
-        this.placingOrder = false
-        console.log("Error received ", err)
-      }
-    })
-  }
-
   private startGediaPayment() {
     this.placingOrder = true
     this.onlinePaymentApi.initiateGeideaPayment(
@@ -390,6 +373,10 @@ export class CheckOutComponent implements OnInit {
         paymentMethod: paymentMethod,
       })
     this.callPlaceOrder()
+  }
+
+  private logOnlinePaymentResponse(response: { [key: string]: any }) {
+    this.onlinePaymentApi.logOnlinePaymentResponse(response).subscribe()
   }
 
 }

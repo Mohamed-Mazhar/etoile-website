@@ -22,6 +22,7 @@ export class VerificationComponent implements AfterViewInit {
   mobileNumber = ""
   loading = false
   errorMessage: string | null = null
+  isForgetPassword: boolean = false
 
   constructor(
     private authenticationApi: AuthenticationApi,
@@ -32,7 +33,8 @@ export class VerificationComponent implements AfterViewInit {
   ngAfterViewInit() {
     AppEventBroadcaster.on({event: AppEvent.checkPhoneCalled}).subscribe({
       next: (data) => {
-        this.mobileNumber = data.data
+        this.mobileNumber = data.data.phone
+        this.isForgetPassword = data.data.isForgetPassword
       }
     })
     this.otpInputs.first.nativeElement.focus()
@@ -145,7 +147,9 @@ export class VerificationComponent implements AfterViewInit {
     this.loading = true
     this.authenticationApi.checkPhone(this.mobileNumber).subscribe({
       next: (_) => {
-        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: this.mobileNumber})
+        AppEventBroadcaster.publish({
+          event: AppEvent.checkPhoneCalled, data: {phone: this.mobileNumber, isForgetPassword: false}
+        })
         this.loading = false
       },
       error: (err) => {

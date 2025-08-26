@@ -25,11 +25,10 @@ export class PaymentsTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Selected address id is", this.selectedAddressId)
     this.configService.configModelSubject.subscribe({
       next: (config) => {
         this.activePaymentMethods = []
-        this.activePaymentMethods = config?.activePaymentMethodList ?? []
+        this.activePaymentMethods = Array.from(config?.activePaymentMethodList ?? [])
         this.digitalPaymentsActive = config?.digitalPayment ?? false
         this.isSelfPickUp = config?.selfPickup ?? false
         this.activePaymentMethods.push(new PaymentMethod(

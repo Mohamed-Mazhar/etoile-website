@@ -21,6 +21,7 @@ export class CheckoutOrderSummaryComponent implements OnInit {
 
   @Input() showExtraDetails: boolean = false
   @Input() delivery: number = 0
+  @Input() appliedDiscount: number = 0
   @Output() onCouponAppliedSuccessfully: EventEmitter<CouponModel | null> = new EventEmitter<CouponModel | null>()
   @Output() discountAmount = new EventEmitter<number>();
 
@@ -149,6 +150,15 @@ export class CheckoutOrderSummaryComponent implements OnInit {
     }
   }
 
+  getTotalDiscount() {
+    const discount = Number(this.appliedDiscount) || 0
+    if (discount !== 0) {
+      return discount.toFixed(2)
+    } else {
+      return this.totalDiscount.toFixed(2)
+    }
+  }
+
   getProductPriceAfterDiscount(product: Product) {
     return ProductPriceUtil.convertDiscount(product.priceIncludingTax, product.discount, product.discountType)
   }
@@ -159,4 +169,5 @@ export class CheckoutOrderSummaryComponent implements OnInit {
   }
 
   protected readonly ProductPriceUtil = ProductPriceUtil;
+  protected readonly Number = Number;
 }

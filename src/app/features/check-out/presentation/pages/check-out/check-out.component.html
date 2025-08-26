@@ -39,8 +39,11 @@
         </div>
         <div class='tab-pane container fade' id='payment'
              [ngClass]="{'show': activeTab === 'payment', 'active': activeTab === 'payment' }">
-          <app-payments-tab [selectedAddressId]="selectedAddressId" [loading]="placingOrder"
-                            (onPayClicked)="placeOrder($event)"></app-payments-tab>
+          <app-payments-tab
+            [selectedAddressId]="selectedAddressId"
+            [loading]="placingOrder"
+            (onPayClicked)="placeOrder($event)">
+          </app-payments-tab>
         </div>
         <div class='tab-pane container fade' id='confirm'
              [ngClass]="{'show': activeTab === 'confirm', 'active': activeTab === 'confirm' }">
@@ -59,6 +62,7 @@
     <app-checkout-order-summary
       *ngIf="activeTab !== 'confirm'"
       [delivery]="deliveryCharge"
+      [appliedDiscount]="discountAvailabilityModel?.applicableAmount ?? 0"
       (onCouponAppliedSuccessfully)="applyCoupon($event)"
       [showExtraDetails]="activeTab === 'payment'"
       (discountAmount)="totalDiscount = $event"
@@ -79,11 +83,12 @@
 
 <div #openMyFatoorahElem data-bs-target="#myFatoorah" data-bs-toggle="modal"></div>
 
-<div class="modal fade modal-index" id="myFatoorah" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
-<!--  <app-my-fatoorah-payments-modal-->
-<!--    [myFatoorahPaymentMethods]="myFatoorahPaymentMethods"-->
-<!--    (onPaymentSelected)="executeMyFatoorahTransaction($event)">-->
-<!--  </app-my-fatoorah-payments-modal>-->
+<div class="modal fade modal-index" id="myFatoorah" tabindex="-1" aria-labelledby="deleteProductModalLabel"
+     aria-hidden="true">
+  <!--  <app-my-fatoorah-payments-modal-->
+  <!--    [myFatoorahPaymentMethods]="myFatoorahPaymentMethods"-->
+  <!--    (onPaymentSelected)="executeMyFatoorahTransaction($event)">-->
+  <!--  </app-my-fatoorah-payments-modal>-->
 </div>
 
 <div #discountAvailElem data-bs-target="#discountModal" data-bs-toggle="modal"></div>

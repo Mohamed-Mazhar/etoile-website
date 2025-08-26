@@ -4,6 +4,7 @@ import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {ToastService} from "../../../../../common/services/toast.service";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
+import {VerificationComponent} from "../../pages/verification/verification.component";
 
 @Component({
   selector: 'app-forget-password',
@@ -36,7 +37,10 @@ export class ForgetPasswordComponent {
     this.authenticationApi.forgetPassword(this.isMobileNumber ? mobileNumber : email, this.isMobileNumber).subscribe({
       next: (message) => {
         this.isLoading = false
-        AppEventBroadcaster.publish({event: AppEvent.checkPhoneCalled, data: mobileNumber})
+        AppEventBroadcaster.publish({
+          event: AppEvent.checkPhoneCalled,
+          data: {phone: mobileNumber, isForgetPassword: true}
+        })
         this.verificationPage.nativeElement.click()
       },
       error: (err) => {
