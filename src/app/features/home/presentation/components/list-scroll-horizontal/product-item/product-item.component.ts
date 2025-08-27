@@ -16,7 +16,7 @@ import {TranslateService} from "@ngx-translate/core";
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss']
 })
-export class ProductItemComponent implements OnInit, AfterViewInit {
+export class ProductItemComponent implements AfterViewInit {
 
   @Input() product!: Product
   configModel: ConfigModel | null = null
@@ -47,9 +47,6 @@ export class ProductItemComponent implements OnInit, AfterViewInit {
         this.categoryNamesDisplay = this.getCategory(this.product.categoryIds); // ← Save result
       }
     })
-  }
-
-  ngOnInit(): void {
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config

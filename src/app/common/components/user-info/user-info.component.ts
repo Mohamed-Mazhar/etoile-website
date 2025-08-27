@@ -4,12 +4,13 @@ import {AppEvent} from "../../app-events/app-event";
 import {UserInfo} from "../../data-classes/UserInfo";
 import {LANG, SELECTED_BRANCH, USER_INFO} from "../../utils/constants";
 import {Branch} from "../../data-classes/ConfigModel";
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 import {CartProductsService} from "../../services/cart-products.service";
 import {TranslateService} from "@ngx-translate/core";
 import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../features/analytics/data/models/AnalyticsEvent";
 import {AdjustEvent} from "../../../features/analytics/data/models/AdjustEvent";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'user-info',
@@ -24,6 +25,7 @@ export class UserInfoComponent implements OnInit {
   selectedBranch: Branch | null = null
   cartItems = 0
   currentLanguage = "en"
+  hideCart = false
 
   constructor(
     private translate: TranslateService,
@@ -50,6 +52,14 @@ export class UserInfoComponent implements OnInit {
     this.translate.onLangChange.subscribe((event) => {
       this.currentLanguage = event.lang
     })
+
+    this.hideCart = this.router.url.includes('checkout')
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        const currentUrl = event.urlAfterRedirects;
+        this.hideCart = currentUrl.includes('checkout');
+      })
   }
 
   logout() {

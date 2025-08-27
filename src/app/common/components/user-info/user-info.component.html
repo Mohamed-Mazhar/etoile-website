@@ -28,12 +28,12 @@
       <p>{{ 'REGISTER' | translate }}</p>
     </div>
     <div class="vertical-separator" *ngIf="!isMobileView"></div>
-    <div class="user-info-item-container" data-bs-toggle="offcanvas" data-bs-target="#cartView">
+    <div class="user-info-item-container" *ngIf="!hideCart" data-bs-toggle="offcanvas" data-bs-target="#cartView">
       <i class="fas fa-shopping-basket icon-size"></i>
       <p>{{ cartItems }}</p>
       <p>{{ 'PRODUCT' | translate }}</p>
     </div>
-    <div class="vertical-separator" *ngIf="!isMobileView"></div>
+    <div class="vertical-separator" *ngIf="!isMobileView && !hideCart"></div>
   </div>
   <div class="login-and-cart-container">
     <div class="user-info-item-container" routerLink="/branch">
