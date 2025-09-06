@@ -1,12 +1,14 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
-import {CartProductItem} from "../../../data/model/CartProductItem";
+import {CartProductItem, cartProductItemToJson} from "../../../data/model/CartProductItem";
 import {Router} from "@angular/router";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {ProductsApi} from "../../../../../common/apis/products-api";
 import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-cart-page',
@@ -31,7 +33,8 @@ export class CartPageComponent implements OnInit {
     private cartProductService: CartProductsService,
     private router: Router,
     private productsApi: ProductsApi,
-    private configModelService: ConfigModelService
+    private configModelService: ConfigModelService,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -59,6 +62,7 @@ export class CartPageComponent implements OnInit {
           this.totalPriceWithoutDiscount += priceWithNoDiscount * count
           this.totalTax += ProductPriceUtil.calculateTax(cartProduct)
         }
+        this.logCartPageVisited()
       }
     })
     this.configModelService.configModelSubject.subscribe({
@@ -105,6 +109,19 @@ export class CartPageComponent implements OnInit {
         }
         this.errorMessage = `${message} <br> ${notAvailableProducts}`
       }
+    })
+  }
+
+  logCartPageVisited() {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    let parameters = new Map<string, any>()
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+    }
+    parameters.set('cart', this.cartItems.map((item) => cartProductItemToJson(item)))
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.cartPageVisited,
+      parameters: parameters
     })
   }
 

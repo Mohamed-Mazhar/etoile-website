@@ -8,9 +8,11 @@ import {Observable} from "rxjs";
 import {AppEventBroadcaster} from "../../app-events/app-event-broadcaster";
 import {AppEvent} from "../../app-events/app-event";
 import {Branch} from "../../data-classes/ConfigModel";
-import {SELECTED_BRANCH} from "../../utils/constants";
+import {SELECTED_BRANCH, USER_INFO} from "../../utils/constants";
 import {DeliveryChargeByArea, DeliveryInfoModel} from "../../data-classes/DeliveryInfoModel";
 import {ConfigModelService} from "../../services/config-model.service";
+import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../features/analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-add-new-address-modal',
@@ -32,7 +34,8 @@ export class AddNewAddressModalComponent implements OnInit {
   constructor(
     private addressService: AddressService,
     private addressApi: AddressApi,
-    private configService: ConfigModelService
+    private configService: ConfigModelService,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -108,12 +111,27 @@ export class AddNewAddressModalComponent implements OnInit {
       next: (_) => {
         this.loading = false
         AppEventBroadcaster.publish({event: AppEvent.userAddressesChanged})
+        if (this.address === null) {
+          this.logAddressAdded(addressModel)
+        }
         this.closeElem.nativeElement.click()
       },
       error: (err) => {
         this.loading = false
         console.log("Failed to update Address ", err)
       }
+    })
+  }
+
+  private logAddressAdded(addressModel: AddressModel) {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.addressAdded,
+      parameters: new Map<string, any>([
+        ['user_id', userInfo.id],
+        ['timestamp', new Date().getTime()],
+        ['city', addressModel.address]
+      ])
     })
   }
 

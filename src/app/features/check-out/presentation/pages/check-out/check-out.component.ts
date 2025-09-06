@@ -7,7 +7,7 @@ import {Branch, ConfigModel, PaymentMethod} from "../../../../../common/data-cla
 import {PlaceOrderBody} from "../../../../../common/data-classes/PlaceOrderBody";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {CartProductItem} from "../../../../cart/data/model/CartProductItem";
-import {ORDER_BODY, SELECTED_BRANCH} from "../../../../../common/utils/constants";
+import {ORDER_BODY, SELECTED_BRANCH, USER_INFO} from "../../../../../common/utils/constants";
 import {CouponModel} from "../../../../../common/data-classes/CouponModel";
 import {OrdersApi} from "../../../../../common/apis/orders-api";
 import {ToastService} from "../../../../../common/services/toast.service";
@@ -311,7 +311,10 @@ export class CheckOutComponent implements OnInit {
   }
 
   private logOrderEvent(placeOrder: PlaceOrderBody, errorMessage: string | null) {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
     let parameters = new Map<string, any>()
+    parameters.set('user_data', userInfo)
+    parameters.set('order_info', placeOrder.toJson())
     parameters.set('sum', placeOrder.orderAmount)
     parameters.set('value', placeOrder.orderAmount)
     parameters.set('currency', this.configModel?.currencySymbol)
@@ -329,8 +332,10 @@ export class CheckOutComponent implements OnInit {
   }
 
   private logProductPurchaseEvent(placeOrder: PlaceOrderBody) {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
     placeOrder.cart?.forEach((cartProduct) => {
       let parameters = new Map<string, any>()
+      parameters.set('user_data', userInfo)
       parameters.set('item_id', cartProduct.product.id)
       parameters.set('item_name', cartProduct.product.name)
       parameters.set('item_quantity', cartProduct.count)

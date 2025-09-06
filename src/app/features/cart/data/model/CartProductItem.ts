@@ -1,40 +1,42 @@
-import {AddOns, Product, VariationValue} from "../../../../common/data-classes/ProductModel";
-import {ProductPriceUtil} from "../../../../common/utils/ProductPriceUtil";
+import { AddOns, Product, VariationValue } from "../../../../common/data-classes/ProductModel";
+import { ProductPriceUtil } from "../../../../common/utils/ProductPriceUtil";
 
 export interface CartProductItem {
-  product: Product,
-  count: number,
-  productAddOns: AddOns[],
-  variations: CartProductVariations[]
+  product: Product;
+  count: number;
+  productAddOns: AddOns[];
+  variations: CartProductVariations[];
 }
 
 export interface CartProductVariations {
-  name: string,
-  values: VariationValue[]
+  name: string;
+  values: VariationValue[];
 }
 
-export function convertCartProductsToJson(cartProducts: CartProductItem[]): { [key: string]: any } {
-  let jsonBody: { [key: string]: any } = {};
-  jsonBody['cart'] = [];
-
-  for (let cartItem of cartProducts) {
-    jsonBody['cart'].push({
-      product_id: cartItem.product.id,
-      price: cartItem.product.price?.toString(),
-      discount_amount: 0,
-      quantity: cartItem.count,
-      tax_amount: ProductPriceUtil.calculateTax(cartItem),
-      variant: [],
-      variations: cartItem.variations.length > 0 ? cartItem.variations.map((variation) => ({
+// ✅ Helper to convert a single CartProductItem to JSON
+export function cartProductItemToJson(cartItem: CartProductItem): { [key: string]: any } {
+  return {
+    product_id: cartItem.product.id,
+    price: cartItem.product.price?.toString(),
+    discount_amount: 0,
+    quantity: cartItem.count,
+    tax_amount: ProductPriceUtil.calculateTax(cartItem),
+    variant: [],
+    variations: cartItem.variations.length > 0
+      ? cartItem.variations.map((variation) => ({
         name: variation.name,
         values: variation.values.map((variationValue) => ({
           label: variationValue.optionLabel
         }))
-      })) : [],
-      add_on_ids: [],
-      add_on_qtys: []
-    });
-  }
+      }))
+      : [],
+    add_on_ids: cartItem.productAddOns.map(addOn => addOn.id),
+  };
+}
 
-  return jsonBody;
+// ✅ Wrapper for array of CartProductItem
+export function convertCartProductsToJson(cartProducts: CartProductItem[]): { [key: string]: any } {
+  return {
+    cart: cartProducts.map(cartProductItemToJson)
+  };
 }

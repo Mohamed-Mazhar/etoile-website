@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input} from '@angular/core';
 import {CategoryId, Product} from "../../../../../../common/data-classes/ProductModel";
 import {CartProductsService} from "../../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
@@ -10,6 +10,8 @@ import {ProductPriceUtil} from "../../../../../../common/utils/ProductPriceUtil"
 import {ProductsApi} from "../../../../../../common/apis/products-api";
 import {Category} from "../../../../../../common/data-classes/Category";
 import {TranslateService} from "@ngx-translate/core";
+import {AnalyticsEvent} from "../../../../../analytics/data/models/AnalyticsEvent";
+import {USER_INFO} from "../../../../../../common/utils/constants";
 
 @Component({
   selector: 'app-product-item',
@@ -101,10 +103,30 @@ export class ProductItemComponent implements AfterViewInit {
     event.stopPropagation();
     this.isFavorite = !this.isFavorite;
     if (this.isFavorite) {
-      this.productsApi.addToWishList(this.product.id!).subscribe()
+      this.productsApi.addToWishList(this.product.id!).subscribe({
+        next: (_) => {
+          this.logProductAddedToFavourite()
+        }
+      })
     } else {
       this.productsApi.removeFromWishList(this.product.id!).subscribe()
     }
+  }
+
+  private logProductAddedToFavourite() {
+    let parameters = new Map<string, any>()
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+    }
+    parameters.set('product_name', this.product.name)
+    parameters.set('product_id', this.product.id)
+    parameters.set('product_price', this.product.priceIncludingTax)
+    parameters.set('product_category', this.product.categoryIds?.toString())
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.addToFavourite,
+      parameters: parameters
+    })
   }
 
   getStars(rating: number): number[] {

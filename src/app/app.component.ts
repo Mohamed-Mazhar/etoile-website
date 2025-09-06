@@ -120,8 +120,10 @@ export class AppComponent {
         return;
       }
       window.scrollTo(0, 0)
+      let indexOfSlash = item.url.lastIndexOf("/")
+      let pageName = item.url.substring(indexOfSlash + 1)
       const gtmTag = {
-        event: 'page',
+        event: pageName,
         pageName: item.url
       };
       this.gtmService.pushTag(gtmTag).then();
@@ -137,7 +139,6 @@ export class AppComponent {
     } else {
       localStorage.setItem(EXPIRE_BRANCH, (new Date().getTime() + EXPIRE_BRANCH_TIME * 60 * 1000).toString())
     }
-    console.log("App component selected branch ", localStorage.getItem(SELECTED_BRANCH))
     if (localStorage.getItem(SELECTED_BRANCH) === null || localStorage.getItem(SELECTED_BRANCH) === 'null') {
       this.router.navigate(['/branch']).then()
     }

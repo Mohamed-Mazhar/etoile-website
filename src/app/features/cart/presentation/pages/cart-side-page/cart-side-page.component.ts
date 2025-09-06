@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {CartProductItem} from "../../../data/model/CartProductItem";
+import {CartProductItem, cartProductItemToJson} from "../../../data/model/CartProductItem";
 import {CartProductsService} from "../../../../../common/services/cart-products.service";
 import {USER_INFO} from "../../../../../common/utils/constants";
 import {Router} from "@angular/router";
@@ -84,14 +84,15 @@ export class CartSidePageComponent implements OnInit {
   }
 
   startCheckout() {
-    let user = localStorage.getItem(USER_INFO)
+    let user = JSON.parse(localStorage.getItem(USER_INFO)!)
     if (user !== null) {
       this.analyticsService.logEvent({
-        event: AnalyticsEvent.checkout,
+        event: AnalyticsEvent.checkout_started,
         parameters: new Map<string, any>(
           [
             ['value', this.totalPrice],
-            ['currency', this.configModel?.currencySymbol]
+            ['user_id', user.id],
+            ['cart', this.cartProducts.map((item) => cartProductItemToJson(item))]
           ]
         )
       })

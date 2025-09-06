@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
-import {CartProductItem} from "../../features/cart/data/model/CartProductItem";
+import {
+  CartProductItem,
+  cartProductItemToJson,
+  convertCartProductsToJson
+} from "../../features/cart/data/model/CartProductItem";
 import {BehaviorSubject} from "rxjs";
 import {AppEventBroadcaster} from "../app-events/app-event-broadcaster";
 import {AppEvent} from "../app-events/app-event";
 import {Product} from "../data-classes/ProductModel";
 import {ToastService} from "./toast.service";
-import {CART} from "../utils/constants";
+import {CART, USER_INFO} from "../utils/constants";
 import {AnalyticsService} from "../../features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../features/analytics/data/models/AnalyticsEvent";
 import {ProductPriceUtil} from "../utils/ProductPriceUtil";
@@ -117,11 +121,15 @@ export class CartProductsService {
     this.cartProducts = this.cartProducts.filter(cartProductItem => cartProductItem !== cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
     localStorage.setItem(CART, JSON.stringify(this.cartProducts))
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    let parameters = new Map<string, any>()
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+      parameters.set('cart', this.cartProducts.map((item) => cartProductItemToJson(item)))
+    }
     this.analyticsService.logEvent({
       event: AnalyticsEvent.removeProduct,
-      parameters: new Map<string, any>([
-        ['item_id', cartProduct.product.id]
-      ])
+      parameters: parameters
     })
   }
 

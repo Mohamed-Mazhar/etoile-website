@@ -89,7 +89,8 @@ export class LoginComponent implements OnInit {
         this.analyticsService.logEvent({
           event: AnalyticsEvent.loginSuccess,
           parameters: new Map<string, any>([
-            ['user_id', response.id]
+            ['user_id', response.id],
+            ['timestamp', new Date().getTime()]
           ])
         })
         this.analyticsService.logAdjustEvent({event: AdjustEvent.loginSuccess})

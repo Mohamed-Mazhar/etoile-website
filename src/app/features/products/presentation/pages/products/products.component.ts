@@ -4,6 +4,9 @@ import {ProductsApi} from "../../../../../common/apis/products-api";
 import {Product} from "../../../../../common/data-classes/ProductModel";
 import {ConfigModelService} from "../../../../../common/services/config-model.service";
 import {Category} from "../../../../../common/data-classes/Category";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {USER_INFO} from "../../../../../common/utils/constants";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-products',
@@ -23,6 +26,7 @@ export class ProductsComponent implements OnInit {
   filters: { [key: string]: any } | null = {}
   categories: Category[] = []
   loadingProductsFilter: boolean = false
+  categoryId: string = ""
 
   params = {
     current: this.products.length,
@@ -32,7 +36,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productsApi: ProductsApi,
-    private configModelService: ConfigModelService
+    private configModelService: ConfigModelService,
+    private analyticsService: AnalyticsService
   ) {
   }
 
@@ -50,6 +55,7 @@ export class ProductsComponent implements OnInit {
         if (this.charactersToSearch.hasActualValue()) {
           this.loadProducts(false, {name: this.charactersToSearch})
         } else if (categoryId?.hasActualValue()) {
+          this.categoryId = categoryId
           this.loadProducts(false, {category_id: [categoryId]})
         } else {
           this.loadProducts(false, null)
@@ -129,6 +135,20 @@ export class ProductsComponent implements OnInit {
       this.loadingProductsFilter = true
       this.loadProducts(false, null)
     }
+  }
+
+  logCategoryPageVisited() {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    let parameters = new Map<string, any>()
+    parameters.set('category_id', this.categoryId)
+    parameters.set('category_name', this.category)
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+    }
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.categoryPageVisited,
+      parameters: parameters
+    })
   }
 
 }

@@ -8,6 +8,9 @@ import {ConfigModel} from "../../../../../common/data-classes/ConfigModel";
 import {TranslateService} from "@ngx-translate/core";
 import {ProductPriceUtil} from "../../../../../common/utils/ProductPriceUtil";
 import {CartProductVariations} from "../../../../cart/data/model/CartProductItem";
+import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {USER_INFO} from "../../../../../common/utils/constants";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-product-details',
@@ -32,7 +35,8 @@ export class ProductDetailsComponent implements OnInit {
     private productsApi: ProductsApi,
     private cartService: CartProductsService,
     private configModelService: ConfigModelService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private analyticsService: AnalyticsService
   ) {
 
   }
@@ -54,6 +58,7 @@ export class ProductDetailsComponent implements OnInit {
           }, 0
         )! / product.rating?.length!
         this.setDefaultSelectedSize()
+        this.logProductVisited()
       },
       error: (err) => {
         this.loading = false
@@ -175,6 +180,22 @@ export class ProductDetailsComponent implements OnInit {
       return Math.round(((this.productPrice - this.productDiscountPrice) / this.productPrice) * 100);
     }
     return 0;
+  }
+
+  logProductVisited() {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    let parameters = new Map<string, any>()
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+    }
+    parameters.set('product_name', this.product?.name)
+    parameters.set('product_id', this.product?.id)
+    parameters.set('product_price', this.product?.priceIncludingTax)
+    parameters.set('product_category', this.product?.categoryIds)
+    this.analyticsService.logEvent({
+      event: AnalyticsEvent.productPageVisited,
+      parameters: parameters
+    })
   }
 
   protected readonly ProductPriceUtil = ProductPriceUtil;

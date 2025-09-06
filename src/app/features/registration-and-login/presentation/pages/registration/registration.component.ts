@@ -8,6 +8,7 @@ import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
 import {AdjustEvent} from "../../../../analytics/data/models/AdjustEvent";
 import {AnalyticsService} from "../../../../analytics/data/services/analytics-service";
+import {AnalyticsEvent} from "../../../../analytics/data/models/AnalyticsEvent";
 
 @Component({
   selector: 'app-registration',
@@ -92,6 +93,13 @@ export class RegistrationComponent implements OnInit {
         this.isLoading = false
         localStorage.setItem(USER_INFO, JSON.stringify(response))
         AppEventBroadcaster.publish({event: AppEvent.loadUserInfo})
+        let parameters = new Map<string, any>()
+        parameters.set('user_id', response.id)
+        parameters.set('timestamp',new Date().getTime())
+        this.analyticsService.logEvent({
+          event: AnalyticsEvent.signUp,
+          parameters: parameters
+        })
       },
       error: (err) => {
         this.isLoading = false

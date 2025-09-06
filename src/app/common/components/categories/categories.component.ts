@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {Category} from "../../data-classes/Category";
 import {AnalyticsService} from "../../../features/analytics/data/services/analytics-service";
 import {AnalyticsEvent} from "../../../features/analytics/data/models/AnalyticsEvent";
+import {USER_INFO} from "../../utils/constants";
 
 @Component({
   selector: 'categories',
@@ -38,12 +39,16 @@ export class CategoriesComponent implements OnInit {
   }
 
   loadSubCategory(category: Category, subCategory: Category) {
+    const userInfo = JSON.parse(localStorage.getItem(USER_INFO)!)
+    let parameters = new Map<string, any>()
+    parameters.set('category_id', subCategory.id)
+    parameters.set('category_name', subCategory.name)
+    if (userInfo) {
+      parameters.set('user_id', userInfo.id)
+    }
     this.analyticsService.logEvent({
       event: AnalyticsEvent.categoryClicked,
-      parameters: new Map<string, any>([
-        ['category_id', subCategory.id],
-        ['category_name', subCategory.name]
-      ])
+      parameters: parameters
     })
     this.router.navigate(['/products', category.name], {
       queryParams: {
