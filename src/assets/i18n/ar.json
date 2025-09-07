@@ -277,7 +277,7 @@
   "ZIP_AREA": "الرمز البريدي / المنطقة",
   "SELECT_ZIP_AREA_CODE": "حدد الرمز البريدي / المنطقة",
   "PLEASE_SELECT_ZONE": "يجب تحديد المنطقه",
-  "PRODUCT_DISCOUNT" : "تخفيض",
+  "PRODUCT_DISCOUNT": "تخفيض",
   "FREE_DELIVERY": "لقد حصلت على توصيل مجاني! \uD83C\uDF89",
   "DISCOUNT_MESSAGE": "لقد حصلت علي {{discount}} تخفيض \uD83C\uDF89",
   "CONGRATULATIONS": "مبروك !",
@@ -286,6 +286,6 @@
   "RESEND_PIN": "يمكنك إعادة إرسال رمز التحقق خلال {{value}} ثانية",
   "IN_STOCK": "متوفر في المخزون",
   "STOCK_QUANTITY_LEFT": "تبقى فقط {{quantity}}",
-  "OUT_OF_STOCK": "غير متوفر في المخزون"
-
+  "OUT_OF_STOCK": "غير متوفر في المخزون",
+  "RESET_PASSWORD": "اعادة تعيين كلمة المرور"
 }

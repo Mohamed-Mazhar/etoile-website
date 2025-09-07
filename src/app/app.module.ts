@@ -126,6 +126,9 @@ import {
 import {
     VerificationComponent
 } from "./features/registration-and-login/presentation/pages/verification/verification.component";
+import {
+  ResetPasswordModalComponent
+} from "./features/registration-and-login/presentation/components/reset-password-modal/reset-password-modal.component";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -215,7 +218,8 @@ const cookieConfig: NgcCookieConsentConfig = {
     ProductInfoComponent,
     MyFatoorahPaymentsModalComponent,
     DiscountAvailableDialogComponent,
-    VerificationComponent
+    VerificationComponent,
+    ResetPasswordModalComponent,
   ],
     imports: [
         BrowserModule,

@@ -67,7 +67,6 @@ export class RegistrationComponent implements OnInit {
           response.token?.hasActualValue() ? response.token : (response.temporaryToken ?? '')
         )
         localStorage.setItem(USER_PASSWORD, password?.value)
-        console.log("Response inside the component ", response)
         if (response.token !== null && response.token !== undefined) {
           this.getUserInfo()
           this.analyticsService.logAdjustEvent({event: AdjustEvent.newRegister})
@@ -80,7 +79,6 @@ export class RegistrationComponent implements OnInit {
       error: (err) => {
         this.isLoading = false
         this.errorMessage = err
-        // console.log("Error received during register", err)
       }
     })
   }

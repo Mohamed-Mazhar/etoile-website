@@ -4,5 +4,6 @@ export enum AppEvent {
   userAddressesChanged,
   showRemoveProductAlert,
   hideSearchBarResult,
-  checkPhoneCalled
+  checkPhoneCalled,
+  resetPasswordTokenVerified
 }

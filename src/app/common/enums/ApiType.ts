@@ -36,5 +36,7 @@ export enum ApiType {
   removeWishListUri = 'api/v1/customer/wish-list/remove',
   createPaymentIntention = "intention",
   initiateGeideaPayment = "api/v1/geidea/InitiatePayment",
-  logOnlinePaymentResponse = "api/v1/geidea/LogGeideaResponse"
+  logOnlinePaymentResponse = "api/v1/geidea/LogGeideaResponse",
+  verifyToken = "api/v1/auth/verify-token",
+  resetPassword = "api/v1/auth/reset-password"
 }

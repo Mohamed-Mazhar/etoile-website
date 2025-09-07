@@ -1,7 +1,7 @@
 <div class="product-container">
   <app-loading [loadingData]="loading" class="loading-overlay" *ngIf="loading"></app-loading>
 
-  <div class="product-grid" *ngIf="product !== null && product !== undefined">
+  <div class="product-grid" *ngIf="product !== null">
     <!-- Product Image Section -->
     <div class="image-section">
       <div class="image-wrapper">
@@ -58,7 +58,7 @@
             <i class="star" [class.filled]="productRating >= 4">★</i>
             <i class="star" [class.filled]="productRating >= 5">★</i>
           </div>
-          <span class="review-count">({{ product.rating?.length }} {{ 'CUSTOMER_REVIEWS' | translate }})</span>
+          <span class="review-count">({{ product.rating.length }} {{ 'CUSTOMER_REVIEWS' | translate }})</span>
         </div>
         <button class="add-review-btn"
                 data-bs-target="#addReview"

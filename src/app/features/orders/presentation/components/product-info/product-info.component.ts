@@ -45,6 +45,7 @@ export class ProductInfoComponent implements OnInit {
   }
 
   getPrice(): number {
+    console.log("The cart product is ", this.cartProduct)
     return this.cartProduct !== null ? ProductPriceUtil.calculatePrice(this.cartProduct) : 0
   }
 

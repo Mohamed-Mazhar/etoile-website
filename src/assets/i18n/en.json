@@ -286,5 +286,6 @@
   "RESEND_PIN": "You can resend the PIN code in {{value}} seconds",
   "IN_STOCK": "In Stock",
   "STOCK_QUANTITY_LEFT": "Only {{quantity}} left",
-  "OUT_OF_STOCK": "Out of Stock"
+  "OUT_OF_STOCK": "Out of Stock",
+  "RESET_PASSWORD": "Reset password"
 }

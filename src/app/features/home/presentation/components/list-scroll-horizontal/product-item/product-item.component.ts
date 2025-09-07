@@ -12,6 +12,7 @@ import {Category} from "../../../../../../common/data-classes/Category";
 import {TranslateService} from "@ngx-translate/core";
 import {AnalyticsEvent} from "../../../../../analytics/data/models/AnalyticsEvent";
 import {USER_INFO} from "../../../../../../common/utils/constants";
+import {CartProductVariations} from "../../../../../cart/data/model/CartProductItem";
 
 @Component({
   selector: 'app-product-item',
@@ -70,13 +71,34 @@ export class ProductItemComponent implements AfterViewInit {
   }
 
   addProduct() {
+    let variations: CartProductVariations[] = [];
+    if (this.product?.branchProduct?.variations && this.product.branchProduct.variations.length > 0) {
+      const sizeVariation = this.product.branchProduct.variations.find(
+        (variation) => variation.name?.toLowerCase() === "size"
+      );
+
+      if (sizeVariation) {
+        const defaultVarValue = sizeVariation.variationValues?.find((val) => val.isDefault);
+
+        if (defaultVarValue) {
+          variations.push({
+            name: sizeVariation.name ?? "",
+            values: [defaultVarValue]
+          });
+        }
+      }
+    }
+
+    console.log("Adding to cart with variation ", variations);
+
     this.cartService.addProduct({
       product: this.product,
       count: 1,
       productAddOns: [],
-      variations: []
-    })
+      variations: variations
+    });
   }
+
 
   goToDetails() {
     this.analyticsService.logAdjustEvent({event: AdjustEvent.productDetailsClicked})

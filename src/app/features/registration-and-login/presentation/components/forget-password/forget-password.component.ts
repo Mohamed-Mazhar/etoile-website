@@ -4,7 +4,6 @@ import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {ToastService} from "../../../../../common/services/toast.service";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
-import {VerificationComponent} from "../../pages/verification/verification.component";
 
 @Component({
   selector: 'app-forget-password',

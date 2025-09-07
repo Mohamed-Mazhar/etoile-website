@@ -98,4 +98,29 @@ export class AuthenticationApi {
     })
   }
 
+  verifyToken(phoneNumber: string, smsCode: string): Observable<{ [key: string]: any }> {
+    return this.baseApiService.call({
+      apiType: ApiType.verifyToken,
+      requestType: RequestType.POST,
+      body: {
+        email_or_phone: phoneNumber,
+        reset_token: smsCode,
+      }
+    })
+  }
+
+  resetPassword(phoneNumber: string, resetToken: string, password: string): Observable<{ [key: string]: any }> {
+    return this.baseApiService.call({
+      apiType: ApiType.resetPassword,
+      requestType: RequestType.UPDATE,
+      body: {
+        "reset_token": resetToken,
+        "password": password,
+        "confirm_password": password,
+        "email_or_phone": phoneNumber,
+        "type": "phone",
+      }
+    })
+  }
+
 }

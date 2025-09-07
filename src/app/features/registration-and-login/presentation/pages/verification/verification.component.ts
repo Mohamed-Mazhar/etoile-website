@@ -4,6 +4,7 @@ import {AuthenticationApi} from "../../../../../common/apis/authentication-api";
 import {AppEventBroadcaster} from "../../../../../common/app-events/app-event-broadcaster";
 import {AppEvent} from "../../../../../common/app-events/app-event";
 import {UserProfileApi} from "../../../../../common/apis/user-profile-api";
+import {ToastService} from "../../../../../common/services/toast.service";
 
 @Component({
   selector: 'app-verification',
@@ -14,6 +15,7 @@ export class VerificationComponent implements AfterViewInit {
 
   @ViewChildren('otpInputs') otpInputs!: QueryList<ElementRef>
   @ViewChild('close') closeElem!: ElementRef
+  @ViewChild('openResetPassword') openResetPasswordElem!: ElementRef
   otp: string[] = new Array(6).fill('')
   isButtonActive = false
   countdownTime: number = 30
@@ -26,7 +28,8 @@ export class VerificationComponent implements AfterViewInit {
 
   constructor(
     private authenticationApi: AuthenticationApi,
-    private userProfileApi: UserProfileApi
+    private userProfileApi: UserProfileApi,
+    private toastService: ToastService,
   ) {
   }
 
@@ -99,20 +102,37 @@ export class VerificationComponent implements AfterViewInit {
     for (let i = 0; i < this.otpInputs.length; i++) {
       smsCode += this.otpInputs.toArray()[i].nativeElement.value
     }
-    this.authenticationApi.verifyPhone(this.mobileNumber, smsCode).subscribe({
-      next: (response) => {
-        this.loading = false
-        let token = response['token']
-        if (token.hasActualValue()) {
-          localStorage.setItem(USER_TOKEN, token)
+    if (this.isForgetPassword) {
+        this.authenticationApi.verifyToken(this.mobileNumber, smsCode).subscribe({
+          next: (response) => {
+            const message = response['message']
+            this.toastService.showToast('normal', message)
+            AppEventBroadcaster.publish({
+              event: AppEvent.resetPasswordTokenVerified,
+              data: {
+                mobileNumber: this.mobileNumber,
+                resetToken: smsCode
+              }
+            })
+            this.openResetPasswordElem.nativeElement.click()
+          }
+        })
+    } else {
+      this.authenticationApi.verifyPhone(this.mobileNumber, smsCode).subscribe({
+        next: (response) => {
+          this.loading = false
+          let token = response['token']
+          if (token.hasActualValue()) {
+            localStorage.setItem(USER_TOKEN, token)
+          }
+          this.getUserInfo()
+        },
+        error: (err) => {
+          this.loading = false
+          this.errorMessage = err
         }
-        this.getUserInfo()
-      },
-      error: (err) => {
-        this.loading = false
-        this.errorMessage = err
-      }
-    })
+      })
+    }
   }
 
   getUserInfo(): void {

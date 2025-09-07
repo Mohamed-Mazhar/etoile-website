@@ -4,17 +4,18 @@ import {Product} from "../data-classes/ProductModel";
 export class ProductPriceUtil {
   static calculatePrice(cartProduct: CartProductItem): number {
     let price = this.getProductPrice(cartProduct.product)
-    cartProduct.productAddOns.forEach((addon) => {
-      price += addon.price!
-    })
+    console.log("Retrieved price inside calculate price ", price)
     cartProduct.variations.forEach((variation) => {
       variation.values.forEach((values) => {
         if (variation.name.toLowerCase() === "size") {
-          price = values.optionPrice!
+          price = values.optionPrice !== 0 ? values.optionPrice! : price
         } else {
           price += values.optionPrice!
         }
       })
+    })
+    cartProduct.productAddOns.forEach((addon) => {
+      price += addon.price!
     })
     return price
   }
