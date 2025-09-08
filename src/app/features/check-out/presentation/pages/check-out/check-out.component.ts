@@ -134,7 +134,7 @@ export class CheckOutComponent implements OnInit {
           "responseCode": responseCode,
           "state": paymentStatus,
         })
-        this.processOnlinePayment(geideaOrderId, 'geidea')
+        this.processOnlinePayment(geideaOrderId!, 'geidea')
       } else {
         this.errorMessage = this.translateService.instant('PAYMENT_FAILED_MESSAGE')
       }

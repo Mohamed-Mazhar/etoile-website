@@ -6,22 +6,23 @@
       <i class="fas fa-heart"></i>
     </button>
 
-    <div class="product-meta" *ngIf="product.categoryIds && categoryNamesDisplay.hasActualValue()">
+    <div class="modern-image-container clickable" (click)="goToDetails()">
+      <!-- Discount Badge & Categories -->
+      <div class="product-meta">
+        <div *ngIf="product.categoryIds && categoryNamesDisplay.hasActualValue()">
         <span class="category-badge"
               *ngIf="product.categoryIds">{{ categoryNamesDisplay }}
         </span>
-    </div>
-
-    <div class="modern-image-container clickable" (click)="goToDetails()">
-      <!-- Discount Badge -->
-      <div class="modern-discount-container" *ngIf="hasDiscount() && product.branchProduct?.isAvailable">
-        <div class="discount-content" *ngIf="isPercentage()">
-          <span class="discount-value">{{ product.branchProduct?.discount }}%</span>
-          <span class="discount-label">{{ 'OFF' | translate }}</span>
         </div>
-        <div class="discount-content" *ngIf="!isPercentage()">
-          <span class="discount-value">{{ product.branchProduct?.discount }}</span>
-          <span class="discount-label">{{ configModel?.currencySymbol }}</span>
+        <div class="modern-discount-container" *ngIf="hasDiscount() && product.branchProduct?.isAvailable">
+          <div class="discount-content" *ngIf="isPercentage()">
+            <span class="discount-value">{{ product.branchProduct?.discount }}%</span>
+            <span class="discount-label">{{ 'OFF' | translate }}</span>
+          </div>
+          <div class="discount-content" *ngIf="!isPercentage()">
+            <span class="discount-value">{{ product.branchProduct?.discount }}</span>
+            <span class="discount-label">{{ configModel?.currencySymbol }}</span>
+          </div>
         </div>
       </div>
 

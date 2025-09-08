@@ -17,7 +17,7 @@ export interface CartProductVariations {
 export function cartProductItemToJson(cartItem: CartProductItem): { [key: string]: any } {
   return {
     product_id: cartItem.product.id,
-    price: cartItem.product.price?.toString(),
+    price: ProductPriceUtil.calculatePrice(cartItem),
     discount_amount: 0,
     quantity: cartItem.count,
     tax_amount: ProductPriceUtil.calculateTax(cartItem),

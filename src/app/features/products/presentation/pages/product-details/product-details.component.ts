@@ -98,7 +98,6 @@ export class ProductDetailsComponent implements OnInit {
         ]
       })
     }
-    console.log("Adding to cart with variation ", variations)
     this.cartService.addProduct({
       product: this.product!,
       count: this.productCount,

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input} from '@angular/core';
-import {CategoryId, Product} from "../../../../../../common/data-classes/ProductModel";
+import {CategoryId, Product, VariationValue} from "../../../../../../common/data-classes/ProductModel";
 import {CartProductsService} from "../../../../../../common/services/cart-products.service";
 import {Router} from "@angular/router";
 import {ConfigModelService} from "../../../../../../common/services/config-model.service";
@@ -72,20 +72,35 @@ export class ProductItemComponent implements AfterViewInit {
 
   addProduct() {
     let variations: CartProductVariations[] = [];
-    if (this.product?.branchProduct?.variations && this.product.branchProduct.variations.length > 0) {
+
+    if (this.product?.branchProduct?.variations?.length) {
       const sizeVariation = this.product.branchProduct.variations.find(
         (variation) => variation.name?.toLowerCase() === "size"
       );
 
-      if (sizeVariation) {
-        const defaultVarValue = sizeVariation.variationValues?.find((val) => val.isDefault);
+      if (sizeVariation && sizeVariation.variationValues?.length) {
+        // 1️⃣ Try to find default variation
+        let selectedVarValue = sizeVariation.variationValues.find(
+          (varValue: VariationValue) => varValue.isDefault
+        );
 
-        if (defaultVarValue) {
-          variations.push({
-            name: sizeVariation.name ?? "",
-            values: [defaultVarValue]
-          });
+        // 2️⃣ If no default, find one matching product.priceIncludingTax
+        if (!selectedVarValue) {
+          selectedVarValue = sizeVariation.variationValues.find(
+            (varValue: VariationValue) =>
+              varValue.optionPrice === this.product?.priceIncludingTax
+          );
         }
+
+        // 3️⃣ Fallback to the first available variation
+        if (!selectedVarValue) {
+          selectedVarValue = sizeVariation.variationValues[0];
+        }
+
+        variations.push({
+          name: sizeVariation.name ?? "",
+          values: [selectedVarValue]
+        });
       }
     }
 
@@ -98,6 +113,7 @@ export class ProductItemComponent implements AfterViewInit {
       variations: variations
     });
   }
+
 
 
   goToDetails() {

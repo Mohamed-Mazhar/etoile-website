@@ -29,7 +29,6 @@ export class CartSideItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Is product available ", this.isAvailable)
     this.configModelService.configModelSubject.subscribe({
       next: (config) => {
         this.configModel = config

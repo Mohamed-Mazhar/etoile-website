@@ -125,14 +125,12 @@
 
 // Modern Discount Badge
 .modern-discount-container {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  z-index: 5;
+  width: fit-content;
   background: linear-gradient(135deg, #ff6b6b, #ff5252);
   border-radius: 12px;
   padding: 8px 12px;
   box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  margin-top: 0.25rem;
 
   .discount-content {
     text-align: center;
@@ -242,14 +240,15 @@
 
 // Product Meta (Category/Brand)
 .product-meta {
-
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 5;
+  display: block;
+  width: 100%;
 
   .category-badge {
-    position: absolute;
     background: var(--primary-color);
-    top: 15px;
-    left: 15px;
-    z-index: 10;
     color: var(--white);
     font-size: 10px;
     font-weight: 600;

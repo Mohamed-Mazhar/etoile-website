@@ -54,7 +54,7 @@ export class CartProductsService {
       this.toastService.showToast('normal', 'Insufficient stock available')
       return false
     }
-
+    console.log("Adding product line 57", cartProduct.variations)
     let existingProductIndex = this.cartProducts.findIndex((cart) => cart.product.id === cartProduct.product.id)
 
     if (existingProductIndex !== -1) {
@@ -74,6 +74,7 @@ export class CartProductsService {
   }
 
   private addNewProduct(cartProduct: CartProductItem): boolean {
+    console.log("Adding product line 77", cartProduct.variations)
     this.cartProducts.push(cartProduct)
     this.cartProductsSubject.next(this.cartProducts)
     localStorage.setItem(CART, JSON.stringify(this.cartProducts))
@@ -106,6 +107,7 @@ export class CartProductsService {
   }
 
   private increaseCart(cartProduct: CartProductItem, productIndex: number, increaseBy: number) {
+    console.log("Adding product line 110", cartProduct.variations)
     this.cartProducts[productIndex] = {
       product: cartProduct.product,
       count: this.cartProducts[productIndex].count + increaseBy,
